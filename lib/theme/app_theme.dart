@@ -20,6 +20,7 @@ class ThemesNotifier extends StateNotifier<AppTheme> {
   late final Reader _reader;
   // late final AppSharedPreferences _prefs = _reader(prefsProvider);
 
+
   ThemesNotifier(this._reader) : super(getPlatformTheme()) {
     // loadTheme();
     // themeListner();
