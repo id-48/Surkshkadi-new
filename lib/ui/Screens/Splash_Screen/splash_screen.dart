@@ -3,17 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:surakshakadi/di/locator.dart';
-import 'package:surakshakadi/ui/Screens/Assets_Details_Screen/assets_mobile_screen.dart';
-import 'package:surakshakadi/ui/Screens/Assets_Details_Screen/components/bank_savings_accounts_screen.dart';
-import 'package:surakshakadi/ui/Screens/Assets_Details_Screen/components/government_ppf_screen.dart';
-import 'package:surakshakadi/ui/Screens/Assets_Details_Screen/components/immovable_property_screen.dart';
-import 'package:surakshakadi/ui/Screens/Assets_Details_Screen/components/insurance_life_insurance_screen.dart';
-import 'package:surakshakadi/ui/Screens/Assets_Details_Screen/components/investments_demat_account_screen.dart';
-import 'package:surakshakadi/ui/Screens/Kyc_Screen/kyc_screen.dart';
-import 'package:surakshakadi/ui/Screens/bot_screen/kyc_chatbot_mobile_screen.dart';
-import 'package:surakshakadi/ui/Screens/cp_mobile_screen/register_mobile_screen.dart';
-import 'package:surakshakadi/ui/Screens/cp_web_screeen/admin_panel_web/admin_panel_web/constant/admin_Web_Dashboard.dart';
-import 'package:surakshakadi/ui/Screens/cp_web_screeen/admin_panel_web/admin_panel_web/dashboard_screen.dart';
+import 'package:surakshakadi/ui/Screens/chatbot_screen/kyc_chatbot_mobile_screen.dart';
 import 'package:surakshakadi/ui/Screens/dashboard/dashboard_web_screen.dart';
 import 'package:surakshakadi/utils/color_utils.dart';
 import 'package:surakshakadi/utils/constants/navigation_route_constants.dart';
@@ -21,8 +11,6 @@ import 'package:surakshakadi/utils/constants/preference_key_constant.dart';
 import 'package:surakshakadi/utils/extensions/size_extension.dart';
 import 'package:surakshakadi/utils/image_utils.dart';
 import 'package:surakshakadi/utils/preference_utils.dart';
-
-import '../Kyc_Screen/kyc_identity_screen.dart';
 
 class SplashScreen extends HookWidget {
   const SplashScreen({Key? key}) : super(key: key);
@@ -43,9 +31,9 @@ class SplashScreen extends HookWidget {
           if (context.isMobile) {
             print("Aadhar token ${getString(prefUserID)}");
             if (getString(prefLoginToken).isNotEmpty) {
-              Navigator.push(context, MaterialPageRoute(builder: (context) => KYCIdentity()));
-              // navigationService
-              //     .pushAndRemoveUntil(routeCustomeBottomNavigationBar);
+              // Navigator.push(context, MaterialPageRoute(builder: (context) => KYCChatBotMobile()));
+              navigationService
+                  .pushAndRemoveUntil(routeCustomeBottomNavigationBar);
             } else {
               navigationService.push(routeCommonepagee);
             }

@@ -24,6 +24,7 @@ const String apiPlanChatSubPayment = "plan-subscription-payment";
 const String apiCity = "get-cities";
 const String apiState = "get-states";
 const String apiPlanChatUpdate = "update-chatboard-information";
+const String apiKycChatBot = "store-second-chatboard-data";
 
 
 const String apiPanCard = "https://api.emptra.com/fetchPanDetails";

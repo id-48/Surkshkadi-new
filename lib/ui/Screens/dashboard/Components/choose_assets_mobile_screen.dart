@@ -9,8 +9,8 @@ import 'package:surakshakadi/data/model/home/dashboard/components/single_user_as
 import 'package:surakshakadi/data/model/home/dashboard/payment/plan_chat_sub_payment/req_plan_chat_sub_payment.dart';
 import 'package:surakshakadi/data/model/home/dashboard/res_dashboard.dart';
 import 'package:surakshakadi/di/locator.dart';
-import 'package:surakshakadi/ui/Screens/bot_screen/plan_chatbot_screen.dart';
-import 'package:surakshakadi/ui/Screens/bot_screen/planchat_view_modal.dart';
+
+import 'package:surakshakadi/ui/Screens/chatbot_screen/plan_chatbot_screen.dart';
 import 'package:surakshakadi/ui/Screens/dashboard/Components/payment_view_modal.dart';
 import 'package:surakshakadi/utils/color_utils.dart';
 import 'package:surakshakadi/utils/constants/app_constant.dart';
@@ -23,6 +23,8 @@ import 'package:surakshakadi/utils/preference_utils.dart';
 import 'package:surakshakadi/utils/strings.dart';
 import 'package:surakshakadi/utils/utils.dart';
 import 'package:surakshakadi/widgets/custom_toast.dart';
+
+import '../../chatbot_screen/planchat_view_modal.dart';
 
 ///    StateFulWidget ---------->>>>>>>>>>>>>>>>> code
 // class ChooseAssetMobile extends StatefulWidget {
@@ -948,12 +950,10 @@ class ChooseAssetMobile extends HookConsumerWidget {
 
                             print(
                                 "Hello yash  --->> ${dataPlanChatBot.toJson()}");
-                            await ref
-                                .read(planChatProvider.notifier)
-                                .planChatBotSub(
-                                    context: context, data: dataPlanChatBot)
+                            await ref.read(planChatProvider.notifier)
+                                .planChatBotSub(context: context, data: dataPlanChatBot)
                                 .then((value) async {
-                              print("Hello yashu");
+
                               if (value!.status == 1) {
                                 displayToast(value.message.toString());
                                 setString(prefSubscriptionId,

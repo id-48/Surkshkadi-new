@@ -2,38 +2,61 @@
 import 'package:dio/dio.dart';
 
 
-class ReqKYCChatBot {
-
+class ReqKycChatBot {
   String? userId;
-  String? userType;
-  String? aadharNo;
-  MultipartFile? aadharFrontImage;
-  MultipartFile? aadharBackImage;
-  String? panNo;
-  MultipartFile? panFrontImage;
-  MultipartFile? selfImage;
+  String? subRegisterStatus;
+  String? motherName;
+  String? maritalStatus;
+  String? spouseName;
+  String? divorceStatus;
+  String? noOfChildren;
+  String? childName;
+  String? childAge;
+  String? childGender;
+  String? minorBeneficiaryName;
+  String? minorBeneficiaryRelation;
+  String? minorBeneficiaryAddress;
+  String? appointSurakshakadiStatus;
+  String? authorizeSurakshakadiStatus;
+  String? termsConditionStatus;
 
-
-  ReqKYCChatBot(
+  ReqKycChatBot(
       {
         this.userId,
-        this.userType,
-        this.aadharNo,
-        this.aadharFrontImage,
-        this.aadharBackImage,
-        this.panNo,
-        this.panFrontImage,
-        this.selfImage
+        this.subRegisterStatus,
+        this.motherName,
+        this.maritalStatus,
+        this.spouseName,
+        this.divorceStatus,
+        this.noOfChildren,
+        this.childName,
+        this.childAge,
+        this.childGender,
+        this.minorBeneficiaryName,
+        this.minorBeneficiaryRelation,
+        this.minorBeneficiaryAddress,
+        this.appointSurakshakadiStatus,
+        this.authorizeSurakshakadiStatus,
+        this.termsConditionStatus,
       });
   Map<String, dynamic> toJson() =>
       {
         "user_id": userId,
-        "user_type": userType,
-        "aadhar_no": aadharNo,
-        "aadhar_front_image": aadharFrontImage,
-        "aadhar_back_image": aadharBackImage,
-        "pan_no": panNo,
-        "pan_front_image": panFrontImage,
-        "self_image": selfImage
+        "sub_register_status": subRegisterStatus,
+        "mother_name": motherName,
+        "marital_status": maritalStatus,
+        "spouse_name": spouseName,
+        "divorce_status": divorceStatus,
+        "no_of_children": noOfChildren,
+        "child_name": childName,
+        "child_age": childAge,
+        "child_gender": childGender,
+        "minor_beneficiary_name": minorBeneficiaryName,
+        "minor_beneficiary_relation": minorBeneficiaryRelation,
+        "minor_beneficiary_address": minorBeneficiaryAddress,
+        "appoint_surakshakadi_status": appointSurakshakadiStatus,
+        "authorize_surakshakadi_status": authorizeSurakshakadiStatus,
+        "terms_condition_status": termsConditionStatus,
+
       };
 }
