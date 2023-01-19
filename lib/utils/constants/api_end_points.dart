@@ -15,6 +15,7 @@ const String apiVerifyOtp = "verify-otp";
 const String apiDashboard = "dashboard-details";
 const String apiPlanChatBot = "plan-subscription";
 const String apiSingleChooseAssets = "store-single-user-assets";
+const String apiStoreCPdetails = "store-channel-partner-details";
 const String apiPlanChat = "supportChat";
 const String apiPayment = "payment";
 const String apiPlans = "plans";
