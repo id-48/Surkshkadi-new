@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:surakshakadi/di/locator.dart';
+import 'package:surakshakadi/ui/Screens/Kyc_Screen/kyc_identity_screen.dart';
 import 'package:surakshakadi/ui/Screens/chatbot_screen/kyc_chatbot_mobile_screen.dart';
 import 'package:surakshakadi/ui/Screens/dashboard/dashboard_web_screen.dart';
 import 'package:surakshakadi/utils/color_utils.dart';
@@ -31,9 +32,9 @@ class SplashScreen extends HookWidget {
           if (context.isMobile) {
             print("Aadhar token ${getString(prefUserID)}");
             if (getString(prefLoginToken).isNotEmpty) {
-              // Navigator.push(context, MaterialPageRoute(builder: (context) => KYCChatBotMobile()));
-              navigationService
-                  .pushAndRemoveUntil(routeCustomeBottomNavigationBar);
+              Navigator.push(context, MaterialPageRoute(builder: (context) => KYCIdentity()));
+              // navigationService
+              //     .pushAndRemoveUntil(routeCustomeBottomNavigationBar);
             } else {
               navigationService.push(routeCommonepagee);
             }

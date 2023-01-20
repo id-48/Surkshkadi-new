@@ -2,20 +2,20 @@
 import 'package:dio/dio.dart';
 
 
-class ReqSubmitKYC {
+class ReqSubmitKyc {
 
 
   String? userId;
   String? userType;
   String? aadharNo;
-  MultipartFile? aadharFrontImage;
-  MultipartFile? aadharBackImage;
+  String? aadharFrontImage;
+  String? aadharBackImage;
   String? panNo;
-  MultipartFile? panFrontImage;
-  MultipartFile? selfImage;
+  String? panFrontImage;
+  String? selfImage;
   // List<MultipartFile>? documents;
 
-  ReqSubmitKYC(
+  ReqSubmitKyc(
       {
         this.userId,
         this.userType,

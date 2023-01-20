@@ -26,6 +26,7 @@ const String apiCity = "get-cities";
 const String apiState = "get-states";
 const String apiPlanChatUpdate = "update-chatboard-information";
 const String apiKycChatBot = "store-second-chatboard-data";
+const String apiSubmitKyc = "submit-kyc";
 
 
 const String apiPanCard = "https://api.emptra.com/fetchPanDetails";

@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'dart:io';
 
 import 'package:flutter/material.dart';
@@ -6,6 +7,7 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:gap/gap.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:surakshakadi/data/model/home/dashboard/submit_kyc/req_submit_kyc.dart';
 import 'package:surakshakadi/data/model/home/dashboard/verify_documents/verify_aadhar_card/verify_aadhar_card_no/req_aadhar_no.dart';
 import 'package:surakshakadi/data/model/home/dashboard/verify_documents/verify_aadhar_card/verify_aadhar_card_otp/req_aadhar_otp.dart';
 import 'package:surakshakadi/data/model/home/dashboard/verify_documents/verify_bank_ac/req_bank_ac.dart';
@@ -14,11 +16,14 @@ import 'package:surakshakadi/data/model/home/dashboard/verify_documents/verify_p
 import 'package:surakshakadi/data/model/home/dashboard/verify_documents/verify_vehicle_no/req_vehicle_no.dart';
 import 'package:surakshakadi/di/locator.dart';
 import 'package:surakshakadi/ui/Screens/Kyc_Screen/components/components.dart';
+import 'package:surakshakadi/ui/Screens/Kyc_Screen/submit_kyc_view_modal.dart';
 import 'package:surakshakadi/ui/Screens/Kyc_Screen/verify_documents_view_modal.dart';
 import 'package:surakshakadi/utils/color_utils.dart';
 import 'package:surakshakadi/utils/constants/navigation_route_constants.dart';
+import 'package:surakshakadi/utils/constants/preference_key_constant.dart';
 import 'package:surakshakadi/utils/dialog_utils.dart';
 import 'package:surakshakadi/utils/image_utils.dart';
+import 'package:surakshakadi/utils/preference_utils.dart';
 import 'package:surakshakadi/utils/strings.dart';
 import 'package:surakshakadi/utils/utils.dart';
 import 'package:surakshakadi/widgets/custom_appbar.dart';
@@ -35,6 +40,12 @@ class KYCIdentity extends HookConsumerWidget {
     final isDigiLocker = useState<bool>(true);
     final isOtp = useState<bool>(false);
     final aadharClientId = useState<String>("");
+
+
+    final aadharFrontType = useState<String>("");
+    final aadharBackType = useState<String>("");
+    final panFrontType = useState<String>("");
+    final selfieType = useState<String>("");
     final isAadhar = useState<bool>(false);
     final isPanCard = useState<bool>(false);
     final isBank = useState<bool>(false);
@@ -223,6 +234,8 @@ class KYCIdentity extends HookConsumerWidget {
                   //     : Container(),
 
 
+                  ///  Aadhar card No
+
               Container(
                 height: 290,
                 child: Custom_Dottedborder(
@@ -408,10 +421,11 @@ class KYCIdentity extends HookConsumerWidget {
                                               data: aadharCardOtp,
                                             )
                                                 .then((value) {
-                                              if (value!.result
-                                                  .statusCode ==
-                                                  200) {
+                                              if (value!.result.statusCode == 200) {
                                                 isAadhar.value = true;
+
+                                                // print("image --->> ${value.result.data.profileImage}");
+
                                                 displayToast(
                                                     "Your Aadhar Card Verify");
                                                 print(
@@ -452,6 +466,10 @@ class KYCIdentity extends HookConsumerWidget {
                                             File(aadharImage!.path);
                                         print(
                                             ' ------------------------- image path 200 --------------------------->>>>>>>${aadharPickedImage}');
+
+                                        aadharFrontType.value = "data:image/" + '${aadharPickedImage.value.absolute}'.split('.')[3].replaceAll("'", "") + ";base64,";
+
+                                        print("front type --- >>>> ${aadharFrontType.value}");
 
                                         isAadharPicked.value = true;
                                       }
@@ -494,6 +512,9 @@ class KYCIdentity extends HookConsumerWidget {
                                         print(
                                             ' ------------------------- image path 200 --------------------------->>>>>>>${aadharBackPickedImage}');
 
+                                        aadharBackType.value = "data:image/" + '${aadharBackPickedImage.value.absolute}'.split('.')[3].replaceAll("'", "") + ";base64,";
+
+                                        print("aadhar type --->> ${aadharBackType.value}");
                                         isAadharBackPicked.value = true;
                                       }
                                     },
@@ -579,8 +600,7 @@ class KYCIdentity extends HookConsumerWidget {
                                           ? false
                                           : true,
                                       height: 36,
-                                      textCapitalization:
-                                      TextCapitalization.none,
+                                      textCapitalization: TextCapitalization.characters,
                                       blurRadius: 0.0,
                                       offset: Offset(0, 0),
                                       containercolor: white,
@@ -657,11 +677,15 @@ class KYCIdentity extends HookConsumerWidget {
                                       source: ImageSource.gallery);
                                   print('image path 216${panImage}');
                                   if (panImage != null) {
-                                    panPickedImage.value =
-                                        File(panImage!.path);
-                                    print(
-                                        ' ------------------------- image path 200 --------------------------->>>>>>>${panPickedImage}');
+                                    panPickedImage.value = File(panImage!.path);
+                                    print(' ------------------------- image path 200 --------------------------->>>>>>>${panPickedImage}');
+                                    print('runtime type --->>  ${panPickedImage.value.runtimeType}');
+                                    print('absolute  ------>>>>' '${panPickedImage.value.absolute}'.split('.')[3].replaceAll("'", ""));
 
+                                    panFrontType.value = "data:image/" + '${panPickedImage.value.absolute}'.split('.')[3].replaceAll("'", "") + ";base64,";
+
+
+                                    print('frontType  --->> ${panFrontType}');
                                     isPanPicked.value = true;
                                   }
                                 },
@@ -1098,7 +1122,12 @@ class KYCIdentity extends HookConsumerWidget {
                                   selfiePickedImage.value =
                                       File(selfieImage!.path);
                                   print(
-                                      ' ------------------------- image path 200 --------------------------->>>>>>>${selfiePickedImage}');
+                                      'image path 200 ---->>>>>>>${selfiePickedImage}');
+
+                                  selfieType.value = "data:image/" + '${panPickedImage.value.absolute}'.split('.')[3].replaceAll("'", "") + ";base64,";
+
+                                  print("type selfie --- >>> ${selfieType.value}");
+
 
                                   isSelfiePicked.value = true;
                                 }
@@ -1176,14 +1205,85 @@ class KYCIdentity extends HookConsumerWidget {
                 Expanded(
                     flex: 1,
                     child: InkWell(
-                      onTap: () {
-                        // Navigator.push(
-                        //     context,
-                        //     MaterialPageRoute(
-                        //         builder: (context) => KYCChatBotMobile()));
+                      onTap: () async{
 
-                        navigationService.push(routeKYCChatBotMobile);
-                      },
+
+
+
+                        if (isAadhar.value) {
+                          if(isPanCard.value) {
+                            if(isAadharPicked.value) {
+                              if(isAadharBackPicked.value) {
+                                if(isPanPicked.value) {
+                                  if(isSelfiePicked.value) {
+
+                                    var aadharFrontImageBytes = await aadharPickedImage.value.readAsBytesSync();
+                                    String  aadharFrontBase64Image = base64Encode(aadharFrontImageBytes);
+
+                                    var aadharBackImageBytes = await aadharBackPickedImage.value.readAsBytesSync();
+                                    String  aadharBackBase64Image = base64Encode(aadharBackImageBytes);
+
+                                    var panImageBytes = await panPickedImage.value.readAsBytesSync();
+                                    String  panBase64Image = base64Encode(panImageBytes);
+
+                                    var selfieImageBytes = await selfiePickedImage.value.readAsBytesSync();
+                                    String  selfieBase64Image = base64Encode(selfieImageBytes);
+
+                                    print("image in aadharFront ---->>>");
+                                    print(aadharFrontType.value + aadharFrontBase64Image);
+                                    print("image in aadharBack ---->>> ");
+                                    print(aadharBackType.value + aadharBackBase64Image);
+                                    print("image in panCard ---->>> ");
+                                    print(panFrontType.value + panBase64Image);
+                                    print("image in panCard ---->>> ");
+                                    print(selfieType.value + selfieBase64Image);
+
+                                    print("image in userId ---->>> ");
+
+
+                                    ReqSubmitKyc submitKycData = ReqSubmitKyc(
+                                      userId: getString(prefUserID),
+                                      userType: "Customer",
+                                      aadharNo: aadharcardnocontroller.text,
+                                      aadharFrontImage: aadharFrontType.value + aadharFrontBase64Image,
+                                      aadharBackImage: aadharBackType.value + aadharBackBase64Image,
+                                      panNo: pancardnocontroller.text,
+                                      panFrontImage: panFrontType.value + panBase64Image,
+                                      selfImage: selfieType.value + selfieBase64Image,
+                                    );
+
+                                    await ref.read(submitKycProvider.notifier)
+                                        .submitKyc(context: context, data: submitKycData)
+                                        .then((value) {
+                                          if(value!.status == 1){
+                                            print("yashu Patel 1111111 ");
+                                            displayToast("${value.message}");
+                                            navigationService.push(routeKYCChatBotMobile);
+                                          }else{
+                                            print("yashu Patel 222222 ");
+                                            displayToast("${value.message}");
+                                          }
+                                    });
+
+                                  }else{
+                                    displayToast("Please Selfie Image Upload");
+                                  }
+                                }else{
+                                  displayToast("Please Pan Card Front Image Upload");
+                                }
+                              }else{
+                                displayToast("Please Aadhar Card Back Image Upload");
+                              }
+                            }else{
+                              displayToast("Please Aadhar Card Front Image Upload");
+                            }
+                          }else{
+                              displayToast("Please Verify Pan Card");
+                          }
+                        } else {
+                          displayToast("Please Verify Aadhar Card");
+                        }
+                     },
                       child: Container(
                         height: Utils.getHeight(context) * 0.08,
                         alignment: Alignment.center,

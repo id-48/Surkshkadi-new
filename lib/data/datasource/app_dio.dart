@@ -16,6 +16,7 @@ class AppDio with DioMixin implements Dio {
     options = BaseOptions(
       // baseUrl: 'https://surakshakadi.myedtek.com/api/',
       baseUrl: apiBaseUrl,
+      // contentType: 'multipart/form-data',
       contentType: 'application/json',
       connectTimeout: 30000,
       sendTimeout: 30000,
