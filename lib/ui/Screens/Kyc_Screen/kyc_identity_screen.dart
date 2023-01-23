@@ -233,7 +233,7 @@ class KYCIdentity extends HookConsumerWidget {
                   ///  Aadhar card No
 
               Container(
-                height: 290,
+                height: 315,
                 child: Custom_Dottedborder(
                   padding: EdgeInsets.only(
                       left: 10, top: 10, right: 15, bottom: 10),
@@ -1112,7 +1112,7 @@ class KYCIdentity extends HookConsumerWidget {
                                 print(
                                     '------------->>>>>>>>>>>>>>>>>.image ');
                                 selfieImage = await _picker.pickImage(
-                                    source: ImageSource.camera);
+                                    source: ImageSource.gallery);
                                 print('image path 216${selfieImage}');
                                 if (selfieImage != null) {
                                   selfiePickedImage.value =
@@ -1268,6 +1268,7 @@ class KYCIdentity extends HookConsumerWidget {
 
 
                                       ReqSubmitKyc submitKycData = ReqSubmitKyc(
+                                        // userId: "7",
                                         userId: getString(prefUserID),
                                         userType: "Customer",
                                         aadharNo: aadharcardnocontroller.text,

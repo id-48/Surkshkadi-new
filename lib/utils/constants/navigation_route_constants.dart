@@ -7,6 +7,7 @@ const String routeCustomeDrawer = "/routeCustomeDrawer";
 const String routeCustomeBottomNavigationBar = "/routeCustomeBottomNavigationBar";
 const String routeChooseAssetMobile = "/routeChooseAssetMobile";
 const String routeAddInformationScreen = "/routeAddInformationScreen";
+const String routeCPPartnerConfirmationWeb = "/routeCPPartnerConfirmationWeb";
 const String routeKycScreen = "/routeKycScreen";
 const String routeKycIdentiyScreen = "/routeKycIdentiyScreen";
 const String routeCheckYourInformation = "/routeCheckYourInformation";
