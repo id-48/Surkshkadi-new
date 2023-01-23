@@ -3,9 +3,10 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:gap/gap.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:surakshakadi/di/locator.dart';
-import 'package:surakshakadi/ui/Screens/record_video_screen/record_a_video_screen.dart';
 import 'package:surakshakadi/utils/color_utils.dart';
 import 'package:surakshakadi/utils/constants/navigation_route_constants.dart';
+import 'package:surakshakadi/utils/constants/navigations_key_constant.dart';
+import 'package:surakshakadi/utils/dialog_utils.dart';
 import 'package:surakshakadi/utils/utils.dart';
 import 'package:surakshakadi/widgets/custom_appbar.dart';
 import 'package:surakshakadi/widgets/custom_textfeild.dart';
@@ -38,7 +39,7 @@ class WillReview extends HookConsumerWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Gap(20),
+              // Gap(20),
               Container(
                 width: Utils.getWidth(context),
                 child: Text(loremIpsumDolorSit,
@@ -50,7 +51,7 @@ class WillReview extends HookConsumerWidget {
                   child: Text(loremIpsumDolorSitLongName,
                     style: TextStyle(fontWeight: FontWeight.w500,fontSize: 13),)
               ),
-              Gap(50),
+              Gap(30),
 
               Row(
                 children: [
@@ -61,6 +62,7 @@ class WillReview extends HookConsumerWidget {
                     child: Container(
                       height: 19,
                       width: 20,
+                      // padding: EdgeInsets.only(right: 3,bottom: 3),
                       decoration: BoxDecoration(
                         color: check.value == true ? blue : white,
                         borderRadius: BorderRadius.circular(3),
@@ -70,7 +72,7 @@ class WillReview extends HookConsumerWidget {
                         //     blurRadius: 2.0,
                         //     offset: Offset(0,3))],
                       ),
-                      child: Icon(Icons.check,color: white,size: 20,),
+                      child: Icon(Icons.check,color: white,size: 18,),
                     ),
                   ),
 
@@ -141,7 +143,13 @@ class WillReview extends HookConsumerWidget {
                   builder: (context, ref, child) {
                     return InkWell(
                       onTap: ()  {
-                        navigationService.push(routeRecordAVideo);
+                        if(check.value) {
+                          navigationService.push(routeRecordAVideo, arguments: {
+                            navTextIssue: issueController.text
+                          });
+                        }else{
+                          displayToast("Please Agree Terms And Conditions");
+                        }
                       },
                       child: Container(
                         height: Utils.getHeight(context) * 0.08,

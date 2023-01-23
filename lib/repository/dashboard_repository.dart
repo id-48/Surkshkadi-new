@@ -50,7 +50,7 @@ class DashboardRepositoryImpl implements DashboardRepository {
   Future<Result<ResSingleUserAssets>> getSingleUserAssets(ReqSingleUserAssets data) {
     return Result.guardFuture(() async {
       return AppDio()
-          .multipartPost(apiSingleChooseAssets, data:  FormData.fromMap(await data.toJson()))
+          .multipartPost(apiSingleChooseAssets, data:  FormData.fromMap(data.toJson()))
           .then((value) async {
         final data = ResSingleUserAssets.fromJson(value.data);
         return data;

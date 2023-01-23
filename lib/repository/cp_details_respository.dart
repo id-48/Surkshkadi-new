@@ -7,22 +7,24 @@ import 'package:surakshakadi/utils/constants/api_end_points.dart';
 
 import '../data/model/result.dart';
 
-abstract class CPdetailsRepository {
-  Future<Result<ResStoreCpDetails>> postCPdetails(ReqStoreCPDetails data);
+abstract class StoreCPDetailsRepository {
+
+  Future<Result<ResStoreCpDetails>> storeCPDetails(ReqStoreCPDetails data);
 }
-final CPdetailsRepositoryProvider =
-Provider((ref) => CPdetailsRepositoryImpl(ref.read));
-class CPdetailsRepositoryImpl implements CPdetailsRepository {
+final StoreCPDetailsRepositoryProvider =
+Provider((ref) => StoreCPDetailsRepositoryImpl(ref.read));
+
+class StoreCPDetailsRepositoryImpl implements StoreCPDetailsRepository {
   final Reader _reader;
 
-  CPdetailsRepositoryImpl(this._reader);
+  StoreCPDetailsRepositoryImpl(this._reader);
   late final Dio dio = _reader(dioProvider);
 
   @override
-  Future<Result<ResStoreCpDetails>> postCPdetails(ReqStoreCPDetails data) {
+  Future<Result<ResStoreCpDetails>> storeCPDetails(ReqStoreCPDetails data) {
     return Result.guardFuture(() async {
       return AppDio()
-          .post(apiStoreCPdetails, data:  FormData.fromMap(await data.toJson()))
+          .multipartPost(apiStoreCPdetails, data:  FormData.fromMap(await data.toJson()))
           .then((value) async {
         final data = ResStoreCpDetails.fromJson(value.data);
         return data;

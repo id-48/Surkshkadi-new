@@ -35,8 +35,9 @@ class SubmitKycRepositoryImpl implements SubmitKycRepository {
   @override
   Future<Result<ResSubmitKyc>> submitKyc(ReqSubmitKyc data) {
     return Result.guardFuture(() async {
+      print("tests ---->> ${data.toJson()}");
       return AppDio()
-          .multipartPost(apiSubmitKyc, data:  FormData.fromMap(await data.toJson()),)
+          .multipartPost(apiSubmitKyc, data:  FormData.fromMap(data.toJson()),)
           .then((value) async {
         final data = ResSubmitKyc.fromJson(value.data);
         return data;

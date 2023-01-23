@@ -9,9 +9,12 @@ import 'package:surakshakadi/data/model/home/dashboard/res_dashboard.dart';
 import 'package:surakshakadi/di/locator.dart';
 import 'package:surakshakadi/ui/Screens/dashboard/Components/components.dart';
 import 'package:surakshakadi/ui/Screens/dashboard/dashboard_view_modal.dart';
+import 'package:surakshakadi/ui/Screens/state_and_city_view_modal.dart';
 import 'package:surakshakadi/utils/color_utils.dart';
+import 'package:surakshakadi/utils/constants/app_constant.dart';
 import 'package:surakshakadi/utils/constants/navigation_route_constants.dart';
 import 'package:surakshakadi/utils/constants/navigations_key_constant.dart';
+import 'package:surakshakadi/utils/dialog_utils.dart';
 import 'package:surakshakadi/utils/image_utils.dart';
 import 'package:surakshakadi/utils/strings.dart';
 import 'package:surakshakadi/utils/utils.dart';
@@ -31,6 +34,19 @@ class DashBoardWeb extends HookConsumerWidget {
     final lifeTime = useState<bool>(false);
 
     useEffect(() {
+      ref.read(stateProvider.notifier).getState(context: context).then((value) {
+        print("Yashu Patel");
+        if (value!.status == 1) {
+          print("Yashu Patel111111");
+          for (int i = 0; i < value.response.states.length; i++) {
+            print("Yashu Patel22222");
+            stateList.add(value.response.states[i].name);
+          }
+        } else {
+          displayToast("${value.message}");
+        }
+      });
+
       ref.read(dashboardProvider.notifier).getDashboard(context: context);
     }, []);
 

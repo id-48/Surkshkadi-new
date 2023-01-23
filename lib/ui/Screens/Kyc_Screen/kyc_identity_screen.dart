@@ -10,12 +10,8 @@ import 'package:image_picker/image_picker.dart';
 import 'package:surakshakadi/data/model/home/dashboard/submit_kyc/req_submit_kyc.dart';
 import 'package:surakshakadi/data/model/home/dashboard/verify_documents/verify_aadhar_card/verify_aadhar_card_no/req_aadhar_no.dart';
 import 'package:surakshakadi/data/model/home/dashboard/verify_documents/verify_aadhar_card/verify_aadhar_card_otp/req_aadhar_otp.dart';
-import 'package:surakshakadi/data/model/home/dashboard/verify_documents/verify_bank_ac/req_bank_ac.dart';
-import 'package:surakshakadi/data/model/home/dashboard/verify_documents/verify_gstin_no/req_gst_no.dart';
 import 'package:surakshakadi/data/model/home/dashboard/verify_documents/verify_pancard_no/req_pancard_no.dart';
-import 'package:surakshakadi/data/model/home/dashboard/verify_documents/verify_vehicle_no/req_vehicle_no.dart';
 import 'package:surakshakadi/di/locator.dart';
-import 'package:surakshakadi/ui/Screens/Kyc_Screen/components/components.dart';
 import 'package:surakshakadi/ui/Screens/Kyc_Screen/submit_kyc_view_modal.dart';
 import 'package:surakshakadi/ui/Screens/Kyc_Screen/verify_documents_view_modal.dart';
 import 'package:surakshakadi/utils/color_utils.dart';
@@ -30,7 +26,7 @@ import 'package:surakshakadi/widgets/custom_appbar.dart';
 import 'package:surakshakadi/widgets/custom_button.dart';
 import 'package:surakshakadi/widgets/custom_dottedborder.dart';
 import 'package:surakshakadi/widgets/custom_textfeild.dart';
-import 'package:webview_flutter/webview_flutter.dart';
+import 'package:http/http.dart' as http;
 
 class KYCIdentity extends HookConsumerWidget {
   const KYCIdentity({Key? key}) : super(key: key);
@@ -1207,64 +1203,94 @@ class KYCIdentity extends HookConsumerWidget {
                     child: InkWell(
                       onTap: () async{
 
+                        // ReqSubmitKyc submitKycData = ReqSubmitKyc(
+                        //   userId: getString(prefUserID),
+                        //   userType: "Customer",
+                        //   aadharNo: "aadharcardnocontroller.textdsfd",
+                        //   aadharFrontImage: "aadharFrontType.value+aadharFrontBase64Image",
+                        //   aadharBackImage: "aadharBackType.value+aadharBackBase64Image",
+                        //   panNo: "pancardnocontroller.text",
+                        //   panFrontImage: "panFrontType.value+panBase64Image",
+                        //   selfImage: "selfieType.value+selfieBase64Image",
+                        // );
+                        //
+                        // await ref.read(submitKycProvider.notifier)
+                        //     .submitKyc(context: context, data: submitKycData)
+                        //     .then((value) {
+                        //   if(value!.status == 1){
+                        //     displayToast("${value.message}");
+                        //     navigationService.push(routeKYCChatBotMobile);
+                        //   }else{
+                        //     displayToast("${value.message}");
+                        //   }
+                        // });
 
-
+                        ///
 
                         if (isAadhar.value) {
                           if(isPanCard.value) {
                             if(isAadharPicked.value) {
+
+                              var aadharFrontImageBytes = await aadharPickedImage.value.readAsBytesSync();
+                              String  aadharFrontBase64Image = base64Encode(aadharFrontImageBytes);
+
                               if(isAadharBackPicked.value) {
+
+                                var aadharBackImageBytes = await aadharBackPickedImage.value.readAsBytesSync();
+                                String  aadharBackBase64Image = base64Encode(aadharBackImageBytes);
+
                                 if(isPanPicked.value) {
+
+                                  var panImageBytes = await panPickedImage.value.readAsBytesSync();
+                                  String  panBase64Image = base64Encode(panImageBytes);
+
                                   if(isSelfiePicked.value) {
-
-                                    var aadharFrontImageBytes = await aadharPickedImage.value.readAsBytesSync();
-                                    String  aadharFrontBase64Image = base64Encode(aadharFrontImageBytes);
-
-                                    var aadharBackImageBytes = await aadharBackPickedImage.value.readAsBytesSync();
-                                    String  aadharBackBase64Image = base64Encode(aadharBackImageBytes);
-
-                                    var panImageBytes = await panPickedImage.value.readAsBytesSync();
-                                    String  panBase64Image = base64Encode(panImageBytes);
 
                                     var selfieImageBytes = await selfiePickedImage.value.readAsBytesSync();
                                     String  selfieBase64Image = base64Encode(selfieImageBytes);
 
-                                    print("image in aadharFront ---->>>");
-                                    print(aadharFrontType.value + aadharFrontBase64Image);
-                                    print("image in aadharBack ---->>> ");
-                                    print(aadharBackType.value + aadharBackBase64Image);
-                                    print("image in panCard ---->>> ");
-                                    print(panFrontType.value + panBase64Image);
-                                    print("image in panCard ---->>> ");
-                                    print(selfieType.value + selfieBase64Image);
+                                    if(isSelfiePicked.value) {
 
-                                    print("image in userId ---->>> ");
+                                      print("image in aadharFront ---->>>");
+                                      print(aadharFrontType.value +
+                                          aadharFrontBase64Image);
+                                      print("image in aadharBack ---->>> ");
+                                      print(aadharBackType.value +
+                                          aadharBackBase64Image);
+                                      print("image in panCard ---->>> ");
+                                      print(
+                                          panFrontType.value + panBase64Image);
+                                      print("image in panCard ---->>> ");
+                                      print(
+                                          selfieType.value + selfieBase64Image);
+
+                                      print("image in userId ---->>> ");
 
 
-                                    ReqSubmitKyc submitKycData = ReqSubmitKyc(
-                                      userId: getString(prefUserID),
-                                      userType: "Customer",
-                                      aadharNo: aadharcardnocontroller.text,
-                                      aadharFrontImage: aadharFrontType.value + aadharFrontBase64Image,
-                                      aadharBackImage: aadharBackType.value + aadharBackBase64Image,
-                                      panNo: pancardnocontroller.text,
-                                      panFrontImage: panFrontType.value + panBase64Image,
-                                      selfImage: selfieType.value + selfieBase64Image,
-                                    );
+                                      ReqSubmitKyc submitKycData = ReqSubmitKyc(
+                                        userId: getString(prefUserID),
+                                        userType: "Customer",
+                                        aadharNo: aadharcardnocontroller.text,
+                                        aadharFrontImage: "${aadharFrontType.value + aadharFrontBase64Image}",
+                                        aadharBackImage: "${aadharBackType.value + aadharBackBase64Image}",
+                                        panNo: pancardnocontroller.text,
+                                        panFrontImage: "${panFrontType.value + panBase64Image}",
+                                        selfImage: "${selfieType.value + selfieBase64Image}",
+                                      );
 
-                                    await ref.read(submitKycProvider.notifier)
-                                        .submitKyc(context: context, data: submitKycData)
-                                        .then((value) {
-                                          if(value!.status == 1){
-                                            print("yashu Patel 1111111 ");
-                                            displayToast("${value.message}");
-                                            navigationService.push(routeKYCChatBotMobile);
-                                          }else{
-                                            print("yashu Patel 222222 ");
-                                            displayToast("${value.message}");
-                                          }
-                                    });
-
+                                      await ref.read(submitKycProvider.notifier)
+                                          .submitKyc(
+                                          context: context, data: submitKycData)
+                                          .then((value) {
+                                        if (value!.status == 1) {
+                                          displayToast("${value.message}");
+                                          navigationService.push(
+                                              routeKYCChatBotMobile);
+                                        } else {
+                                          displayToast("${value.message}");
+                                        }
+                                      });
+                                    }
                                   }else{
                                     displayToast("Please Selfie Image Upload");
                                   }
@@ -1283,6 +1309,7 @@ class KYCIdentity extends HookConsumerWidget {
                         } else {
                           displayToast("Please Verify Aadhar Card");
                         }
+
                      },
                       child: Container(
                         height: Utils.getHeight(context) * 0.08,

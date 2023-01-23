@@ -34,7 +34,7 @@ class KYCChatBotRepositoryImpl implements KYCChatBotRepository {
   @override
   Future<Result<ResKycChatBot>> kycChatBot(ReqKycChatBot data) {
     return Result.guardFuture(() async {
-      return AppDio().multipartPost(apiKycChatBot, data:  FormData.fromMap(await data.toJson())).then((value) async {
+      return AppDio().multipartPost(apiKycChatBot, data:  FormData.fromMap(data.toJson())).then((value) async {
         // return dio.post(apiPlanChatBot, data: data.toJson()).then((value) async {
 
         final data = ResKycChatBot.fromJson(value.data);

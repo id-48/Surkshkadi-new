@@ -51,7 +51,7 @@ class StateAndCityRepositoryImpl implements StateAndCityRepository {
   Future<Result<ResCity>> getCity(ReqCity data) {
     return Result.guardFuture(() async {
       return AppDio()
-          .multipartPost(apiCity, data:  FormData.fromMap(await data.toJson()))
+          .multipartPost(apiCity, data:  FormData.fromMap(data.toJson()))
           .then((value) async {
         final data = ResCity.fromJson(value.data);
         return data;

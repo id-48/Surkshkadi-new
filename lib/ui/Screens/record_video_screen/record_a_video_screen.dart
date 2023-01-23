@@ -12,7 +12,8 @@ import 'package:surakshakadi/widgets/custom_button.dart';
 
 
 class RecordAVideo extends HookConsumerWidget {
-  const RecordAVideo({Key? key}) : super(key: key);
+  final String textIssue;
+  const RecordAVideo({Key? key,required this.textIssue}) : super(key: key);
 
   @override
   Widget build(BuildContext context,WidgetRef ref) {

@@ -1,3 +1,4 @@
+import 'package:camera/camera.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -11,9 +12,11 @@ import 'package:surakshakadi/ui/screens/splash_screen/splash_screen.dart';
 import 'package:surakshakadi/utils/custom_scroll_behavior.dart';
 import 'package:surakshakadi/utils/navigation_utils.dart';
 import 'package:surakshakadi/utils/preference_utils.dart';
+import 'package:surakshakadi/widgets/camera_screen.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  cameras = await availableCameras();
   setupLocator();
 
   await init();

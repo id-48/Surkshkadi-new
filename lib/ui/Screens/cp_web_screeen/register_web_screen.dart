@@ -1,14 +1,20 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:gap/gap.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:responsive_grid/responsive_grid.dart';
 import 'package:surakshakadi/data/model/home/channelPartner/store_partner_details/req_store_cp_details.dart';
+import 'package:surakshakadi/data/model/home/dashboard/state_and_city/city/req_city.dart';
 import 'package:surakshakadi/di/locator.dart';
 import 'package:surakshakadi/ui/Screens/confirmation_Screen/confirmation_cp_partner_web.dart';
 import 'package:surakshakadi/ui/Screens/cp_web_screeen/resgister_view_model.dart';
+import 'package:surakshakadi/ui/Screens/state_and_city_view_modal.dart';
 import 'package:surakshakadi/utils/color_utils.dart';
+import 'package:surakshakadi/utils/constants/app_constant.dart';
 import 'package:surakshakadi/utils/dialog_utils.dart';
 import 'package:surakshakadi/utils/image_utils.dart';
 import 'package:surakshakadi/utils/strings.dart';
@@ -44,13 +50,36 @@ class RegisterWeb extends HookConsumerWidget {
     final adharCardOTPController = useTextEditingController();
     final pANCardOTPController = useTextEditingController();
 
-    List fillTextField = [
-      {"title": "First Name", "controller": firstNameController},
-      {"title": "Last Name", "controller": lastNameController},
-      {"title": "Email Id", "controller": mailController},
-      {"title": "Mobile No.", "controller": mobileController}
-    ];
 
+    final isOtp = useState<bool>(false);
+    final aadharClientId = useState<String>("");
+
+
+    final aadharFrontType = useState<String>("");
+    final aadharBackType = useState<String>("");
+    final panFrontType = useState<String>("");
+    final selfieType = useState<String>("");
+    final isAadhar = useState<bool>(false);
+    final isPanCard = useState<bool>(false);
+    ImagePicker _picker = ImagePicker();
+
+    final aadharImage = useState<XFile?>(XFile(''));
+    final aadharPickedImage = useState<File>(File(""));
+    final isAadharPicked = useState<bool>(false);
+
+    XFile? panImage;
+    final panPickedImage = useState<File>(File(""));
+    final isPanPicked = useState<bool>(false);
+
+    XFile? aadharBackImage;
+    final aadharBackPickedImage = useState<File>(File(""));
+    final isAadharBackPicked = useState<bool>(false);
+
+    XFile? selfieImage;
+    final selfiePickedImage = useState<File>(File(""));
+    final isSelfiePicked = useState<bool>(false);
+
+    final cityList = useState<List<String>>([]);
     List selectStateCity = [
       {
         "title": "State",
@@ -619,8 +648,98 @@ class RegisterWeb extends HookConsumerWidget {
                                     ),
                                   ],
                                 ),
-                                Gap(5),
 
+                                if(companyCheck.value == true)...[
+                                Gap(5),
+                                ResponsiveGridRow(
+                                  children: [
+                                    ResponsiveGridCol(
+                                      sm: 6,
+                                      child: ResponsiveGridRow(
+                                        crossAxisAlignment:
+                                        CrossAxisAlignment.center,
+                                        children: [
+                                          ResponsiveGridCol(
+                                            sm: 5,
+                                            child: RichText(
+                                              text: TextSpan(
+                                                children: <TextSpan>[
+                                                  TextSpan(
+                                                      text: companyName,
+                                                      style: TextStyle(
+                                                          fontWeight:
+                                                          FontWeight
+                                                              .w400,
+                                                          fontSize: MediaQuery
+                                                              .of(context)
+                                                              .orientation ==
+                                                              Orientation
+                                                                  .landscape
+                                                              ? 20
+                                                              : 17)),
+                                                  TextSpan(
+                                                    text: star,
+                                                    style: TextStyle(
+                                                        fontWeight:
+                                                        FontWeight
+                                                            .bold,
+                                                        color:
+                                                        cinnabarRed,
+                                                        fontSize: 20),
+                                                  ),
+                                                ],
+                                              ),
+                                            ),
+                                          ),
+                                          ResponsiveGridCol(
+                                            sm: 7,
+                                            child: Padding(
+                                              padding:
+                                              const EdgeInsets.only(
+                                                  right: 20.0,
+                                                  bottom: 10,
+                                                  top: 10),
+                                              child: CustomTextfeild(
+                                                height: 44,
+                                                textCapitalization:
+                                                TextCapitalization
+                                                    .none,
+                                                contentPadding:
+                                                EdgeInsets.only(
+                                                  left: 10,
+                                                  bottom: 5,
+                                                ),
+                                                blurRadius: 4.0,
+                                                maxLines: 1,
+                                                offset: Offset(
+                                                  0.0,
+                                                  4,
+                                                ),
+                                                containerborder:
+                                                Border.all(
+                                                    color: webBorder),
+                                                containercolor: white,
+                                                borderRadius:
+                                                BorderRadius.circular(
+                                                    10),
+                                                controller:
+                                                companyNameController,
+                                                textStyle: TextStyle(
+                                                    fontSize: 20),
+                                              ),
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                    ResponsiveGridCol(
+                                      sm: 6,
+                                      child: Container(),
+                                    ),
+                                  ],
+                                 ),
+                                ],
+                                Gap(5),
                                 ResponsiveGridRow(
                                   children: [
                                     ResponsiveGridCol(
@@ -688,11 +807,29 @@ class RegisterWeb extends HookConsumerWidget {
                                                   FontWeight.w600,
                                                 ),
                                                 color: white,
-                                                onChanged: (val) {
-                                                  statee.value = val;
+                                                onChanged: (stateVal) async{
+
+                                                  cityList.value.clear();
+                                                  statee.value = stateVal;
+
+                                                  ReqCity cityData = ReqCity(state: "${stateVal}" );
+
+                                                  await ref
+                                                      .read(cityProvider.notifier)
+                                                      .getCity(context: context, data: cityData).then((value) {
+                                                    if(value!.status == 1){
+                                                      // displayToast("${value.message}");
+                                                      for(int j = 0; j<value.response.cities.length; j++){
+                                                        cityList.value.add(value.response.cities[j].name);
+                                                      }
+                                                    }else{
+                                                      displayToast("${value.message}");
+                                                    }
+                                                  });
                                                 },
-                                                items: selectStateCity[0]
-                                                ["dataList"],
+                                                items: stateList,
+                                                // items: selectStateCity[0]
+                                                // ["dataList"],
                                                 hint: '',
                                                 borderCon: BorderSide(
                                                   width: 1.0,
@@ -773,8 +910,9 @@ class RegisterWeb extends HookConsumerWidget {
                                                 onChanged: (val) {
                                                   cityy.value = val;
                                                 },
-                                                items: selectStateCity[1]
-                                                ["dataList"],
+                                                items: cityList.value,
+                                                // items: selectStateCity[1]
+                                                // ["dataList"],
                                                 hint: '',
                                                 borderCon: BorderSide(
                                                   width: 1.0,
@@ -788,287 +926,150 @@ class RegisterWeb extends HookConsumerWidget {
                                     ),
                                   ],
                                 ),
-
-                                /// old code
-                                // Center(
-                                //   child: Container(
-                                //     height: MediaQuery.of(context)
-                                //                 .orientation ==
-                                //             Orientation.landscape
-                                //         ? 140
-                                //         : 300,
-                                //     // width: 900,
-                                //     child: GridView.builder(
-                                //       physics:
-                                //           NeverScrollableScrollPhysics(),
-                                //       // itemCount: 4,
-                                //       itemCount: fillTextField.length,
-                                //       gridDelegate:
-                                //           SliverGridDelegateWithFixedCrossAxisCount(
-                                //         crossAxisCount:
-                                //             MediaQuery.of(context)
-                                //                         .orientation ==
-                                //                     Orientation.landscape
-                                //                 ? 2
-                                //                 : 1,
-                                //         // crossAxisCount: 2,
-                                //         crossAxisSpacing: 30,
-                                //         // mainAxisSpacing: 15,
-                                //         childAspectRatio: (9 / 1),
-                                //       ),
-                                //       itemBuilder: (context, index) {
-                                //         return Container(
-                                //           width: MediaQuery.of(context)
-                                //                       .orientation ==
-                                //                   Orientation.landscape
-                                //               ? MediaQuery.of(context)
-                                //                       .size
-                                //                       .width *
-                                //                   0.3
-                                //               : MediaQuery.of(context)
-                                //                       .size
-                                //                       .width *
-                                //                   0.7,
-                                //           child: Row(
-                                //             // mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                //             children: [
-                                //               Expanded(
-                                //                 flex: 3,
-                                //                 child: RichText(
-                                //                   text: TextSpan(
-                                //                     children: <TextSpan>[
-                                //                       TextSpan(
-                                //                           text: fillTextField[
-                                //                                   index]
-                                //                               ["title"],
-                                //                           style: TextStyle(
-                                //                               fontWeight:
-                                //                                   FontWeight
-                                //                                       .w400,
-                                //                               fontSize: MediaQuery.of(context).orientation ==
-                                //                                       Orientation.landscape
-                                //                                   ? 20
-                                //                                   : 17)),
-                                //                       TextSpan(
-                                //                         text: star,
-                                //                         style: TextStyle(
-                                //                             fontWeight:
-                                //                                 FontWeight
-                                //                                     .bold,
-                                //                             color:
-                                //                                 cinnabarRed,
-                                //                             fontSize: 20),
-                                //                       ),
-                                //                     ],
-                                //                   ),
-                                //                 ),
-                                //               ),
-                                //               Expanded(
-                                //                 flex: 4,
-                                //                 child: CustomTextfeild(
-                                //                   height: 44,
-                                //                   textCapitalization:
-                                //                       TextCapitalization
-                                //                           .none,
-                                //                   contentPadding:
-                                //                       EdgeInsets.only(
-                                //                     left: 10,
-                                //                     bottom: 5,
-                                //                   ),
-                                //                   blurRadius: 4.0,
-                                //                   maxLines: 1,
-                                //                   offset: Offset(
-                                //                     0.0,
-                                //                     4,
-                                //                   ),
-                                //                   containerborder:
-                                //                       Border.all(
-                                //                           color:
-                                //                               webBorder),
-                                //                   containercolor: white,
-                                //                   borderRadius:
-                                //                       BorderRadius
-                                //                           .circular(10),
-                                //                   controller:
-                                //                       fillTextField[index]
-                                //                           ["controller"],
-                                //                   textStyle: TextStyle(
-                                //                       fontSize: 20),
-                                //                 ),
-                                //               ),
-                                //             ],
-                                //           ),
-                                //         );
-                                //       },
-                                //     ),
-                                //   ),
-                                // ),
-                                //
-                                //
-                                /// old code
-                                // Center(
-                                //   child: Container(
-                                //     height: MediaQuery.of(context)
-                                //                 .orientation ==
-                                //             Orientation.landscape
-                                //         ? 70
-                                //         : 126,
-                                //     // width: 900,
-                                //     child: GridView.builder(
-                                //       physics:
-                                //           NeverScrollableScrollPhysics(),
-                                //       // itemCount: 4,
-                                //       itemCount: selectStateCity.length,
-                                //       gridDelegate:
-                                //           SliverGridDelegateWithFixedCrossAxisCount(
-                                //         crossAxisCount:
-                                //             MediaQuery.of(context)
-                                //                         .orientation ==
-                                //                     Orientation.landscape
-                                //                 ? 2
-                                //                 : 1,
-                                //         // crossAxisCount: 2,
-                                //         crossAxisSpacing: 20,
-                                //         mainAxisSpacing: 15,
-                                //         childAspectRatio: (9 / 1),
-                                //       ),
-                                //       itemBuilder: (context, index) {
-                                //         return Container(
-                                //           // height: 60,
-                                //           width: MediaQuery.of(context)
-                                //                       .orientation ==
-                                //                   Orientation.landscape
-                                //               ? MediaQuery.of(context)
-                                //                       .size
-                                //                       .width *
-                                //                   0.3
-                                //               : MediaQuery.of(context)
-                                //                       .size
-                                //                       .width *
-                                //                   0.7,
-                                //
-                                //           child: Row(
-                                //             children: [
-                                //               Expanded(
-                                //                 flex: 3,
-                                //                 child: RichText(
-                                //                   text: TextSpan(
-                                //                     children: <TextSpan>[
-                                //                       TextSpan(
-                                //                           text: selectStateCity[
-                                //                                   index]
-                                //                               ["title"],
-                                //                           style: TextStyle(
-                                //                               fontWeight:
-                                //                                   FontWeight
-                                //                                       .w400,
-                                //                               fontSize: MediaQuery.of(context).orientation ==
-                                //                                       Orientation.landscape
-                                //                                   ? 20
-                                //                                   : 17)),
-                                //                       TextSpan(
-                                //                         text: star,
-                                //                         style: TextStyle(
-                                //                             fontWeight:
-                                //                                 FontWeight
-                                //                                     .bold,
-                                //                             color:
-                                //                                 cinnabarRed,
-                                //                             fontSize: 20),
-                                //                       ),
-                                //                     ],
-                                //                   ),
-                                //                 ),
-                                //               ),
-                                //               Expanded(
-                                //                 flex: 4,
-                                //                 child: CustomSelectWeb(
-                                //                   boxShadow: [
-                                //                     BoxShadow(
-                                //                       color:
-                                //                           Colors.black26,
-                                //                       blurRadius: 4.0,
-                                //                       offset: Offset(
-                                //                         0.0,
-                                //                         4,
-                                //                       ),
-                                //                     ),
-                                //                   ],
-                                //                   iconColor: webBorder,
-                                //                   textStyle: TextStyle(
-                                //                     fontSize: 16,
-                                //                     color: greenjerry,
-                                //                     fontWeight:
-                                //                         FontWeight.w600,
-                                //                   ),
-                                //                   color: white,
-                                //                   onChanged: (val) {
-                                //                     statee.value = val;
-                                //                   },
-                                //                   items: selectStateCity[
-                                //                       index]["dataList"],
-                                //                   hint: '',
-                                //                   borderCon: BorderSide(
-                                //                     width: 1.0,
-                                //                     color: webBorder,
-                                //                   ),
-                                //                 ),
-                                //               ),
-                                //             ],
-                                //           ),
-                                //         );
-                                //       },
-                                //     ),
-                                //   ),
-                                // ),
                                 Gap(20),
                                 InkWell(
                                   onTap: () async {
-                                    // Navigator.push(context, MaterialPageRoute(builder: (context) => CPPartnerConfirmationWeb()));
 
-                                    print("Test ---}");
+                                    ReqStoreCPDetails StoreCPDetailsData = ReqStoreCPDetails(
+                                      userId: "5",
+                                      // userId: "${getString(prefUserID)}",
+                                      partnerType: "Company",
+                                      companyName: "test Company",
+                                      firstName: "test",
+                                      lastName: 'test Company',
+                                      email: "test@gmail.com",
+                                      contactNumber: "1023654789",
+                                      state: "Gujarat",
+                                      city: "Surat",
+                                    );
 
-                                    // if (formkey.currentState!.validate()) {
+                                    print('yashu patel------>>>>>> individual ');
 
-                                      ReqStoreCPDetails reqStoreCPDetails = ReqStoreCPDetails();
+                                    await ref.read(
+                                        storeCPDetailsProvider.notifier)
+                                        .storeCPDetails(context: context,
+                                        data: StoreCPDetailsData)
+                                        .then((value) {
+                                      print('yashu patel------>>>>>> individual 111111');
+                                      print('yashu patel------>>>>>> individual status 111111 ${value?.status} ');
+                                      if (value!.status == 1) {
+                                        print("Yashu Patel");
+                                        displayToast(value.message);
+                                        // Navigator.push(context, MaterialPageRoute(builder: (context) => CPPartnerConfirmationWeb()));
+                                        // eKYC.value = true;
+                                      } else {
+                                        displayToast(value.message);
+                                      }
+                                    });
 
-                                      reqStoreCPDetails.userId = "1";
-                                      reqStoreCPDetails.partnerType =
-                                      individualCheck.value
-                                          ? "Individual"
-                                          : "Company";
-                                      reqStoreCPDetails.companyName =
-                                      individualCheck.value
-                                          ? ""
-                                          : companyNameController.text;
-                                      reqStoreCPDetails.firstName =
-                                          firstNameController.text;
-                                      reqStoreCPDetails.lastName =
-                                          lastNameController.text;
-                                      reqStoreCPDetails.email =
-                                          mailController.text;
-                                      reqStoreCPDetails.contactNumber =
-                                          mobileController.text;
-                                      reqStoreCPDetails.state = statee.value;
-                                      reqStoreCPDetails.city = cityy.value;
-
-
-                                      await ref.read(cpDetailsProvider.notifier)
-                                          .postCPdetails(context: context,
-                                          data: reqStoreCPDetails)
-                                          .then((value) {
-                                        if (value!.status == 1) {
-
-                                          displayToast(value.message);
-                                          print("Yashu Patel");
-                                        }else{
-                                          displayToast(value.message);
-                                        }
-                                      });
+                                    // print("Test ---}");
+                                    //
+                                    // if(companyCheck.value == true) {
+                                    //   if (firstNameController.text.isNotEmpty
+                                    //       && lastNameController.text.isNotEmpty
+                                    //       && mailController.text.isNotEmpty
+                                    //       && mobileController.text.isNotEmpty
+                                    //       && statee.value.isNotEmpty
+                                    //       && cityy.value.isNotEmpty
+                                    //       && companyNameController.text.isNotEmpty
+                                    //
+                                    //   ) {
+                                    //     ReqStoreCPDetails StoreCPDetailsData = ReqStoreCPDetails(
+                                    //       userId: "3",
+                                    //       // userId: "${getString(prefUserID)}",
+                                    //       partnerType: individualCheck.value
+                                    //           ? "Individual"
+                                    //           : "Company",
+                                    //       companyName: individualCheck.value
+                                    //           ? ""
+                                    //           : companyNameController.text,
+                                    //       firstName: firstNameController.text,
+                                    //       lastName: lastNameController.text,
+                                    //       email: mailController.text,
+                                    //       contactNumber: mobileController.text,
+                                    //       state: statee.value,
+                                    //       city: cityy.value,
+                                    //     );
+                                    //
+                                    //     print('yashu patel company ------>>>>>>');
+                                    //
+                                    //     await ref.read(
+                                    //         storeCPDetailsProvider.notifier)
+                                    //         .storeCPDetails(context: context,
+                                    //         data: StoreCPDetailsData)
+                                    //         .then((value) {
+                                    //       print('yashu patel------>>>>>> company 111111');
+                                    //       print('yashu patel------>>>>>> company status 111111 ${value?.status} ');
+                                    //       if (value!.status == 1) {
+                                    //
+                                    //         print("Yashu Patel company Success");
+                                    //         displayToast(value.message);
+                                    //         // Navigator.push(context, MaterialPageRoute(builder: (context) => CPPartnerConfirmationWeb()));
+                                    //         eKYC.value = true;
+                                    //       } else {
+                                    //         print("Yashu Patel company Error");
+                                    //
+                                    //         displayToast(value.message);
+                                    //       }
+                                    //     });
+                                    //   } else {
+                                    //     displayToast("Please Provide Details");
+                                    //   }
                                     // }
-
-
-                                    // Navigator.push(context, MaterialPageRoute(builder: (context) => AdminDashboard()));
+                                    // else{
+                                    //   if (firstNameController.text.isNotEmpty
+                                    //       && lastNameController.text.isNotEmpty
+                                    //       && mailController.text.isNotEmpty
+                                    //       && mobileController.text.isNotEmpty
+                                    //       && statee.value.isNotEmpty
+                                    //       && cityy.value.isNotEmpty
+                                    //
+                                    //   ) {
+                                    //
+                                    //
+                                    //     ReqStoreCPDetails StoreCPDetailsData = ReqStoreCPDetails(
+                                    //       userId: "3",
+                                    //       // userId: "${getString(prefUserID)}",
+                                    //       partnerType: individualCheck.value
+                                    //           ? "Individual"
+                                    //           : "Company",
+                                    //       companyName: individualCheck.value
+                                    //           ? ""
+                                    //           : companyNameController.text,
+                                    //       firstName: firstNameController.text,
+                                    //       lastName: lastNameController.text,
+                                    //       email: mailController.text,
+                                    //       contactNumber: mobileController.text,
+                                    //       state: statee.value,
+                                    //       city: cityy.value,
+                                    //     );
+                                    //
+                                    //     print('yashu patel------>>>>>> individual ');
+                                    //
+                                    //     await ref.read(
+                                    //         storeCPDetailsProvider.notifier)
+                                    //         .storeCPDetails(context: context,
+                                    //         data: StoreCPDetailsData)
+                                    //         .then((value) {
+                                    //       print('yashu patel------>>>>>> individual 111111');
+                                    //       print('yashu patel------>>>>>> individual status 111111 ${value?.status} ');
+                                    //       if (value!.status == 1) {
+                                    //         print("Yashu Patel");
+                                    //         displayToast(value.message);
+                                    //         // Navigator.push(context, MaterialPageRoute(builder: (context) => CPPartnerConfirmationWeb()));
+                                    //         eKYC.value = true;
+                                    //       } else {
+                                    //         displayToast(value.message);
+                                    //       }
+                                    //     });
+                                    //
+                                    //
+                                    //   } else {
+                                    //     displayToast("Please Provide Details");
+                                    //   }
+                                    // }
+                                    //
+                                    //
                                   },
                                   child: Container(
                                     padding: EdgeInsets.symmetric(
@@ -1206,7 +1207,7 @@ class RegisterWeb extends HookConsumerWidget {
                                                       color: Color(
                                                           0xFF2F75C9),
                                                       fontFamily:
-                                                      "Nunito Sans",
+                                                      fontFamily,
                                                       fontWeight:
                                                       FontWeight.w700,
                                                       fontSize: 20),
@@ -1216,7 +1217,7 @@ class RegisterWeb extends HookConsumerWidget {
                                                   aadharCardNo,
                                                   style: TextStyle(
                                                       fontFamily:
-                                                      "Nunito Sans",
+                                                      fontFamily,
                                                       fontWeight:
                                                       FontWeight.w600,
                                                       fontSize: 16),
@@ -1236,7 +1237,7 @@ class RegisterWeb extends HookConsumerWidget {
                                                   enterOTP,
                                                   style: TextStyle(
                                                       fontFamily:
-                                                      "Nunito Sans",
+                                                      fontFamily,
                                                       fontWeight:
                                                       FontWeight.w600,
                                                       fontSize: 16),
@@ -1257,7 +1258,7 @@ class RegisterWeb extends HookConsumerWidget {
                                                   resend,
                                                   style: TextStyle(
                                                       fontFamily:
-                                                      "Nunito Sans",
+                                                      fontFamily,
                                                       fontWeight:
                                                       FontWeight.w600,
                                                       fontSize: 16),
@@ -1385,11 +1386,47 @@ class RegisterWeb extends HookConsumerWidget {
                                             xs: 12,
                                             child: Column(
                                               children: [
-                                                Image.asset(
-                                                    uploadAdharCard,
-                                                    scale: 3),
+                                                GestureDetector(
+                                                 onTap: () async{
+                                                   print(
+                                                       '------------->>>>>>>>>>>>>>>>>.image ');
+                                                   aadharImage.value = await _picker.pickImage(source: ImageSource.gallery);
+
+                                                   if (aadharImage.value != null) {
+                                                     aadharPickedImage.value =
+                                                         File(aadharImage.value!.path);
+                                                     print(
+                                                         ' --image path 200 -->>>>>>> ${aadharPickedImage.value}');
+
+                                                     // aadharFrontType.value = "data:image/" + '${aadharPickedImage.value.absolute}'.split('.')[3].replaceAll("'", "") + ";base64,";
+
+                                                     // print("front type --- >>>> ${aadharFrontType.value}");
+
+                                                     isAadharPicked.value = true;
+                                                   }
+                                                 },
+                                                  child:   Container(
+                                                    height: 200,
+
+                                                    width: double.infinity,
+                                                    // margin: EdgeInsets.only(top: 10),
+                                                    child: isAadharPicked.value  == true
+                                                        ? Image.file(
+                                                      aadharPickedImage.value,
+                                                      fit: BoxFit.fill,
+                                                    )
+                                                        : Image.asset(
+                                                      uploadAdharCard,
+                                                      scale: 3,
+                                                    ),
+                                                  ),
+
+                                                  // child: Image.asset(
+                                                  //     uploadAdharCard,
+                                                  //     scale: 3),
+                                                ),
                                                 Text(
-                                                  "Upload Aadhar Card here.",
+                                                  uploadAadharFront,
                                                   style: TextStyle(
                                                       fontSize: 8),
                                                 ),
@@ -1428,7 +1465,7 @@ class RegisterWeb extends HookConsumerWidget {
                                                       color: Color(
                                                           0xFF2F75C9),
                                                       fontFamily:
-                                                      "Nunito Sans",
+                                                      fontFamily,
                                                       fontWeight:
                                                       FontWeight.w700,
                                                       fontSize: 20),
@@ -1438,7 +1475,7 @@ class RegisterWeb extends HookConsumerWidget {
                                                   pANCardNo,
                                                   style: TextStyle(
                                                       fontFamily:
-                                                      "Nunito Sans",
+                                                      fontFamily,
                                                       fontWeight:
                                                       FontWeight.w600,
                                                       fontSize: 16),
@@ -1458,7 +1495,7 @@ class RegisterWeb extends HookConsumerWidget {
                                                   enterOTP,
                                                   style: TextStyle(
                                                       fontFamily:
-                                                      "Nunito Sans",
+                                                      fontFamily,
                                                       fontWeight:
                                                       FontWeight.w600,
                                                       fontSize: 16),
@@ -1528,7 +1565,7 @@ class RegisterWeb extends HookConsumerWidget {
                                             addSelfie,
                                             style: TextStyle(
                                                 color: Color(0xFF2F75C9),
-                                                fontFamily: "Nunito Sans",
+                                                fontFamily: fontFamily,
                                                 fontWeight:
                                                 FontWeight.w700,
                                                 fontSize: 20),

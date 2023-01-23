@@ -17,3 +17,4 @@ const navSingleChooseAssetsAI = "singleChooseAssetsAI";
 const navMessagesList = "messagesList";
 const navSelectedPlan = "selectedPlan";
 const navSelectedPlanCB = "selectedPlanCB";
+const navTextIssue = "textIssue";

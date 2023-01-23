@@ -825,6 +825,7 @@ const String iAm = "I am";
 const String individual = "Individual";
 const String company = "Company";
 const String firstName = "First Name";
+const String companyName = "Company Name";
 const String lastName = "Last Name";
 const String mailId = "Email Id";
 const String mobileNo = "Mobile No.";

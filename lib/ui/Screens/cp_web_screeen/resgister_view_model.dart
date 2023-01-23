@@ -6,22 +6,23 @@ import 'package:surakshakadi/data/model/home/channelPartner/store_partner_detail
 import 'package:surakshakadi/data/model/home/channelPartner/store_partner_details/res_store_cp_details.dart';
 import 'package:surakshakadi/repository/cp_details_respository.dart';
 
-final cpDetailsProvider = StateNotifierProvider.autoDispose<CPdetailsViewModel,
-    AsyncValue<ResStoreCpDetails>>((ref) => CPdetailsViewModel((ref.read)));
+final storeCPDetailsProvider = StateNotifierProvider.autoDispose<StoreCPDetailsViewModel,
+    AsyncValue<ResStoreCpDetails>>((ref) => StoreCPDetailsViewModel((ref.read)));
 
-class CPdetailsViewModel extends StateNotifier<AsyncValue<ResStoreCpDetails>> {
-  CPdetailsViewModel(this._reader) : super(const AsyncValue.loading());
+class StoreCPDetailsViewModel extends StateNotifier<AsyncValue<ResStoreCpDetails>> {
+  StoreCPDetailsViewModel(this._reader) : super(const AsyncValue.loading());
   late final Reader _reader;
 
-  late final CPdetailsRepository repositery =
-  _reader(CPdetailsRepositoryProvider);
+  late final StoreCPDetailsRepository repositery =
+  _reader(StoreCPDetailsRepositoryProvider);
 
 
 
-  Future<ResStoreCpDetails?> postCPdetails(
+  Future<ResStoreCpDetails?> storeCPDetails(
       {required BuildContext context, required ReqStoreCPDetails data,}) async {
-    final result = await repositery.postCPdetails(data);
+    final result = await repositery.storeCPDetails(data);
 
+    print("test--------   ${result}");
     return result.when(
         success: (result) async {
           // hideLoadingDialog(context: context);
@@ -30,8 +31,11 @@ class CPdetailsViewModel extends StateNotifier<AsyncValue<ResStoreCpDetails>> {
           // navigationService.push(routeConfirmationSpecific);
           // // navigationService.push(routeAddInformationScreen,arguments: {navAISpecificAssets: "SpecificAssets"});
 
+          print("test--->> ${result.status}");
           return result;
         },
-        failure: (error) {});
+        failure: (error) {
+          print('yashu patel>>>>>>> ${error}');
+        });
   }
 }

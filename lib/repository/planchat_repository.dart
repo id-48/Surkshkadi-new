@@ -32,7 +32,7 @@ class PlanChatRepositoryImpl implements PlanChatRepository {
   @override
   Future<Result<ResPlanChatBot>> planChatBotSub(ReqPlanChatBot data) {
     return Result.guardFuture(() async {
-      return AppDio().multipartPost(apiPlanChatBot, data:  FormData.fromMap(await data.toJson())).then((value) async {
+      return AppDio().multipartPost(apiPlanChatBot, data:  FormData.fromMap(data.toJson())).then((value) async {
       // return dio.post(apiPlanChatBot, data: data.toJson()).then((value) async {
 
         final data = ResPlanChatBot.fromJson(value.data);
@@ -47,7 +47,7 @@ class PlanChatRepositoryImpl implements PlanChatRepository {
   @override
   Future<Result<ResPlanChatUpdate>> getPlanChatUpdate(ReqPlanChatUpdate data) {
     return Result.guardFuture(() async {
-      return AppDio().multipartPost(apiPlanChatUpdate, data:  FormData.fromMap(await data.toJson())).then((value) async {
+      return AppDio().multipartPost(apiPlanChatUpdate, data:  FormData.fromMap(data.toJson())).then((value) async {
         final data = ResPlanChatUpdate.fromJson(value.data);
         return data;
       });

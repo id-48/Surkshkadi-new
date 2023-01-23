@@ -26,7 +26,7 @@ class ResVerifyOtp {
   Map<String, dynamic> toJson() => {
     "status": status,
     "message": message,
-    "response": response!.toJson(),
+    "response": response.toJson(),
   };
 }
 

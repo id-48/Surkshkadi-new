@@ -36,7 +36,7 @@ class PaymentRepositoryImpl implements PaymentRepository {
   Future<Result<ResSingleUaPayment>> singleUAPayment(ReqSingleUAPayment data) {
     return Result.guardFuture(() async {
       return AppDio()
-          .multipartPost(apiSingleUAPayment, data:  FormData.fromMap(await data.toJson()))
+          .multipartPost(apiSingleUAPayment, data:  FormData.fromMap(data.toJson()))
           .then((value) async {
         final data = ResSingleUaPayment.fromJson(value.data);
         return data;

@@ -1,8 +1,4 @@
-// To parse this JSON data, do
-//
-//     final resStoreCpDetails = resStoreCpDetailsFromJson(jsonString);
 
-import 'package:meta/meta.dart';
 import 'dart:convert';
 
 ResStoreCpDetails resStoreCpDetailsFromJson(String str) => ResStoreCpDetails.fromJson(json.decode(str));

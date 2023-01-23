@@ -4,13 +4,16 @@ import 'package:flutter/services.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:gap/gap.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:surakshakadi/data/model/home/channelPartner/store_partner_details/req_store_cp_details.dart';
 import 'package:surakshakadi/data/model/home/dashboard/res_dashboard.dart';
 import 'package:surakshakadi/di/locator.dart';
+import 'package:surakshakadi/ui/Screens/cp_web_screeen/resgister_view_model.dart';
 import 'package:surakshakadi/ui/Screens/dashboard/dashboard_view_modal.dart';
 import 'package:surakshakadi/utils/color_utils.dart';
 import 'package:surakshakadi/utils/constants/app_constant.dart';
 import 'package:surakshakadi/utils/constants/navigations_key_constant.dart';
 import 'package:surakshakadi/utils/constants/preference_key_constant.dart';
+import 'package:surakshakadi/utils/dialog_utils.dart';
 import 'package:surakshakadi/utils/image_utils.dart';
 import 'package:surakshakadi/utils/preference_utils.dart';
 import 'package:surakshakadi/utils/strings.dart';
@@ -685,52 +688,79 @@ class PlanScreen extends HookConsumerWidget {
                     Center(
                       child: CustomButton(
                         title: buyNow,
-                        padding:
-                            EdgeInsets.symmetric(horizontal: 30, vertical: 10),
-                        onTap: () {
-                          var planId = isCheck.value == true
-                              ? "${data.response.plans[1].plans[isSelected.value].planId}"
-                              : "${data.response.plans[0].plans[isSelected.value].planId}";
+                        padding: EdgeInsets.symmetric(horizontal: 30, vertical: 10),
+                        onTap: () async{
+                          ReqStoreCPDetails StoreCPDetailsData = ReqStoreCPDetails(
+                            userId: "3",
+                            // userId: "${getString(prefUserID)}",
+                            partnerType: "Company",
+                            companyName: "test Company",
+                            firstName: "test",
+                            lastName: 'test Company',
+                            email: "test@gmail.com",
+                            contactNumber: "1023654789",
+                            state: "Gujarat",
+                            city: "Surat",
+                          );
 
-                          var planPrice = isCheck.value == true
-                              ? "${data.response.plans[1].plans[isSelected.value].offerPrice}"
-                              : "${data.response.plans[0].plans[isSelected.value].offerPrice}";
+                          print('yashu patel------>>>>>> individual ');
 
-                          var planTitle = isCheck.value == true
-                              ? "${data.response.plans[1].plans[isSelected.value].planTitle}"
-                              : "${data.response.plans[0].plans[isSelected.value].planTitle}";
-
-                          List<PlanModule> planSelected = isCheck.value == true
-                              ? data.response.plans[1].plans[isSelected.value].planModules
-                              : data.response.plans[0].plans[isSelected.value].planModules;
-
-                          // print("Plan Id --->>> ${planId}");
-                          // print("Plan Id --->>> ${planPrice}");
-                          // print("Plan Id Plan Name --->>> ${planTitle}");
-
-                          setString(prefPlanIdMobile, planId);
-                          setString(prefPlanPrice, planPrice);
-                          setString(prefPlanTitle, planTitle);
-
-                          getBool(prefSubChatBotCompletedMobile) == true
-                              ?
-                          // navigationService
-                          //    .push(routeChooseAssetMobile, arguments: {
-                          //         navSpecificAssets: "PlanBot",
-                          //         navDashboardResponse: assetsData.response.specialities,
-                          //         navSelectedPlan: planSelected,
-                          //       })
-                              navigationService.push(routeCheckYourInformation)
-                              :
-                              navigationService.push(routePlanChatBotMobile, arguments: {navSelectedPlanCB: planSelected});
-                              // Navigator.push(
-                              //     context,
-                              //     MaterialPageRoute(
-                              //         builder: (context) =>
-                              //             PlanChatBotMobile()));
+                          await ref.read(
+                              storeCPDetailsProvider.notifier)
+                              .storeCPDetails(context: context,
+                              data: StoreCPDetailsData)
+                              .then((value) {
+                            print('yashu patel------>>>>>> individual 111111');
+                            print('yashu patel------>>>>>> individual status 111111 ${value?.status} ');
+                            if (value!.status == 1) {
+                              print("Yashu Patel");
+                              displayToast(value.message);
+                              // Navigator.push(context, MaterialPageRoute(builder: (context) => CPPartnerConfirmationWeb()));
+                              // eKYC.value = true;
+                            } else {
+                              displayToast(value.message);
+                            }
+                          });
                         },
                       ),
                     ),
+
+
+                    ///    plan mobile
+                    // Center(
+                    //   child: CustomButton(
+                    //     title: buyNow,
+                    //     padding:
+                    //         EdgeInsets.symmetric(horizontal: 30, vertical: 10),
+                    //     onTap: () {
+                    //       var planId = isCheck.value == true
+                    //           ? "${data.response.plans[1].plans[isSelected.value].planId}"
+                    //           : "${data.response.plans[0].plans[isSelected.value].planId}";
+                    //
+                    //       var planPrice = isCheck.value == true
+                    //           ? "${data.response.plans[1].plans[isSelected.value].offerPrice}"
+                    //           : "${data.response.plans[0].plans[isSelected.value].offerPrice}";
+                    //
+                    //       var planTitle = isCheck.value == true
+                    //           ? "${data.response.plans[1].plans[isSelected.value].planTitle}"
+                    //           : "${data.response.plans[0].plans[isSelected.value].planTitle}";
+                    //
+                    //       List<PlanModule> planSelected = isCheck.value == true
+                    //           ? data.response.plans[1].plans[isSelected.value].planModules
+                    //           : data.response.plans[0].plans[isSelected.value].planModules;
+                    //
+                    //       setString(prefPlanIdMobile, planId);
+                    //       setString(prefPlanPrice, planPrice);
+                    //       setString(prefPlanTitle, planTitle);
+                    //       getBool(prefSubChatBotCompletedMobile) == true
+                    //                             ?
+                    //           navigationService.push(routeCheckYourInformation)
+                    //                             :
+                    //           navigationService.push(routePlanChatBotMobile, arguments: {navSelectedPlanCB: planSelected});
+                    //
+                    //     },
+                    //   ),
+                    // ),
 
                     Gap(30),
 
