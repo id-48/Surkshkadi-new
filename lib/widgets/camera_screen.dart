@@ -7,10 +7,11 @@ import 'dart:math';
 import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:gap/gap.dart';
-import 'package:path/path.dart';
+import 'package:surakshakadi/utils/constants/preference_key_constant.dart';
+import 'package:surakshakadi/utils/preference_utils.dart';
+import 'package:surakshakadi/widgets/video_view.dart';
 
-import 'camera_screen.dart';
+import '../utils/color_utils.dart';
 
 late List <CameraDescription>   cameras ;
 
@@ -82,6 +83,7 @@ class _CameraPageState extends State<CameraPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: black,
         body: SafeArea(
           child: Stack(children: [
             Container(
@@ -119,7 +121,7 @@ class _CameraPageState extends State<CameraPage> {
 
                        await _cameraController.startVideoRecording();
                         setState(() {
-                          isrecording = true ;
+                          isrecording = true;
                         });
                       },
                       onLongPressUp: () async {
@@ -128,15 +130,14 @@ class _CameraPageState extends State<CameraPage> {
 
                          print("video player --->> ${videoFile.path}");
                         setState(() {
-                          isrecording = false ;
+                          isrecording = false;
+
                         });
 
-                        // Navigator.push(context, MaterialPageRoute(builder: (builder) => VideoViewPage(videopicture:videoFile)));
+                        Navigator.push(context, MaterialPageRoute(builder: (builder) => VideoViewPage(videopicture:videoFile)));
                       },
-                      onTap: (){
-                        if(!isrecording)takePicture(context);
-                      },
-                      child: isrecording? Icon(Icons.radio_button_checked,color: Colors.red,size: 60,)
+
+                      child: isrecording == true ? Icon(Icons.radio_button_checked,color: Colors.red,size: 60,)
                           : Icon(Icons.panorama_fish_eye,color: Colors.white,size: 60,)
 
                     ),

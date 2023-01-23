@@ -16,7 +16,7 @@ class SubmitKycViewModel extends StateNotifier<AsyncValue<ResSubmitKyc>> {
   SubmitKycViewModel(this._reader) : super(const AsyncValue.loading());
   late final Reader _reader;
 
-  late final SubmitKycRepository repositery = _reader(SubmitKycRepositoryProvider);
+  late final SubmitKycRepository repositery = _reader(submitKycRepositoryProvider);
 
   Future<ResSubmitKyc?> submitKyc(
       {required BuildContext context, required ReqSubmitKyc data}) async {

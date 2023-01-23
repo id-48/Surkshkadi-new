@@ -7,6 +7,8 @@ import 'package:surakshakadi/data/model/home/dashboard/payment/plan_chat_sub_pay
 
 import 'package:surakshakadi/data/model/home/dashboard/payment/single_user_assets_payment/req_single_user_assets_payment.dart';
 import 'package:surakshakadi/data/model/home/dashboard/payment/single_user_assets_payment/res_single_user_assets_payment.dart';
+import 'package:surakshakadi/data/model/home/dashboard/store_will_review_details/req_store_will_review_details.dart';
+import 'package:surakshakadi/data/model/home/dashboard/store_will_review_details/res_store_will_review_details.dart';
 import 'package:surakshakadi/data/model/home/dashboard/submit_kyc/req_submit_kyc.dart';
 import 'package:surakshakadi/data/model/home/dashboard/submit_kyc/res_submit_kyc.dart';
 import 'package:surakshakadi/utils/constants/api_end_points.dart';
@@ -14,17 +16,17 @@ import 'package:surakshakadi/utils/constants/api_end_points.dart';
 import '../data/model/result.dart';
 
 
-abstract class SubmitKycRepository {
+abstract class StoreRepository {
 
-  Future<Result<ResSubmitKyc>> submitKyc(ReqSubmitKyc data);
+  Future<Result<ResStoreWillReviewDetails>> willReviewVideo(ReqStoreWillReviewDetails data);
 
 }
 
-final submitKycRepositoryProvider =
-Provider((ref) => SubmitKycRepositoryImpl(ref.read));
+final storeRepositoryProvider =
+Provider((ref) => StoreRepositoryImpl(ref.read));
 
-class SubmitKycRepositoryImpl implements SubmitKycRepository {
-  SubmitKycRepositoryImpl(this._reader);
+class StoreRepositoryImpl implements StoreRepository {
+  StoreRepositoryImpl(this._reader);
 
   final Reader _reader;
 
@@ -33,16 +35,19 @@ class SubmitKycRepositoryImpl implements SubmitKycRepository {
 
 
   @override
-  Future<Result<ResSubmitKyc>> submitKyc(ReqSubmitKyc data) {
+  Future<Result<ResStoreWillReviewDetails>> willReviewVideo(ReqStoreWillReviewDetails data) {
     return Result.guardFuture(() async {
       print("tests ---->> ${data.toJson()}");
       return AppDio()
-          .multipartPost(apiSubmitKyc, data:  FormData.fromMap(data.toJson()),)
-          .then((value) async {
-        final data = ResSubmitKyc.fromJson(value.data);
+          .multipartPost(apiStoreWillReviewDetails, data:  FormData.fromMap(data.toJson()),)
+          .then((value) async{
+            print("print responsev   ------>>>> ${value.data}");
+            print("print responsev   ------>>>> ${value.redirects}");
+        final data = ResStoreWillReviewDetails.fromJson(value.data);
         return data;
       });
     }).catchError((error) {
+      print("print responsev   ------>>>>1111");
       throw error;
     });
   }

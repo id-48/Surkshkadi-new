@@ -6,7 +6,9 @@ import 'package:surakshakadi/di/locator.dart';
 import 'package:surakshakadi/utils/color_utils.dart';
 import 'package:surakshakadi/utils/constants/navigation_route_constants.dart';
 import 'package:surakshakadi/utils/constants/navigations_key_constant.dart';
+import 'package:surakshakadi/utils/constants/preference_key_constant.dart';
 import 'package:surakshakadi/utils/dialog_utils.dart';
+import 'package:surakshakadi/utils/preference_utils.dart';
 import 'package:surakshakadi/utils/utils.dart';
 import 'package:surakshakadi/widgets/custom_appbar.dart';
 import 'package:surakshakadi/widgets/custom_textfeild.dart';
@@ -144,9 +146,8 @@ class WillReview extends HookConsumerWidget {
                     return InkWell(
                       onTap: ()  {
                         if(check.value) {
-                          navigationService.push(routeRecordAVideo, arguments: {
-                            navTextIssue: issueController.text
-                          });
+                          setString(prefIssueDetail, issueController.text);
+                          navigationService.push(routeRecordAVideo,arguments: {navVideoRecord: false});
                         }else{
                           displayToast("Please Agree Terms And Conditions");
                         }

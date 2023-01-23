@@ -27,6 +27,7 @@ const String apiState = "get-states";
 const String apiPlanChatUpdate = "update-chatboard-information";
 const String apiKycChatBot = "store-second-chatboard-data";
 const String apiSubmitKyc = "submit-kyc";
+const String apiStoreWillReviewDetails = "https://backends.surakshakadi.com/store-will-review-details";
 
 
 const String apiPanCard = "https://api.emptra.com/fetchPanDetails";

@@ -1120,7 +1120,7 @@ class KYCIdentity extends HookConsumerWidget {
                                   print(
                                       'image path 200 ---->>>>>>>${selfiePickedImage}');
 
-                                  selfieType.value = "data:image/" + '${panPickedImage.value.absolute}'.split('.')[3].replaceAll("'", "") + ";base64,";
+                                  selfieType.value = "data:image/" + '${selfiePickedImage.value.absolute}'.split('.')[3].replaceAll("'", "") + ";base64,";
 
                                   print("type selfie --- >>> ${selfieType.value}");
 

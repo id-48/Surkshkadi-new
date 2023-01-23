@@ -160,7 +160,7 @@ class NavigationUtils {
       case routeRecordAVideo:
         return CustomRoute(
             settings: const RouteSettings(name: routeRecordAVideo),
-            builder: (_) => RecordAVideo(textIssue: args?[navTextIssue],));
+            builder: (_) => RecordAVideo(videoPictureRV: args?[navVideoPictureRV],videoRecord: args?[navVideoRecord],videoBase64: args?[navVideoBase64],));
 
       case routeKYCChatBotMobile:
         return CustomRoute(

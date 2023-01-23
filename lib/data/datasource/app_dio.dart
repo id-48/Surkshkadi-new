@@ -14,15 +14,8 @@ class AppDio with DioMixin implements Dio {
   AppDio._([BaseOptions? options]) {
 
     options = BaseOptions(
-      // baseUrl: 'https://surakshakadi.myedtek.com/api/',
       baseUrl: apiBaseUrl,
       // contentType: 'multipart/form-data',
-      // headers: {
-      //   "Access-Control-Allow-Origin": "*", // Required for CORS support to work
-      //   "Access-Control-Allow-Credentials": true, // Required for cookies, authorization headers with HTTPS
-      //   "Access-Control-Allow-Headers": "Origin,Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token,locale",
-      //   "Access-Control-Allow-Methods": "POST, OPTIONS"
-      // },
       contentType: 'application/json',
       connectTimeout: 30000,
       sendTimeout: 30000,
