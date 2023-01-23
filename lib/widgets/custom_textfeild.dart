@@ -111,6 +111,8 @@ customeFormTextField({
   int? maxLength,
   int? maxLines,
   double? height,
+  bool? enabled,
+  TextCapitalization? textCapitalization,
   Color? borderColor,
   required BuildContext context,
   TextEditingController? controller,
@@ -127,12 +129,18 @@ customeFormTextField({
       Container(
         height: height,
         child: TextFormField(
+          textCapitalization: textCapitalization?? TextCapitalization.none,
+          enabled: enabled ?? true,
           maxLength: maxLength,
           maxLines: maxLines,
           controller: controller,
           validator: validation,
           keyboardType: keyboardType,
           decoration: InputDecoration(
+            disabledBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(10.0),
+              borderSide: BorderSide(color: borderColor ?? Color(0xFF9FB9ED)),
+            ),
             enabledBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(10.0),
               borderSide: BorderSide(color: borderColor ?? Color(0xFF9FB9ED)),

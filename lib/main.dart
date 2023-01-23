@@ -8,14 +8,18 @@ import 'package:provider/provider.dart';
 import 'package:surakshakadi/di/locator.dart';
 import 'package:surakshakadi/provider/app_state_provider.dart';
 import 'package:surakshakadi/theme/app_theme.dart';
+import 'package:surakshakadi/ui/Screens/Kyc_Screen/kyc_identity_screen.dart';
 import 'package:surakshakadi/ui/screens/splash_screen/splash_screen.dart';
+import 'package:surakshakadi/utils/constants/navigation_route_constants.dart';
 import 'package:surakshakadi/utils/custom_scroll_behavior.dart';
+import 'package:surakshakadi/utils/extensions/size_extension.dart';
 import 'package:surakshakadi/utils/navigation_utils.dart';
 import 'package:surakshakadi/utils/preference_utils.dart';
 import 'package:surakshakadi/widgets/camera_screen.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  if(!kIsWeb)
   cameras = await availableCameras();
   setupLocator();
 
@@ -120,8 +124,8 @@ class App extends HookConsumerWidget {
                   // },
                   navigatorKey: locator<NavigationUtils>().globalStateKey,
                   onGenerateRoute: locator<NavigationUtils>().generateRoute,
-                  // initialRoute: routeSplash,
-                  home: SplashScreen(),
+                  initialRoute: routeSplash,
+                  // home: SplashScreen(),
                 );
               });
         });
