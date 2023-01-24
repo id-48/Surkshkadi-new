@@ -1550,10 +1550,17 @@ class RegisterWeb extends HookConsumerWidget {
                                                                     File(aadharImage
                                                                         .value!
                                                                         .path);
-                                                                print(
-                                                                    ' --image path 200 -->>>>>>> ${aadharPickedImage.value}');
+                                                                print('image path 200 -->>>>>>> ${aadharPickedImage.value.path}');
+                                                                print('image path 200 -->>>>>>> ${aadharPickedImage.value}');
 
-                                                                // aadharFrontType.value = "data:image/" + '${aadharPickedImage.value.absolute}'.split('.')[3].replaceAll("'", "") + ";base64,";
+                                                                File aadharFront = new File(aadharPickedImage.value.path.toString());
+
+                                                                var aadharImageBytes = await aadharFront.readAsBytesSync();
+                                                                String  selfieBase64Image = base64Encode(aadharImageBytes);
+
+                                                                print('image path 200 111111-->>>>>>> ${selfieBase64Image}');
+
+                                                                // aadharFrontType.value  = "data:image/" + '${aadharPickedImage.value.absolute}'.split('.')[3].replaceAll("'", "") + ";base64,";
 
                                                                 // print("front type --- >>>> ${aadharFrontType.value}");
 
@@ -1960,14 +1967,8 @@ class RegisterWeb extends HookConsumerWidget {
                                                 //
                                                 //           if (isSelfiePicked
                                                 //               .value) {
-                                                //             var selfieImageBytes =
-                                                //                 await selfiePickedImage
-                                                //                     .value
-                                                //                     .readAsBytesSync();
-                                                //             String
-                                                //                 selfieBase64Image =
-                                                //                 base64Encode(
-                                                //                     selfieImageBytes);
+                                                //             var selfieImageBytes = await selfiePickedImage.value.readAsBytesSync();
+                                                //             String  selfieBase64Image = base64Encode(selfieImageBytes);
                                                 //
                                                 //             if (isSelfiePicked
                                                 //                 .value) {

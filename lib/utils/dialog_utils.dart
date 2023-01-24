@@ -42,7 +42,7 @@ Future<bool?> displayToast(String message) {
 // }
 //
 void flutterToast(BuildContext context, String? message,
-    {int time = 2, bool isError = false}) {
+    {int time = 3, bool isError = false}) {
   late final FToast fToast;
   fToast = FToast();
   fToast.init(context);
