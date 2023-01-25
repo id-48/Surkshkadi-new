@@ -48,6 +48,7 @@ class AddInformationScreen extends HookConsumerWidget {
     final cityy = useState<String>("");
 
 
+    ImagePicker _picker = ImagePicker();
 
     final imageFileList = useState<List<XFile>>([]);
 
@@ -55,7 +56,6 @@ class AddInformationScreen extends HookConsumerWidget {
 
     List<MultipartFile> imageList = [];
 
-    ImagePicker _picker = ImagePicker();
 
     Future getImage(res) async {
       try {
@@ -440,23 +440,13 @@ class AddInformationScreen extends HookConsumerWidget {
                       height: Utils.getHeight(context) * 0.025,
                     ),
                     InkWell(
-                      // onTap: () async {
-                      // print(
-                      //     '------------->>>>>>>>>>>>>>>>>.image ');
-                      // image = await _picker.pickImage(
-                      //     source: ImageSource.gallery);
-                      // print('image path 216${image}');
-                      // if (image != null) {
-                      //   imageFileList.value = File(image!.path);
-                      //   // print(
-                      //   //     ' ------------------------- image path 200 --------------------------->>>>>>>${imageFile.value}');
-                      //
-                      //
-                      // }
+                      onTap: () async {
 
-                      // getImage(imageFileList);
-                      // isPicked.value = true;
-                      // },
+                        print("image list length ------>>>> ${imageFileList.value.length}");
+
+                      getImage(imageFileList.value);
+                      isPicked.value = true;
+                      },
                       child: Text(
                         addAnotherDocument,
                         style: TextStyle(
@@ -469,11 +459,10 @@ class AddInformationScreen extends HookConsumerWidget {
                       height: Utils.getHeight(context) * 0.035,
                     ),
                     StatefulBuilder(
-                      builder: (BuildContext context,
-                          void Function(void Function()) setState) {
+                      builder: (BuildContext context, void Function(void Function()) setState) {
                         return InkWell(
                           onTap: (){
-                            getImage(imageFileList);
+                            getImage(imageFileList.value);
                             isPicked.value = true;
                           },
                           child: Container(
@@ -501,7 +490,7 @@ class AddInformationScreen extends HookConsumerWidget {
                                             child: GestureDetector(
                                               child: imageFileList.value.isNotEmpty
                                                   ? SelectedImageViewer(
-                                                      res: imageFileList,
+                                                      res: imageFileList.value,
                                                       setState: (void Function()) {
                                                         setState(() {});
                                                       },
@@ -629,17 +618,17 @@ class AddInformationScreen extends HookConsumerWidget {
                       child: GestureDetector(
                         onTap: () async {
 
-                          // for (int i = 0; i < imageFileList.value.length; i++) {
-                          //   Uint8List imageBytes =
-                          //       await imageFileList.value[i].readAsBytes();
-                          //   int length = imageBytes.length;
-                          //   http.ByteStream stream =
-                          //       http.ByteStream(imageFileList.value[i].openRead());
-                          //   imageList.add(
-                          //     MultipartFile(stream, length,
-                          //         filename: imageFileList.value[i].name),
-                          //   );
-                          // }
+                          for (int i = 0; i < imageFileList.value.length; i++) {
+                            Uint8List imageBytes =
+                                await imageFileList.value[i].readAsBytes();
+                            int length = imageBytes.length;
+                            http.ByteStream stream =
+                                http.ByteStream(imageFileList.value[i].openRead());
+                            imageList.add(
+                              MultipartFile(stream, length,
+                                  filename: imageFileList.value[i].name),
+                            );
+                          }
 
                           print('image List -------->>>>>>>>>> }');
 
@@ -665,6 +654,7 @@ class AddInformationScreen extends HookConsumerWidget {
                               if (value?.status == 1) {
                                 // openCheckout(9900);
                                 setString(prefSingleUAId,"${value?.response.singleUserAssetId}" );
+                                print("Single userId ---->>>> ${value?.response.singleUserAssetId}");
                                 ReqSingleUAPayment SingleUAPayment = ReqSingleUAPayment(
                                     paymentAmount: "99",
                                     singleUserAssetsId: "${value?.response.singleUserAssetId}",
@@ -678,7 +668,7 @@ class AddInformationScreen extends HookConsumerWidget {
                                   if(value!.status == 1){
                                     // openCheckout(9900);
                                     displayToast(value.message);
-                                    // navigationService.push(routeConfirmationSpecific);
+                                    navigationService.push(routeConfirmationSpecific);
                                   }
                                 });
 

@@ -3,6 +3,19 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:surakshakadi/di/locator.dart';
+import 'package:surakshakadi/ui/Screens/Assets_Details_Screen/assets_mobile_screen.dart';
+import 'package:surakshakadi/ui/Screens/Assets_Details_Screen/components/bank_savings_accounts_screen.dart';
+import 'package:surakshakadi/ui/Screens/Assets_Details_Screen/components/government_APY_screen.dart';
+import 'package:surakshakadi/ui/Screens/Assets_Details_Screen/components/government_KVP_screen.dart';
+import 'package:surakshakadi/ui/Screens/Assets_Details_Screen/components/government_NPS_screen.dart';
+import 'package:surakshakadi/ui/Screens/Assets_Details_Screen/components/government_ppf_screen.dart';
+import 'package:surakshakadi/ui/Screens/Assets_Details_Screen/components/insurance_life_insurance_screen.dart';
+import 'package:surakshakadi/ui/Screens/Assets_Details_Screen/components/investments_demat_account_screen.dart';
+import 'package:surakshakadi/ui/Screens/Assets_Details_Screen/components/miscellaneous_company_screen.dart';
+import 'package:surakshakadi/ui/Screens/Assets_Details_Screen/components/personal_screen.dart';
+import 'package:surakshakadi/ui/Screens/Assets_Details_Screen/components/personal_vehicle_screen.dart';
+import 'package:surakshakadi/ui/Screens/Assets_Details_Screen/components/utility_electricity_screen.dart';
+import 'package:surakshakadi/ui/Screens/Assets_Details_Screen/components/utility_screen.dart';
 import 'package:surakshakadi/ui/Screens/Kyc_Screen/kyc_identity_screen.dart';
 import 'package:surakshakadi/ui/Screens/chatbot_screen/kyc_chatbot_mobile_screen.dart';
 import 'package:surakshakadi/ui/Screens/cp_web_screeen/register_web_screen.dart';
@@ -34,9 +47,9 @@ class SplashScreen extends HookWidget {
           if (context.isMobile) {
             print("Aadhar token ${getString(prefUserID)}");
             if (getString(prefLoginToken).isNotEmpty) {
-              // Navigator.push(context, MaterialPageRoute(builder: (context) => WillReview()));
-              navigationService
-                  .pushAndRemoveUntil(routeCustomeBottomNavigationBar);
+              Navigator.push(context, MaterialPageRoute(builder: (context) => Utility()));
+              // navigationService
+              //     .pushAndRemoveUntil(routeCustomeBottomNavigationBar);
             } else {
               navigationService.push(routeCommonepagee);
             }
@@ -47,6 +60,8 @@ class SplashScreen extends HookWidget {
           }
         });
         return timer.cancel;
+
+
       },
       [],
     );

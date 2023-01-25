@@ -3,11 +3,11 @@ import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:surakshakadi/utils/color_utils.dart';
 
-class SelectedImageViewer extends StatelessWidget {
+class SelectedImageViewerClose extends StatelessWidget {
   final ValueNotifier<List<XFile>> res;
   final void Function(void Function()) setState;
 
-  const SelectedImageViewer(
+  const SelectedImageViewerClose(
       {Key? key, required this.res, required this.setState})
       : super(key: key);
 

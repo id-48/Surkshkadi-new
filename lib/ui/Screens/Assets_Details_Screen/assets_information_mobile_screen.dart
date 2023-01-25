@@ -1,7 +1,8 @@
 import 'dart:io';
+import 'dart:typed_data';
 
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:gap/gap.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -17,9 +18,7 @@ import 'package:surakshakadi/utils/utils.dart';
 import 'package:surakshakadi/widgets/custom_appbar.dart';
 import 'package:surakshakadi/widgets/custom_button.dart';
 import 'package:surakshakadi/widgets/custom_expandable_card.dart';
-import 'package:surakshakadi/widgets/custom_textfeild.dart';
-
-import '../../../widgets/custom_dottedborder.dart';
+import 'package:http/http.dart' as http;
 
 
 class AssetsInformation extends HookConsumerWidget {
@@ -40,7 +39,8 @@ class AssetsInformation extends HookConsumerWidget {
 
     final boxController = useTextEditingController();
     final messageController = useTextEditingController();
-
+    final imageFileList = useState<List<XFile>>([]);
+    List<MultipartFile> imageList = [];
 
 
     return Scaffold(
@@ -201,14 +201,40 @@ class AssetsInformation extends HookConsumerWidget {
                   padding: EdgeInsets.only(left: 15),
                   child: Text(noteACopyYour,style: TextStyle(fontWeight: FontWeight.w400,color: black ,fontSize: 12,fontFamily: fontFamily),)),
 
-              assetsPhotoText(context,controller: messageController),
+              assetsPhotoText(context,controller: messageController,imageFileList: imageFileList.value),
 
               Center(
                 child: CustomButton(
                   title: continuee,
                   padding:
                   EdgeInsets.symmetric(horizontal: 34, vertical: 11),
-                  onTap: () {
+                  onTap: () async{
+                    //
+                    // for (int i = 0; i < imageFileList.value.length; i++) {
+                    //   Uint8List imageBytes =
+                    //       await imageFileList.value[i].readAsBytes();
+                    //   int length = imageBytes.length;
+                    //   http.ByteStream stream =
+                    //   http.ByteStream(imageFileList.value[i].openRead());
+                    //   imageList.add(
+                    //     MultipartFile(stream, length,
+                    //         filename: imageFileList.value[i].name),
+                    //   );
+                    // }
+                    //
+                    // List  formDetailsData = [
+                    //   {
+                    //     "name": "test",
+                    //   }
+                    // ];
+                    //
+
+
+
+
+
+
+
                     navigationService.push(routeCustomeBottomNavigationBar,);
                   },
                 ),

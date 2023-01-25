@@ -900,10 +900,7 @@ class ChooseAssetMobile extends HookConsumerWidget {
                   flex: 1,
                   child: InkWell(
                     onTap: () async {
-                      print("mobile number ----->>> ${getString(prefLoginNumber)}");
 
-                      String  wpNumber = messagesList![3].messageContent[0] == "No" ? messagesList![3].messageContent[1] : "4324";
-                      print("mobile WatsApp number ----->>> ${wpNumber}");
 
                       if (checkedIDs.value.isNotEmpty) {
                         if (specificAssets == "SpecificAssets") {
@@ -911,6 +908,10 @@ class ChooseAssetMobile extends HookConsumerWidget {
                               context, ref, checkedIDs.value, false);
                         } else {
                           if (getBool(prefSubChatBotCompletedMobile) == false) {
+                            print("mobile number ----->>> ${getString(prefLoginNumber)}");
+
+                            String  wpNumber = messagesList![3].messageContent[0] == "No" ? messagesList![3].messageContent[1] : "4324";
+                            print("mobile WatsApp number ----->>> ${wpNumber}");
                             print(
                                 "fatherName: ${messagesList![21].messageContent[0]}");
                             ReqPlanChatBot dataPlanChatBot = ReqPlanChatBot(

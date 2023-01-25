@@ -1,13 +1,18 @@
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:gap/gap.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:image_picker/image_picker.dart';
+import 'package:surakshakadi/data/model/home/dashboard/assets_details/store_assets_form_details/req_store_assets_form_details.dart';
 import 'package:surakshakadi/di/locator.dart';
 import 'package:surakshakadi/ui/Screens/Assets_Details_Screen/components/components.dart';
 import 'package:surakshakadi/ui/Screens/Assets_Details_Screen/components/personal_screen.dart';
 import 'package:surakshakadi/ui/Screens/Assets_Details_Screen/components/personal_vehicle_screen.dart';
+import 'package:surakshakadi/ui/Screens/Assets_Details_Screen/store_assets_form_view_modal.dart';
 import 'package:surakshakadi/utils/color_utils.dart';
 import 'package:surakshakadi/utils/constants/navigation_route_constants.dart';
+import 'package:surakshakadi/utils/dialog_utils.dart';
 import 'package:surakshakadi/utils/image_utils.dart';
 import 'package:surakshakadi/utils/strings.dart';
 import 'package:surakshakadi/utils/utils.dart';
@@ -23,9 +28,13 @@ class MiscellaneousCompany extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context,WidgetRef ref) {
-    final boxController = useTextEditingController();
+    final companyNameController = useTextEditingController();
+    final cinController = useTextEditingController();
+    final dinController = useTextEditingController();
+    final gstinController = useTextEditingController();
     final messageController = useTextEditingController();
-
+    final imageFileList = useState<List<XFile>>([]);
+    List<MultipartFile> imageList = [];
     return Scaffold(
       appBar: CustomAppBar(
         backonTap: () {
@@ -45,10 +54,10 @@ class MiscellaneousCompany extends HookConsumerWidget {
 
               Gap(16),
 
-              expandRow(context,controller: boxController,title: "Company Name"),
-              expandRow(context,controller: boxController,title: "Corporate Identification Number(CIN)"),
-              expandRow(context,controller: boxController,title: "Director Identification Number (DIN)"),
-              expandRow(context,controller: boxController,title: "GSTIN"),
+              expandRow(context,controller: companyNameController,title: "Company Name"),
+              expandRow(context,controller: cinController,title: "Corporate Identification Number(CIN)"),
+              expandRow(context,controller: dinController,title: "Director Identification Number (DIN)"),
+              expandRow(context,controller: gstinController,title: "GSTIN"),
 
               Gap(6),
 
@@ -70,15 +79,53 @@ class MiscellaneousCompany extends HookConsumerWidget {
                   child: Text(addAnother,style: TextStyle(fontWeight: FontWeight.w500,color: blueee ,fontSize: 12),)),
               Gap(10),
 
-              assetsPhotoText(context,controller: messageController),
+              assetsPhotoText(context,controller: messageController,imageFileList: imageFileList.value),
 
               Center(
                 child: CustomButton(
                   title: continuee,
                   padding:
                   EdgeInsets.symmetric(horizontal: 34, vertical: 11),
-                  onTap: () {
-                   Navigator.push(context, MaterialPageRoute(builder: (context) => PersonalVehicle()));
+                  onTap: () async {
+
+                    if(companyNameController.text.isNotEmpty
+                        && cinController.text.isNotEmpty
+                        && dinController.text.isNotEmpty
+                        && gstinController.text.isNotEmpty
+                    ){
+
+                      Map<String,dynamic>  formDetailsData =
+                      {
+                        "insuranceCompanyName": companyNameController.text,
+                        "typeInsurance": cinController.text,
+                        "policyNo": dinController.text,
+                        "beneficiary": gstinController.text,
+                        "legalHeir": messageController.text ?? "",
+                      };
+
+                      ReqStoreAssetsFormDetails storeAssetsFormData = ReqStoreAssetsFormDetails(
+                          subscriptionAssetId: 1,
+                          // subscriptionAssetId: int.parse(getString(prefSubscriptionAssetId)),
+                          formDetails: ["${formDetailsData}"],
+                          assetDocuments: imageList
+                      );
+
+                      await ref.read(storeAssetsFormProvider.notifier)
+                          .assetsFormDetails(context: context, data: storeAssetsFormData)
+                          .then((value) {
+
+                        if(value?.status == 1){
+                          print("enter ---->>> ");
+                          displayToast("${value?.message}");
+                          navigationService.push(routeAssetScreen);
+                        }else{
+                          displayToast("${value?.message}");
+                        }
+                      });
+
+                    }else{
+                      displayToast("Please Attach Field");
+                    }
                   },
                 ),
               ),

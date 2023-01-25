@@ -1,15 +1,22 @@
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:gap/gap.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:image_picker/image_picker.dart';
+import 'package:surakshakadi/data/model/home/dashboard/assets_details/store_assets_form_details/req_store_assets_form_details.dart';
 import 'package:surakshakadi/di/locator.dart';
 import 'package:surakshakadi/ui/Screens/Assets_Details_Screen/components/components.dart';
 import 'package:surakshakadi/ui/Screens/Assets_Details_Screen/components/investments_demat_account_screen.dart';
 import 'package:surakshakadi/ui/Screens/Assets_Details_Screen/components/personal_screen.dart';
 import 'package:surakshakadi/ui/Screens/Assets_Details_Screen/components/personal_vehicle_screen.dart';
+import 'package:surakshakadi/ui/Screens/Assets_Details_Screen/store_assets_form_view_modal.dart';
 import 'package:surakshakadi/utils/color_utils.dart';
 import 'package:surakshakadi/utils/constants/navigation_route_constants.dart';
+import 'package:surakshakadi/utils/constants/preference_key_constant.dart';
+import 'package:surakshakadi/utils/dialog_utils.dart';
 import 'package:surakshakadi/utils/image_utils.dart';
+import 'package:surakshakadi/utils/preference_utils.dart';
 import 'package:surakshakadi/utils/strings.dart';
 import 'package:surakshakadi/utils/utils.dart';
 import 'package:surakshakadi/widgets/custom_appbar.dart';
@@ -24,9 +31,14 @@ class InsuranceLife extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context,WidgetRef ref) {
-    final boxController = useTextEditingController();
+    final nameInsuranceController = useTextEditingController();
+    final typeInsuranceController = useTextEditingController();
+    final policyNoController = useTextEditingController();
+    final beneficiaryController = useTextEditingController();
+    final relationshipController = useTextEditingController();
     final messageController = useTextEditingController();
-
+    final imageFileList = useState<List<XFile>>([]);
+    List<MultipartFile> imageList = [];
     return Scaffold(
       appBar: CustomAppBar(
         backonTap: () {
@@ -51,11 +63,11 @@ class InsuranceLife extends HookConsumerWidget {
                   child: Text(pleaseShareTheDetails,style: TextStyle(fontWeight: FontWeight.w400,color: black ,fontSize: 12),)),
               Gap(10),
 
-              expandRow(context,controller: boxController,title: "Name of the Insurance Company"),
-              expandRow(context,controller: boxController,title: "Type of Insurance"),
-              expandRow(context,controller: boxController,title: "Policy No."),
-              expandRow(context,controller: boxController,title: "Name of Beneficiary(ies)"),
-              expandRow(context,controller: boxController,title: "Relationship with the Beneficiary(ies)"),
+              expandRow(context,controller: nameInsuranceController,title: "Name of the Insurance Company"),
+              expandRow(context,controller: typeInsuranceController,title: "Type of Insurance"),
+              expandRow(context,controller: policyNoController,title: "Policy No."),
+              expandRow(context,controller: beneficiaryController,title: "Name of Beneficiary(ies)"),
+              expandRow(context,controller: relationshipController,title: "Relationship with the Beneficiary(ies)"),
 
 
               Gap(6),
@@ -65,16 +77,54 @@ class InsuranceLife extends HookConsumerWidget {
                   child: Text(addAnother,style: TextStyle(fontWeight: FontWeight.w500,color: blueee ,fontSize: 12),)),
               Gap(10),
 
-              assetsPhotoText(context,controller: messageController),
+              assetsPhotoText(context,controller: messageController,imageFileList: imageFileList.value),
 
               Center(
                 child: CustomButton(
                   title: continuee,
                   padding:
                   EdgeInsets.symmetric(horizontal: 34, vertical: 11),
-                  onTap: () {
-                    // navigationService.push(routeCustomeBottomNavigationBar,);
-                   Navigator.push(context, MaterialPageRoute(builder: (context) => InvestmentsDematAccount()));
+                  onTap: () async {
+                    if(nameInsuranceController.text.isNotEmpty
+                        && typeInsuranceController.text.isNotEmpty
+                        && policyNoController.text.isNotEmpty
+                        && beneficiaryController.text.isNotEmpty
+                        && relationshipController.text.isNotEmpty
+                    ){
+
+                      Map<String,dynamic>  formDetailsData =
+                      {
+                        "insuranceCompanyName": nameInsuranceController.text,
+                        "typeInsurance": typeInsuranceController.text,
+                        "policyNo": policyNoController.text,
+                        "beneficiary": beneficiaryController.text,
+                        "relationship": relationshipController.text,
+                        "legalHeir": messageController.text,
+                      };
+
+                      ReqStoreAssetsFormDetails storeAssetsFormData = ReqStoreAssetsFormDetails(
+                          subscriptionAssetId: 1,
+                          // subscriptionAssetId: int.parse(getString(prefSubscriptionAssetId)),
+                          formDetails: ["${formDetailsData}"],
+                          assetDocuments: imageList
+                      );
+
+                      await ref.read(storeAssetsFormProvider.notifier)
+                          .assetsFormDetails(context: context, data: storeAssetsFormData)
+                          .then((value) {
+
+                        if(value?.status == 1){
+                          print("enter ---->>> ");
+                          displayToast("${value?.message}");
+                          navigationService.push(routeAssetScreen);
+                        }else{
+                          displayToast("${value?.message}");
+                        }
+                      });
+
+                    }else{
+                      displayToast("Please Attach Field");
+                    }
                   },
                 ),
               ),

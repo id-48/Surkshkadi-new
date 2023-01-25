@@ -5,7 +5,7 @@ import 'package:image_picker/image_picker.dart';
 import 'color_utils.dart';
 
 class SelectedImageViewer extends StatelessWidget {
-  final ValueNotifier<List<XFile>> res;
+  final List<XFile> res;
   final void Function(void Function()) setState;
 
   const SelectedImageViewer(
@@ -14,7 +14,7 @@ class SelectedImageViewer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
+    print("image path--->>>> ${File(res[0].path)}");
     return SizedBox(
       child: GridView.builder(
           physics: const NeverScrollableScrollPhysics(),
@@ -25,10 +25,10 @@ class SelectedImageViewer extends StatelessWidget {
               crossAxisSpacing: 20,
               mainAxisSpacing: 15),
           shrinkWrap: true,
-          itemCount: res.value.length,
+          itemCount: res.length,
           itemBuilder: (BuildContext ctx, index) {
             // print('Img List DATA ==>>${res.value}');
-            return Image.file(File(res.value[index].path),
+            return Image.file(File(res[index].path),
                 height: 100, width: 100, fit: BoxFit.fill);
           }),
     );

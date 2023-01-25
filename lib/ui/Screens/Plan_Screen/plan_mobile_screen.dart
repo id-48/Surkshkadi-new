@@ -685,82 +685,82 @@ class PlanScreen extends HookConsumerWidget {
 
                     Gap(30),
 
-                    Center(
-                      child: CustomButton(
-                        title: buyNow,
-                        padding: EdgeInsets.symmetric(horizontal: 30, vertical: 10),
-                        onTap: () async{
-                          ReqStoreCPDetails StoreCPDetailsData = ReqStoreCPDetails(
-                            userId: "3",
-                            // userId: "${getString(prefUserID)}",
-                            partnerType: "Company",
-                            companyName: "test Company",
-                            firstName: "test",
-                            lastName: 'test Company',
-                            email: "test@gmail.com",
-                            contactNumber: "1023654789",
-                            state: "Gujarat",
-                            city: "Surat",
-                          );
-
-                          print('yashu patel------>>>>>> individual ');
-
-                          await ref.read(
-                              storeCPDetailsProvider.notifier)
-                              .storeCPDetails(context: context,
-                              data: StoreCPDetailsData)
-                              .then((value) {
-                            print('yashu patel------>>>>>> individual 111111');
-                            print('yashu patel------>>>>>> individual status 111111 ${value?.status} ');
-                            if (value!.status == 1) {
-                              print("Yashu Patel");
-                              displayToast(value.message);
-                              // Navigator.push(context, MaterialPageRoute(builder: (context) => CPPartnerConfirmationWeb()));
-                              // eKYC.value = true;
-                            } else {
-                              displayToast(value.message);
-                            }
-                          });
-                        },
-                      ),
-                    ),
-
-
-                    ///    plan mobile
                     // Center(
                     //   child: CustomButton(
                     //     title: buyNow,
-                    //     padding:
-                    //         EdgeInsets.symmetric(horizontal: 30, vertical: 10),
-                    //     onTap: () {
-                    //       var planId = isCheck.value == true
-                    //           ? "${data.response.plans[1].plans[isSelected.value].planId}"
-                    //           : "${data.response.plans[0].plans[isSelected.value].planId}";
+                    //     padding: EdgeInsets.symmetric(horizontal: 30, vertical: 10),
+                    //     onTap: () async{
+                    //       ReqStoreCPDetails StoreCPDetailsData = ReqStoreCPDetails(
+                    //         userId: "3",
+                    //         // userId: "${getString(prefUserID)}",
+                    //         partnerType: "Company",
+                    //         companyName: "test Company",
+                    //         firstName: "test",
+                    //         lastName: 'test Company',
+                    //         email: "test@gmail.com",
+                    //         contactNumber: "1023654789",
+                    //         state: "Gujarat",
+                    //         city: "Surat",
+                    //       );
                     //
-                    //       var planPrice = isCheck.value == true
-                    //           ? "${data.response.plans[1].plans[isSelected.value].offerPrice}"
-                    //           : "${data.response.plans[0].plans[isSelected.value].offerPrice}";
+                    //       print('yashu patel------>>>>>> individual ');
                     //
-                    //       var planTitle = isCheck.value == true
-                    //           ? "${data.response.plans[1].plans[isSelected.value].planTitle}"
-                    //           : "${data.response.plans[0].plans[isSelected.value].planTitle}";
-                    //
-                    //       List<PlanModule> planSelected = isCheck.value == true
-                    //           ? data.response.plans[1].plans[isSelected.value].planModules
-                    //           : data.response.plans[0].plans[isSelected.value].planModules;
-                    //
-                    //       setString(prefPlanIdMobile, planId);
-                    //       setString(prefPlanPrice, planPrice);
-                    //       setString(prefPlanTitle, planTitle);
-                    //       getBool(prefSubChatBotCompletedMobile) == true
-                    //                             ?
-                    //           navigationService.push(routeCheckYourInformation)
-                    //                             :
-                    //           navigationService.push(routePlanChatBotMobile, arguments: {navSelectedPlanCB: planSelected});
-                    //
+                    //       await ref.read(
+                    //           storeCPDetailsProvider.notifier)
+                    //           .storeCPDetails(context: context,
+                    //           data: StoreCPDetailsData)
+                    //           .then((value) {
+                    //         print('yashu patel------>>>>>> individual 111111');
+                    //         print('yashu patel------>>>>>> individual status 111111 ${value?.status} ');
+                    //         if (value!.status == 1) {
+                    //           print("Yashu Patel");
+                    //           displayToast(value.message);
+                    //           // Navigator.push(context, MaterialPageRoute(builder: (context) => CPPartnerConfirmationWeb()));
+                    //           // eKYC.value = true;
+                    //         } else {
+                    //           displayToast(value.message);
+                    //         }
+                    //       });
                     //     },
                     //   ),
                     // ),
+
+
+                    ///    plan mobile
+                    Center(
+                      child: CustomButton(
+                        title: buyNow,
+                        padding:
+                            EdgeInsets.symmetric(horizontal: 30, vertical: 10),
+                        onTap: () {
+                          var planId = isCheck.value == true
+                              ? "${data.response.plans[1].plans[isSelected.value].planId}"
+                              : "${data.response.plans[0].plans[isSelected.value].planId}";
+
+                          var planPrice = isCheck.value == true
+                              ? "${data.response.plans[1].plans[isSelected.value].offerPrice}"
+                              : "${data.response.plans[0].plans[isSelected.value].offerPrice}";
+
+                          var planTitle = isCheck.value == true
+                              ? "${data.response.plans[1].plans[isSelected.value].planTitle}"
+                              : "${data.response.plans[0].plans[isSelected.value].planTitle}";
+
+                          List<PlanModule> planSelected = isCheck.value == true
+                              ? data.response.plans[1].plans[isSelected.value].planModules
+                              : data.response.plans[0].plans[isSelected.value].planModules;
+
+                          setString(prefPlanIdMobile, planId);
+                          setString(prefPlanPrice, planPrice);
+                          setString(prefPlanTitle, planTitle);
+                          getBool(prefSubChatBotCompletedMobile) == true
+                                                ?
+                              navigationService.push(routeCheckYourInformation)
+                                                :
+                              navigationService.push(routePlanChatBotMobile, arguments: {navSelectedPlanCB: planSelected});
+
+                        },
+                      ),
+                    ),
 
                     Gap(30),
 

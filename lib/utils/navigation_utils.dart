@@ -136,7 +136,7 @@ class NavigationUtils {
       case routeAssetScreen:
         return CustomRoute(
             settings: const RouteSettings(name: routeAssetScreen),
-            builder: (_) => Assets());
+            builder: (_) => AssetsMobile());
       case routeConfirmationPlan:
         return CustomRoute(
             settings:  RouteSettings(name: routeConfirmationPlan),

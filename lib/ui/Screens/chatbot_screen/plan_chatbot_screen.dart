@@ -657,77 +657,6 @@ class _PlanChatBotMobileState extends State<PlanChatBotMobile> {
                       ),
                       messages.length == 9 ? Gap(200) : Gap(0),
 
-
-                      // messages.length == 9
-                      //     ? Align(
-                      //         alignment: Alignment.bottomLeft,
-                      //         child: Container(
-                      //           padding: EdgeInsets.only(
-                      //             left: 5,
-                      //           ),
-                      //           // margin: EdgeInsets.only(left: 10, right: 10, bottom: 10),
-                      //           height: 60,
-                      //           width: double.infinity,
-                      //           // color: Colors.white,
-                      //           child: Row(
-                      //             children: <Widget>[
-                      //               Expanded(
-                      //                 child: Container(
-                      //                   decoration: BoxDecoration(
-                      //                     color: Colors.white,
-                      //                     border: Border.all(color: blue),
-                      //                     borderRadius:
-                      //                         BorderRadius.circular(20),
-                      //                   ),
-                      //                   child: TextFormField(
-                      //                     controller: chatController,
-                      //                     // keyboardType:TextInputType.number,
-                      //                     keyboardType: TextInputType.text,
-                      //                     decoration: InputDecoration(
-                      //                       contentPadding: EdgeInsets.only(
-                      //                           left: 10, bottom: 0, top: 0),
-                      //                       hintText: "Enter Your Address...",
-                      //                       hintStyle: TextStyle(
-                      //                           color: Colors.black54),
-                      //                       border: InputBorder.none,
-                      //                     ),
-                      //                   ),
-                      //                 ),
-                      //               ),
-                      //               Padding(
-                      //                 padding: const EdgeInsets.all(6.0),
-                      //                 child: FloatingActionButton(
-                      //                   onPressed: () {
-                      //                     if (chatController.text.isNotEmpty) {
-                      //                       messages.add(ChatMessage(
-                      //                           messageContent: [
-                      //                             chatController.text
-                      //                           ],
-                      //                           messageType: 'sender'));
-                      //                       messages.add(messagesQustion[4]);
-                      //                       chatController.clear();
-                      //                       setState(() {});
-                      //                     } else {
-                      //                       displayToast(
-                      //                           "Please Question the Ans.");
-                      //                     }
-                      //
-                      //                     setState(() {});
-                      //                   },
-                      //                   child: Icon(
-                      //                     Icons.send,
-                      //                     color: Colors.white,
-                      //                     size: 22,
-                      //                   ),
-                      //                   backgroundColor: Colors.blue,
-                      //                   elevation: 0,
-                      //                 ),
-                      //               ),
-                      //             ],
-                      //           ),
-                      //         ),
-                      //       )
-                      //     : Container(),
                     ],
                     if (index == 10) ...[
 
@@ -1315,7 +1244,7 @@ class _PlanChatBotMobileState extends State<PlanChatBotMobile> {
                                         decoration: InputDecoration(
                                           contentPadding: EdgeInsets.only(
                                               left: 10, bottom: 0, top: 0),
-                                          hintText: "Enter Your Pincode No...",
+                                          hintText: "Enter Your Street...",
                                           counterText: "",
                                           hintStyle: TextStyle(
                                               color: Colors.black54),

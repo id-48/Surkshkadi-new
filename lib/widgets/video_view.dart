@@ -27,7 +27,7 @@ class _VideoViewPageState extends State<VideoViewPage> {
   @override
   void initState() {
     super.initState();
-    _controller = VideoPlayerController.file(videoData);
+    _controller = VideoPlayerController.file(File(widget.videopicture.path));
     // _controller = VideoPlayerController.file(File(widget.videopicture.path));
 
     _initializeVideoPlayerFuture = _controller.initialize();
@@ -90,14 +90,12 @@ class _VideoViewPageState extends State<VideoViewPage> {
                     print("video demo --->>>>> ${widget.videopicture}");
                     var videoBytes = await widget.videopicture.readAsBytes();
                     String  videoBase64 = base64Encode(videoBytes);
-                    // print("video type --- >> ${widget.videoPictureRV}");
                     String videoType = "data:image/" + '${widget.videopicture.path}'.split('.')[3].replaceAll("'", "") + ";base64,/";
-                    // print("video type --- >> ${videoType}");
-                    // print("video type --- >> ${videoBase64}");
+
                     String  videoData64 =  "$videoType${videoBase64}";
                     print("video base64 --- >> ${videoData64}");
 
-                    navigationService.push(routeRecordAVideo,arguments: {navVideoPictureRV: videoData,navVideoRecord: true,navVideoBase64 : "${videoData64}"});
+                    navigationService.push(routeRecordAVideo,arguments: {navVideoPictureRV: File(widget.videopicture.path),navVideoRecord: true,navVideoBase64 : "${videoData64}"});
                     // navigationService.push(routeRecordAVideo,arguments: {navVideoPictureRV: widget.videopicture,navVideoRecord: true});
                     // Navigator.push(context, MaterialPageRoute(builder: (context) => RecordAVideo()));
                   },

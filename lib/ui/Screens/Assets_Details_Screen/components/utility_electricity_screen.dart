@@ -1,14 +1,19 @@
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:gap/gap.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:image_picker/image_picker.dart';
+import 'package:surakshakadi/data/model/home/dashboard/assets_details/store_assets_form_details/req_store_assets_form_details.dart';
 import 'package:surakshakadi/di/locator.dart';
 import 'package:surakshakadi/ui/Screens/Assets_Details_Screen/components/bank_savings_accounts_screen.dart';
 import 'package:surakshakadi/ui/Screens/Assets_Details_Screen/components/components.dart';
 import 'package:surakshakadi/ui/Screens/Assets_Details_Screen/components/personal_screen.dart';
 import 'package:surakshakadi/ui/Screens/Assets_Details_Screen/components/personal_vehicle_screen.dart';
+import 'package:surakshakadi/ui/Screens/Assets_Details_Screen/store_assets_form_view_modal.dart';
 import 'package:surakshakadi/utils/color_utils.dart';
 import 'package:surakshakadi/utils/constants/navigation_route_constants.dart';
+import 'package:surakshakadi/utils/dialog_utils.dart';
 import 'package:surakshakadi/utils/image_utils.dart';
 import 'package:surakshakadi/utils/strings.dart';
 import 'package:surakshakadi/utils/utils.dart';
@@ -24,9 +29,11 @@ class UtilityElectricity extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context,WidgetRef ref) {
-    final boxController = useTextEditingController();
+    final consumerNoController = useTextEditingController();
+    final electricityController = useTextEditingController();
     final messageController = useTextEditingController();
-
+    final imageFileList = useState<List<XFile>>([]);
+    List<MultipartFile> imageList = [];
     return Scaffold(
       appBar: CustomAppBar(
         backonTap: () {
@@ -53,8 +60,8 @@ class UtilityElectricity extends HookConsumerWidget {
 
               Gap(20),
 
-              expandRow(context,controller: boxController,title: "Consumer number"),
-              expandRow(context,controller: boxController,title: "Electricity board"),
+              expandRow(context,controller: consumerNoController,title: "Consumer number"),
+              expandRow(context,controller: electricityController,title: "Electricity board"),
 
               Gap(6),
 
@@ -76,18 +83,50 @@ class UtilityElectricity extends HookConsumerWidget {
                   child: Text(addAnother,style: TextStyle(fontWeight: FontWeight.w500,color: blueee ,fontSize: 12,fontFamily: fontFamily),)),
               Gap(10),
 
-              assetsPhotoText(context,controller: messageController),
+              assetsPhotoText(context,controller: messageController,imageFileList: imageFileList.value),
 
               Center(
                 child: CustomButton(
                   title: continuee,
                   padding:
                   EdgeInsets.symmetric(horizontal: 34, vertical: 11),
-                  onTap: () {
+                  onTap: () async {
 
-                    // navigationService.push(routeCustomeBottomNavigationBar,);
-                   //
-                   Navigator.push(context, MaterialPageRoute(builder: (context) => BankSavingsAccounts()));
+                    if(consumerNoController.text.isNotEmpty
+                        && electricityController.text.isNotEmpty
+
+                    ){
+
+                      Map<String,dynamic>  formDetailsData =
+                      {
+                        "consumerNo": consumerNoController.text,
+                        "electricity": electricityController.text,
+                        "legalHeir": messageController.text ?? "",
+                      };
+
+                      ReqStoreAssetsFormDetails storeAssetsFormData = ReqStoreAssetsFormDetails(
+                          subscriptionAssetId: 1,
+                          // subscriptionAssetId: int.parse(getString(prefSubscriptionAssetId)),
+                          formDetails: ["${formDetailsData}"],
+                          assetDocuments: imageList
+                      );
+
+                      await ref.read(storeAssetsFormProvider.notifier)
+                          .assetsFormDetails(context: context, data: storeAssetsFormData)
+                          .then((value) {
+
+                        if(value?.status == 1){
+                          print("enter ---->>> ");
+                          displayToast("${value?.message}");
+                          navigationService.push(routeAssetScreen);
+                        }else{
+                          displayToast("${value?.message}");
+                        }
+                      });
+
+                    }else{
+                      displayToast("Please Attach Field");
+                    }
                   },
                 ),
               ),

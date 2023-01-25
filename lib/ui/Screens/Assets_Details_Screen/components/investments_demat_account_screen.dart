@@ -1,14 +1,19 @@
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:gap/gap.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:image_picker/image_picker.dart';
+import 'package:surakshakadi/data/model/home/dashboard/assets_details/store_assets_form_details/req_store_assets_form_details.dart';
 import 'package:surakshakadi/di/locator.dart';
 import 'package:surakshakadi/ui/Screens/Assets_Details_Screen/components/components.dart';
 import 'package:surakshakadi/ui/Screens/Assets_Details_Screen/components/government_ppf_screen.dart';
 import 'package:surakshakadi/ui/Screens/Assets_Details_Screen/components/personal_screen.dart';
 import 'package:surakshakadi/ui/Screens/Assets_Details_Screen/components/personal_vehicle_screen.dart';
+import 'package:surakshakadi/ui/Screens/Assets_Details_Screen/store_assets_form_view_modal.dart';
 import 'package:surakshakadi/utils/color_utils.dart';
 import 'package:surakshakadi/utils/constants/navigation_route_constants.dart';
+import 'package:surakshakadi/utils/dialog_utils.dart';
 import 'package:surakshakadi/utils/image_utils.dart';
 import 'package:surakshakadi/utils/strings.dart';
 import 'package:surakshakadi/utils/utils.dart';
@@ -24,9 +29,15 @@ class InvestmentsDematAccount extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context,WidgetRef ref) {
-    final boxController = useTextEditingController();
+    final dematAccNoController = useTextEditingController();
+    final dpNameController = useTextEditingController();
+    final nameJointHolderController = useTextEditingController();
+    final bankBranchNameController = useTextEditingController();
+    final ifscCodeController = useTextEditingController();
+    final nomineeController = useTextEditingController();
     final messageController = useTextEditingController();
-
+    final imageFileList = useState<List<XFile>>([]);
+    List<MultipartFile> imageList = [];
     return Scaffold(
       appBar: CustomAppBar(
         backonTap: () {
@@ -51,12 +62,12 @@ class InvestmentsDematAccount extends HookConsumerWidget {
                   child: Text(pleaseShareTheDetailsDemat,style: TextStyle(fontWeight: FontWeight.w400,color: black ,fontSize: 12),)),
               Gap(10),
 
-              expandRow(context,controller: boxController,title: "Demat Account No."),
-              expandRow(context,controller: boxController,title: "DP Name"),
-              expandRow(context,controller: boxController,title: "Joint Account Holder's Name (if any)"),
-              expandRow(context,controller: boxController,title: "Bank name & Branch"),
-              expandRow(context,controller: boxController,title: "IFSC Code"),
-              expandRow(context,controller: boxController,title: "Nominee's Name (if any)"),
+              expandRow(context,controller: dematAccNoController,title: "Demat Account No."),
+              expandRow(context,controller: dpNameController,title: "DP Name"),
+              expandRow(context,controller: nameJointHolderController,title: "Joint Account Holder's Name (if any)"),
+              expandRow(context,controller: bankBranchNameController,title: "Bank name & Branch"),
+              expandRow(context,controller: ifscCodeController,title: "IFSC Code"),
+              expandRow(context,controller: nomineeController,title: "Nominee's Name (if any)"),
 
               Padding(
                   padding: EdgeInsets.only(left: 20),
@@ -68,17 +79,56 @@ class InvestmentsDematAccount extends HookConsumerWidget {
                   child: Text(addAnother,style: TextStyle(fontWeight: FontWeight.w500,color: blueee ,fontSize: 12),)),
               Gap(10),
 
-              assetsPhotoText(context,controller: messageController),
+              assetsPhotoText(context,controller: messageController,imageFileList: imageFileList.value),
 
               Center(
                 child: CustomButton(
                   title: continuee,
                   padding:
                   EdgeInsets.symmetric(horizontal: 34, vertical: 11),
-                  onTap: () {
-                    // navigationService.push(routeCustomeBottomNavigationBar,);
-                   Navigator.push(context, MaterialPageRoute(builder: (context) => GovernmentPPF()));
-                  },
+                  onTap: () async {
+                    if (dematAccNoController.text.isNotEmpty
+                        && dpNameController.text.isNotEmpty
+                        && nameJointHolderController.text.isNotEmpty
+                        && bankBranchNameController.text.isNotEmpty
+                        && ifscCodeController.text.isNotEmpty
+                        && nomineeController.text.isNotEmpty
+                    ) {
+                      Map<String, dynamic> formDetailsData =
+                      {
+                        "dematAcNo": dematAccNoController.text,
+                        "dpName": dpNameController.text,
+                        "nameJointHolder": nameJointHolderController.text,
+                        "bankBranchName": bankBranchNameController.text,
+                        "ifscCode": ifscCodeController.text,
+                        "nominee": nomineeController.text,
+                        "legalHeir": messageController.text,
+                      };
+
+                      ReqStoreAssetsFormDetails storeAssetsFormData = ReqStoreAssetsFormDetails(
+                          subscriptionAssetId: 1,
+                          // subscriptionAssetId: int.parse(getString(prefSubscriptionAssetId)),
+                          formDetails: ["${formDetailsData}"],
+                          assetDocuments: imageList
+                      );
+
+                      await ref.read(storeAssetsFormProvider.notifier)
+                          .assetsFormDetails(
+                          context: context, data: storeAssetsFormData)
+                          .then((value) {
+                        if (value?.status == 1) {
+                          print("enter ---->>> ");
+                          displayToast("${value?.message}");
+                          navigationService.push(routeAssetScreen);
+                        } else {
+                          displayToast("${value?.message}");
+                        }
+                      });
+                    } else {
+                      displayToast("Please Attach Field");
+                    }
+
+                  }
                 ),
               ),
               SizedBox(

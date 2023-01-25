@@ -1,15 +1,20 @@
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:gap/gap.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:image_picker/image_picker.dart';
+import 'package:surakshakadi/data/model/home/dashboard/assets_details/store_assets_form_details/req_store_assets_form_details.dart';
 import 'package:surakshakadi/di/locator.dart';
 import 'package:surakshakadi/ui/Screens/Assets_Details_Screen/components/components.dart';
 import 'package:surakshakadi/ui/Screens/Assets_Details_Screen/components/government_EPF_screen.dart';
 import 'package:surakshakadi/ui/Screens/Assets_Details_Screen/components/government_NPS_screen.dart';
 import 'package:surakshakadi/ui/Screens/Assets_Details_Screen/components/personal_screen.dart';
 import 'package:surakshakadi/ui/Screens/Assets_Details_Screen/components/personal_vehicle_screen.dart';
+import 'package:surakshakadi/ui/Screens/Assets_Details_Screen/store_assets_form_view_modal.dart';
 import 'package:surakshakadi/utils/color_utils.dart';
 import 'package:surakshakadi/utils/constants/navigation_route_constants.dart';
+import 'package:surakshakadi/utils/dialog_utils.dart';
 import 'package:surakshakadi/utils/image_utils.dart';
 import 'package:surakshakadi/utils/strings.dart';
 import 'package:surakshakadi/utils/utils.dart';
@@ -25,9 +30,12 @@ class GovernmentPPF extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context,WidgetRef ref) {
-    final boxController = useTextEditingController();
+    final ppfAcNoController = useTextEditingController();
+    final bankBranchNameController = useTextEditingController();
+    final nomineeController = useTextEditingController();
     final messageController = useTextEditingController();
-
+    final imageFileList = useState<List<XFile>>([]);
+    List<MultipartFile> imageList = [];
     return Scaffold(
       appBar: CustomAppBar(
         backonTap: () {
@@ -52,9 +60,9 @@ class GovernmentPPF extends HookConsumerWidget {
                   child: Text(pleaseShareTheDetailsPPF,style: TextStyle(fontWeight: FontWeight.w400,color: black ,fontSize: 12,fontFamily: fontFamily),)),
               Gap(10),
 
-              expandRow(context,controller: boxController,title: "PPF Acc. No."),
-              expandRow(context,controller: boxController,title: "Bank Name & Branch/ Post Office"),
-              expandRow(context,controller: boxController,title: "Nominee's Name (if any)"),
+              expandRow(context,controller: ppfAcNoController,title: "PPF Acc. No."),
+              expandRow(context,controller: bankBranchNameController,title: "Bank Name & Branch/ Post Office"),
+              expandRow(context,controller: nomineeController,title: "Nominee's Name (if any)"),
 
 
 
@@ -65,17 +73,50 @@ class GovernmentPPF extends HookConsumerWidget {
                   child: Text(addAnother,style: TextStyle(fontWeight: FontWeight.w500,color: blueee ,fontSize: 12),)),
               Gap(10),
 
-              assetsPhotoText(context,controller: messageController),
+              assetsPhotoText(context,controller: messageController,imageFileList: imageFileList.value),
 
               Center(
                 child: CustomButton(
                   title: continuee,
                   padding:
                   EdgeInsets.symmetric(horizontal: 34, vertical: 11),
-                  onTap: () {
-                    // navigationService.push(routeCustomeBottomNavigationBar,);
+                  onTap: () async {
+                    if(ppfAcNoController.text.isNotEmpty
+                        && bankBranchNameController.text.isNotEmpty
+                        && nomineeController.text.isNotEmpty
+                    ){
 
-                   Navigator.push(context, MaterialPageRoute(builder: (context) => GovernmentEPF()));
+                      Map<String,dynamic>  formDetailsData =
+                      {
+                        "ppfAcNo": ppfAcNoController.text,
+                        "bankBranchName": bankBranchNameController.text,
+                        "nominee": nomineeController.text,
+                        "legalHeir": messageController.text ?? "",
+                      };
+
+                      ReqStoreAssetsFormDetails storeAssetsFormData = ReqStoreAssetsFormDetails(
+                          subscriptionAssetId: 1,
+                          // subscriptionAssetId: int.parse(getString(prefSubscriptionAssetId)),
+                          formDetails: ["${formDetailsData}"],
+                          assetDocuments: imageList
+                      );
+
+                      await ref.read(storeAssetsFormProvider.notifier)
+                          .assetsFormDetails(context: context, data: storeAssetsFormData)
+                          .then((value) {
+
+                        if(value?.status == 1){
+                          displayToast("${value?.message}");
+                          navigationService.push(routeAssetScreen);
+                          print("enter ---->>> ");
+                        }else{
+                          displayToast("${value?.message}");
+                        }
+                      });
+
+                    }else{
+                      displayToast("Please Attach Field");
+                    }
                   },
                 ),
               ),

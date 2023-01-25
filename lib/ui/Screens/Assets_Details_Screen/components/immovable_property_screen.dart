@@ -1,27 +1,43 @@
+import 'dart:typed_data';
+
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:gap/gap.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:image_picker/image_picker.dart';
+import 'package:surakshakadi/data/model/home/dashboard/assets_details/store_assets_form_details/req_store_assets_form_details.dart';
 import 'package:surakshakadi/di/locator.dart';
 import 'package:surakshakadi/ui/Screens/Assets_Details_Screen/components/components.dart';
 import 'package:surakshakadi/ui/Screens/Assets_Details_Screen/components/utility_screen.dart';
+import 'package:surakshakadi/ui/Screens/Assets_Details_Screen/store_assets_form_view_modal.dart';
 import 'package:surakshakadi/utils/color_utils.dart';
+import 'package:surakshakadi/utils/constants/navigation_route_constants.dart';
+import 'package:surakshakadi/utils/constants/preference_key_constant.dart';
+import 'package:surakshakadi/utils/dialog_utils.dart';
 import 'package:surakshakadi/utils/image_utils.dart';
+import 'package:surakshakadi/utils/preference_utils.dart';
 import 'package:surakshakadi/utils/strings.dart';
 import 'package:surakshakadi/utils/utils.dart';
 import 'package:surakshakadi/widgets/custom_appbar.dart';
 import 'package:surakshakadi/widgets/custom_button.dart';
 import 'package:surakshakadi/widgets/custom_expandable_card.dart';
-
-import '../../../../utils/constants/navigation_route_constants.dart';
+import 'package:http/http.dart' as http;
 
 class ImmovableProperty extends HookConsumerWidget {
   const ImmovableProperty({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context,WidgetRef ref) {
-    final boxController = useTextEditingController();
+    final propertyController         = useTextEditingController();
+    final roughValueController       = useTextEditingController();
+    final detailsLoanController       = useTextEditingController();
+    final detailsInsuranceController = useTextEditingController();
     final messageController = useTextEditingController();
+    final imageFileList = useState<List<XFile>>([]);
+    List<MultipartFile> imageList = [];
+
+    final ownership = useState<bool>(true);
 
     return Scaffold(
       appBar: CustomAppBar(
@@ -110,8 +126,8 @@ class ImmovableProperty extends HookConsumerWidget {
 
               Gap(16),
 
-              expandRow(context,controller: boxController,title: "Property Address"),
-              expandRow(context,controller: boxController,title: "Rough Value of the Property"),
+              expandRow(context,controller: propertyController,title: "Property Address"),
+              expandRow(context,controller: roughValueController,title: "Rough Value of the Property"),
 
               Container(
                 padding: EdgeInsets.only(left: 15, right: 15),
@@ -129,37 +145,47 @@ class ImmovableProperty extends HookConsumerWidget {
                       flex: 10,
                       child: Row(
                         children: [
-                          Expanded(flex: 1,child: Container(
-                            height: 32,
-                            alignment: Alignment.center,
-                            decoration: BoxDecoration(
-                              color: lightsky,
-                              borderRadius: BorderRadius.circular(5),
-                              border: Border.all(color: blue),
-                              boxShadow: [
-                                BoxShadow(
-                                    color: Colors.black26, blurRadius: 2.0, offset: Offset(2,2)),
-                              ],
+                          Expanded(flex: 1,child: GestureDetector(
+                            onTap: (){
+                              ownership.value = true;
+                            },
+                            child: Container(
+                              height: 32,
+                              alignment: Alignment.center,
+                              decoration: BoxDecoration(
+                                color: ownership.value == true ? blue : lightsky,
+                                borderRadius: BorderRadius.circular(5),
+                                border: Border.all(color: blue),
+                                 boxShadow: [
+                                  BoxShadow(
+                                      color: Colors.black26, blurRadius: 2.0, offset: Offset(2,2)),
+                                ],
+                              ),
+                              child: Text("Single",style: TextStyle(fontSize: 12,fontWeight: FontWeight.w400,color: ownership.value == true ? white : blue),),
                             ),
-                            child: Text("Single",style: TextStyle(fontSize: 12,fontWeight: FontWeight.w400,color: blue),),
-                          ),
+                           ),
                           ),
 
                           Gap(8),
 
-                          Expanded(flex: 1,child: Container(
-                            height: 32,
-                            alignment: Alignment.center,
-                            decoration: BoxDecoration(
-                              color: lightsky,
-                              borderRadius: BorderRadius.circular(5),
-                              border: Border.all(color: blue),
-                              boxShadow: [
-                                BoxShadow(
-                                    color: Colors.black26, blurRadius: 2.0, offset: Offset(2,2)),
-                              ],
+                          Expanded(flex: 1,child: GestureDetector(
+                            onTap: (){
+                              ownership.value = false;
+                            },
+                            child: Container(
+                              height: 32,
+                              alignment: Alignment.center,
+                              decoration: BoxDecoration(
+                                color: ownership.value == false ? blue : lightsky,
+                                borderRadius: BorderRadius.circular(5),
+                                border: Border.all(color: blue),
+                                boxShadow: [
+                                  BoxShadow(
+                                      color: Colors.black26, blurRadius: 2.0, offset: Offset(2,2)),
+                                ],
+                              ),
+                              child: Text("Joint",style: TextStyle(fontSize: 12,fontWeight: FontWeight.w400,color: ownership.value == false ? white : blue),),
                             ),
-                            child: Text("Joint",style: TextStyle(fontSize: 12,fontWeight: FontWeight.w400,color: blue),),
                           ),
                           ),
                         ],
@@ -169,8 +195,8 @@ class ImmovableProperty extends HookConsumerWidget {
                 ),
               ),
 
-              expandRow(context,controller: boxController,title: "Details of the Loan(If Taken)"),
-              expandRow(context,controller: boxController,title: "Details of the Insurance(If Taken)"),
+              expandRow(context,controller: detailsLoanController,title: "Details of the Loan(If Taken)"),
+              expandRow(context,controller: detailsInsuranceController,title: "Details of the Insurance(If Taken)"),
 
               Gap(16),
               Padding(
@@ -182,17 +208,75 @@ class ImmovableProperty extends HookConsumerWidget {
                   padding: EdgeInsets.only(left: 15),
                   child: Text(noteACopyYour,style: TextStyle(fontWeight: FontWeight.w400,color: black ,fontSize: 12,fontFamily: fontFamily),)),
               Gap(20),
-              assetsPhotoText(context,controller: messageController),
+              assetsPhotoText(context,controller: messageController, imageFileList: imageFileList.value),
 
               Center(
                 child: CustomButton(
                   title: continuee,
                   padding:
                   EdgeInsets.symmetric(horizontal: 34, vertical: 11),
-                  onTap: () {
-                    Navigator.push(context, MaterialPageRoute(builder: (context)  =>
-                        Utility()));
-                    // navigationService.push(routeCustomeBottomNavigationBar,);
+                  onTap: () async {
+
+
+                    for (int i = 0; i < imageFileList.value.length; i++) {
+                      Uint8List imageBytes =
+                          await imageFileList.value[i].readAsBytes();
+                      int length = imageBytes.length;
+                      http.ByteStream stream =
+                      http.ByteStream(imageFileList.value[i].openRead());
+                      imageList.add(
+                        MultipartFile(stream, length,
+                            filename: imageFileList.value[i].name),
+                      );
+                    }
+
+                    if(propertyController.text.isNotEmpty
+                       && roughValueController.text.isNotEmpty
+                       && detailsLoanController.text.isNotEmpty
+                       && detailsInsuranceController.text.isNotEmpty
+                    ){
+
+                      Map<String,dynamic>  formDetailsData =
+                        {
+                          "property": propertyController.text,
+                          "roughValue": roughValueController.text,
+                          "ownership": ownership.value == true ? "Single" : "Joint",
+                          "detailsLoan": detailsLoanController.text,
+                          "detailsInsurance": detailsInsuranceController.text,
+                          "legalHeir": messageController.text,
+                        };
+
+                      ReqStoreAssetsFormDetails storeAssetsFormData = ReqStoreAssetsFormDetails(
+                          subscriptionAssetId: int.parse(getString(prefSubscriptionAssetId)),
+                          formDetails: ["${formDetailsData}"],
+                          assetDocuments: imageList
+                      );
+
+                      await ref.read(storeAssetsFormProvider.notifier)
+                          .assetsFormDetails(context: context, data: storeAssetsFormData)
+                          .then((value) {
+
+                            if(value?.status == 1){
+                              print("enter ---->>> ");
+                              displayToast("${value?.message}");
+                              navigationService.push(routeAssetScreen);
+                            }else{
+                              displayToast("${value?.message}");
+                            }
+                      });
+
+                    }else{
+                      displayToast("Please Attach Field");
+                    }
+
+
+
+                    // Navigator.push(context, MaterialPageRoute(builder: (context)  =>
+                    //     Utility()));
+                    //
+
+
+
                   },
                 ),
               ),
@@ -205,68 +289,7 @@ class ImmovableProperty extends HookConsumerWidget {
           ),
         ),
       ),
-      // bottomNavigationBar: Container(
-      //   height: Utils.getHeight(context) * 0.08,
-      //   decoration: BoxDecoration(
-      //     color: Colors.white,
-      //     boxShadow: [
-      //       BoxShadow(
-      //         color: Color(0xff037EEE).withOpacity(0.15),
-      //         offset: const Offset(0.0, -3),
-      //         blurRadius: 0.7,
-      //         spreadRadius: 0.5,
-      //       ), //BoxShadow
-      //     ],
-      //   ),
-      //   child: Row(
-      //     children: [
-      //       Expanded(
-      //           flex: 1,
-      //           child: Container(
-      //               alignment: Alignment.center,
-      //               child: Text(
-      //                 "Raise a ticket",
-      //                   style: TextStyle(
-      //                       fontWeight: FontWeight.bold,
-      //                       fontSize: 15,
-      //                       color: blue)),
-      //           )
-      //       ),
-      //       Expanded(
-      //           flex: 1,
-      //           child: HookConsumer(
-      //             builder: (context, ref, child) {
-      //               return InkWell(
-      //                 onTap: ()  {
-      //                   navigationService.push(routeCustomeBottomNavigationBar,);
-      //                 },
-      //                 child: Container(
-      //                   height: Utils.getHeight(context) * 0.08,
-      //                   alignment: Alignment.center,
-      //                   decoration: BoxDecoration(
-      //                     gradient: LinearGradient(
-      //                       colors: [
-      //                         Color(0xff3C87E0).withOpacity(0.9),
-      //                         Color(0xff0E3563).withOpacity(0.9)
-      //                       ],
-      //                       begin: Alignment.topCenter,
-      //                       end: Alignment.bottomCenter,
-      //                     ),
-      //                   ),
-      //                   child: Text(
-      //                     continuee,
-      //                     style: TextStyle(
-      //                         color: white,
-      //                         fontWeight: FontWeight.w600,
-      //                         letterSpacing: 0.5),
-      //                   ),
-      //                 ),
-      //               );
-      //             },
-      //           )),
-      //     ],
-      //   ),
-      // ),
+
     );
   }
 }

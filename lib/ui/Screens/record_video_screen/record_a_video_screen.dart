@@ -1,11 +1,8 @@
-import 'dart:convert';
 import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:http/http.dart';
-import 'package:image_picker/image_picker.dart';
 import 'package:surakshakadi/data/model/home/dashboard/store_will_review_details/req_store_will_review_details.dart';
 import 'package:surakshakadi/di/locator.dart';
 import 'package:surakshakadi/ui/Screens/record_video_screen/store_will_review_view_modal.dart';
@@ -38,7 +35,7 @@ class _RecordAVideoState extends State<RecordAVideo> {
 
   late VideoPlayerController _controller;
   late Future<void> _initializeVideoPlayerFuture;
-
+  String videoData = "" ;
   @override
   void initState()
   {
@@ -46,7 +43,7 @@ class _RecordAVideoState extends State<RecordAVideo> {
     if(widget.videoRecord == true ) {
       _controller = VideoPlayerController.file(widget.videoPictureRV!);
       // _controller = VideoPlayerController.file(File(widget.videoPictureRV!.path));
-
+      videoData = "${widget.videoBase64}";
 
       _initializeVideoPlayerFuture = _controller.initialize();
 
@@ -191,8 +188,8 @@ class _RecordAVideoState extends State<RecordAVideo> {
 
                         if(widget.videoRecord == true){
 
-                          print("video--->> ${widget.videoBase64}");
-                          String video = "${widget.videoBase64}";
+                          print("video--->> ${videoData}");
+
 
                           if(widget.videoRecord == true){
 
@@ -202,7 +199,7 @@ class _RecordAVideoState extends State<RecordAVideo> {
                               userId: getString(prefUserID),
                               issueDetails: "${getString(prefIssueDetail)}",
                               termsConditionsStatus: 1,
-                              videoFile: "video",
+                              videoFile: videoData,
                             );
 
                             setState((){});

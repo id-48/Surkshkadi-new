@@ -6,11 +6,13 @@ import 'package:gap/gap.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:surakshakadi/utils/color_utils.dart';
 import 'package:surakshakadi/utils/image_utils.dart';
+import 'package:surakshakadi/utils/selectedImageViewer.dart';
 import 'package:surakshakadi/utils/strings.dart';
 import 'package:surakshakadi/utils/utils.dart';
 import 'package:surakshakadi/widgets/custom_button.dart';
 import 'package:surakshakadi/widgets/custom_dottedborder.dart';
 import 'package:surakshakadi/widgets/custom_textfeild.dart';
+import 'package:surakshakadi/widgets/selectedImageViewer.dart';
 
 class FillTextField extends HookWidget {
   final String  title ;
@@ -60,14 +62,24 @@ class FillTextField extends HookWidget {
 
 assetsPhotoText (context,{
   required TextEditingController controller,
+  required List<XFile> imageFileList,
    bool textField = true,
 }){
   ImagePicker _picker = ImagePicker();
-
+  final imageFileListt = useState<List<XFile>>([]);
 XFile? image;
 final pickedImage = useState<File>(File(""));
 final isPicked = useState<bool>(false);
 
+
+
+  Future getImage(res) async {
+    try {
+      res.value = (await _picker.pickMultiImage());
+    } catch (e) {
+      Error();
+    }
+  }
   return Column(
     crossAxisAlignment: CrossAxisAlignment.start,
     children: [
@@ -83,21 +95,27 @@ final isPicked = useState<bool>(false);
 
       SizedBox(height: Utils.getHeight(context) * 0.025,),
 
-      Container(
-        margin: EdgeInsets.symmetric(horizontal: 15),
-        width: Utils.getWidth(context),
-        height: Utils.getHeight(context) * 0.055,
-        decoration: BoxDecoration(
-          color: blue,
-          borderRadius: BorderRadius.circular(5),
-        ),
-        child: Row(
-          children: [
-            Gap(5),
-            Icon(Icons.attach_file,size: 25,color: white,),
-            Gap(20),
-            Text(attachDocument,style: TextStyle(fontSize: 14,fontWeight: FontWeight.w500,color: white),),
-          ],
+      InkWell(
+        onTap: (){
+          getImage(imageFileListt.value);
+          isPicked.value = true;
+        },
+        child: Container(
+          margin: EdgeInsets.symmetric(horizontal: 15),
+          width: Utils.getWidth(context),
+          height: Utils.getHeight(context) * 0.055,
+          decoration: BoxDecoration(
+            color: blue,
+            borderRadius: BorderRadius.circular(5),
+          ),
+          child: Row(
+            children: [
+              Gap(5),
+              Icon(Icons.attach_file,size: 25,color: white,),
+              Gap(20),
+              Text(attachDocument,style: TextStyle(fontSize: 14,fontWeight: FontWeight.w500,color: white),),
+            ],
+          ),
         ),
       ),
 
@@ -105,82 +123,115 @@ final isPicked = useState<bool>(false);
         height: Utils.getHeight(context) * 0.025,
       ),
 
-      Padding(
-          padding: EdgeInsets.only(left: 15),
-          child: Text(addAnotherDocument,style: TextStyle(fontWeight: FontWeight.w500,color: blueee ,fontSize: 12),)),
+      InkWell(
+        onTap: (){
+          getImage(imageFileListt.value);
+          isPicked.value = true;
+        },
+        child: Padding(
+            padding: EdgeInsets.only(left: 15),
+            child: Text(addAnotherDocument,style: TextStyle(fontWeight: FontWeight.w500,color: blueee ,fontSize: 12),)),
+      ),
 
 
       SizedBox(
         height: Utils.getHeight(context) * 0.03,
       ),
 
-      Container(
-        height: 170,
-        padding: EdgeInsets.symmetric(horizontal: 15),
-        child: Custom_Dottedborder(
-          padding: EdgeInsets.only(top: 10,left: 10,bottom: 10),
-          child: Container(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(clickPhoto,style: TextStyle(fontSize: 14,fontWeight: FontWeight.w400,color: black,fontFamily: fontFamily),),
-                Gap(15),
-
-                Row(
+      StatefulBuilder(
+        builder:  (BuildContext context, void Function(void Function()) setState) {
+          return Container(
+            height: 170,
+            padding: EdgeInsets.symmetric(horizontal: 15),
+            child: Custom_Dottedborder(
+              padding: EdgeInsets.only(top: 10,left: 10,bottom: 10),
+              child: Container(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Center(
-                      child: Container(
-                        height: 90,
-                        width: Utils.getWidth(context) * 0.27,
-                        child:
-                        GestureDetector(
-                          onTap:
+                    Text(clickPhoto,style: TextStyle(fontSize: 14,fontWeight: FontWeight.w400,color: black,fontFamily: fontFamily),),
+                    Gap(15),
 
-                              () async {
-                            print('------------->>>>>>>>>>>>>>>>>.image ');
-                            image = await _picker.pickImage(source: ImageSource.gallery);
-                            print('image path 216${image}');
-                            if (image != null) {
-                              pickedImage.value = File(image!.path);
-                              print(
-                                  ' ------------------------- image path 200 --------------------------->>>>>>>${pickedImage}');
-                              isPicked.value = true;
-                            }
-                          },
+                    Row(
+                      children: [
+                        Center(
                           child: Container(
-
+                            height: 90,
+                            width: Utils.getWidth(context) * 0.27,
                             child:
-                            isPicked.value == true
-                                ?
-                            Image.file(
-                              pickedImage.value,
-                              fit: BoxFit.fill,
-                            )
-                                :
-                            Image.asset(informationupload,scale: 4,fit: BoxFit.fill,),
+                            GestureDetector(
+                              onTap: () async {
+
+                                print('------------->>>>>>>>>>>>>>>>>.image ');
+                                image = await _picker.pickImage(source: ImageSource.gallery);
+                                print('image path 216${image}');
+                                if (image != null) {
+                                  pickedImage.value = File(image!.path);
+                                  print(
+                                      ' image path 200 ---->>>>>>${pickedImage}');
+                                  isPicked.value = true;
+                                }
+
+                                // getImage(imageFileListt.value);
+                                // isPicked.value = true;
+                              },
+                              child: Container(
+
+                                child:   isPicked.value == true
+                                    ? Image.file(
+                                    pickedImage.value
+                                        )
+                                        : Image.asset(
+                                    informationupload,
+                                    scale: 4,
+                                    fit: BoxFit.fill,
+                                  ),
+
+
+
+
+
+
+
+
+
+                                // imageFileListt.value.isNotEmpty
+                                //         ? SelectedImageViewer(
+                                //            res: imageFileListt.value,
+                                //            setState: (void Function()) {
+                                //            setState(() {});
+                                //           },
+                                //          )
+                                //         : Image.asset(
+                                //            informationupload,
+                                //            scale: 4,
+                                //            fit: BoxFit.fill,
+                                //           ),
+                              ),
+                            ),
                           ),
                         ),
-                      ),
-                    ),
 
-                    Gap(25),
+                        Gap(25),
 
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Text(uploadImage,style: TextStyle(fontSize: 10,fontWeight: FontWeight.w400,color: black,fontFamily: fontFamily),),
-                        Gap(2),
-                        Text(uploadMultipleImage,style: TextStyle(fontSize: 8,fontWeight: FontWeight.w400,color: hintTextColor,fontFamily: fontFamily),),
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Text(uploadImage,style: TextStyle(fontSize: 10,fontWeight: FontWeight.w400,color: black,fontFamily: fontFamily),),
+                            Gap(2),
+                            Text(uploadMultipleImage,style: TextStyle(fontSize: 8,fontWeight: FontWeight.w400,color: hintTextColor,fontFamily: fontFamily),),
+                          ],
+                        ),
+
                       ],
                     ),
-
                   ],
                 ),
-              ],
+              ),
             ),
-          ),
-        ),
+          );
+        }
       ),
 
 
