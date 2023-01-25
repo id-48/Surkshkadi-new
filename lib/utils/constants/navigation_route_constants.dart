@@ -33,6 +33,20 @@ const String routeStartPartnerWithWeb = "/routeStartPartnerWithWeb";
 const String routeAdminDashboard = "/routeAdminDashboard";
 const String routeKYCChatBotMobile = "/routeKYCChatBotMobile";
 const String routeDigiLockerWebView = "/routeDigiLockerWebView";
+const String routeBankSavingsAccounts = "/routeBankSavingsAccounts";
+const String routeGovernmentAPY = "/routeGovernmentAPY";
+const String routeGovernmentEPF = "/routeGovernmentEPF";
+const String routeGovernmentKVP = "/routeGovernmentKVP";
+const String routeGovernmentNPS = "/routeGovernmentNPS";
+const String routeGovernmentPPF = "/routeGovernmentPPF";
+const String routeImmovableProperty = "/routeImmovableProperty";
+const String routeInsuranceLife = "/routeInsuranceLife";
+const String routeInvestmentsDematAccount = "/routeInvestmentsDematAccount";
+const String routeMiscellaneousCompany = "/routeMiscellaneousCompany";
+const String routePersonal = "/routePersonal";
+const String routePersonalVehicle = "/routePersonalVehicle";
+const String routeUtilityElectricity = "/routeUtilityElectricity";
+const String routeUtility = "/routeUtility";
 
 
 

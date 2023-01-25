@@ -95,7 +95,7 @@ class CustomExpandableCard extends HookWidget {
                         children: [
 
                           Expanded(flex: 3,
-                              child: Image.asset(assetimage,scale: 3.8,)),
+                              child: Image.network(assetimage,scale: 6,)),
 
                          Expanded(flex: 7,
                            child:  Text(assetname,

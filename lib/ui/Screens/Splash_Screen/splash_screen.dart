@@ -47,7 +47,7 @@ class SplashScreen extends HookWidget {
           if (context.isMobile) {
             print("Aadhar token ${getString(prefUserID)}");
             if (getString(prefLoginToken).isNotEmpty) {
-              Navigator.push(context, MaterialPageRoute(builder: (context) => Utility()));
+              Navigator.push(context, MaterialPageRoute(builder: (context) => AssetsMobile()));
               // navigationService
               //     .pushAndRemoveUntil(routeCustomeBottomNavigationBar);
             } else {

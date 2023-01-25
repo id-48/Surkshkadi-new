@@ -199,7 +199,7 @@ class _RecordAVideoState extends State<RecordAVideo> {
                               userId: getString(prefUserID),
                               issueDetails: "${getString(prefIssueDetail)}",
                               termsConditionsStatus: 1,
-                              videoFile: videoData,
+                              videoFile: "videoData",
                             );
 
                             setState((){});

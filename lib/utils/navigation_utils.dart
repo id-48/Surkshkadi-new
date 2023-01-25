@@ -4,6 +4,20 @@ import 'package:surakshakadi/ui/Screens/Assets_Details_Screen/assets_information
 import 'package:surakshakadi/ui/Screens/Assets_Details_Screen/assets_information_web_screen.dart';
 import 'package:surakshakadi/ui/Screens/Assets_Details_Screen/assets_mobile_screen.dart';
 import 'package:surakshakadi/ui/Screens/Assets_Details_Screen/assets_web_screen.dart';
+import 'package:surakshakadi/ui/Screens/Assets_Details_Screen/components/bank_savings_accounts_screen.dart';
+import 'package:surakshakadi/ui/Screens/Assets_Details_Screen/components/government_APY_screen.dart';
+import 'package:surakshakadi/ui/Screens/Assets_Details_Screen/components/government_EPF_screen.dart';
+import 'package:surakshakadi/ui/Screens/Assets_Details_Screen/components/government_KVP_screen.dart';
+import 'package:surakshakadi/ui/Screens/Assets_Details_Screen/components/government_NPS_screen.dart';
+import 'package:surakshakadi/ui/Screens/Assets_Details_Screen/components/government_ppf_screen.dart';
+import 'package:surakshakadi/ui/Screens/Assets_Details_Screen/components/immovable_property_screen.dart';
+import 'package:surakshakadi/ui/Screens/Assets_Details_Screen/components/insurance_life_insurance_screen.dart';
+import 'package:surakshakadi/ui/Screens/Assets_Details_Screen/components/investments_demat_account_screen.dart';
+import 'package:surakshakadi/ui/Screens/Assets_Details_Screen/components/miscellaneous_company_screen.dart';
+import 'package:surakshakadi/ui/Screens/Assets_Details_Screen/components/personal_screen.dart';
+import 'package:surakshakadi/ui/Screens/Assets_Details_Screen/components/personal_vehicle_screen.dart';
+import 'package:surakshakadi/ui/Screens/Assets_Details_Screen/components/utility_electricity_screen.dart';
+import 'package:surakshakadi/ui/Screens/Assets_Details_Screen/components/utility_screen.dart';
 import 'package:surakshakadi/ui/Screens/Check_Your_Information_Screen/check_your_information_mobile_screen.dart';
 import 'package:surakshakadi/ui/Screens/Check_Your_Information_Screen/check_your_information_web_screen.dart';
 import 'package:surakshakadi/ui/Screens/Kyc_Screen/components/components.dart';
@@ -171,6 +185,77 @@ class NavigationUtils {
         return CustomRoute(
             settings: const RouteSettings(name: routeDigiLockerWebView),
             builder: (_) => DigiLockerWebView());
+
+      case routeBankSavingsAccounts:
+        return CustomRoute(
+            settings: const RouteSettings(name: routeBankSavingsAccounts),
+            builder: (_) => BankSavingsAccounts());
+
+      case routeGovernmentAPY:
+        return CustomRoute(
+            settings: const RouteSettings(name: routeGovernmentAPY),
+            builder: (_) => GovernmentAPY());
+
+      case routeGovernmentEPF:
+        return CustomRoute(
+            settings: const RouteSettings(name: routeGovernmentEPF),
+            builder: (_) => GovernmentEPF());
+
+      case routeGovernmentKVP:
+        return CustomRoute(
+            settings: const RouteSettings(name: routeGovernmentKVP),
+            builder: (_) => GovernmentKVP());
+
+      case routeGovernmentNPS:
+        return CustomRoute(
+            settings: const RouteSettings(name: routeGovernmentNPS),
+            builder: (_) => GovernmentNPS());
+
+      case routeGovernmentPPF:
+        return CustomRoute(
+            settings: const RouteSettings(name: routeGovernmentPPF),
+            builder: (_) => GovernmentPPF());
+
+      case routeImmovableProperty:
+        return CustomRoute(
+            settings: const RouteSettings(name: routeImmovableProperty),
+            builder: (_) => ImmovableProperty());
+
+      case routeInsuranceLife:
+        return CustomRoute(
+            settings: const RouteSettings(name: routeInsuranceLife),
+            builder: (_) => InsuranceLife());
+
+      case routeInvestmentsDematAccount:
+        return CustomRoute(
+            settings: const RouteSettings(name: routeInvestmentsDematAccount),
+            builder: (_) => InvestmentsDematAccount());
+
+      case routeMiscellaneousCompany:
+        return CustomRoute(
+            settings: const RouteSettings(name: routeMiscellaneousCompany),
+            builder: (_) => MiscellaneousCompany());
+
+      case routePersonal:
+        return CustomRoute(
+            settings: const RouteSettings(name: routePersonal),
+            builder: (_) => Personal());
+
+      case routePersonalVehicle:
+        return CustomRoute(
+            settings: const RouteSettings(name: routePersonalVehicle),
+            builder: (_) => PersonalVehicle());
+
+      case routeUtilityElectricity:
+        return CustomRoute(
+            settings: const RouteSettings(name: routeUtilityElectricity),
+            builder: (_) => UtilityElectricity());
+
+      case routeUtility:
+        return CustomRoute(
+            settings: const RouteSettings(name: routeUtility),
+            builder: (_) => Utility());
+
 
 
 

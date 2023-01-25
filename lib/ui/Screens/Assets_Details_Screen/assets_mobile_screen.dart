@@ -3,6 +3,7 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:gap/gap.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:surakshakadi/data/model/home/dashboard/assets_details/get_selected_assets/req_get_selected_assets.dart';
+import 'package:surakshakadi/di/locator.dart';
 import 'package:surakshakadi/ui/Screens/Assets_Details_Screen/components/immovable_property_screen.dart';
 import 'package:surakshakadi/ui/Screens/Assets_Details_Screen/store_assets_form_view_modal.dart';
 import 'package:surakshakadi/ui/Screens/Plan_Screen/plan_mobile_screen.dart';
@@ -17,6 +18,7 @@ import 'package:surakshakadi/widgets/custom_expandable_card.dart';
 import 'package:surakshakadi/widgets/loading.dart';
 
 import '../../../data/model/home/dashboard/assets_details/get_selected_assets/res_get_selected_assets.dart';
+import '../../../utils/constants/navigation_route_constants.dart';
 
 class AssetsMobile extends HookConsumerWidget {
   const AssetsMobile({Key? key}) : super(key: key);
@@ -25,8 +27,8 @@ class AssetsMobile extends HookConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     useEffect(() {
       ReqGetSelectedAssets PlanChatSubPayment = ReqGetSelectedAssets(
-          userId: 1
-          // userId: int.parse(getString(prefUserID))
+          // userId: 1
+          userId: int.parse(getString(prefUserID))
           );
 
       ref
@@ -37,6 +39,7 @@ class AssetsMobile extends HookConsumerWidget {
     final selectedAssetsController = ref.watch(getSelectedAssetsProvider);
 
     return StatefulBuilder(builder: (BuildContext context, setState) {
+      print("assets userId--->>${getString(prefUserID)}");
       return selectedAssetsController.when(
           data: (data) {
             return Scaffold(
@@ -98,7 +101,7 @@ AssetMobileData(context,{
     index: 0,
     isExpanded: ValueNotifier(1),
     border: Border.all(color: Color(int.parse("0xff${data.categoryBoxColor}"))),
-    assetimage: bank,
+    assetimage: data.categoryImage,
     assetname: data.assetCategory,
     boxcolor: Color(int.parse("0xff${data.categoryBoxColor}")),
     expandedChild: Container(
@@ -120,29 +123,59 @@ AssetMobileData(context,{
               .map(
                 (e) => GestureDetector(
                   onTap: () {
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => ImmovableProperty()));
+                    // Navigator.push(
+                    //     context,
+                    //     MaterialPageRoute(
+                    //         builder: (context) => ImmovableProperty()));
 
                     setString(prefSubscriptionAssetId, e.subscriptionAssetId );
 
                     print("hello ---->>>>> ${e.assetName}");
 
-                    if(e.assetName.toString() == "Demat Account"){
-                      print("hello Demat Account ---->>>>>");
+
+                    if(e.assetName.toString() == "Company Transfer"){
+                        navigationService.push(routeMiscellaneousCompany);
+                    }else if(e.assetName.toString() == "GST Transfer" ||  e.assetName.toString() == "Shares Transfer" || e.assetName.toString() == "Mutual Funds Transfer"){
+
+                    }else if(e.assetName.toString() == "Vehicles"){
+                      navigationService.push(routePersonalVehicle);
+
+                    }else if(e.assetName.toString() == "Precious Stones, Metals, Jewelers" || e.assetName.toString() == "Clubs And Other Memberships"){
+                      navigationService.push(routePersonal);
+
+                    }else if(e.assetName.toString() == "Land/ Plot" || e.assetName.toString() == "Office/ Shop" || e.assetName.toString() == "House/ Apartment" || e.assetName.toString() == "Building" ){
+                      navigationService.push(routeImmovableProperty);
+
+                    }else if(e.assetName.toString() == "Vehicles"){
 
 
-                    }else if(e.assetName.toString() == "Shares Liqudation"){
-                      print("hello Shares Liqudation ---->>>>>");
+                    }else if(e.assetName.toString() == "Vehicles"){
 
-                    }else if(e.assetName.toString() == "EPF"){
-                      print("hello EPF ---->>>>>");
+
+                    }else if(e.assetName.toString() == "Vehicles"){
+
+
+                    }else if(e.assetName.toString() == "Vehicles"){
+
+
+                    }else if(e.assetName.toString() == "Vehicles"){
+
+
+                    }else if(e.assetName.toString() == "Vehicles"){
+
+
+                    }else if(e.assetName.toString() == "Vehicles") {
 
                     }
 
 
-                    //     colorBox == true ?
+
+
+
+
+
+
+                      //     colorBox == true ?
                     //    navigationService.push(routeAssetsInformation,arguments: {navSelectedindex: data["description"].indexOf(e),navDattaa: data,});
                     // :
                     // navigationService.push(routeAssetsInformationWeb,arguments: {navSelectIndex : data["description"].indexOf(e), navSelectDattaa : data });
