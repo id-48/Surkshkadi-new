@@ -108,6 +108,7 @@ class RegisterWeb extends HookConsumerWidget {
             CustomAppbarWeb(
               index: 3,
               boxShadow: true,
+              button: false,
             ),
             Gap(50),
             Padding(
@@ -924,152 +925,157 @@ class RegisterWeb extends HookConsumerWidget {
                                       Gap(20),
                                       InkWell(
                                         onTap: () async {
-                                          ReqStoreCPDetails StoreCPDetailsData =
-                                              ReqStoreCPDetails(
-                                            userId: "5",
-                                            // userId: "${getString(prefUserID)}",
-                                            partnerType: "Company",
-                                            companyName: "test Company",
-                                            firstName: "test",
-                                            lastName: 'test Company',
-                                            email: "test@gmail.com",
-                                            contactNumber: "1023654789",
-                                            state: "Gujarat",
-                                            city: "Surat",
-                                          );
+                                          // ReqStoreCPDetails StoreCPDetailsData =
+                                          //     ReqStoreCPDetails(
+                                          //   userId: "5",
+                                          //   // userId: "${getString(prefUserID)}",
+                                          //   partnerType: "Company",
+                                          //   companyName: "test Company",
+                                          //   firstName: "test",
+                                          //   lastName: 'test Company',
+                                          //   email: "test@gmail.com",
+                                          //   contactNumber: "1023654789",
+                                          //   state: "Gujarat",
+                                          //   city: "Surat",
+                                          // );
+                                          //
+                                          // print(
+                                          //     'yashu patel------>>>>>> individual ');
+                                          //
+                                          // await ref
+                                          //     .read(storeCPDetailsProvider
+                                          //         .notifier)
+                                          //     .storeCPDetails(
+                                          //         context: context,
+                                          //         data: StoreCPDetailsData)
+                                          //     .then((value) {
+                                          //   print(
+                                          //       'yashu patel------>>>>>> individual 111111');
+                                          //   print(
+                                          //       'yashu patel------>>>>>> individual status 111111 ${value?.status} ');
+                                          //   if (value!.status == 1) {
+                                          //     print("Yashu Patel");
+                                          //     displayToast(value.message);
+                                          //     // Navigator.push(context, MaterialPageRoute(builder: (context) => CPPartnerConfirmationWeb()));
+                                          //     // eKYC.value = true;
+                                          //   } else {
+                                          //     displayToast(value.message);
+                                          //   }
+                                          // });
+///
+                                          print("Test ---}");
 
-                                          print(
-                                              'yashu patel------>>>>>> individual ');
+                                          if(companyCheck.value == true) {
+                                            if (firstNameController.text.isNotEmpty
+                                                && lastNameController.text.isNotEmpty
+                                                && mailController.text.isNotEmpty
+                                                && mobileController.text.isNotEmpty
+                                                && statee.value.isNotEmpty
+                                                && cityy.value.isNotEmpty
+                                                && companyNameController.text.isNotEmpty
 
-                                          await ref
-                                              .read(storeCPDetailsProvider
-                                                  .notifier)
-                                              .storeCPDetails(
-                                                  context: context,
+                                            ) {
+                                                  setString(prefCompanyName, "${ individualCheck.value ? "" : companyNameController.text}");
+                                                  setString(prefClientType, "${ individualCheck.value ? "Individual" : "Company"}");
+
+
+
+                                              ReqStoreCPDetails StoreCPDetailsData = ReqStoreCPDetails(
+                                                userId: "3",
+                                                // userId: "${getString(prefUserID)}",
+                                                partnerType: individualCheck.value
+                                                    ? "Individual"
+                                                    : "Company",
+                                                companyName: individualCheck.value
+                                                    ? ""
+                                                    : companyNameController.text,
+                                                firstName: firstNameController.text,
+                                                lastName: lastNameController.text,
+                                                email: mailController.text,
+                                                contactNumber: mobileController.text,
+                                                state: statee.value,
+                                                city: cityy.value,
+                                              );
+
+                                              print('yashu patel company ------>>>>>>');
+
+                                              await ref.read(
+                                                  storeCPDetailsProvider.notifier)
+                                                  .storeCPDetails(context: context,
                                                   data: StoreCPDetailsData)
-                                              .then((value) {
-                                            print(
-                                                'yashu patel------>>>>>> individual 111111');
-                                            print(
-                                                'yashu patel------>>>>>> individual status 111111 ${value?.status} ');
-                                            if (value!.status == 1) {
-                                              print("Yashu Patel");
-                                              displayToast(value.message);
-                                              // Navigator.push(context, MaterialPageRoute(builder: (context) => CPPartnerConfirmationWeb()));
-                                              // eKYC.value = true;
-                                            } else {
-                                              displayToast(value.message);
-                                            }
-                                          });
+                                                  .then((value) {
+                                                print('yashu patel------>>>>>> company 111111');
+                                                print('yashu patel------>>>>>> company status 111111 ${value?.status} ');
+                                                if (value!.status == 1) {
 
-                                          // print("Test ---}");
-                                          //
-                                          // if(companyCheck.value == true) {
-                                          //   if (firstNameController.text.isNotEmpty
-                                          //       && lastNameController.text.isNotEmpty
-                                          //       && mailController.text.isNotEmpty
-                                          //       && mobileController.text.isNotEmpty
-                                          //       && statee.value.isNotEmpty
-                                          //       && cityy.value.isNotEmpty
-                                          //       && companyNameController.text.isNotEmpty
-                                          //
-                                          //   ) {
-                                          //     ReqStoreCPDetails StoreCPDetailsData = ReqStoreCPDetails(
-                                          //       userId: "3",
-                                          //       // userId: "${getString(prefUserID)}",
-                                          //       partnerType: individualCheck.value
-                                          //           ? "Individual"
-                                          //           : "Company",
-                                          //       companyName: individualCheck.value
-                                          //           ? ""
-                                          //           : companyNameController.text,
-                                          //       firstName: firstNameController.text,
-                                          //       lastName: lastNameController.text,
-                                          //       email: mailController.text,
-                                          //       contactNumber: mobileController.text,
-                                          //       state: statee.value,
-                                          //       city: cityy.value,
-                                          //     );
-                                          //
-                                          //     print('yashu patel company ------>>>>>>');
-                                          //
-                                          //     await ref.read(
-                                          //         storeCPDetailsProvider.notifier)
-                                          //         .storeCPDetails(context: context,
-                                          //         data: StoreCPDetailsData)
-                                          //         .then((value) {
-                                          //       print('yashu patel------>>>>>> company 111111');
-                                          //       print('yashu patel------>>>>>> company status 111111 ${value?.status} ');
-                                          //       if (value!.status == 1) {
-                                          //
-                                          //         print("Yashu Patel company Success");
-                                          //         displayToast(value.message);
-                                          //         // Navigator.push(context, MaterialPageRoute(builder: (context) => CPPartnerConfirmationWeb()));
-                                          //         eKYC.value = true;
-                                          //       } else {
-                                          //         print("Yashu Patel company Error");
-                                          //
-                                          //         displayToast(value.message);
-                                          //       }
-                                          //     });
-                                          //   } else {
-                                          //     displayToast("Please Provide Details");
-                                          //   }
-                                          // }
-                                          // else{
-                                          //   if (firstNameController.text.isNotEmpty
-                                          //       && lastNameController.text.isNotEmpty
-                                          //       && mailController.text.isNotEmpty
-                                          //       && mobileController.text.isNotEmpty
-                                          //       && statee.value.isNotEmpty
-                                          //       && cityy.value.isNotEmpty
-                                          //
-                                          //   ) {
-                                          //
-                                          //
-                                          //     ReqStoreCPDetails StoreCPDetailsData = ReqStoreCPDetails(
-                                          //       userId: "3",
-                                          //       // userId: "${getString(prefUserID)}",
-                                          //       partnerType: individualCheck.value
-                                          //           ? "Individual"
-                                          //           : "Company",
-                                          //       companyName: individualCheck.value
-                                          //           ? ""
-                                          //           : companyNameController.text,
-                                          //       firstName: firstNameController.text,
-                                          //       lastName: lastNameController.text,
-                                          //       email: mailController.text,
-                                          //       contactNumber: mobileController.text,
-                                          //       state: statee.value,
-                                          //       city: cityy.value,
-                                          //     );
-                                          //
-                                          //     print('yashu patel------>>>>>> individual ');
-                                          //
-                                          //     await ref.read(
-                                          //         storeCPDetailsProvider.notifier)
-                                          //         .storeCPDetails(context: context,
-                                          //         data: StoreCPDetailsData)
-                                          //         .then((value) {
-                                          //       print('yashu patel------>>>>>> individual 111111');
-                                          //       print('yashu patel------>>>>>> individual status 111111 ${value?.status} ');
-                                          //       if (value!.status == 1) {
-                                          //         print("Yashu Patel");
-                                          //         displayToast(value.message);
-                                          //         // Navigator.push(context, MaterialPageRoute(builder: (context) => CPPartnerConfirmationWeb()));
-                                          //         eKYC.value = true;
-                                          //       } else {
-                                          //         displayToast(value.message);
-                                          //       }
-                                          //     });
-                                          //
-                                          //
-                                          //   } else {
-                                          //     displayToast("Please Provide Details");
-                                          //   }
-                                          // }
-                                          //
-                                          //
+                                                  print("Yashu Patel company Success");
+                                                  displayToast(value.message);
+                                                  // Navigator.push(context, MaterialPageRoute(builder: (context) => CPPartnerConfirmationWeb()));
+                                                  eKYC.value = true;
+                                                } else {
+                                                  print("Yashu Patel company Error");
+
+                                                  displayToast(value.message);
+                                                }
+                                              });
+                                            } else {
+                                              displayToast("Please Provide Details");
+                                            }
+                                          }
+                                          else{
+                                            if (firstNameController.text.isNotEmpty
+                                                && lastNameController.text.isNotEmpty
+                                                && mailController.text.isNotEmpty
+                                                && mobileController.text.isNotEmpty
+                                                && statee.value.isNotEmpty
+                                                && cityy.value.isNotEmpty
+
+                                            ) {
+
+                                              setString(prefCompanyName, "${ individualCheck.value ? "" : companyNameController.text}");
+                                              setString(prefClientType, "${ individualCheck.value ? "Individual" : "Company"}");
+
+
+
+                                              ReqStoreCPDetails StoreCPDetailsData = ReqStoreCPDetails(
+                                                userId: "3",
+                                                // userId: "${getString(prefUserID)}",
+                                                partnerType: individualCheck.value? "Individual" : "Company",
+                                                companyName: individualCheck.value ? "" : companyNameController.text,
+                                                firstName: firstNameController.text,
+                                                lastName: lastNameController.text,
+                                                email: mailController.text,
+                                                contactNumber: mobileController.text,
+                                                state: statee.value,
+                                                city: cityy.value,
+                                              );
+
+                                              print('yashu patel------>>>>>> individual ');
+
+                                              await ref.read(
+                                                  storeCPDetailsProvider.notifier)
+                                                  .storeCPDetails(context: context,
+                                                  data: StoreCPDetailsData)
+                                                  .then((value) {
+                                                print('yashu patel------>>>>>> individual 111111');
+                                                print('yashu patel------>>>>>> individual status 111111 ${value?.status} ');
+                                                if (value!.status == 1) {
+                                                  print("Yashu Patel");
+                                                  displayToast(value.message);
+                                                  // Navigator.push(context, MaterialPageRoute(builder: (context) => CPPartnerConfirmationWeb()));
+                                                  eKYC.value = true;
+                                                } else {
+                                                  displayToast(value.message);
+                                                }
+                                              });
+
+
+                                            } else {
+                                              displayToast("Please Provide Details");
+                                            }
+                                          }
+
+
                                         },
                                         child: Container(
                                           padding: EdgeInsets.symmetric(

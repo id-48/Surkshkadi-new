@@ -9,6 +9,8 @@ const String prefSpecificAssetsChoose = 'prefSpecificAssetsChoose';
 const String prefDashboardResponse = 'prefDashboardResponse';
 const String prefSingleAssetsPrice = 'prefSingleAssetsPrice';
 const String prefRazorpayId = 'prefRazorpayId';
+const String prefCompanyName = 'prefCompanyName';
+const String prefClientType= 'prefClientType';
 
 const String prefPlanIdMobile = 'prefPlanId PlanScreen Mobile';
 const String prefSingleUAId = 'pref Single user Assets Id';

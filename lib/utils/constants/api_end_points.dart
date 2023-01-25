@@ -31,6 +31,7 @@ const String apiStoreWillReviewDetails = "store-will-review-details";
 const String apiAssetsFormDetails = "store-assets-form-details";
 const String apiGetSelectedAssets = "get-selected-assets";
 const String apiGetClient = "get-channel-partner-clients";
+const String apiAddClient = "add-channel-partner-client";
 
 
 const String apiPanCard = "https://api.emptra.com/fetchPanDetails";

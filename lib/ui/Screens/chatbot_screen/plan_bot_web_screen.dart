@@ -22,7 +22,7 @@ class PlanBotWeb extends StatelessWidget {
           GestureDetector(
             onTap: (){
 
-              navigationService.push(routeChooseAssetsWeb,arguments: {navRouteCA: "SpecificAsset",navDashboardResponseWeb: assetsData.response.specialities});
+              navigationService.push(routeChooseAssetsWeb,arguments: {navRouteCA: "SpecificAssetsNot",navDashboardResponseWeb: assetsData.response.specialities});
 
               // Navigator.push(context, MaterialPageRoute(builder: (context) =>  ChooseAssetsWeb(routeCA: "PlanBot",)));
 
