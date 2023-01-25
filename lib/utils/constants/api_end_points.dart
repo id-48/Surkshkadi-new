@@ -30,6 +30,7 @@ const String apiSubmitKyc = "submit-kyc";
 const String apiStoreWillReviewDetails = "store-will-review-details";
 const String apiAssetsFormDetails = "store-assets-form-details";
 const String apiGetSelectedAssets = "get-selected-assets";
+const String apiGetClient = "get-channel-partner-clients";
 
 
 const String apiPanCard = "https://api.emptra.com/fetchPanDetails";

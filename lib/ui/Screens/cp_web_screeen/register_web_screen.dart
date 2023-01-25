@@ -304,7 +304,7 @@ class RegisterWeb extends HookConsumerWidget {
                                         ],
                                       ),
                                       Gap(50),
-                                      ResponsiveGridRow(
+                                      ResponsiveGridRow (
                                         children: [
                                           ResponsiveGridCol(
                                             sm: 6,
