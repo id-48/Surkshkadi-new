@@ -266,19 +266,7 @@ class CustomAppbarWeb extends HookConsumerWidget {
                               ),
                             ),
                           )
-                        : Row(
-                            children: [
-                              Image.asset(
-                                info,
-                                scale: 4,
-                              ),
-                              Gap(6),
-                              Text(
-                                'Hi Avinash',
-                                style: TextStyle(fontSize: 18, color: navyblue),
-                              ),
-                            ],
-                          ),
+                        : Container(),
                   ),
                 ],
               ),

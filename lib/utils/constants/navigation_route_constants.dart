@@ -31,6 +31,7 @@ const String routePaymentConfoSpeciWeb = "/routePaymentConfoSpeciWeb";
 const String routeAddInfoWeb = "/routeAddInfoWeb";
 const String routeStartPartnerWithWeb = "/routeStartPartnerWithWeb";
 const String routeAdminDashboard = "/routeAdminDashboard";
+const String routeAdminWebClient= "/routeAdminWebClient";
 const String routeKYCChatBotMobile = "/routeKYCChatBotMobile";
 const String routeDigiLockerWebView = "/routeDigiLockerWebView";
 const String routeBankSavingsAccounts = "/routeBankSavingsAccounts";

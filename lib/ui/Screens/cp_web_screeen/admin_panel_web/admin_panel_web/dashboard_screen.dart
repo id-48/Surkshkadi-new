@@ -27,7 +27,7 @@ class AdminDashboard extends HookConsumerWidget {
         scrollDirection: Axis.vertical,
         child: Column(
           children: [
-            CustomAppbarWeb(index: 3),
+            CustomAppbarWeb(index: 3,button: false),
             Gap(50),
             Row(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -370,5 +370,6 @@ CustomText(
     string,
     style: GoogleFonts.inter(
         fontSize: fontSize, fontWeight: fontWeight, color: color),
+    textAlign: TextAlign.center,
   );
 }

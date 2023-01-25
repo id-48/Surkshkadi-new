@@ -731,6 +731,7 @@
 //
 
 import 'package:flutter/material.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:gap/gap.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -760,6 +761,9 @@ class AboutUsWeb extends HookConsumerWidget {
     TextEditingController cityController = TextEditingController();
     TextEditingController stateController = TextEditingController();
     TextEditingController addressController = TextEditingController();
+
+    final isSubmit = useState<bool>(false);
+    final isSoon = useState<bool>(false);
 
     return Scaffold(
       body: SingleChildScrollView(
@@ -1353,44 +1357,63 @@ class AboutUsWeb extends HookConsumerWidget {
                       mainAxisAlignment: MainAxisAlignment.start,
                       children: [
                         Gap(10),
-                        Text(
-                          haveMoreQue,
-                          style: TextStyle(
-                            fontSize: 22,
-                            fontWeight: FontWeight.w700,
-                          ),
-                        ),
-                        Gap(40),
-                        Text(
-                          ourTeamOfHighly,
-                          style: TextStyle(
-                            fontSize: 18,
-                            fontWeight: FontWeight.w400,
-                          ),
-                        ),
-                        Gap(30),
+
+                        if( isSubmit.value ==  false )
                         Container(
-                          padding: EdgeInsets.symmetric(vertical: 14),
-                          width: 450,
-                          // width: MediaQuery.of(context).size.width * 0.2,
-                          decoration: BoxDecoration(
-                            border: Border.all(color: blue, width: 1.5),
-                            borderRadius: BorderRadius.circular(10),
-                          ),
-                          child: Center(
-                            child: Text(
-                              needHelp,
-                              style: TextStyle(fontSize: 18, color: blue),
-                            ),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            children: [
+                              Text(
+                                haveMoreQue,
+                                style: TextStyle(
+                                  fontSize: 22,
+                                  fontWeight: FontWeight.w700,
+                                ),
+                              ),
+                              Gap(40),
+                              Text(
+                                ourTeamOfHighly,
+                                style: TextStyle(
+                                  fontSize: 18,
+                                  fontWeight: FontWeight.w400,
+                                ),
+                              ),
+                              Gap(30),
+                              GestureDetector(
+
+                                onTap: (){
+                                  isSubmit.value  = true ;
+
+
+                                },
+                                child: Container(
+                                  padding: EdgeInsets.symmetric(vertical: 14),
+                                  width: 450,
+                                  // width: MediaQuery.of(context).size.width * 0.2,
+                                  decoration: BoxDecoration(
+                                    border: Border.all(color: blue, width: 1.5),
+                                    borderRadius: BorderRadius.circular(10),
+                                  ),
+                                  child: Center(
+                                    child: Text(
+                                      needHelp,
+                                      style: TextStyle(fontSize: 18, color: blue),
+                                    ),
+                                  ),
+                                ),
+                              ),
+                              Gap(30),
+                            ],
                           ),
                         ),
-                        Gap(30),
+                        if( isSoon.value ==  true )
                         Text(
                           ourLegalExpert,
                           style: TextStyle(color: fullgray),
                         ),
-                        Gap(20),
-                        Container(
+                        if(  isSubmit.value ==  true && isSoon.value == false  )
+                          Container(
                           // width: MediaQuery.of(context).size.width * 0.5,
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(10),
@@ -1505,7 +1528,9 @@ class AboutUsWeb extends HookConsumerWidget {
                                     ],
                                   ),
                                   InkWell(
-                                    onTap: () {},
+                                    onTap: () {
+                                      isSoon.value =true ;
+                                    },
                                     child: Container(
                                       padding: EdgeInsets.symmetric(
                                           vertical: 8, horizontal: 40),
@@ -1526,7 +1551,7 @@ class AboutUsWeb extends HookConsumerWidget {
                               ),
                             ),
                           ),
-                        ),
+                        )
                       ],
                     ),
                   ),

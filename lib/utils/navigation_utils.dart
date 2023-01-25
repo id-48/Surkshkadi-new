@@ -34,6 +34,7 @@ import 'package:surakshakadi/ui/Screens/confirmation_Screen/confirmation_plan_sc
 import 'package:surakshakadi/ui/Screens/confirmation_Screen/confirmation_specific_screen.dart';
 import 'package:surakshakadi/ui/Screens/confirmation_Screen/payment_confirmation_plan_web_screen.dart';
 import 'package:surakshakadi/ui/Screens/confirmation_Screen/payment_confirmation_specific_web_screen.dart';
+import 'package:surakshakadi/ui/Screens/cp_web_screeen/admin_panel_web/admin_panel_web/constant/admin_Web_Clients.dart';
 import 'package:surakshakadi/ui/Screens/cp_web_screeen/admin_panel_web/admin_panel_web/dashboard_screen.dart';
 import 'package:surakshakadi/ui/Screens/cp_web_screeen/partner_with_web_screen.dart';
 import 'package:surakshakadi/ui/Screens/cp_web_screeen/register_web_screen.dart';
@@ -328,6 +329,10 @@ class NavigationUtils {
         return CustomRoute(
             settings: const RouteSettings(name: routeAdminDashboard),
             builder: (_) => AdminDashboard());
+      case routeAdminWebClient:
+        return CustomRoute(
+            settings: const RouteSettings(name: routeAdminWebClient),
+            builder: (_) => AdminWebClients());
 
       default:
         return _errorRoute(" Unimplemented...");

@@ -331,7 +331,7 @@ class AdminWebDashBoard extends HookConsumerWidget {
                                   color: navyblue),
                               Gap(20),
                               CustomText(
-                                  string: 'Total AUM',
+                                  string: 'Submitted',
                                   fontSize: 20,
                                   fontWeight: FontWeight.w500,
                                   color: black),
@@ -362,7 +362,7 @@ class AdminWebDashBoard extends HookConsumerWidget {
                                   color: navyblue),
                               Gap(20),
                               CustomText(
-                                  string: 'Clients',
+                                  string: 'Declined',
                                   fontSize: 20,
                                   fontWeight: FontWeight.w500,
                                   color: black),
@@ -393,7 +393,7 @@ class AdminWebDashBoard extends HookConsumerWidget {
                                   color: navyblue),
                               Gap(20),
                               CustomText(
-                                  string: 'Assets Sold',
+                                  string: 'Subscribed',
                                   fontSize: 20,
                                   fontWeight: FontWeight.w500,
                                   color: black),
@@ -423,7 +423,7 @@ class AdminWebDashBoard extends HookConsumerWidget {
                                   color: navyblue),
                               Gap(20),
                               CustomText(
-                                  string: 'Assets Sold',
+                                  string: 'Hit Ratio',
                                   fontSize: 20,
                                   fontWeight: FontWeight.w500,
                                   color: black),
@@ -459,7 +459,7 @@ class AdminWebDashBoard extends HookConsumerWidget {
                                   color: navyblue),
                               Gap(20),
                               CustomText(
-                                  string: 'Total AUM',
+                                  string: 'New Business Premium',
                                   fontSize: 20,
                                   fontWeight: FontWeight.w500,
                                   color: black),
@@ -490,7 +490,7 @@ class AdminWebDashBoard extends HookConsumerWidget {
                                   color: navyblue),
                               Gap(20),
                               CustomText(
-                                  string: 'Clients',
+                                  string: 'Renewal Premium',
                                   fontSize: 20,
                                   fontWeight: FontWeight.w500,
                                   color: black),
@@ -521,7 +521,7 @@ class AdminWebDashBoard extends HookConsumerWidget {
                                   color: navyblue),
                               Gap(20),
                               CustomText(
-                                  string: 'Assets Sold',
+                                  string: 'Total Premium',
                                   fontSize: 20,
                                   fontWeight: FontWeight.w500,
                                   color: black),
@@ -552,7 +552,7 @@ class AdminWebDashBoard extends HookConsumerWidget {
                                   color: navyblue),
                               Gap(20),
                               CustomText(
-                                  string: 'Assets Sold',
+                                  string: 'Rewards Received',
                                   fontSize: 20,
                                   fontWeight: FontWeight.w500,
                                   color: black),

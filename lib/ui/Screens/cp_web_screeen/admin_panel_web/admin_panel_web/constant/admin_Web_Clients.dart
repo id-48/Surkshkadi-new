@@ -5,12 +5,16 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:responsive_grid/responsive_grid.dart';
 import 'package:surakshakadi/data/model/home/adminWeb/clients_data_model/client_Data_Model.dart';
+import 'package:surakshakadi/data/model/home/channelPartner/clients/add_clients/req_add_client.dart';
 import 'package:surakshakadi/data/model/home/channelPartner/clients/get_clients/req_get_client.dart';
 import 'package:surakshakadi/di/locator.dart';
 import 'package:surakshakadi/ui/Screens/cp_web_screeen/admin_panel_web/admin_panel_web/constant/client_view_modal.dart';
 import 'package:surakshakadi/ui/Screens/cp_web_screeen/admin_panel_web/admin_panel_web/dashboard_screen.dart';
 import 'package:surakshakadi/utils/color_utils.dart';
+import 'package:surakshakadi/utils/constants/preference_key_constant.dart';
+import 'package:surakshakadi/utils/dialog_utils.dart';
 import 'package:surakshakadi/utils/image_utils.dart';
+import 'package:surakshakadi/utils/preference_utils.dart';
 import 'package:surakshakadi/utils/utils.dart';
 import 'package:surakshakadi/widgets/custom_button.dart';
 import 'package:surakshakadi/widgets/loading.dart';
@@ -122,7 +126,7 @@ class AdminWebClients extends HookConsumerWidget {
       ReqGetClient GetClientData = ReqGetClient(cpUserId: 1);
 
       ref
-          .read(clientProvider.notifier)
+          .read(getClientProvider.notifier)
           .getClient(context: context, data: GetClientData);
     }, []);
 
@@ -135,7 +139,7 @@ class AdminWebClients extends HookConsumerWidget {
       pages.value.add(i + 1);
     }
 
-    final getClientController = ref.watch(clientProvider);
+    final getClientController = ref.watch(getClientProvider);
 
     return StatefulBuilder(
       builder: (BuildContext context, void Function(void Function()) setState) {
@@ -158,7 +162,7 @@ class AdminWebClients extends HookConsumerWidget {
                   Spacer(),
                   InkWell(
                     onTap: () {
-                      addClientDialogWeb(context);
+                      addClientDialogWeb(context,ref);
                     },
                     child: Container(
                       padding:
@@ -636,6 +640,7 @@ class AdminWebClients extends HookConsumerWidget {
 
 addClientDialogWeb(
   BuildContext context,
+    ref
 ) {
   showDialog(
     context: context,
@@ -646,7 +651,7 @@ addClientDialogWeb(
           borderRadius: BorderRadius.all(Radius.circular(5.0))),
       content: Builder(
         builder: (context) {
-          TextEditingController firstNameController = TextEditingController();
+          TextEditingController nameController = TextEditingController();
           TextEditingController phoneController = TextEditingController();
           TextEditingController emailController = TextEditingController();
 
@@ -757,7 +762,7 @@ addClientDialogWeb(
                             BorderRadius.circular(
                                 10),
                             controller:
-                            firstNameController,
+                            nameController,
                             textStyle: TextStyle(
                                 fontSize: 20),
                           ),
@@ -965,7 +970,30 @@ addClientDialogWeb(
                         child:  CustomButton(
                           padding: EdgeInsets.symmetric(vertical: 10),
                           title: "Add",
-                          onTap: (){
+                          onTap: ()async{
+                            if (
+                          nameController.text.isNotEmpty && emailController.text.isNotEmpty && phoneController.text.isNotEmpty
+                          ){
+                            ReqAddClient  addClientData = ReqAddClient (
+                              cpUserId :   1   ,
+                              clientType :   "Individual"     ,
+                              // clientType :   "${getString(prefClientType)}"     ,
+                              // companyName :     "${getString(prefCompanyName)}"    ,
+                              name :   "${nameController.text}"     ,
+                              email :   "${emailController.text}"     ,
+                              mobile :   "${phoneController.text}"     ,
+
+
+
+                            );
+
+                            await ref.read(addClientProvider.notifier).addClient(context : context,data :addClientData );
+                          } else {
+                            displayToast("Enter Detail");
+                          }
+
+
+
 
                           },
                         ),
