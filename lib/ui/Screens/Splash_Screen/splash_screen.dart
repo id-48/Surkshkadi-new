@@ -9,7 +9,6 @@ import 'package:surakshakadi/ui/Screens/Assets_Details_Screen/components/governm
 import 'package:surakshakadi/ui/Screens/Assets_Details_Screen/components/government_KVP_screen.dart';
 import 'package:surakshakadi/ui/Screens/Assets_Details_Screen/components/government_NPS_screen.dart';
 import 'package:surakshakadi/ui/Screens/Assets_Details_Screen/components/government_ppf_screen.dart';
-import 'package:surakshakadi/ui/Screens/Assets_Details_Screen/components/insurance_life_insurance_screen.dart';
 import 'package:surakshakadi/ui/Screens/Assets_Details_Screen/components/investments_demat_account_screen.dart';
 import 'package:surakshakadi/ui/Screens/Assets_Details_Screen/components/miscellaneous_company_screen.dart';
 import 'package:surakshakadi/ui/Screens/Assets_Details_Screen/components/personal_screen.dart';

@@ -208,6 +208,12 @@ class CustomWebBottomBar extends HookWidget {
                       ),
                       Gap(7),
                       Text(
+                        partnerWithUs,
+                        style: TextStyle(
+                            fontWeight: FontWeight.w500, fontSize: 16),
+                      ),
+                      Gap(7),
+                      Text(
                         faqs,
                         style: TextStyle(
                             fontWeight: FontWeight.w500, fontSize: 16),

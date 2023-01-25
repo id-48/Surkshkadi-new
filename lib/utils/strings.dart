@@ -453,6 +453,7 @@ const String soFarSoGood =
     "So far so good, easy to add info and generate the legal document online.";
 const String allLegalDocument =
     "All legal documents are reviewed and created by legal experts who are the backbone of this platform with an overall litigation experience of 51 years.We don’t share any of your wishes with anyone.";
+const String noOneElse = "NO ONE ELSE, even Surakshakadi, will not be able to access the details of assets during your lifetime. All your data is encrypted and secure using SMART CONTRACT BLOCKCHAIN TECHNOLOGY and will be transferred to your legal heir in your absence.";
 const String forMoreInformation = "For more information refer to";
 const String faq = "FAQ";
 const String partnerWithUs = "Partner With Us";
@@ -644,9 +645,9 @@ const String pleaseSelectThe =
 
 ///            About Us Web
 
-const String complementaryEWillCreation = "Complementary e Will Creation";
+const String complementaryEWillCreation = "Complementary e-Will Creation";
 const String freeInsuranceCover = "Free Insurance Cover";
-const String returnOfYourSubscription = "  Return of your subscription cost";
+const String returnOfYourSubscription = "Return of your subscription cost";
 const String giveBackToYourLovedOnes = "\"Give Back To Your Loved Ones\"";
 const String aVibrantGroup =
     '''A vibrant group, the individuals who make up the core of Surakshakadi,
@@ -665,7 +666,7 @@ const String moneyIsNotTheOnlyCommodity =
 const String onePlatform = "One Platform,\nMany Features";
 const String aboutAsWeHaveYouCovered = "We have you covered";
 const String aVibrantGroupIndividuals =
-    "A vibrant group, the individuals who make up the core of Surakshakadi,are young visionaries who have respectable, established businesses and legal practices, are renowned in their fields of work, and are experts in all aspects of estate administration who can manage the estate on your behalf or can support you in your role. They empathize with the survivors’ pain as survivors don’t have a complete picture of all movable and immovable properties. To get any of these transferred and/or closed, they are made to run from pillar to post across multiple offices with a pile of documents. Ignorance, lack of education, and experience with legal processes are too overwhelming for most, leading to delay or complete loss of assets/wealth.";
+    "A vibrant group, the individuals who make up the core of Surakshakadi, are young visionaries who have respectable, established businesses and legal practices, are renowned in their fields of work, and are experts in all aspects of estate administration who can manage the estate on your behalf or can support you in your role. They empathize with the survivors’ pain as survivors don’t have a complete picture of all movable and immovable properties. To get any of these transferred and/or closed, they are made to run from pillar to post across multiple offices with a pile of documents. Ignorance, lack of education, and experience with legal processes are too overwhelming for most, leading to delay or complete loss of assets/wealth.";
 const String theTeamEnvisions =
     "The team envisions providing a Hassle-Free \“Asset Transfer\” service experience to the legal heir after the loss of the breadwinner of the family.";
 const String helpingPeoplePlan =
@@ -752,7 +753,7 @@ const String earnForEveryConversion =
     "Earn for every conversion completed by a referral";
 const String marketableProducts = "Marketable Products";
 const String aMostAccessible =
-    "A most accessible, affordable, and transparent product for your clients to get the hassle-free asset transfer";
+    "A most accessible, affordable, and transparent product to get the hassle-free asset transfer";
 const String eWillExecution = "eWill execution";
 const String earnHighlyLucrative =
     "Earn highly lucrative and transparent fees for transferring assets";

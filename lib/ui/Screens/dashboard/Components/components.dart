@@ -81,14 +81,14 @@ class AppSurakshakadi extends HookConsumerWidget {
       // width: MediaQuery.of(context).size.width,
       color: indigo,
       child: Padding(
-        padding: const EdgeInsets.symmetric(vertical: 50.0),
+        padding: const EdgeInsets.symmetric(vertical: 30.0),
         child: Row(
           children: [
             Expanded(
               flex: 5,
               child: Image.asset(
                 dashwebmobile,
-                height: 400,
+                height: 380,
               ),
             ),
             Expanded(
@@ -617,7 +617,7 @@ class GiveBackTo extends HookWidget {
         Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Gap(250),
+            Gap(230),
 
             // Gap(30),
             Container(
@@ -677,8 +677,8 @@ class GiveBackTo extends HookWidget {
                 lg: Utils.getWidth(context) < 1250 ? 10 : 6,
                 md: 11,
                 child: Container(
-                  height: Utils.getHeight(context) * 0.8,
-                  width: Utils.getWidth(context) * 0.54,
+                  height: Utils.getHeight(context) * 0.76,
+                  width: Utils.getWidth(context) * 0.52,
                   // color: black,
                   child: Image.asset(
                     aboutBanner,
@@ -688,7 +688,7 @@ class GiveBackTo extends HookWidget {
                 ),
               ),
 
-              ResponsiveGridCol(lg: 0, md: 0, child: Gap(50)),
+              ResponsiveGridCol(lg: 0, md: 0, child: Gap(40)),
               // Gap(40),
             ],
           ),
@@ -729,7 +729,16 @@ class Disclaimers extends HookWidget {
                           fontWeight: FontWeight.w300,
                           color: indigo),
                     ),
-                    Gap(30),
+                    Gap(14),
+                    Text(
+                      noOneElse,
+                      style: TextStyle(
+                          fontSize: 18,
+                          fontWeight: FontWeight.w300,
+                          color: indigo),
+                    ),
+
+                    Gap(16),
                     RichText(
                       text: TextSpan(
                         children: const <TextSpan>[
@@ -941,9 +950,9 @@ customWidget(
   required bool boxChange,
 }) {
   return Container(
-    height: 290,
+    height: 250,
     // height: MediaQuery.of(context).size.height * 0.45,
-    width: MediaQuery.of(context).size.width * 0.120,
+    width:  boxChange == true ? MediaQuery.of(context).size.width * 0.120 : MediaQuery.of(context).size.width * 0.160,
     decoration: BoxDecoration(
       color: white,
       borderRadius: BorderRadius.circular(10),
@@ -997,7 +1006,7 @@ customWidget(
                       Gap(16),
                       Text(title!,
                           style: TextStyle(
-                              fontSize: 18, fontWeight: FontWeight.w700),
+                              fontSize: 17, fontWeight: FontWeight.w600),
                           textAlign: TextAlign.center),
                       Gap(6),
                       Text(description,

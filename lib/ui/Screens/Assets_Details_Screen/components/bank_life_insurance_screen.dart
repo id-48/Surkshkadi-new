@@ -26,8 +26,8 @@ import 'package:surakshakadi/widgets/custom_expandable_card.dart';
 import 'package:surakshakadi/widgets/custom_textfeild.dart';
 
 
-class InsuranceLife extends HookConsumerWidget {
-  const InsuranceLife({Key? key}) : super(key: key);
+class BankLifeInsurance extends HookConsumerWidget {
+  const BankLifeInsurance({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context,WidgetRef ref) {

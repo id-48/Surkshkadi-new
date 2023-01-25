@@ -12,8 +12,10 @@ import 'package:surakshakadi/ui/Screens/Assets_Details_Screen/components/persona
 import 'package:surakshakadi/ui/Screens/Assets_Details_Screen/store_assets_form_view_modal.dart';
 import 'package:surakshakadi/utils/color_utils.dart';
 import 'package:surakshakadi/utils/constants/navigation_route_constants.dart';
+import 'package:surakshakadi/utils/constants/preference_key_constant.dart';
 import 'package:surakshakadi/utils/dialog_utils.dart';
 import 'package:surakshakadi/utils/image_utils.dart';
+import 'package:surakshakadi/utils/preference_utils.dart';
 import 'package:surakshakadi/utils/strings.dart';
 import 'package:surakshakadi/utils/utils.dart';
 import 'package:surakshakadi/widgets/custom_appbar.dart';
@@ -100,12 +102,12 @@ class MiscellaneousCompany extends HookConsumerWidget {
                         "typeInsurance": cinController.text,
                         "policyNo": dinController.text,
                         "beneficiary": gstinController.text,
-                        "legalHeir": messageController.text ?? "",
+                        "legalHeir": messageController.text,
                       };
 
                       ReqStoreAssetsFormDetails storeAssetsFormData = ReqStoreAssetsFormDetails(
-                          subscriptionAssetId: 1,
-                          // subscriptionAssetId: int.parse(getString(prefSubscriptionAssetId)),
+                          // subscriptionAssetId: 1,
+                          subscriptionAssetId: int.parse(getString(prefSubscriptionAssetId)),
                           formDetails: ["${formDetailsData}"],
                           assetDocuments: imageList
                       );

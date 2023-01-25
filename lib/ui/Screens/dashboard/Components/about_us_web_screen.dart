@@ -767,8 +767,8 @@ class AboutUsWeb extends HookConsumerWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            CustomAppbarWeb(button: false, index: 1),
-            Gap(70),
+            CustomAppbarWeb(button: true, index: 1),
+            Gap(40),
 
             GiveBackTo(),
 
@@ -964,7 +964,7 @@ class AboutUsWeb extends HookConsumerWidget {
                 ),
               ],
             ),
-            Gap(20),
+            Gap(30),
             ResponsiveGridRow(
               children: [
                 ResponsiveGridCol(
@@ -979,105 +979,41 @@ class AboutUsWeb extends HookConsumerWidget {
                   md: 6,
                   xs: 12,
                   child: Center(
-                    child: Column(
-                      children: [
-                        Gap(90),
-                        Container(
-                          padding: EdgeInsets.only(left: 30, top: 20),
-                          height: 180,
-                          width: 280,
-                          decoration: BoxDecoration(
-                              color: lowBlue,
-                              borderRadius: BorderRadius.circular(15),
-                              boxShadow: [
-                                BoxShadow(
-                                    color: Colors.black38,
-                                    blurRadius: 5,
-                                    offset: Offset(0.0, 4)),
-                              ]),
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Image.asset(
-                                willVector,
-                                scale: 4,
-                              ),
-                              Gap(20),
-                              Padding(
-                                padding:
-                                    const EdgeInsets.symmetric(horizontal: 4),
-                                child: Text(
-                                  complementaryEWillCreation,
-                                  style: TextStyle(
-                                    fontWeight: FontWeight.w600,
-                                    fontSize: 18,
-                                  ),
-                                  textAlign: TextAlign.center,
-                                ),
-                              ),
-                            ],
+                    child: Container(
+                      padding: EdgeInsets.only(left: 20,right: 20),
+                      height: 140,
+                      width: 280,
+                      decoration: BoxDecoration(
+                          color: lowBlue,
+                          borderRadius: BorderRadius.circular(15),
+                          boxShadow: [
+                            BoxShadow(
+                                color: Colors.black38,
+                                blurRadius: 5,
+                                offset: Offset(0.0, 4)),
+                          ]),
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Image.asset(
+                            willVector,
+                            scale: 4,
                           ),
-                        ),
-                        // Gap(100),
-                        // Container(
-                        //   padding: EdgeInsets.symmetric(
-                        //       horizontal: 30, vertical: 12),
-                        //   decoration: BoxDecoration(
-                        //     borderRadius: BorderRadius.circular(16),
-                        //     gradient: LinearGradient(
-                        //         colors: [Color(0xff2B58C3), Color(0xff07122C)],
-                        //         begin: Alignment.topCenter,
-                        //         end: Alignment.bottomCenter),
-                        //     boxShadow: [
-                        //       BoxShadow(
-                        //         color: Colors.black12,
-                        //         blurRadius: 2,
-                        //         offset: Offset(9.0, 9.0),
-                        //       ),
-                        //     ],
-                        //   ),
-                        //   child: Column(
-                        //     children: [
-                        //       Stack(
-                        //         children: [
-                        //           Image.asset(
-                        //             surajTandon,
-                        //             scale: 4,
-                        //           ),
-                        //           Positioned(
-                        //               right: 40,
-                        //               // left: 0,
-                        //               // top: 50,
-                        //               bottom: 110,
-                        //               child: Text(
-                        //                 clickHereTo,
-                        //                 style: TextStyle(
-                        //                   fontSize: 16,
-                        //                   color: white,
-                        //                   decoration: TextDecoration.underline,
-                        //                 ),
-                        //               )),
-                        //         ],
-                        //       ),
-                        //       Gap(20),
-                        //       Text(
-                        //         surajTandonn,
-                        //         style: TextStyle(
-                        //             fontWeight: FontWeight.w600,
-                        //             fontSize: 22,
-                        //             color: white),
-                        //       ),
-                        //       Text(
-                        //         coFounder,
-                        //         style: TextStyle(
-                        //             fontWeight: FontWeight.w400,
-                        //             fontSize: 18,
-                        //             color: white),
-                        //       ),
-                        //     ],
-                        //   ),
-                        // ),
-                      ],
+                          Gap(20),
+                          Padding(
+                            padding:
+                                const EdgeInsets.symmetric(horizontal: 4),
+                            child: Text(
+                              complementaryEWillCreation,
+                              style: TextStyle(
+                                fontWeight: FontWeight.w600,
+                                fontSize: 18,
+                              ),
+                              textAlign: TextAlign.center,
+                            ),
+                          ),
+                        ],
+                      ),
                     ),
                   ),
                 ),
@@ -1087,97 +1023,41 @@ class AboutUsWeb extends HookConsumerWidget {
                   md: 6,
                   xs: 12,
                   child: Center(
-                    child: Column(
-                      children: [
-                        Gap(90),
-                        Container(
-                          padding: EdgeInsets.only(left: 30, top: 20),
-                          height: 180,
-                          width: 280,
-                          decoration: BoxDecoration(
-                              color: lowBlue,
-                              borderRadius: BorderRadius.circular(15),
-                              boxShadow: [
-                                BoxShadow(
-                                    color: Colors.black38,
-                                    blurRadius: 5,
-                                    offset: Offset(0.0, 4)),
-                              ]),
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Image.asset(
-                                vactor,
-                                scale: 4,
-                              ),
-                              Gap(20),
-                              Padding(
-                                padding:
-                                    const EdgeInsets.symmetric(horizontal: 4),
-                                child: Text(
-                                  freeInsuranceCover,
-                                  style: TextStyle(
-                                    fontWeight: FontWeight.w600,
-                                    fontSize: 20,
-                                  ),
-                                  textAlign: TextAlign.center,
-                                ),
-                              ),
-                            ],
+                    child: Container(
+                      padding: EdgeInsets.only(left: 20,right: 20),
+                      height: 140,
+                      width: 280,
+                      decoration: BoxDecoration(
+                          color: lowBlue,
+                          borderRadius: BorderRadius.circular(15),
+                          boxShadow: [
+                            BoxShadow(
+                                color: Colors.black38,
+                                blurRadius: 5,
+                                offset: Offset(0.0, 4)),
+                          ]),
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Image.asset(
+                            vactor,
+                            scale: 4,
                           ),
-                        ),
-                        // Gap(100),
-                        // Container(
-                        //   height: 450,
-                        //   width: 330,
-                        //   padding: EdgeInsets.symmetric(horizontal: 20),
-                        //   decoration: BoxDecoration(
-                        //     borderRadius: BorderRadius.circular(16),
-                        //     gradient: LinearGradient(
-                        //         colors: [Color(0xffffffff), Color(0xffE9E9E9)],
-                        //         begin: Alignment.topCenter,
-                        //         end: Alignment.bottomCenter),
-                        //     boxShadow: [
-                        //       BoxShadow(
-                        //         color: Colors.black26,
-                        //         blurRadius: 8,
-                        //         offset: Offset(9.0, 9.0),
-                        //       ),
-                        //     ],
-                        //   ),
-                        //   child: Column(
-                        //     mainAxisAlignment: MainAxisAlignment.center,
-                        //     crossAxisAlignment: CrossAxisAlignment.center,
-                        //     children: [
-                        //       Container(
-                        //         height: 100,
-                        //         width: 100,
-                        //         decoration: BoxDecoration(
-                        //           gradient: LinearGradient(
-                        //               colors: [
-                        //                 Color(0xff2B58C3),
-                        //                 Color(0xff07122C)
-                        //               ],
-                        //               begin: Alignment.topCenter,
-                        //               end: Alignment.bottomCenter),
-                        //           shape: BoxShape.circle,
-                        //         ),
-                        //         child: Image.asset(
-                        //           surajTandon,
-                        //           scale: 19,
-                        //         ),
-                        //       ),
-                        //       Text(
-                        //         loremIpsumDolorSitAmet,
-                        //         style: TextStyle(
-                        //           fontSize: 18,
-                        //         ),
-                        //         textAlign: TextAlign.center,
-                        //       ),
-                        //     ],
-                        //   ),
-                        // ),
-                      ],
+                          Gap(20),
+                          Padding(
+                            padding:
+                                const EdgeInsets.symmetric(horizontal: 4),
+                            child: Text(
+                              freeInsuranceCover,
+                              style: TextStyle(
+                                fontWeight: FontWeight.w600,
+                                fontSize: 20,
+                              ),
+                              textAlign: TextAlign.center,
+                            ),
+                          ),
+                        ],
+                      ),
                     ),
                   ),
                 ),
@@ -1187,88 +1067,41 @@ class AboutUsWeb extends HookConsumerWidget {
                   md: 12,
                   xs: 12,
                   child: Center(
-                    child: Column(
-                      children: [
-                        Gap(90),
-                        Container(
-                          padding: EdgeInsets.only(left: 30, top: 20),
-                          height: 180,
-                          width: 280,
-                          decoration: BoxDecoration(
-                              color: lowBlue,
-                              borderRadius: BorderRadius.circular(15),
-                              boxShadow: [
-                                BoxShadow(
-                                    color: Colors.black38,
-                                    blurRadius: 5,
-                                    offset: Offset(0.0, 4)),
-                              ]),
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Image.asset(
-                                subscriptionModel,
-                                scale: 4,
-                              ),
-                              Gap(20),
-                              Padding(
-                                padding:
-                                    const EdgeInsets.symmetric(horizontal: 4),
-                                child: Text(
-                                  returnOfYourSubscription,
-                                  style: TextStyle(
-                                    fontWeight: FontWeight.w600,
-                                    fontSize: 20,
-                                  ),
-                                  textAlign: TextAlign.center,
-                                ),
-                              ),
-                            ],
+                    child: Container(
+                      padding: EdgeInsets.only(left: 20, right: 20),
+                      height: 140,
+                      width: 280,
+                      decoration: BoxDecoration(
+                          color: lowBlue,
+                          borderRadius: BorderRadius.circular(15),
+                          boxShadow: [
+                            BoxShadow(
+                                color: Colors.black38,
+                                blurRadius: 5,
+                                offset: Offset(0.0, 4)),
+                          ]),
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Image.asset(
+                            subscriptionModel,
+                            scale: 4,
                           ),
-                        ),
-                        // Gap(100),
-                        // Container(
-                        //   padding: EdgeInsets.symmetric(
-                        //       horizontal: 30, vertical: 12),
-                        //   decoration: BoxDecoration(
-                        //     borderRadius: BorderRadius.circular(10),
-                        //     gradient: LinearGradient(
-                        //         colors: [Color(0xff2B58C3), Color(0xff07122C)],
-                        //         begin: Alignment.topCenter,
-                        //         end: Alignment.bottomCenter),
-                        //     // boxShadow: [
-                        //     //   BoxShadow(
-                        //     //     color: black12,
-                        //     //     // blurRadius: 8,
-                        //     //     offset: Offset(9.0,9.0),
-                        //     //   ),
-                        //     // ],
-                        //   ),
-                        //   child: Column(
-                        //     children: [
-                        //       Image.asset(
-                        //         surajTandon,
-                        //         scale: 4,
-                        //       ),
-                        //       Gap(20),
-                        //       Text(
-                        //         surajTandonn,
-                        //         style: TextStyle(
-                        //             fontWeight: FontWeight.w600,
-                        //             fontSize: 22,
-                        //             color: white),
-                        //       ),
-                        //       Text(
-                        //         coFounder,
-                        //         style: TextStyle(
-                        //             fontWeight: FontWeight.w400,
-                        //             fontSize: 18,
-                        //             color: white),
-                        //       ),
-                        //     ],
-                        //   ),
-                        // ),
-                      ],
+                          Gap(20),
+                          Padding(
+                            padding:
+                                const EdgeInsets.symmetric(horizontal: 4),
+                            child: Text(
+                              returnOfYourSubscription,
+                              style: TextStyle(
+                                fontWeight: FontWeight.w600,
+                                fontSize: 20,
+                              ),
+                              textAlign: TextAlign.center,
+                            ),
+                          ),
+                        ],
+                      ),
                     ),
                   ),
                 ),
@@ -1281,86 +1114,7 @@ class AboutUsWeb extends HookConsumerWidget {
               ],
             ),
 
-            ///***********
-            // Padding(
-            //   padding: const EdgeInsets.only(left: 60),
-            //   child: Text(
-            //     moneyIsNotThe,
-            //     style: GoogleFonts.bonaNova(
-            //       textStyle: TextStyle(
-            //           fontSize: 60,
-            //           fontWeight: FontWeight.w700,
-            //           letterSpacing: 3,
-            //           wordSpacing: 1),
-            //     ),
-            //   ),
-            // ),
-            // Gap(30),
-            // Container(
-            //   height: Utils.getHeight(context) * 0.54,
-            //   width: Utils.getWidth(context),
-            //   color: indigo,
-            //   child: Stack(
-            //     clipBehavior: Clip.none,
-            //     children: [
-            //       Padding(
-            //         padding: const EdgeInsets.only(right: 70),
-            //         child: Column(
-            //           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            //           crossAxisAlignment: CrossAxisAlignment.end,
-            //           children: [
-            //             Text(
-            //               thatIsToGiveWe,
-            //               style: TextStyle(
-            //                   fontSize: 26,
-            //                   fontWeight: FontWeight.w400,
-            //                   color: white),
-            //             ),
-            //             Container(
-            //               padding: EdgeInsets.symmetric(
-            //                   vertical: 10, horizontal: 35),
-            //               decoration: BoxDecoration(
-            //                 borderRadius: BorderRadius.circular(25),
-            //                 color: white,
-            //                 boxShadow: [
-            //                   BoxShadow(
-            //                       color: Colors.black12.withOpacity(0.2),
-            //                       blurRadius: 3.0,
-            //                       offset: Offset(0.0, 5))
-            //                 ],
-            //               ),
-            //               child: Text(
-            //                 secureNow,
-            //                 style: TextStyle(
-            //                     fontWeight: FontWeight.w600,
-            //                     fontSize: 18,
-            //                     color: buttonColor),
-            //               ),
-            //             ),
-            //             Gap(10),
-            //           ],
-            //         ),
-            //       ),
-            //       Positioned(
-            //         top: -260,
-            //         left: 50,
-            //         bottom: 60,
-            //         child: Container(
-            //           height: Utils.getHeight(context) * 0.7,
-            //           width: Utils.getWidth(context) * 0.4,
-            //           // color: black,
-            //           child: Image.asset(
-            //             aboutUsBanner,
-            //             scale: 5,
-            //             fit: BoxFit.fill,
-            //           ),
-            //         ),
-            //       ),
-            //     ],
-            //   ),
-            // ),
-            ///*********
-            Gap(60),
+            Gap(16),
             Padding(
               padding: const EdgeInsets.only(left: 70, right: 50),
               child: ResponsiveGridRow(
@@ -1463,7 +1217,7 @@ class AboutUsWeb extends HookConsumerWidget {
                     child: Container(
                       child: Image.asset(
                         platBanner,
-                        scale: 4,
+                        scale: 4.7,
                       ),
                     ),
                   ),
@@ -1471,316 +1225,7 @@ class AboutUsWeb extends HookConsumerWidget {
               ),
             ),
 
-            /// old responsive row
-            // ResponsiveGridRow(
-            //   children: [
-            //     ResponsiveGridCol(
-            //         // lg: 2,
-            //         xl: Utils.getWidth(context) < 1370 ? 0 : 1,
-            //         md: 0,
-            //         xs: 0,
-            //         child: Container()),
-            //     ResponsiveGridCol(
-            //       // lg: 2,
-            //       xl: Utils.getWidth(context) < 1370 ? 4 : 3,
-            //       md: 6,
-            //       xs: 12,
-            //       child: Center(
-            //         child: Column(
-            //           children: [
-            //             Gap(90),
-            //             Container(
-            //               padding: EdgeInsets.only(left: 30, top: 20),
-            //               height: 180,
-            //               width: 280,
-            //               decoration: BoxDecoration(
-            //                   color: lowBlue,
-            //                   borderRadius: BorderRadius.circular(15),
-            //                   boxShadow: [
-            //                     BoxShadow(
-            //                         color: Colors.black38,
-            //                         blurRadius: 5,
-            //                         offset: Offset(0.0, 4)),
-            //                   ]),
-            //               child: Column(
-            //                 crossAxisAlignment: CrossAxisAlignment.start,
-            //                 children: [
-            //                   Image.asset(
-            //                     peopleSecured,
-            //                     scale: 4,
-            //                   ),
-            //                   Gap(10),
-            //                   Text(
-            //                     peopleSEcured,
-            //                     style: TextStyle(
-            //                         fontWeight: FontWeight.w600, fontSize: 22),
-            //                   ),
-            //                   Text(
-            //                     '35000+',
-            //                     style: TextStyle(
-            //                         fontWeight: FontWeight.w700, fontSize: 45),
-            //                   ),
-            //                 ],
-            //               ),
-            //             ),
-            //             // Gap(100),
-            //             // Container(
-            //             //   padding: EdgeInsets.symmetric(
-            //             //       horizontal: 30, vertical: 12),
-            //             //   decoration: BoxDecoration(
-            //             //     borderRadius: BorderRadius.circular(16),
-            //             //     gradient: LinearGradient(
-            //             //         colors: [Color(0xff2B58C3), Color(0xff07122C)],
-            //             //         begin: Alignment.topCenter,
-            //             //         end: Alignment.bottomCenter),
-            //             //     boxShadow: [
-            //             //       BoxShadow(
-            //             //         color: Colors.black12,
-            //             //         blurRadius: 2,
-            //             //         offset: Offset(9.0, 9.0),
-            //             //       ),
-            //             //     ],
-            //             //   ),
-            //             //   child: Column(
-            //             //     children: [
-            //             //       Stack(
-            //             //         children: [
-            //             //           Image.asset(
-            //             //             surajTandon,
-            //             //             scale: 4,
-            //             //           ),
-            //             //           Positioned(
-            //             //               right: 40,
-            //             //               // left: 0,
-            //             //               // top: 50,
-            //             //               bottom: 110,
-            //             //               child: Text(
-            //             //                 clickHereTo,
-            //             //                 style: TextStyle(
-            //             //                   fontSize: 16,
-            //             //                   color: white,
-            //             //                   decoration: TextDecoration.underline,
-            //             //                 ),
-            //             //               )),
-            //             //         ],
-            //             //       ),
-            //             //       Gap(20),
-            //             //       Text(
-            //             //         surajTandonn,
-            //             //         style: TextStyle(
-            //             //             fontWeight: FontWeight.w600,
-            //             //             fontSize: 22,
-            //             //             color: white),
-            //             //       ),
-            //             //       Text(
-            //             //         coFounder,
-            //             //         style: TextStyle(
-            //             //             fontWeight: FontWeight.w400,
-            //             //             fontSize: 18,
-            //             //             color: white),
-            //             //       ),
-            //             //     ],
-            //             //   ),
-            //             // ),
-            //           ],
-            //         ),
-            //       ),
-            //     ),
-            //     ResponsiveGridCol(
-            //       // lg: 2,
-            //       xl: 4,
-            //       md: 6,
-            //       xs: 12,
-            //       child: Center(
-            //         child: Column(
-            //           children: [
-            //             Gap(90),
-            //             Container(
-            //               padding: EdgeInsets.only(left: 30, top: 20),
-            //               height: 180,
-            //               width: 280,
-            //               decoration: BoxDecoration(
-            //                   color: lowBlue,
-            //                   borderRadius: BorderRadius.circular(15),
-            //                   boxShadow: [
-            //                     BoxShadow(
-            //                         color: Colors.black38,
-            //                         blurRadius: 5,
-            //                         offset: Offset(0.0, 4)),
-            //                   ]),
-            //               child: Column(
-            //                 crossAxisAlignment: CrossAxisAlignment.start,
-            //                 children: [
-            //                   Image.asset(
-            //                     assetsSubs,
-            //                     scale: 4,
-            //                   ),
-            //                   Gap(10),
-            //                   Text(
-            //                     assetsSub,
-            //                     style: TextStyle(
-            //                         fontWeight: FontWeight.w600, fontSize: 22),
-            //                   ),
-            //                   Text(
-            //                     '50+Cr',
-            //                     style: TextStyle(
-            //                         fontWeight: FontWeight.w700, fontSize: 45),
-            //                   ),
-            //                 ],
-            //               ),
-            //             ),
-            //             // Gap(100),
-            //             // Container(
-            //             //   height: 450,
-            //             //   width: 330,
-            //             //   padding: EdgeInsets.symmetric(horizontal: 20),
-            //             //   decoration: BoxDecoration(
-            //             //     borderRadius: BorderRadius.circular(16),
-            //             //     gradient: LinearGradient(
-            //             //         colors: [Color(0xffffffff), Color(0xffE9E9E9)],
-            //             //         begin: Alignment.topCenter,
-            //             //         end: Alignment.bottomCenter),
-            //             //     boxShadow: [
-            //             //       BoxShadow(
-            //             //         color: Colors.black26,
-            //             //         blurRadius: 8,
-            //             //         offset: Offset(9.0, 9.0),
-            //             //       ),
-            //             //     ],
-            //             //   ),
-            //             //   child: Column(
-            //             //     mainAxisAlignment: MainAxisAlignment.center,
-            //             //     crossAxisAlignment: CrossAxisAlignment.center,
-            //             //     children: [
-            //             //       Container(
-            //             //         height: 100,
-            //             //         width: 100,
-            //             //         decoration: BoxDecoration(
-            //             //           gradient: LinearGradient(
-            //             //               colors: [
-            //             //                 Color(0xff2B58C3),
-            //             //                 Color(0xff07122C)
-            //             //               ],
-            //             //               begin: Alignment.topCenter,
-            //             //               end: Alignment.bottomCenter),
-            //             //           shape: BoxShape.circle,
-            //             //         ),
-            //             //         child: Image.asset(
-            //             //           surajTandon,
-            //             //           scale: 19,
-            //             //         ),
-            //             //       ),
-            //             //       Text(
-            //             //         loremIpsumDolorSitAmet,
-            //             //         style: TextStyle(
-            //             //           fontSize: 18,
-            //             //         ),
-            //             //         textAlign: TextAlign.center,
-            //             //       ),
-            //             //     ],
-            //             //   ),
-            //             // ),
-            //           ],
-            //         ),
-            //       ),
-            //     ),
-            //     ResponsiveGridCol(
-            //       // lg: 2,
-            //       xl: Utils.getWidth(context) < 1370 ? 4 : 3,
-            //       md: 12,
-            //       xs: 12,
-            //       child: Center(
-            //         child: Column(
-            //           children: [
-            //             Gap(90),
-            //             Container(
-            //               padding: EdgeInsets.only(left: 30, top: 20),
-            //               height: 180,
-            //               width: 280,
-            //               decoration: BoxDecoration(
-            //                   color: lowBlue,
-            //                   borderRadius: BorderRadius.circular(15),
-            //                   boxShadow: [
-            //                     BoxShadow(
-            //                         color: Colors.black38,
-            //                         blurRadius: 5,
-            //                         offset: Offset(0.0, 4)),
-            //                   ]),
-            //               child: Column(
-            //                 crossAxisAlignment: CrossAxisAlignment.start,
-            //                 children: [
-            //                   Image.asset(
-            //                     defaultsImage,
-            //                     scale: 4,
-            //                   ),
-            //                   Gap(10),
-            //                   Text(
-            //                     defaults,
-            //                     style: TextStyle(
-            //                         fontWeight: FontWeight.w600, fontSize: 22),
-            //                   ),
-            //                   Text(
-            //                     '0.00 %',
-            //                     style: TextStyle(
-            //                         fontWeight: FontWeight.w700, fontSize: 45),
-            //                   ),
-            //                 ],
-            //               ),
-            //             ),
-            //             // Gap(100),
-            //             // Container(
-            //             //   padding: EdgeInsets.symmetric(
-            //             //       horizontal: 30, vertical: 12),
-            //             //   decoration: BoxDecoration(
-            //             //     borderRadius: BorderRadius.circular(10),
-            //             //     gradient: LinearGradient(
-            //             //         colors: [Color(0xff2B58C3), Color(0xff07122C)],
-            //             //         begin: Alignment.topCenter,
-            //             //         end: Alignment.bottomCenter),
-            //             //     // boxShadow: [
-            //             //     //   BoxShadow(
-            //             //     //     color: black12,
-            //             //     //     // blurRadius: 8,
-            //             //     //     offset: Offset(9.0,9.0),
-            //             //     //   ),
-            //             //     // ],
-            //             //   ),
-            //             //   child: Column(
-            //             //     children: [
-            //             //       Image.asset(
-            //             //         surajTandon,
-            //             //         scale: 4,
-            //             //       ),
-            //             //       Gap(20),
-            //             //       Text(
-            //             //         surajTandonn,
-            //             //         style: TextStyle(
-            //             //             fontWeight: FontWeight.w600,
-            //             //             fontSize: 22,
-            //             //             color: white),
-            //             //       ),
-            //             //       Text(
-            //             //         coFounder,
-            //             //         style: TextStyle(
-            //             //             fontWeight: FontWeight.w400,
-            //             //             fontSize: 18,
-            //             //             color: white),
-            //             //       ),
-            //             //     ],
-            //             //   ),
-            //             // ),
-            //           ],
-            //         ),
-            //       ),
-            //     ),
-            //     ResponsiveGridCol(
-            //         // lg: 2,
-            //         xl: Utils.getWidth(context) < 1370 ? 0 : 1,
-            //         md: 1,
-            //         xs: 0,
-            //         child: Container()),
-            //   ],
-            // ),
+
             Gap(50),
             Padding(
               padding: const EdgeInsets.only(left: 30),
@@ -1967,7 +1412,7 @@ class AboutUsWeb extends HookConsumerWidget {
                                         flex: 1,
                                         child: customeFormTextField(
                                           context: context,
-                                          name: "First Name",
+                                          name: "First Name*",
                                           controller: firstNameController,
                                           keyboardType: TextInputType.name,
                                           validation: validateName,
@@ -1978,7 +1423,7 @@ class AboutUsWeb extends HookConsumerWidget {
                                         flex: 1,
                                         child: customeFormTextField(
                                           context: context,
-                                          name: "Last Name",
+                                          name: "Last Name*",
                                           controller: lastNameController,
                                           keyboardType: TextInputType.name,
                                           validation: validateName,
@@ -1994,7 +1439,7 @@ class AboutUsWeb extends HookConsumerWidget {
                                         flex: 1,
                                         child: customeFormTextField(
                                           context: context,
-                                          name: "Mobile Number",
+                                          name: "Mobile Number*",
                                           controller: mobilenoController,
                                           keyboardType: TextInputType.number,
                                           maxLength: 10,
@@ -2006,7 +1451,7 @@ class AboutUsWeb extends HookConsumerWidget {
                                         flex: 1,
                                         child: customeFormTextField(
                                           context: context,
-                                          name: "Email Id",
+                                          name: "Email Id*",
                                           controller: emailController,
                                           keyboardType:
                                               TextInputType.emailAddress,
@@ -2023,7 +1468,7 @@ class AboutUsWeb extends HookConsumerWidget {
                                         flex: 1,
                                         child: customeFormTextField(
                                           context: context,
-                                          name: "City",
+                                          name: "City*",
                                           controller: cityController,
                                           keyboardType: TextInputType.text,
                                           validation: validateName,
@@ -2034,7 +1479,7 @@ class AboutUsWeb extends HookConsumerWidget {
                                         flex: 1,
                                         child: customeFormTextField(
                                           context: context,
-                                          name: "State",
+                                          name: "State*",
                                           controller: stateController,
                                           keyboardType: TextInputType.text,
                                           validation: validateName,
@@ -2088,7 +1533,7 @@ class AboutUsWeb extends HookConsumerWidget {
                 ),
               ],
             ),
-            Gap(130),
+            Gap(50),
             AppSurakshakadi(),
             Disclaimers(),
             CustomWebBottomBar(),

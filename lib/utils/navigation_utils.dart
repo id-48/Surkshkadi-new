@@ -4,6 +4,7 @@ import 'package:surakshakadi/ui/Screens/Assets_Details_Screen/assets_information
 import 'package:surakshakadi/ui/Screens/Assets_Details_Screen/assets_information_web_screen.dart';
 import 'package:surakshakadi/ui/Screens/Assets_Details_Screen/assets_mobile_screen.dart';
 import 'package:surakshakadi/ui/Screens/Assets_Details_Screen/assets_web_screen.dart';
+import 'package:surakshakadi/ui/Screens/Assets_Details_Screen/components/bank_life_insurance_screen.dart';
 import 'package:surakshakadi/ui/Screens/Assets_Details_Screen/components/bank_savings_accounts_screen.dart';
 import 'package:surakshakadi/ui/Screens/Assets_Details_Screen/components/government_APY_screen.dart';
 import 'package:surakshakadi/ui/Screens/Assets_Details_Screen/components/government_EPF_screen.dart';
@@ -11,7 +12,6 @@ import 'package:surakshakadi/ui/Screens/Assets_Details_Screen/components/governm
 import 'package:surakshakadi/ui/Screens/Assets_Details_Screen/components/government_NPS_screen.dart';
 import 'package:surakshakadi/ui/Screens/Assets_Details_Screen/components/government_ppf_screen.dart';
 import 'package:surakshakadi/ui/Screens/Assets_Details_Screen/components/immovable_property_screen.dart';
-import 'package:surakshakadi/ui/Screens/Assets_Details_Screen/components/insurance_life_insurance_screen.dart';
 import 'package:surakshakadi/ui/Screens/Assets_Details_Screen/components/investments_demat_account_screen.dart';
 import 'package:surakshakadi/ui/Screens/Assets_Details_Screen/components/miscellaneous_company_screen.dart';
 import 'package:surakshakadi/ui/Screens/Assets_Details_Screen/components/personal_screen.dart';
@@ -221,10 +221,10 @@ class NavigationUtils {
             settings: const RouteSettings(name: routeImmovableProperty),
             builder: (_) => ImmovableProperty());
 
-      case routeInsuranceLife:
+      case routeBankLifeInsurance:
         return CustomRoute(
-            settings: const RouteSettings(name: routeInsuranceLife),
-            builder: (_) => InsuranceLife());
+            settings: const RouteSettings(name: routeBankLifeInsurance),
+            builder: (_) => BankLifeInsurance());
 
       case routeInvestmentsDematAccount:
         return CustomRoute(

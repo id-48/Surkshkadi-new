@@ -331,17 +331,17 @@ class AdminWebSubscribed extends HookConsumerWidget {
                                         fontWeight: FontWeight.w600)),
                                 DataColumn(
                                     label: CustomText(
-                                        string: "Will Question",
+                                        string: "Will Questions",
                                         fontSize: 14,
                                         fontWeight: FontWeight.w600)),
                                 DataColumn(
                                     label: CustomText(
-                                        string: "Wallet Question",
+                                        string: "Wallet Questions",
                                         fontSize: 14,
                                         fontWeight: FontWeight.w600)),
                                 DataColumn(
                                     label: CustomText(
-                                        string: "Wallet Question",
+                                        string: "Excution",
                                         fontSize: 14,
                                         fontWeight: FontWeight.w600)),
                               ],

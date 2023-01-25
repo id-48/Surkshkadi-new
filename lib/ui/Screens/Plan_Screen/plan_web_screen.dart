@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:gap/gap.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:responsive_grid/responsive_grid.dart';
 import 'package:surakshakadi/data/model/home/dashboard/res_dashboard.dart';
 import 'package:surakshakadi/ui/Screens/chatbot_screen/plan_bot_web_screen.dart';
 import 'package:surakshakadi/ui/Screens/dashboard/dashboard_view_modal.dart';
@@ -38,7 +39,7 @@ class PlansWeb extends HookConsumerWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  CustomAppbarWeb(button: false, index: 2),
+                  CustomAppbarWeb(button: true, index: 2),
                   Container(
                     height: 1.5,
                     width: MediaQuery.of(context).size.width,
@@ -58,11 +59,7 @@ class PlansWeb extends HookConsumerWidget {
                       Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Text(
-                            hiAvinash,
-                            style: TextStyle(
-                                fontSize: 22, fontWeight: FontWeight.w700),
-                          ),
+
                           Gap(16),
                           Text(
                             weSimplyTheProcess,
@@ -79,18 +76,7 @@ class PlansWeb extends HookConsumerWidget {
                         ],
                       ),
                       SizedBox(
-                        width: MediaQuery.of(context).size.width * 0.1,
-                      ),
-                      Spacer(),
-                    ],
-                  ),
-                  Gap(26),
-                  Row(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      // SizedBox(width: MediaQuery.of(context).runtimeType),
-                      SizedBox(
-                        width: MediaQuery.of(context).size.width * 0.168,
+                        width: MediaQuery.of(context).size.width * 0.04,
                       ),
                       Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
@@ -102,7 +88,7 @@ class PlansWeb extends HookConsumerWidget {
                               Gap(5),
                               Text(easyAndAff,
                                   style: TextStyle(
-                                      fontSize: 16,
+                                      fontSize: 18,
                                       fontWeight: FontWeight.bold,
                                       color: pista)),
                             ],
@@ -119,7 +105,7 @@ class PlansWeb extends HookConsumerWidget {
                               Gap(5),
                               Text(safeSecure,
                                   style: TextStyle(
-                                      fontSize: 16,
+                                      fontSize: 18,
                                       fontWeight: FontWeight.bold,
                                       color: pista)),
                             ],
@@ -136,32 +122,183 @@ class PlansWeb extends HookConsumerWidget {
                               Gap(5),
                               Text(buildByExperts,
                                   style: TextStyle(
-                                      fontSize: 16,
+                                      fontSize: 18,
                                       fontWeight: FontWeight.bold,
                                       color: pista)),
                             ],
                           ),
                         ],
                       ),
+                      Spacer(),
                     ],
                   ),
-                  Gap(20),
-                  Row(
+
+                  Gap(10),
+                  // Row(
+                  //   children: [
+                  //     SizedBox(
+                  //       width: MediaQuery.of(context).size.width * 0.18,
+                  //     ),
+                  //     BlinkText(freeeWill,
+                  //         style: TextStyle(
+                  //             fontWeight: FontWeight.w400,
+                  //             color: Colors.black,
+                  //             fontSize: 22),
+                  //         textAlign: TextAlign.start,
+                  //         times: 40,
+                  //         duration: Duration(seconds: 3)),
+                  //   ],
+                  // ),
+                  ResponsiveGridRow(
                     children: [
-                      SizedBox(
-                        width: MediaQuery.of(context).size.width * 0.18,
+                      ResponsiveGridCol(
+                        // lg: 2,
+                          xl: Utils.getWidth(context) < 1370 ? 0 : 1,
+                          md: 0,
+                          xs: 0,
+                          child: Container()),
+                      ResponsiveGridCol(
+                        // lg: 2,
+                        xl: Utils.getWidth(context) < 1370 ? 4 : 3,
+                        md: 6,
+                        xs: 12,
+                        child: Center(
+                          child: Container(
+                            padding: EdgeInsets.only(left: 20,right: 20),
+                            height: 140,
+                            width: 280,
+                            decoration: BoxDecoration(
+                                color: lowBlue,
+                                borderRadius: BorderRadius.circular(15),
+                                boxShadow: [
+                                  BoxShadow(
+                                      color: Colors.black38,
+                                      blurRadius: 5,
+                                      offset: Offset(0.0, 4)),
+                                ]),
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Image.asset(
+                                  willVector,
+                                  scale: 4,
+                                ),
+                                Gap(20),
+                                Padding(
+                                  padding:
+                                  const EdgeInsets.symmetric(horizontal: 4),
+                                  child: Text(
+                                    complementaryEWillCreation,
+                                    style: TextStyle(
+                                      fontWeight: FontWeight.w600,
+                                      fontSize: 18,
+                                    ),
+                                    textAlign: TextAlign.center,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
                       ),
-                      BlinkText(freeeWill,
-                          style: TextStyle(
-                              fontWeight: FontWeight.w400,
-                              color: Colors.black,
-                              fontSize: 22),
-                          textAlign: TextAlign.start,
-                          times: 40,
-                          duration: Duration(seconds: 3)),
+                      ResponsiveGridCol(
+                        // lg: 2,
+                        xl: 4,
+                        md: 6,
+                        xs: 12,
+                        child: Center(
+                          child: Container(
+                            padding: EdgeInsets.only(left: 20,right: 20),
+                            height: 140,
+                            width: 280,
+                            decoration: BoxDecoration(
+                                color: lowBlue,
+                                borderRadius: BorderRadius.circular(15),
+                                boxShadow: [
+                                  BoxShadow(
+                                      color: Colors.black38,
+                                      blurRadius: 5,
+                                      offset: Offset(0.0, 4)),
+                                ]),
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Image.asset(
+                                  vactor,
+                                  scale: 4,
+                                ),
+                                Gap(20),
+                                Padding(
+                                  padding:
+                                  const EdgeInsets.symmetric(horizontal: 4),
+                                  child: Text(
+                                    freeInsuranceCover,
+                                    style: TextStyle(
+                                      fontWeight: FontWeight.w600,
+                                      fontSize: 20,
+                                    ),
+                                    textAlign: TextAlign.center,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                      ),
+                      ResponsiveGridCol(
+                        // lg: 2,
+                        xl: Utils.getWidth(context) < 1370 ? 4 : 3,
+                        md: 12,
+                        xs: 12,
+                        child: Center(
+                          child: Container(
+                            padding: EdgeInsets.only(left: 20, right: 20),
+                            height: 140,
+                            width: 280,
+                            decoration: BoxDecoration(
+                                color: lowBlue,
+                                borderRadius: BorderRadius.circular(15),
+                                boxShadow: [
+                                  BoxShadow(
+                                      color: Colors.black38,
+                                      blurRadius: 5,
+                                      offset: Offset(0.0, 4)),
+                                ]),
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Image.asset(
+                                  subscriptionModel,
+                                  scale: 4,
+                                ),
+                                Gap(20),
+                                Padding(
+                                  padding:
+                                  const EdgeInsets.symmetric(horizontal: 4),
+                                  child: Text(
+                                    returnOfYourSubscription,
+                                    style: TextStyle(
+                                      fontWeight: FontWeight.w600,
+                                      fontSize: 20,
+                                    ),
+                                    textAlign: TextAlign.center,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                      ),
+                      ResponsiveGridCol(
+                        // lg: 2,
+                          xl: Utils.getWidth(context) < 1370 ? 0 : 1,
+                          md: 1,
+                          xs: 0,
+                          child: Container()),
                     ],
                   ),
-                  Gap(30),
+
+                  Gap(40),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
@@ -373,7 +510,7 @@ class PlansWeb extends HookConsumerWidget {
                           ),
                         ],
                       ),
-                      Gap(56),
+                      Gap(36),
                       Column(
                         children: [
                           Container(
@@ -534,7 +671,7 @@ class PlansWeb extends HookConsumerWidget {
                           ),
                         ],
                       ),
-                      Gap(56),
+                      Gap(36),
                       Column(
                         children: [
                           Container(
@@ -773,7 +910,7 @@ class PlansWeb extends HookConsumerWidget {
                           style: TextStyle(fontSize: 16, color: indigo))
                     ],
                   ),
-                  Gap(250),
+                  Gap(40),
                   CustomWebBottomBar(
                     bgColor: true,
                   ),

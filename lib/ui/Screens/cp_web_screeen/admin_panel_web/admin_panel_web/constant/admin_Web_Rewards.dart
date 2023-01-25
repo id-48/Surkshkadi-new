@@ -210,8 +210,9 @@ class AdminWebRewards extends HookConsumerWidget {
                                   Border.all(color: dividerColor, width: 1)),
                           child: Center(
                               child: TextFormField(
-                                decoration: InputDecoration(
-                                contentPadding: EdgeInsets.only(right: 5,left: 5,bottom: 21),
+                            decoration: InputDecoration(
+                              contentPadding: EdgeInsets.only(
+                                  right: 5, left: 5, bottom: 21),
                               border: InputBorder.none,
                             ),
                             controller: searchController.value,
@@ -293,12 +294,36 @@ class AdminWebRewards extends HookConsumerWidget {
                       ),
                       showBottomBorder: true,
                       columns: [
-                        DataColumn(label: Text("Name")),
-                        DataColumn(label: Text("Plan selected")),
-                        DataColumn(label: Text("Start Date")),
-                        DataColumn(label: Text("End Date")),
-                        DataColumn(label: Text("Amount Paid")),
-                        DataColumn(label: Text("Rewards Received")),
+                        DataColumn(
+                            label: CustomText(
+                                string: "Name",
+                                fontSize: 14,
+                                fontWeight: FontWeight.w600)),
+                        DataColumn(
+                            label: CustomText(
+                                string: "Plan selected",
+                                fontSize: 14,
+                                fontWeight: FontWeight.w600)),
+                        DataColumn(
+                            label: CustomText(
+                                string: "Start Date",
+                                fontSize: 14,
+                                fontWeight: FontWeight.w600)),
+                        DataColumn(
+                            label: CustomText(
+                                string: "End Date",
+                                fontSize: 14,
+                                fontWeight: FontWeight.w600)),
+                        DataColumn(
+                            label: CustomText(
+                                string: "Amount Paid",
+                                fontSize: 14,
+                                fontWeight: FontWeight.w600)),
+                        DataColumn(
+                            label: CustomText(
+                                string: "Rewards Received",
+                                fontSize: 14,
+                                fontWeight: FontWeight.w600)),
                       ],
                       rows: List.generate(
                         currPage.value * iCount.value <= clientData.length - 1
@@ -470,8 +495,6 @@ class AdminWebRewards extends HookConsumerWidget {
                 ///
                 Gap(35),
 
-
-
                 Row(
                   // mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
@@ -528,7 +551,6 @@ class AdminWebRewards extends HookConsumerWidget {
                           Container(
                             width: 34,
                             margin: EdgeInsets.symmetric(vertical: 1),
-
                             decoration: BoxDecoration(color: white),
                             child: Center(
                                 child: CustomText(

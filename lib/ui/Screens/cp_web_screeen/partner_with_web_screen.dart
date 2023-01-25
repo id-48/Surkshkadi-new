@@ -28,14 +28,14 @@ class PartnerWithWeb extends HookConsumerWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             CustomAppbarWeb(index: 3),
-            Gap(120),
+            Gap(60),
             Padding(
               padding: const EdgeInsets.only(left: 60),
               child: Text(
                 becomeASura,
                 style: GoogleFonts.bonaNova(
                   textStyle: TextStyle(
-                      fontSize: 53,
+                      fontSize: 50,
                       fontWeight: FontWeight.w600,
                       letterSpacing: 3,
                       wordSpacing: 1),
@@ -150,11 +150,11 @@ class PartnerWithWeb extends HookConsumerWidget {
                     ),
                   ),
                   Positioned(
-                    top: -240,
+                    top: -200,
                     right: 50,
                     bottom: 120,
                     child: Container(
-                      height: Utils.getHeight(context) * 0.7,
+                      height: Utils.getHeight(context) * 0.67,
                       width: Utils.getWidth(context) * 0.54,
                       // color: black,
                       child: Image.asset(
@@ -167,7 +167,7 @@ class PartnerWithWeb extends HookConsumerWidget {
                 ],
               ),
             ),
-            Gap(120),
+            Gap(40),
             Padding(
               padding: const EdgeInsets.only(left: 60),
               child: Text(
@@ -308,9 +308,9 @@ class PartnerWithWeb extends HookConsumerWidget {
                 ],
               ),
             ),
-            Gap(140),
+            Gap(50),
             Container(
-              padding: EdgeInsets.only(top: 56,bottom: 40),
+              padding: EdgeInsets.only(top: 28,bottom: 28),
               // height: 860,
 
               width: MediaQuery.of(context).size.width,
@@ -337,7 +337,7 @@ class PartnerWithWeb extends HookConsumerWidget {
                     smallNameColor: white,
                   ),
 
-                  Gap(80),
+                  Gap(60),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
@@ -372,7 +372,7 @@ class PartnerWithWeb extends HookConsumerWidget {
                           number: '4'),
                     ],
                   ),
-                  Gap(60),
+                  Gap(50),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
@@ -404,179 +404,6 @@ class PartnerWithWeb extends HookConsumerWidget {
               ),
             ),
 
-            /// old
-            // Container(
-            //   padding: EdgeInsets.only(top: 56),
-            //   height: 400,
-            //   width: MediaQuery.of(context).size.width,
-            //   decoration: BoxDecoration(
-            //       color: blue,
-            //       gradient: LinearGradient(
-            //         colors: [
-            //           Color(0xff4378B9),
-            //           Color(0xff1E2D3F).withOpacity(0.999),
-            //         ],
-            //         begin: Alignment.topCenter,
-            //         end: Alignment.bottomCenter,
-            //       )),
-            //   child: Stack(
-            //     alignment: Alignment.center,
-            //     clipBehavior: Clip.none,
-            //     children: [
-            //       QuetionText(
-            //         boldName: howItworks,
-            //         smallName: loremIpsum,
-            //         boldNameColor: white,
-            //         smallNameColor: white,
-            //       ),
-            //     ],
-            //   ),
-            // ),
-            // Container(
-            //   padding: EdgeInsets.only(top: 56),
-            //   height: 400,
-            //   width: MediaQuery.of(context).size.width,
-            //   decoration: BoxDecoration(
-            //       color: blue,
-            //       gradient: LinearGradient(
-            //         colors: [
-            //           Color(0xff1E2D3F).withOpacity(0.999),
-            //           Color(0xff4378B9),
-            //         ],
-            //         begin: Alignment.topCenter,
-            //         end: Alignment.bottomCenter,
-            //       )),
-            //   child: Stack(
-            //     alignment: Alignment.center,
-            //     clipBehavior: Clip.none,
-            //     children: [
-            //       Positioned(
-            //         top: -230,
-            //         child: Row(
-            //           children: [
-            //             customWidget(context,
-            //                 boxChange: false,
-            //                 image: money,
-            //                 title: earnMoney,
-            //                 description: earnACommissionForEverry,
-            //                 number: '1'),
-            //             Gap(30),
-            //             customWidget(context,
-            //                 boxChange: false,
-            //                 image: marketable,
-            //                 title: marketablePro,
-            //                 description: suraIsTheMost,
-            //                 number: '2'),
-            //             Gap(30),
-            //             customWidget(context,
-            //                 boxChange: false,
-            //                 image: commission,
-            //                 title: excitingCommission,
-            //                 description: earnACommissionFor,
-            //                 number: '3'),
-            //             Gap(30),
-            //             customWidget(context,
-            //                 boxChange: false,
-            //                 image: admin,
-            //                 title: adminAccess,
-            //                 description: youGetVisibility,
-            //                 number: '4'),
-            //           ],
-            //         ),
-            //       ),
-            //       Positioned(
-            //         bottom: -180,
-            //         child: Row(
-            //           children: [
-            //             customWidget(context,
-            //                 boxChange: false,
-            //                 image: training,
-            //                 title: trainingAnd,
-            //                 description: suraWillDesign,
-            //                 number: '5'),
-            //             Gap(30),
-            //             customWidget(context,
-            //                 boxChange: false,
-            //                 image: boss,
-            //                 title: beYourBoss,
-            //                 description: andAchieveYour,
-            //                 number: '6'),
-            //             Gap(30),
-            //             customWidget(context,
-            //                 boxChange: false,
-            //                 title: assetLocker,
-            //                 image: locker,
-            //                 description: theClientAsset,
-            //                 number: '7'),
-            //           ],
-            //         ),
-            //       ),
-            //     ],
-            //   ),
-            // ),
-            /// old
-            // Gap(270),
-            // Center(
-            //   child: Padding(
-            //     padding: EdgeInsets.symmetric(horizontal: 20),
-            //     child: Stack(
-            //       alignment: Alignment.center,
-            //       children: [
-            //         Image.asset(
-            //           partnerBanner,
-            //           scale: 4,
-            //         ),
-            //         Positioned(
-            //           child: Column(
-            //             children: [
-            //               Text(
-            //                 flatFeeNo,
-            //                 style: TextStyle(
-            //                     fontSize: MediaQuery.of(context).orientation ==
-            //                             Orientation.landscape
-            //                         ? 32
-            //                         : 20,
-            //                     fontWeight: FontWeight.w700,
-            //                     color: white),
-            //               ),
-            //               Gap(MediaQuery.of(context).orientation ==
-            //                       Orientation.landscape
-            //                   ? 20
-            //                   : 5),
-            //               Text(
-            //                 noEndlessLawyers,
-            //                 style: TextStyle(
-            //                     fontSize: MediaQuery.of(context).orientation ==
-            //                             Orientation.landscape
-            //                         ? 22
-            //                         : 15,
-            //                     fontWeight: FontWeight.w500,
-            //                     color: black),
-            //                 textAlign: TextAlign.center,
-            //               ),
-            //               Gap(MediaQuery.of(context).orientation ==
-            //                       Orientation.landscape
-            //                   ? 20
-            //                   : 5),
-            //               Text(
-            //                 seeOuqPricing,
-            //                 style: TextStyle(
-            //                     fontSize: MediaQuery.of(context).orientation ==
-            //                             Orientation.landscape
-            //                         ? 22
-            //                         : 15,
-            //                     fontWeight: FontWeight.w500,
-            //                     color: white),
-            //               ),
-            //             ],
-            //           ),
-            //         ),
-            //       ],
-            //     ),
-            //   ),
-            // ),
-            ///
-            Gap(80),
             Disclaimers(),
             CustomWebBottomBar(
               bgColor: true,

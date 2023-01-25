@@ -73,15 +73,15 @@ class DashBoardWeb extends HookConsumerWidget {
                       boldNameColor: buttonColor,
                       smallName: convenientEfficient,
                       smallNameColor: black),
-                  Gap(60),
+                  Gap(40),
                   Center(
                     child: InkWell(
                       onTap: () {
                         video.value = true;
                       },
                       child: Container(
-                        height: 300,
-                        width: 520,
+                        height: 490,
+                        width: 750,
                         alignment: Alignment.center,
                         decoration: BoxDecoration(
                           color: blue,
@@ -115,12 +115,12 @@ class DashBoardWeb extends HookConsumerWidget {
                     assetTransfer,
                     style: TextStyle(
                       fontWeight: FontWeight.w400,
-                      fontSize: 16,
+                      fontSize: 18,
                       color: black,
                     ),
                     textAlign: TextAlign.center,
                   )),
-                  Gap(130),
+                  Gap(40),
                   Container(
                     color: dashAssetColor,
                     width: MediaQuery.of(context).size.width,
@@ -743,7 +743,7 @@ class DashBoardWeb extends HookConsumerWidget {
                           boldNameColor: white,
                           smallNameColor: white,
                         ),
-                        Gap(60),
+                        Gap(50),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
@@ -774,7 +774,7 @@ class DashBoardWeb extends HookConsumerWidget {
                                 number: '4'),
                           ],
                         ),
-                        Gap(60),
+                        Gap(50),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
@@ -804,7 +804,7 @@ class DashBoardWeb extends HookConsumerWidget {
                   ),
                   // Gap(210),
                   Container(
-                    padding: EdgeInsets.symmetric(vertical: 56),
+                    padding: EdgeInsets.symmetric(vertical: 30),
                     // height: MediaQuery.of(context).size.height * 0.900,
                     // width: MediaQuery.of(context).size.width,
                     decoration: BoxDecoration(
@@ -909,9 +909,9 @@ class DashBoardWeb extends HookConsumerWidget {
                       ],
                     ),
                   ),
-                  // Gap(100),
+                  Gap(16),
                   Container(
-                    padding: EdgeInsets.symmetric(vertical: 20),
+                    // padding: EdgeInsets.symmetric(vertical: 20),
                     // color: dashAssetColor,
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
@@ -974,7 +974,7 @@ class DashBoardWeb extends HookConsumerWidget {
                       ],
                     ),
                   ),
-                  Gap(40),
+                  Gap(30),
                   AppSurakshakadi(),
                   Disclaimers(),
                   CustomWebBottomBar(bgColor: true),

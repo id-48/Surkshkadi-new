@@ -9,11 +9,13 @@ import 'package:surakshakadi/ui/Screens/Assets_Details_Screen/store_assets_form_
 import 'package:surakshakadi/ui/Screens/Plan_Screen/plan_mobile_screen.dart';
 import 'package:surakshakadi/utils/color_utils.dart';
 import 'package:surakshakadi/utils/constants/preference_key_constant.dart';
+import 'package:surakshakadi/utils/dialog_utils.dart';
 import 'package:surakshakadi/utils/image_utils.dart';
 import 'package:surakshakadi/utils/preference_utils.dart';
 import 'package:surakshakadi/utils/strings.dart';
 import 'package:surakshakadi/utils/utils.dart';
 import 'package:surakshakadi/widgets/custom_appbar.dart';
+import 'package:surakshakadi/widgets/custom_button.dart';
 import 'package:surakshakadi/widgets/custom_expandable_card.dart';
 import 'package:surakshakadi/widgets/loading.dart';
 
@@ -74,6 +76,45 @@ class AssetsMobile extends HookConsumerWidget {
                             }),
                       ),
                       Gap(16),
+
+                      CustomButton(
+                          title: continuee,
+                          padding: EdgeInsets.symmetric(vertical: 12,horizontal: 36),
+                          onTap: (){
+
+                            int length = 0 ;
+                            List assetsList = [];
+
+                            for(int i = 0; i< data.response.length; i++){
+                                print("Assets name $i  --->>> ${data.response[i].assetCategory}");
+                                print("Selected Assets name i----->>> ${data.response[i].selectedAssets.length}");
+
+                                length += data.response[i].selectedAssets.length;
+
+                                print("length --->>> ${length}");
+                                for(int j = 0; j< data.response[i].selectedAssets.length; j++){
+                                print("Selected Assets name $j ----->>> ${data.response[i].selectedAssets[j].formStatus}");
+
+                                if(data.response[i].selectedAssets[j].formStatus == "Completed"){
+                                  assetsList.add(data.response[i].selectedAssets[j].formStatus);
+                                    if(assetsList.length == length){
+                                      print("Enter Value Success---->>>");
+                                      navigationService.push(routeCustomeBottomNavigationBar);
+                                    }else{
+                                      print("Enter Value---->>>");
+                                      displayToast("Complete Your Selected Assets");
+                                    }
+
+                                }
+
+                              }
+                            }
+
+                          },
+                      ),
+
+                      Gap(16),
+
                       Text(
                         noteItIs,
                         style: TextStyle(
@@ -134,46 +175,96 @@ AssetMobileData(context,{
 
 
                     if(e.assetName.toString() == "Company Transfer"){
+                      if(e.formStatus == "Pending") {
                         navigationService.push(routeMiscellaneousCompany);
-                    }else if(e.assetName.toString() == "GST Transfer" ||  e.assetName.toString() == "Shares Transfer" || e.assetName.toString() == "Mutual Funds Transfer"){
+                      }else{
+                        displayToast("Please Next Assets Select");
+                      }
+                    }else if(e.assetName.toString() == "GST Transfer" ){
+                      navigationService.push(routeMiscellaneousCompany);
+
+
+                    }else if( e.assetName.toString() == "Shares Transfer" ){
+                      navigationService.push(routeMiscellaneousCompany);
+
+
+                    }else if(e.assetName.toString() == "Mutual Funds Transfer"){
+                      navigationService.push(routeMiscellaneousCompany);
+
 
                     }else if(e.assetName.toString() == "Vehicles"){
                       navigationService.push(routePersonalVehicle);
 
-                    }else if(e.assetName.toString() == "Precious Stones, Metals, Jewelers" || e.assetName.toString() == "Clubs And Other Memberships"){
+                    }else if(e.assetName.toString() == "Precious Stones, Metals, Jewelers"){
                       navigationService.push(routePersonal);
 
-                    }else if(e.assetName.toString() == "Land/ Plot" || e.assetName.toString() == "Office/ Shop" || e.assetName.toString() == "House/ Apartment" || e.assetName.toString() == "Building" ){
+                    }else if( e.assetName.toString() == "Clubs And Other Memberships"){
+                      navigationService.push(routePersonal);
+
+                    }else if(e.assetName.toString() == "Land/ Plot" ){
                       navigationService.push(routeImmovableProperty);
 
-                    }else if(e.assetName.toString() == "Vehicles"){
+                    }else if( e.assetName.toString() == "Office/ Shop" ){
+                      navigationService.push(routeImmovableProperty);
 
+                    }else if( e.assetName.toString() == "House/ Apartment" ){
+                      navigationService.push(routeImmovableProperty);
 
-                    }else if(e.assetName.toString() == "Vehicles"){
+                    }else if( e.assetName.toString() == "Building" ){
+                      navigationService.push(routeImmovableProperty);
 
+                    }else if(e.assetName.toString() == "Demat Account"  ){
+                      navigationService.push(routeInvestmentsDematAccount);
 
-                    }else if(e.assetName.toString() == "Vehicles"){
+                    }else if( e.assetName.toString() == "Shares Liquidation"){
+                      navigationService.push(routeInvestmentsDematAccount);
 
+                    }else if( e.assetName.toString() == "Mutual Fund Liquidation" ){
+                      navigationService.push(routeInvestmentsDematAccount);
 
-                    }else if(e.assetName.toString() == "Vehicles"){
+                    }else if(e.assetName.toString() == "EPF"){
+                      navigationService.push(routeGovernmentEPF);
 
+                    }else if(e.assetName.toString() == "National Pensions Scheme"){
+                      navigationService.push(routeGovernmentNPS);
 
-                    }else if(e.assetName.toString() == "Vehicles"){
+                    }else if(e.assetName.toString() == "Atal Pension Yojana"){
+                      navigationService.push(routeGovernmentAPY);
 
+                    }else if(e.assetName.toString() == "PPF"){
+                      navigationService.push(routeGovernmentPPF);
 
-                    }else if(e.assetName.toString() == "Vehicles"){
+                    }else if(e.assetName.toString() == "Kisan Vikas Patra"){
+                      navigationService.push(routeGovernmentKVP);
 
+                    }else if(e.assetName.toString() == "Electricity") {
+                      navigationService.push(routeUtilityElectricity);
 
-                    }else if(e.assetName.toString() == "Vehicles") {
+                    }else if(e.assetName.toString() == "Phones" ) {
+                      navigationService.push(routeUtility);
+
+                    }else if(e.assetName.toString() == "Internet" ) {
+                      navigationService.push(routeUtility);
+
+                    }else if( e.assetName.toString() == "Gas" ) {
+                      navigationService.push(routeUtility);
+
+                    }else if(e.assetName.toString() == "Life Insurance") {
+                      navigationService.push(routeBankLifeInsurance);
+
+                    }else if(e.assetName.toString() == "Bank Accounts" ) {
+                      navigationService.push(routeBankSavingsAccounts);
+
+                    }else if( e.assetName.toString() == "Bank Locker"  ) {
+                      navigationService.push(routeBankSavingsAccounts);
+
+                    }else if( e.assetName.toString() == "Fixed Deposits") {
+                      navigationService.push(routeBankSavingsAccounts);
+
+                    }else if( e.assetName.toString() == "Bank Deposits" ) {
+                      navigationService.push(routeBankSavingsAccounts);
 
                     }
-
-
-
-
-
-
-
 
                       //     colorBox == true ?
                     //    navigationService.push(routeAssetsInformation,arguments: {navSelectedindex: data["description"].indexOf(e),navDattaa: data,});
