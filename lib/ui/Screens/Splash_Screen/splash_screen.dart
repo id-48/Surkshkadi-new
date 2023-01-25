@@ -18,6 +18,7 @@ import 'package:surakshakadi/ui/Screens/Assets_Details_Screen/components/utility
 import 'package:surakshakadi/ui/Screens/Assets_Details_Screen/components/utility_screen.dart';
 import 'package:surakshakadi/ui/Screens/Kyc_Screen/kyc_identity_screen.dart';
 import 'package:surakshakadi/ui/Screens/chatbot_screen/kyc_chatbot_mobile_screen.dart';
+import 'package:surakshakadi/ui/Screens/cp_web_screeen/admin_panel_web/admin_panel_web/dashboard_screen.dart';
 import 'package:surakshakadi/ui/Screens/cp_web_screeen/register_web_screen.dart';
 import 'package:surakshakadi/ui/Screens/dashboard/dashboard_web_screen.dart';
 import 'package:surakshakadi/ui/Screens/will_review_screen/will_review_screen.dart';
@@ -56,7 +57,7 @@ class SplashScreen extends HookWidget {
           } else {
             // Navigator.push(context,
             //     MaterialPageRoute(builder: (context) => DashBoardWeb()));
-            Navigator.push(context, MaterialPageRoute(builder: (context) => RegisterWeb()));
+            Navigator.push(context, MaterialPageRoute(builder: (context) => AdminDashboard()));
           }
         });
         return timer.cancel;

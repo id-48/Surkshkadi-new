@@ -14,7 +14,7 @@ class CustomButton extends HookWidget {
       child: Container(
         padding: padding,
         child:
-        Text(title, style: TextStyle(color: Colors.white)),
+        Text(title, style: TextStyle(color: Colors.white ),textAlign: TextAlign.center,),
         decoration: BoxDecoration(
           // color: blue,
           gradient: LinearGradient(
