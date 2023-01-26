@@ -27,21 +27,47 @@ class AssetsMobile extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+
+    final length = useState<int>(0);
+    final assetsList = useState<List>([]);
+
     useEffect(() {
       ReqGetSelectedAssets PlanChatSubPayment = ReqGetSelectedAssets(
-          // userId: 1
           userId: int.parse(getString(prefUserID))
           );
 
       ref
           .read(getSelectedAssetsProvider.notifier)
-          .getSelectedAssets(context: context, data: PlanChatSubPayment);
+          .getSelectedAssets(context: context, data: PlanChatSubPayment).then((value) {
+            if(value!.status == 1){
+              for(int i = 0; i< value.response.length; i++){
+                  length.value += value.response[i].selectedAssets.length;
+                for(int j = 0; j< value.response[i].selectedAssets.length; j++) {
+                  print("length useEffect --->>> ${length.value}");
+                  print("assets length Status $i $j --->>>${value.response[i].selectedAssets[j].formStatus}");
+
+                  if (value.response[i].selectedAssets[j].formStatus == "Completed") {
+                    assetsList.value.add(value.response[i].selectedAssets[j].formStatus);
+                    print("assets length useEffect --->>> ${assetsList.value.length} ");
+
+                  }
+                }
+              }
+            }else{
+              displayToast("No Data Found");
+            }
+      });
+
+
+
+
     }, []);
 
     final selectedAssetsController = ref.watch(getSelectedAssetsProvider);
 
+
+
     return StatefulBuilder(builder: (BuildContext context, setState) {
-      print("assets userId--->>${getString(prefUserID)}");
       return selectedAssetsController.when(
           data: (data) {
             return Scaffold(
@@ -77,41 +103,21 @@ class AssetsMobile extends HookConsumerWidget {
                       ),
                       Gap(16),
 
-                      CustomButton(
-                          title: continuee,
-                          padding: EdgeInsets.symmetric(vertical: 12,horizontal: 36),
-                          onTap: (){
+                       CustomButton(
+                              title: continuee,
+                              padding: EdgeInsets.symmetric(vertical: 12,horizontal: 36),
+                              onTap: (){
 
-                            int length = 0 ;
-                            List assetsList = [];
+                                print("length ----- >> ${length.value}");
+                                print("length ----- >> ${assetsList.value.length}");
 
-                            for(int i = 0; i< data.response.length; i++){
-                                print("Assets name $i  --->>> ${data.response[i].assetCategory}");
-                                print("Selected Assets name i----->>> ${data.response[i].selectedAssets.length}");
-
-                                length += data.response[i].selectedAssets.length;
-
-                                print("length --->>> ${length}");
-                                for(int j = 0; j< data.response[i].selectedAssets.length; j++){
-                                print("Selected Assets name $j ----->>> ${data.response[i].selectedAssets[j].formStatus}");
-
-                                if(data.response[i].selectedAssets[j].formStatus == "Completed"){
-                                  assetsList.add(data.response[i].selectedAssets[j].formStatus);
-                                    if(assetsList.length == length){
-                                      print("Enter Value Success---->>>");
-                                      navigationService.push(routeCustomeBottomNavigationBar);
-                                    }else{
-                                      print("Enter Value---->>>");
-                                      displayToast("Complete Your Selected Assets");
-                                    }
-
-                                }
-
-                              }
-                            }
-
-                          },
-                      ),
+                                        if(assetsList.value.length == length.value){
+                                          navigationService.push(routeCustomeBottomNavigationBar);
+                                        }else{
+                                          displayToast("Complete Your Selected Assets");
+                                        }
+                              },
+                          ),
 
                       Gap(16),
 
@@ -164,15 +170,8 @@ AssetMobileData(context,{
               .map(
                 (e) => GestureDetector(
                   onTap: () {
-                    // Navigator.push(
-                    //     context,
-                    //     MaterialPageRoute(
-                    //         builder: (context) => ImmovableProperty()));
 
-                    setString(prefSubscriptionAssetId, e.subscriptionAssetId );
-
-                    print("hello ---->>>>> ${e.assetName}");
-
+                     setString(prefSubscriptionAssetId, e.subscriptionAssetId );
 
                     if(e.assetName.toString() == "Company Transfer"){
                       if(e.formStatus == "Pending") {
@@ -181,88 +180,197 @@ AssetMobileData(context,{
                         displayToast("Please Next Assets Select");
                       }
                     }else if(e.assetName.toString() == "GST Transfer" ){
-                      navigationService.push(routeMiscellaneousCompany);
+                      if(e.formStatus == "Pending") {
+                        navigationService.push(routeMiscellaneousCompany);
 
+                      }else{
+                        displayToast("Please Next Assets Select");
+                      }
 
                     }else if( e.assetName.toString() == "Shares Transfer" ){
-                      navigationService.push(routeMiscellaneousCompany);
 
+                      if(e.formStatus == "Pending") {
+                        navigationService.push(routeMiscellaneousCompany);
+                      }else{
+                        displayToast("Please Next Assets Select");
+                      }
 
                     }else if(e.assetName.toString() == "Mutual Funds Transfer"){
-                      navigationService.push(routeMiscellaneousCompany);
-
+                      if(e.formStatus == "Pending") {
+                        navigationService.push(routeMiscellaneousCompany);
+                      }else{
+                        displayToast("Please Next Assets Select");
+                      }
 
                     }else if(e.assetName.toString() == "Vehicles"){
                       navigationService.push(routePersonalVehicle);
+                      if(e.formStatus == "Pending") {
+                        navigationService.push(routePersonalVehicle);
+                      }else{
+                        displayToast("Please Next Assets Select");
+                      }
 
                     }else if(e.assetName.toString() == "Precious Stones, Metals, Jewelers"){
-                      navigationService.push(routePersonal);
+                      if(e.formStatus == "Pending") {
+                        navigationService.push(routePersonalVehicle);
+                      }else{
+                        displayToast("Please Next Assets Select");
+                      }
 
                     }else if( e.assetName.toString() == "Clubs And Other Memberships"){
-                      navigationService.push(routePersonal);
+                      if(e.formStatus == "Pending") {
+                        navigationService.push(routePersonal);
+
+                      }else{
+                        displayToast("Please Next Assets Select");
+                      }
 
                     }else if(e.assetName.toString() == "Land/ Plot" ){
-                      navigationService.push(routeImmovableProperty);
+                      if(e.formStatus == "Pending") {
+                        navigationService.push(routeImmovableProperty);
+                      }else{
+                        displayToast("Please Next Assets Select");
+                      }
 
                     }else if( e.assetName.toString() == "Office/ Shop" ){
-                      navigationService.push(routeImmovableProperty);
+                      if(e.formStatus == "Pending") {
+                        navigationService.push(routeImmovableProperty);
+                      }else{
+                        displayToast("Please Next Assets Select");
+                      }
 
                     }else if( e.assetName.toString() == "House/ Apartment" ){
-                      navigationService.push(routeImmovableProperty);
+                      if(e.formStatus == "Pending") {
+                        navigationService.push(routeImmovableProperty);
+                      }else{
+                        displayToast("Please Next Assets Select");
+                      }
 
                     }else if( e.assetName.toString() == "Building" ){
-                      navigationService.push(routeImmovableProperty);
+                      if(e.formStatus == "Pending") {
+                        navigationService.push(routeImmovableProperty);
+                      }else{
+                        displayToast("Please Next Assets Select");
+                      }
 
                     }else if(e.assetName.toString() == "Demat Account"  ){
-                      navigationService.push(routeInvestmentsDematAccount);
+                      if(e.formStatus == "Pending") {
+                        navigationService.push(routeInvestmentsDematAccount);
+                      }else{
+                        displayToast("Please Next Assets Select");
+                      }
 
                     }else if( e.assetName.toString() == "Shares Liquidation"){
-                      navigationService.push(routeInvestmentsDematAccount);
+                      if(e.formStatus == "Pending") {
+                        navigationService.push(routeInvestmentsDematAccount);
+                      }else{
+                        displayToast("Please Next Assets Select");
+                      }
 
                     }else if( e.assetName.toString() == "Mutual Fund Liquidation" ){
-                      navigationService.push(routeInvestmentsDematAccount);
+                      if(e.formStatus == "Pending") {
+                        navigationService.push(routeInvestmentsDematAccount);
+                      }else{
+                        displayToast("Please Next Assets Select");
+                      }
 
                     }else if(e.assetName.toString() == "EPF"){
-                      navigationService.push(routeGovernmentEPF);
+                      if(e.formStatus == "Pending") {
+                        navigationService.push(routeGovernmentEPF);
+                      }else{
+                        displayToast("Please Next Assets Select");
+                      }
 
                     }else if(e.assetName.toString() == "National Pensions Scheme"){
-                      navigationService.push(routeGovernmentNPS);
+                      if(e.formStatus == "Pending") {
+                        navigationService.push(routeGovernmentNPS);
+                      }else{
+                        displayToast("Please Next Assets Select");
+                      }
 
                     }else if(e.assetName.toString() == "Atal Pension Yojana"){
-                      navigationService.push(routeGovernmentAPY);
+                      if(e.formStatus == "Pending") {
+                        navigationService.push(routeGovernmentAPY);
+                      }else{
+                        displayToast("Please Next Assets Select");
+                      }
 
                     }else if(e.assetName.toString() == "PPF"){
-                      navigationService.push(routeGovernmentPPF);
+                      if(e.formStatus == "Pending") {
+                        navigationService.push(routeGovernmentPPF);
+                      }else{
+                        displayToast("Please Next Assets Select");
+                      }
 
                     }else if(e.assetName.toString() == "Kisan Vikas Patra"){
-                      navigationService.push(routeGovernmentKVP);
+                      if(e.formStatus == "Pending") {
+                        navigationService.push(routeGovernmentKVP);
+                      }else{
+                        displayToast("Please Next Assets Select");
+                      }
 
                     }else if(e.assetName.toString() == "Electricity") {
-                      navigationService.push(routeUtilityElectricity);
+                      if(e.formStatus == "Pending") {
+                        navigationService.push(routeUtilityElectricity);
+                      }else{
+                        displayToast("Please Next Assets Select");
+                      }
 
                     }else if(e.assetName.toString() == "Phones" ) {
-                      navigationService.push(routeUtility);
+                      if(e.formStatus == "Pending") {
+                        navigationService.push(routeUtility);
+                      }else{
+                        displayToast("Please Next Assets Select");
+                      }
 
                     }else if(e.assetName.toString() == "Internet" ) {
-                      navigationService.push(routeUtility);
+                      if(e.formStatus == "Pending") {
+                        navigationService.push(routeUtility);
+                      }else{
+                        displayToast("Please Next Assets Select");
+                      }
 
                     }else if( e.assetName.toString() == "Gas" ) {
-                      navigationService.push(routeUtility);
+                      if(e.formStatus == "Pending") {
+                        navigationService.push(routeUtility);
+                      }else{
+                        displayToast("Please Next Assets Select");
+                      }
 
                     }else if(e.assetName.toString() == "Life Insurance") {
-                      navigationService.push(routeBankLifeInsurance);
+                      if(e.formStatus == "Pending") {
+                        navigationService.push(routeBankLifeInsurance);
+                      }else{
+                        displayToast("Please Next Assets Select");
+                      }
 
                     }else if(e.assetName.toString() == "Bank Accounts" ) {
-                      navigationService.push(routeBankSavingsAccounts);
+                      if(e.formStatus == "Pending") {
+                        navigationService.push(routeBankSavingsAccounts);
+                      }else{
+                        displayToast("Please Next Assets Select");
+                      }
 
                     }else if( e.assetName.toString() == "Bank Locker"  ) {
-                      navigationService.push(routeBankSavingsAccounts);
+                      if(e.formStatus == "Pending") {
+                        navigationService.push(routeBankSavingsAccounts);
+                      }else{
+                        displayToast("Please Next Assets Select");
+                      }
 
                     }else if( e.assetName.toString() == "Fixed Deposits") {
-                      navigationService.push(routeBankSavingsAccounts);
+                      if(e.formStatus == "Pending") {
+                        navigationService.push(routeBankSavingsAccounts);
+                      }else{
+                        displayToast("Please Next Assets Select");
+                      }
 
                     }else if( e.assetName.toString() == "Bank Deposits" ) {
-                      navigationService.push(routeBankSavingsAccounts);
+                      if(e.formStatus == "Pending") {
+                        navigationService.push(routeBankSavingsAccounts);
+                      }else{
+                        displayToast("Please Next Assets Select");
+                      }
 
                     }
 

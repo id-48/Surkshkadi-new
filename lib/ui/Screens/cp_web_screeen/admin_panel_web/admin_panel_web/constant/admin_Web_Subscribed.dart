@@ -5,6 +5,8 @@ import 'package:gap/gap.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:surakshakadi/data/model/home/adminWeb/subscribed_data_model/subscribed_Data_Model.dart';
+import 'package:surakshakadi/data/model/home/channelPartner/clients/get_cp_subscribed_clients/req_get_subscribed_client.dart';
+import 'package:surakshakadi/ui/Screens/cp_web_screeen/admin_panel_web/admin_panel_web/constant/client_view_modal.dart';
 import 'package:surakshakadi/ui/Screens/cp_web_screeen/admin_panel_web/admin_panel_web/dashboard_screen.dart';
 import 'package:surakshakadi/utils/color_utils.dart';
 import 'package:surakshakadi/utils/utils.dart';
@@ -154,6 +156,18 @@ class AdminWebSubscribed extends HookConsumerWidget {
     for (int i = 0; i < subscribedData.length; i++) {
       pages.value.add(i + 1);
     }
+
+    useEffect(() {
+      ReqGetSubscribedClient getSubscribedClientData = ReqGetSubscribedClient(cpUserId: 1);
+
+      ref
+          .read(getSubscribedClientProvider.notifier)
+          .getSubscribedClient(context: context, data: getSubscribedClientData);
+    }, []);
+
+    final getSubscribedClientController = ref.watch(getSubscribedClientProvider);
+
+
     return StatefulBuilder(
       builder: (context,setState) {
         return Container(

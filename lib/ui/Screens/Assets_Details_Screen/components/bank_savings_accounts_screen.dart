@@ -1,3 +1,5 @@
+import 'dart:typed_data';
+
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
@@ -21,13 +23,13 @@ import 'package:surakshakadi/widgets/custom_button.dart';
 import 'package:surakshakadi/widgets/custom_dottedborder.dart';
 import 'package:surakshakadi/widgets/custom_expandable_card.dart';
 import 'package:surakshakadi/widgets/custom_textfeild.dart';
-
+import 'package:http/http.dart' as http;
 
 class BankSavingsAccounts extends HookConsumerWidget {
   const BankSavingsAccounts({Key? key}) : super(key: key);
 
   @override
-  Widget build(BuildContext context,WidgetRef ref) {
+  Widget build(BuildContext context, WidgetRef ref) {
     final accountController = useTextEditingController();
     final ifscCodeController = useTextEditingController();
     final nomineeController = useTextEditingController();
@@ -49,17 +51,17 @@ class BankSavingsAccounts extends HookConsumerWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               iconText(context),
-
-              header(context, image: bank, title: "Bank Assets", description: "Savings accounts and deposits"),
-
+              header(context,
+                  image: bank,
+                  title: "Bank Assets",
+                  description: "Savings accounts and deposits"),
               Gap(16),
-
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 16),
                 child: CustomExpandableCardCode(
                   index: 0,
                   isExpanded: ValueNotifier(1),
-                  border:  Border.all(color: blue),
+                  border: Border.all(color: blue),
                   height: 40,
                   name: "Type of Banking Asset",
                   textColor: white,
@@ -84,8 +86,7 @@ class BankSavingsAccounts extends HookConsumerWidget {
                         //     .map(
                         //       (e) =>
                         GestureDetector(
-                          onTap: (){
-
+                          onTap: () {
                             //    Navigator.push(context, MaterialPageRoute(builder: (context)  =>
                             //        AssetsInformation(selectedindex: data["description"].indexOf(e), dattaa: data, )));
                             //     colorBox == true ?
@@ -97,17 +98,18 @@ class BankSavingsAccounts extends HookConsumerWidget {
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              Divider(thickness: 1.2, endIndent: 0, color: blue,height: 0,),
-
+                              Divider(
+                                thickness: 1.2,
+                                endIndent: 0,
+                                color: blue,
+                                height: 0,
+                              ),
                               Container(
                                 height: 100,
                                 width: Utils.getWidth(context),
-                                padding: EdgeInsets.only(left: 20,top: 6,bottom: 6),
-
+                                padding: EdgeInsets.only(
+                                    left: 20, top: 6, bottom: 6),
                               ),
-
-
-
                             ],
                           ),
                         ),
@@ -118,114 +120,130 @@ class BankSavingsAccounts extends HookConsumerWidget {
                   ),
                 ),
               ),
-
-
               Gap(16),
-
-              expandRow(context,controller: accountController,title: "Account number"),
-              expandRow(context,controller: ifscCodeController,title: "IFSC code"),
-              expandRow(context,controller: nomineeController,title: "Nominee’s Name(if any)"),
-
+              expandRow(context,
+                  controller: accountController, title: "Account number"),
+              expandRow(context,
+                  controller: ifscCodeController, title: "IFSC code"),
+              expandRow(context,
+                  controller: nomineeController,
+                  title: "Nominee’s Name(if any)"),
               Gap(6),
-
               Padding(
                   padding: EdgeInsets.only(left: 15),
-                  child: Text(additionalIn,style: TextStyle(fontWeight: FontWeight.w600,color: blueee ,fontSize: 12,fontFamily: fontFamily),)),
-
+                  child: Text(
+                    additionalIn,
+                    style: TextStyle(
+                        fontWeight: FontWeight.w600,
+                        color: blueee,
+                        fontSize: 12,
+                        fontFamily: fontFamily),
+                  )),
               Gap(12),
-
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 16),
                 child: Custom_Dottedborder(
-                  padding: EdgeInsets.only(left: 15,top: 1,right: 1,bottom: 1),
+                  padding:
+                      EdgeInsets.only(left: 15, top: 1, right: 1, bottom: 1),
                   child: CustomTextfeild(
                     controller: additionalController,
                     textCapitalization: TextCapitalization.none,
                     blurRadius: 0.0,
-                    offset: Offset(0.0,0.0),
+                    offset: Offset(0.0, 0.0),
                     containercolor: white,
                     borderRadius: BorderRadius.circular(10),
                     // height: 80,
                     maxLines: 3,
                     hinttext: "Bank Locker number, FD number etc...",
-                    hintStyle: TextStyle(fontSize: 10,fontWeight: FontWeight.w600,color: hintTextColor,fontFamily: fontFamily),
+                    hintStyle: TextStyle(
+                        fontSize: 10,
+                        fontWeight: FontWeight.w600,
+                        color: hintTextColor,
+                        fontFamily: fontFamily),
                   ),
                 ),
               ),
-
               Gap(14),
               Padding(
                   padding: EdgeInsets.only(left: 15),
-                  child: Text(addAnother,style: TextStyle(fontWeight: FontWeight.w500,color: blueee ,fontSize: 12),)),
+                  child: Text(
+                    addAnother,
+                    style: TextStyle(
+                        fontWeight: FontWeight.w500,
+                        color: blueee,
+                        fontSize: 12),
+                  )),
               Gap(10),
-              assetsPhotoText(context,controller: messageController,imageFileList: imageFileList.value),
-
+              assetsPhotoText(context,
+                  controller: messageController,
+                  imageFileList: imageFileList.value),
               Center(
                 child: CustomButton(
                   title: continuee,
-                  padding:
-                  EdgeInsets.symmetric(horizontal: 34, vertical: 11),
+                  padding: EdgeInsets.symmetric(horizontal: 34, vertical: 11),
                   onTap: () async {
+                    if (imageFileList.value.isNotEmpty) {
+                      for (int i = 0; i < imageFileList.value.length; i++) {
+                        Uint8List imageBytes =
+                            await imageFileList.value[i].readAsBytes();
+                        int length = imageBytes.length;
+                        http.ByteStream stream =
+                            http.ByteStream(imageFileList.value[i].openRead());
+                        imageList.add(
+                          MultipartFile(stream, length,
+                              filename: imageFileList.value[i].name),
+                        );
+                      }
 
+                      if (accountController.text.isNotEmpty &&
+                          ifscCodeController.text.isNotEmpty &&
+                          nomineeController.text.isNotEmpty &&
+                          additionalController.text.isNotEmpty) {
+                        Map<String, dynamic> formDetailsData = {
+                          "account": accountController.text,
+                          "ifscCode": ifscCodeController.text,
+                          "nominee": nomineeController.text,
+                          "additional": additionalController.text,
+                          "legalHeir": messageController.text,
+                        };
 
-                    if(accountController.text.isNotEmpty
-                        && ifscCodeController.text.isNotEmpty
-                        && nomineeController.text.isNotEmpty
-                        && additionalController.text.isNotEmpty
-                    ){
+                        ReqStoreAssetsFormDetails storeAssetsFormData =
+                            ReqStoreAssetsFormDetails(
+                                // subscriptionAssetId: 1,
+                                subscriptionAssetId: int.parse(
+                                    getString(prefSubscriptionAssetId)),
+                                formDetails: ["${formDetailsData}"],
+                                assetDocuments: imageList);
 
-
-                      Map<String,dynamic>  formDetailsData =
-                      {
-                        "account": accountController.text,
-                        "ifscCode": ifscCodeController.text,
-                        "nominee": nomineeController.text,
-                        "additional": additionalController.text,
-                        "legalHeir": messageController.text,
-                      };
-
-                      ReqStoreAssetsFormDetails storeAssetsFormData = ReqStoreAssetsFormDetails(
-                          // subscriptionAssetId: 1,
-                          subscriptionAssetId: int.parse(getString(prefSubscriptionAssetId)),
-                          formDetails: ["${formDetailsData}"],
-                          assetDocuments: imageList
-                      );
-
-                      await ref.read(storeAssetsFormProvider.notifier)
-                          .assetsFormDetails(context: context, data: storeAssetsFormData)
-                          .then((value) {
-
-                        if(value?.status == 1){
-                          print("enter ---->>> ");
-                          displayToast("${value?.message}");
-                          navigationService.push(routeAssetScreen);
-                        }else{
-                          displayToast("${value?.message}");
-                        }
-                      });
-
-                    }else{
-                      displayToast("Please Attach Field");
+                        await ref
+                            .read(storeAssetsFormProvider.notifier)
+                            .assetsFormDetails(
+                                context: context, data: storeAssetsFormData)
+                            .then((value) {
+                          if (value?.status == 1) {
+                            print("enter ---->>> ");
+                            displayToast("${value?.message}");
+                            navigationService.push(routeAssetScreen);
+                          } else {
+                            displayToast("${value?.message}");
+                          }
+                        });
+                      } else {
+                        displayToast("Please Attach Field");
+                      }
+                    } else {
+                      displayToast("Please Upload Image");
                     }
-
-
-
-
-
-                   // Navigator.push(context, MaterialPageRoute(builder: (context) => InsuranceLife()));
                   },
                 ),
               ),
               SizedBox(
                 height: Utils.getHeight(context) * 0.023,
               ),
-
-
             ],
           ),
         ),
       ),
-
     );
   }
 }

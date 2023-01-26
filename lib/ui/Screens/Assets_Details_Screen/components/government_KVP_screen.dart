@@ -1,3 +1,5 @@
+import 'dart:typed_data';
+
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
@@ -12,8 +14,10 @@ import 'package:surakshakadi/ui/Screens/Assets_Details_Screen/components/persona
 import 'package:surakshakadi/ui/Screens/Assets_Details_Screen/store_assets_form_view_modal.dart';
 import 'package:surakshakadi/utils/color_utils.dart';
 import 'package:surakshakadi/utils/constants/navigation_route_constants.dart';
+import 'package:surakshakadi/utils/constants/preference_key_constant.dart';
 import 'package:surakshakadi/utils/dialog_utils.dart';
 import 'package:surakshakadi/utils/image_utils.dart';
+import 'package:surakshakadi/utils/preference_utils.dart';
 import 'package:surakshakadi/utils/strings.dart';
 import 'package:surakshakadi/utils/utils.dart';
 import 'package:surakshakadi/widgets/custom_appbar.dart';
@@ -21,13 +25,13 @@ import 'package:surakshakadi/widgets/custom_button.dart';
 import 'package:surakshakadi/widgets/custom_dottedborder.dart';
 import 'package:surakshakadi/widgets/custom_expandable_card.dart';
 import 'package:surakshakadi/widgets/custom_textfeild.dart';
-
+import 'package:http/http.dart' as http;
 
 class GovernmentKVP extends HookConsumerWidget {
   const GovernmentKVP({Key? key}) : super(key: key);
 
   @override
-  Widget build(BuildContext context,WidgetRef ref) {
+  Widget build(BuildContext context, WidgetRef ref) {
     final kvpAccNoController = useTextEditingController();
     final nameJointHolderController = useTextEditingController();
     final bankBranchNameController = useTextEditingController();
@@ -49,72 +53,103 @@ class GovernmentKVP extends HookConsumerWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               iconText(context),
-
-              header(context, image: government, title: "Government Schemes", description: "Kisan Vikas Patra (KVP)"),
-
+              header(context,
+                  image: government,
+                  title: "Government Schemes",
+                  description: "Kisan Vikas Patra (KVP)"),
               Gap(16),
-
               Padding(
                   padding: EdgeInsets.only(left: 15),
-                  child: Text(pleaseShareTheDetailsKVP,style: TextStyle(fontWeight: FontWeight.w400,color: black,fontSize: 12,fontFamily: fontFamily),)),
+                  child: Text(
+                    pleaseShareTheDetailsKVP,
+                    style: TextStyle(
+                        fontWeight: FontWeight.w400,
+                        color: black,
+                        fontSize: 12,
+                        fontFamily: fontFamily),
+                  )),
               Gap(10),
-
-              expandRow(context,controller: kvpAccNoController,title: "KVP Acc. No."),
-              expandRow(context,controller: nameJointHolderController,title: "Name of the Joint Acc. Holder (if any)"),
-              expandRow(context,controller: bankBranchNameController,title: "Bank Name & Branch/ Post Office"),
-              expandRow(context,controller: nomineeController,title: "Nominee's Name (if any)"),
-
+              expandRow(context,
+                  controller: kvpAccNoController, title: "KVP Acc. No."),
+              expandRow(context,
+                  controller: nameJointHolderController,
+                  title: "Name of the Joint Acc. Holder (if any)"),
+              expandRow(context,
+                  controller: bankBranchNameController,
+                  title: "Bank Name & Branch/ Post Office"),
+              expandRow(context,
+                  controller: nomineeController,
+                  title: "Nominee's Name (if any)"),
               Gap(6),
-
               Padding(
                   padding: EdgeInsets.only(left: 15),
-                  child: Text(addAnother,style: TextStyle(fontWeight: FontWeight.w500,color: blueee ,fontSize: 12),)),
+                  child: Text(
+                    addAnother,
+                    style: TextStyle(
+                        fontWeight: FontWeight.w500,
+                        color: blueee,
+                        fontSize: 12),
+                  )),
               Gap(10),
-
-              assetsPhotoText(context,controller: messageController,textField: false,imageFileList: imageFileList.value),
-
+              assetsPhotoText(context,
+                  controller: messageController,
+                  textField: false,
+                  imageFileList: imageFileList.value),
               Center(
                 child: CustomButton(
                   title: continuee,
-                  padding:
-                  EdgeInsets.symmetric(horizontal: 34, vertical: 11),
+                  padding: EdgeInsets.symmetric(horizontal: 34, vertical: 11),
                   onTap: () async {
-                    if(kvpAccNoController.text.isNotEmpty
-                        && nameJointHolderController.text.isNotEmpty
-                        && bankBranchNameController.text.isNotEmpty
-                        && nomineeController.text.isNotEmpty
-                    ){
+                    if (imageFileList.value.isNotEmpty) {
+                      for (int i = 0; i < imageFileList.value.length; i++) {
+                        Uint8List imageBytes =
+                            await imageFileList.value[i].readAsBytes();
+                        int length = imageBytes.length;
+                        http.ByteStream stream =
+                            http.ByteStream(imageFileList.value[i].openRead());
+                        imageList.add(
+                          MultipartFile(stream, length,
+                              filename: imageFileList.value[i].name),
+                        );
+                      }
 
-                      Map<String,dynamic>  formDetailsData =
-                      {
-                        "kvpAcNo": kvpAccNoController.text,
-                        "nameJoinHolder": nameJointHolderController.text,
-                        "bankBranchName": bankBranchNameController.text,
-                        "nominee": nomineeController.text,
-                      };
+                      if (kvpAccNoController.text.isNotEmpty &&
+                          nameJointHolderController.text.isNotEmpty &&
+                          bankBranchNameController.text.isNotEmpty &&
+                          nomineeController.text.isNotEmpty) {
+                        Map<String, dynamic> formDetailsData = {
+                          "kvpAcNo": kvpAccNoController.text,
+                          "nameJoinHolder": nameJointHolderController.text,
+                          "bankBranchName": bankBranchNameController.text,
+                          "nominee": nomineeController.text,
+                        };
 
-                      ReqStoreAssetsFormDetails storeAssetsFormData = ReqStoreAssetsFormDetails(
-                          subscriptionAssetId: 1,
-                          // subscriptionAssetId: int.parse(getString(prefSubscriptionAssetId)),
-                          formDetails: ["${formDetailsData}"],
-                          assetDocuments: imageList
-                      );
+                        ReqStoreAssetsFormDetails storeAssetsFormData =
+                            ReqStoreAssetsFormDetails(
+                                // subscriptionAssetId: 1,
+                                subscriptionAssetId: int.parse(
+                                    getString(prefSubscriptionAssetId)),
+                                formDetails: ["${formDetailsData}"],
+                                assetDocuments: imageList);
 
-                      await ref.read(storeAssetsFormProvider.notifier)
-                          .assetsFormDetails(context: context, data: storeAssetsFormData)
-                          .then((value) {
-
-                        if(value?.status == 1){
-                          displayToast("${value?.message}");
-                          navigationService.push(routeAssetScreen);
-                          print("enter ---->>> ");
-                        }else{
-                          displayToast("${value?.message}");
-                        }
-                      });
-
-                    }else{
-                      displayToast("Please Attach Field");
+                        await ref
+                            .read(storeAssetsFormProvider.notifier)
+                            .assetsFormDetails(
+                                context: context, data: storeAssetsFormData)
+                            .then((value) {
+                          if (value?.status == 1) {
+                            displayToast("${value?.message}");
+                            navigationService.push(routeAssetScreen);
+                            print("enter ---->>> ");
+                          } else {
+                            displayToast("${value?.message}");
+                          }
+                        });
+                      } else {
+                        displayToast("Please Attach Field");
+                      }
+                    } else {
+                      displayToast("Please Upload Image");
                     }
                   },
                 ),
@@ -122,8 +157,6 @@ class GovernmentKVP extends HookConsumerWidget {
               SizedBox(
                 height: Utils.getHeight(context) * 0.023,
               ),
-
-
             ],
           ),
         ),

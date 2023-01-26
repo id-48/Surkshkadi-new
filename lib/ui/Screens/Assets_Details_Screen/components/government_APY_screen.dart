@@ -1,3 +1,5 @@
+import 'dart:typed_data';
+
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
@@ -24,13 +26,13 @@ import 'package:surakshakadi/widgets/custom_button.dart';
 import 'package:surakshakadi/widgets/custom_dottedborder.dart';
 import 'package:surakshakadi/widgets/custom_expandable_card.dart';
 import 'package:surakshakadi/widgets/custom_textfeild.dart';
-
+import 'package:http/http.dart' as http;
 
 class GovernmentAPY extends HookConsumerWidget {
   const GovernmentAPY({Key? key}) : super(key: key);
 
   @override
-  Widget build(BuildContext context,WidgetRef ref) {
+  Widget build(BuildContext context, WidgetRef ref) {
     final apyController = useTextEditingController();
     final bankNameController = useTextEditingController();
     final nameSpouseController = useTextEditingController();
@@ -53,87 +55,110 @@ class GovernmentAPY extends HookConsumerWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               iconText(context),
-
-              header(context, image: government, title: "Government Schemes", description: "Atal Pension Yojana (APY)"),
-
+              header(context,
+                  image: government,
+                  title: "Government Schemes",
+                  description: "Atal Pension Yojana (APY)"),
               Gap(16),
-
               Padding(
                   padding: EdgeInsets.only(left: 15),
-                  child: Text(pleaseShareTheDetailsAPY,style: TextStyle(fontWeight: FontWeight.w400,color: black ,fontSize: 12,fontFamily: fontFamily),)),
+                  child: Text(
+                    pleaseShareTheDetailsAPY,
+                    style: TextStyle(
+                        fontWeight: FontWeight.w400,
+                        color: black,
+                        fontSize: 12,
+                        fontFamily: fontFamily),
+                  )),
               Gap(10),
-
-              expandRow(context,controller: apyController,title: "APY Acc. No."),
-              expandRow(context,controller: bankNameController,title: "Bank Name & Branch/ Post Office"),
-              expandRow(context,controller: nameSpouseController,title: "Name of the Spouse (default nominee)"),
-              expandRow(context,controller: nomineeController,title: "Nominee's Name (if any)"),
-
-
-
+              expandRow(context,
+                  controller: apyController, title: "APY Acc. No."),
+              expandRow(context,
+                  controller: bankNameController,
+                  title: "Bank Name & Branch/ Post Office"),
+              expandRow(context,
+                  controller: nameSpouseController,
+                  title: "Name of the Spouse (default nominee)"),
+              expandRow(context,
+                  controller: nomineeController,
+                  title: "Nominee's Name (if any)"),
               Gap(6),
-
               Padding(
                   padding: EdgeInsets.only(left: 15),
-                  child: Text(addAnother,style: TextStyle(fontWeight: FontWeight.w500,color: blueee ,fontSize: 12),)),
+                  child: Text(
+                    addAnother,
+                    style: TextStyle(
+                        fontWeight: FontWeight.w500,
+                        color: blueee,
+                        fontSize: 12),
+                  )),
               Gap(10),
-
-              assetsPhotoText(context,controller: messageController,textField: false,imageFileList: imageFileList.value),
-
+              assetsPhotoText(context,
+                  controller: messageController,
+                  textField: false,
+                  imageFileList: imageFileList.value),
               Center(
                 child: CustomButton(
                   title: continuee,
-                  padding:
-                  EdgeInsets.symmetric(horizontal: 34, vertical: 11),
+                  padding: EdgeInsets.symmetric(horizontal: 34, vertical: 11),
                   onTap: () async {
                     // navigationService.push(routeCustomeBottomNavigationBar,);
+                    if (imageFileList.value.isNotEmpty) {
+                      for (int i = 0; i < imageFileList.value.length; i++) {
+                        Uint8List imageBytes =
+                            await imageFileList.value[i].readAsBytes();
+                        int length = imageBytes.length;
+                        http.ByteStream stream =
+                            http.ByteStream(imageFileList.value[i].openRead());
+                        imageList.add(
+                          MultipartFile(stream, length,
+                              filename: imageFileList.value[i].name),
+                        );
+                      }
+                      if (apyController.text.isNotEmpty &&
+                          bankNameController.text.isNotEmpty &&
+                          nameSpouseController.text.isNotEmpty &&
+                          nomineeController.text.isNotEmpty) {
+                        Map<String, dynamic> formDetailsData = {
+                          "apy": apyController.text,
+                          "bankName": bankNameController.text,
+                          "nameSpouse": nameSpouseController.text,
+                          "nominee": nomineeController.text,
+                        };
 
-                    if(apyController.text.isNotEmpty
-                        && bankNameController.text.isNotEmpty
-                        && nameSpouseController.text.isNotEmpty
-                        && nomineeController.text.isNotEmpty
-                    ){
+                        ReqStoreAssetsFormDetails storeAssetsFormData =
+                            ReqStoreAssetsFormDetails(
+                                // subscriptionAssetId: 1,
+                                subscriptionAssetId: int.parse(
+                                    getString(prefSubscriptionAssetId)),
+                                formDetails: ["${formDetailsData}"],
+                                assetDocuments: imageList);
 
-                      Map<String,dynamic>  formDetailsData =
-                      {
-                        "apy": apyController.text,
-                        "bankName": bankNameController.text,
-                        "nameSpouse": nameSpouseController.text,
-                        "nominee": nomineeController.text,
-                      };
-
-                      ReqStoreAssetsFormDetails storeAssetsFormData = ReqStoreAssetsFormDetails(
-                          subscriptionAssetId: 1,
-                          // subscriptionAssetId: int.parse(getString(prefSubscriptionAssetId)),
-                          formDetails: ["${formDetailsData}"],
-                          assetDocuments: imageList
-                      );
-
-                      await ref.read(storeAssetsFormProvider.notifier)
-                          .assetsFormDetails(context: context, data: storeAssetsFormData)
-                          .then((value) {
-
-                        if(value?.status == 1){
-                          print("enter ---->>> ");
-                          displayToast("${value?.message}");
-                          navigationService.push(routeAssetScreen);
-                        }else{
-                          displayToast("${value?.message}");
-                        }
-                      });
-
-                    }else{
-                      displayToast("Please Attach Field");
+                        await ref
+                            .read(storeAssetsFormProvider.notifier)
+                            .assetsFormDetails(
+                                context: context, data: storeAssetsFormData)
+                            .then((value) {
+                          if (value?.status == 1) {
+                            print("enter ---->>> ");
+                            displayToast("${value?.message}");
+                            navigationService.push(routeAssetScreen);
+                          } else {
+                            displayToast("${value?.message}");
+                          }
+                        });
+                      } else {
+                        displayToast("Please Attach Field");
+                      }
+                    } else {
+                      displayToast("Please Upload Image");
                     }
-
-                   // Navigator.push(context, MaterialPageRoute(builder: (context) => GovernmentKVP()));
                   },
                 ),
               ),
               SizedBox(
                 height: Utils.getHeight(context) * 0.023,
               ),
-
-
             ],
           ),
         ),

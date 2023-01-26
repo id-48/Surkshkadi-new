@@ -208,6 +208,7 @@ class ImmovableProperty extends HookConsumerWidget {
                   padding: EdgeInsets.only(left: 15),
                   child: Text(noteACopyYour,style: TextStyle(fontWeight: FontWeight.w400,color: black ,fontSize: 12,fontFamily: fontFamily),)),
               Gap(20),
+
               assetsPhotoText(context,controller: messageController, imageFileList: imageFileList.value),
 
               Center(
@@ -217,69 +218,69 @@ class ImmovableProperty extends HookConsumerWidget {
                   EdgeInsets.symmetric(horizontal: 34, vertical: 11),
                   onTap: () async {
 
+                    if(imageFileList.value.isNotEmpty) {
+                      for (int i = 0; i < imageFileList.value.length; i++) {
+                        Uint8List imageBytes =
+                        await imageFileList.value[i].readAsBytes();
+                        int length = imageBytes.length;
+                        http.ByteStream stream =
+                        http.ByteStream(imageFileList.value[i].openRead());
+                        imageList.add(
+                          MultipartFile(stream, length,
+                              filename: imageFileList.value[i].name),
+                        );
+                      }
 
-                    for (int i = 0; i < imageFileList.value.length; i++) {
-                      Uint8List imageBytes =
-                          await imageFileList.value[i].readAsBytes();
-                      int length = imageBytes.length;
-                      http.ByteStream stream =
-                      http.ByteStream(imageFileList.value[i].openRead());
-                      imageList.add(
-                        MultipartFile(stream, length,
-                            filename: imageFileList.value[i].name),
-                      );
-                    }
-
-                    if(propertyController.text.isNotEmpty
-                       && roughValueController.text.isNotEmpty
-                       && detailsLoanController.text.isNotEmpty
-                       && detailsInsuranceController.text.isNotEmpty
-                    ){
-
-                      Map<String,dynamic>  formDetailsData =
+                      if (propertyController.text.isNotEmpty
+                          && roughValueController.text.isNotEmpty
+                          && detailsLoanController.text.isNotEmpty
+                          && detailsInsuranceController.text.isNotEmpty
+                      ) {
+                        Map<String, dynamic> formDetailsData =
                         {
                           "property": propertyController.text,
                           "roughValue": roughValueController.text,
-                          "ownership": ownership.value == true ? "Single" : "Joint",
+                          "ownership": ownership.value == true
+                              ? "Single"
+                              : "Joint",
                           "detailsLoan": detailsLoanController.text,
                           "detailsInsurance": detailsInsuranceController.text,
                           "legalHeir": messageController.text,
                         };
 
-                      ReqStoreAssetsFormDetails storeAssetsFormData = ReqStoreAssetsFormDetails(
-                          subscriptionAssetId: int.parse(getString(prefSubscriptionAssetId)),
-                          formDetails: ["${formDetailsData}"],
-                          assetDocuments: imageList
-                      );
+                        ReqStoreAssetsFormDetails storeAssetsFormData = ReqStoreAssetsFormDetails(
+                            subscriptionAssetId: int.parse(
+                                getString(prefSubscriptionAssetId)),
+                            formDetails: ["${formDetailsData}"],
+                            assetDocuments: imageList
+                        );
 
-                      await ref.read(storeAssetsFormProvider.notifier)
-                          .assetsFormDetails(context: context, data: storeAssetsFormData)
-                          .then((value) {
-
-                            if(value?.status == 1){
-                              print("enter ---->>> ");
-                              displayToast("${value?.message}");
-                              navigationService.push(routeAssetScreen);
-                            }else{
-                              displayToast("${value?.message}");
-                            }
-                      });
+                        await ref.read(storeAssetsFormProvider.notifier)
+                            .assetsFormDetails(
+                            context: context, data: storeAssetsFormData)
+                            .then((value) {
+                          if (value?.status == 1) {
+                            print("enter ---->>> ");
+                            displayToast("${value?.message}");
+                            navigationService.push(routeAssetScreen);
+                          } else {
+                            displayToast("${value?.message}");
+                          }
+                        });
+                      } else {
+                        displayToast("Please Attach Field");
+                      }
 
                     }else{
-                      displayToast("Please Attach Field");
+                      displayToast("Please Upload Image");
                     }
-
-
-
-                    // Navigator.push(context, MaterialPageRoute(builder: (context)  =>
-                    //     Utility()));
-                    //
-
-
-
                   },
                 ),
               ),
+
+              Gap(10),
+
+
               SizedBox(
                 height: Utils.getHeight(context) * 0.023,
               ),

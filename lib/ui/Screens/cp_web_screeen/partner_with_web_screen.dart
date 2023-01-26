@@ -1,12 +1,22 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:gap/gap.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:surakshakadi/data/model/auth/otp/req_otp.dart';
+import 'package:surakshakadi/data/model/auth/verify_otp/req_verify_otp.dart';
+import 'package:surakshakadi/di/locator.dart';
+import 'package:surakshakadi/ui/Screens/Signup_Screen/auth_view_model.dart';
 import 'package:surakshakadi/ui/Screens/cp_web_screeen/register_web_screen.dart';
 import 'package:surakshakadi/ui/Screens/dashboard/Components/components.dart';
 import 'package:surakshakadi/utils/color_utils.dart';
+import 'package:surakshakadi/utils/constants/navigation_route_constants.dart';
+import 'package:surakshakadi/utils/constants/navigations_key_constant.dart';
+import 'package:surakshakadi/utils/constants/preference_key_constant.dart';
+import 'package:surakshakadi/utils/dialog_utils.dart';
 import 'package:surakshakadi/utils/image_utils.dart';
+import 'package:surakshakadi/utils/preference_utils.dart';
 import 'package:surakshakadi/utils/strings.dart';
 import 'package:surakshakadi/utils/utils.dart';
 import 'package:surakshakadi/widgets/custom_appbar_web.dart';
@@ -19,7 +29,10 @@ class PartnerWithWeb extends HookConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final numberController = useTextEditingController();
-    final emailController = useTextEditingController();
+    final otpController = useTextEditingController();
+
+    final sendOTP = useState<bool>(false);
+    final cpUserId = useState<String>("");
 
     return Scaffold(
       body: SingleChildScrollView(
@@ -98,10 +111,13 @@ class PartnerWithWeb extends HookConsumerWidget {
 
                         InkWell(
                           onTap: () {
-                            Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) => RegisterWeb()));
+
+                            displayToast("Yahsu Patel");
+
+                          //   Navigator.push(
+                          //       context,
+                          //       MaterialPageRoute(
+                          //           builder: (context) => RegisterWeb()));
                           },
                           child: Container(
                             padding: EdgeInsets.symmetric(
@@ -169,7 +185,7 @@ class PartnerWithWeb extends HookConsumerWidget {
             ),
             Gap(40),
             Padding(
-              padding: const EdgeInsets.only(left: 60),
+              padding:  EdgeInsets.only(left: Utils.getWidth(context) < 550 ? 16 :60 ),
               child: Text(
                 partnerWithUs,
                 style: GoogleFonts.bonaNova(
@@ -183,14 +199,16 @@ class PartnerWithWeb extends HookConsumerWidget {
             ),
             Gap(20),
             Container(
-              margin: const EdgeInsets.only(left: 65),
+
+              margin:  EdgeInsets.only(left: Utils.getWidth(context) < 550 ? 16 : 65),
               height: 4,
               width: 180,
               color: oreng,
             ),
             Gap(34),
             Container(
-              padding: const EdgeInsets.only(left: 70),
+
+              padding:  EdgeInsets.only(left: Utils.getWidth(context) < 550 ? 16 : 70),
               child: Column(
                 // mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -202,78 +220,110 @@ class PartnerWithWeb extends HookConsumerWidget {
                         fontWeight: FontWeight.w100,
                         color: black),
                   ),
+
+
                   Gap(30),
                   Container(
                     width: 360,
                     // width: MediaQuery.of(context).size.width * 0.24,
                     child: CustomTextfeild(
                       controller: numberController,
+                      enabled: sendOTP.value == true ? false : true,
                       blurRadius: 0,
                       maxLines: 1,
                       maxLength: 10,
+                      textInputType:TextInputType.numberWithOptions(decimal: true),
+                      textInputFormatter: [ FilteringTextInputFormatter.allow(RegExp(r'^\d+'))],
                       textCapitalization: TextCapitalization.none,
                       offset: Offset(0.0, 0.0),
                       containercolor: textFieldColor,
                       borderRadius: BorderRadius.circular(6),
-                      // hinttext: emaill,
+                      hinttext: "Enter Your Mobile No.",
                       prefix: Image.asset(
                         callicon,
                         scale: 4,
                       ),
-                      textInputType: TextInputType.number,
                     ),
                   ),
-                  // Gap(16),
-                  // Container(
-                  //   width: MediaQuery.of(context).size.width * 0.24,
-                  //   child: CustomTextfeild(
-                  //     textCapitalization: TextCapitalization.none,
-                  //     controller: emailController,
-                  //     blurRadius: 0,
-                  //     offset: Offset(0.0, 0.0),
-                  //     containercolor: textFieldColor,
-                  //     borderRadius: BorderRadius.circular(6),
-                  //     // hinttext: emaill,
-                  //     prefix: Image.asset(
-                  //       mailicon,
-                  //       scale: 4,
-                  //     ),
-                  //   ),
-                  // ),
-                  Gap(20),
-                  Text(
-                    anOtpWillBeSent,
-                    style: TextStyle(
-                        fontSize: 14,
-                        fontWeight: FontWeight.w400,
-                        color: black),
-                  ),
-                  Gap(26),
+                  Gap(16),
                   Row(
                     children: [
-                      Container(
-                        padding:
-                            EdgeInsets.symmetric(vertical: 8, horizontal: 35),
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(15),
-                          color: oreng,
-                          boxShadow: [
-                            BoxShadow(
-                                color: Colors.black12.withOpacity(0.2),
-                                blurRadius: 3.0,
-                                offset: Offset(0.0, 5))
-                          ],
-                        ),
-                        child: Text(
-                          sendOtp,
-                          style: TextStyle(
-                              fontWeight: FontWeight.w500,
-                              fontSize: 22,
-                              color: white),
+                      InkWell(
+                        onTap: sendOTP.value == true ? (){} : ()async{
+                          if(numberController.text.isNotEmpty){
+                            if(numberController.text.length == 10) {
+                              ReqOtp data = ReqOtp(
+                                  mobileNo: numberController.text,
+                                  userType: cp);
+                           await   ref
+                                  .read(authProvider.notifier)
+                                  .logIn(context: context, data: data).then((
+                                  value) {
+                                if (value?.status == 1) {
+                                  sendOTP.value = true;
+                                  displayToast("${value?.response?.otp}");
+
+                                  setString(prefCPUserID,
+                                      "${value?.response?.userId}");
+                                  cpUserId.value = "${value?.response?.userId}";
+                                  print("key Id-- ${getString(prefCPUserID)}");
+                                } else {
+                                  displayToast("${value?.message}");
+                                }
+                              });
+                            }else{
+                              displayToast('Enter 10 Digit Mobile No');
+                            }
+                          }else{
+                            displayToast('Enter Mobile No');
+                          }
+                        },
+                        child: Container(
+                          padding:
+                              EdgeInsets.symmetric(vertical: 8, horizontal: 35),
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(15),
+                            color: oreng,
+                            boxShadow: [
+                              BoxShadow(
+                                  color: Colors.black12.withOpacity(0.2),
+                                  blurRadius: 3.0,
+                                  offset: Offset(0.0, 5))
+                            ],
+                          ),
+                          child: Text(
+                            sendOtp,
+                            style: TextStyle(
+                                fontWeight: FontWeight.w500,
+                                fontSize: 22,
+                                color: white),
+                          ),
                         ),
                       ),
                       Gap(90),
-                      Text(
+                      InkWell(
+                        onTap:sendOTP.value == false
+                            ? (){}
+                            : ()async{
+                          ReqOtp data = ReqOtp(mobileNo: numberController.text,userType: cp);
+                        await  ref
+                              .read(authProvider.notifier)
+                              .logIn(context: context, data: data).then((value) {
+                            if(value?.status == 1){
+                              sendOTP.value = true;
+                              displayToast("${value?.response?.otp}");
+
+                              setString(prefCPUserID,"${value?.response?.userId}" );
+                              cpUserId.value = "${value?.response?.userId}";
+                              print("key Id-- ${getString(prefCPUserID)}");
+
+                            }else{
+                              displayToast("${value?.message}");
+
+                            }
+                          });
+                        },
+                       child: Text(
                         reSend,
                         style: TextStyle(
                             fontSize: 14,
@@ -281,7 +331,86 @@ class PartnerWithWeb extends HookConsumerWidget {
                             color: black,
                             decoration: TextDecoration.underline),
                       ),
+                      ),
                     ],
+                  ),
+
+                  if(sendOTP.value == true) ...[
+                  Gap(20),
+                  Container(
+                    width: 360,
+                    // width: MediaQuery.of(context).size.width * 0.24,
+                    child: CustomTextfeild(
+                      contentPadding: EdgeInsets.only(left: 7),
+                      controller: otpController,
+                      blurRadius: 0,
+                      maxLines: 1,
+                      maxLength: 10,
+                      textCapitalization: TextCapitalization.none,
+                      offset: Offset(0.0, 0.0),
+                      containercolor: textFieldColor,
+                      borderRadius: BorderRadius.circular(6),
+                      hinttext: "Enter OTP",
+                      textInputType: TextInputType.number,
+                    ),
+                  ),
+                  Gap(16),
+                  InkWell(
+                    onTap: () async {
+                      if(otpController.text.isNotEmpty ){
+                        ReqVerifyOtp data = ReqVerifyOtp(
+                            userId: cpUserId.value,
+                            otp:  otpController.text,
+                            userType: cp
+                        );
+                      await  ref.read(authProvider.notifier)
+                          .verifyOtp(context: context, data: data)
+                          .then((value) {
+                            if(value?.status == 1){
+                              displayToast("${value?.message}");
+                              print('Result :  ${value?.response}');
+                              setString(prefLoginTokenWeb, "LoginSuccessWeb");
+                              setString(prefLoginNumber, "${value?.response.mobile}");
+                              navigationService.pushAndRemoveUntil(routeRegisterWeb);
+                            }else{
+                              displayToast("${value?.message}");
+                            }
+                      } );
+                      }else{
+                        displayToast('Enter Otp');
+                      }
+                    },
+                    child: Container(
+                      padding:
+                      EdgeInsets.symmetric(vertical: 8, horizontal: 35),
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(15),
+                        color: oreng,
+                        boxShadow: [
+                          BoxShadow(
+                              color: Colors.black12.withOpacity(0.2),
+                              blurRadius: 3.0,
+                              offset: Offset(0.0, 5))
+                        ],
+                      ),
+                      child: Text(
+                        verify,
+                        style: TextStyle(
+                            fontWeight: FontWeight.w500,
+                            fontSize: 22,
+                            color: white),
+                      ),
+                    ),
+                  ),
+                  ],
+
+                  Gap(20),
+                  Text(
+                    anOtpWillBeSent,
+                    style: TextStyle(
+                        fontSize: 14,
+                        fontWeight: FontWeight.w400,
+                        color: black),
                   ),
                   Gap(40),
                   RichText(
@@ -403,7 +532,6 @@ class PartnerWithWeb extends HookConsumerWidget {
                 ],
               ),
             ),
-
             Disclaimers(),
             CustomWebBottomBar(
               bgColor: true,

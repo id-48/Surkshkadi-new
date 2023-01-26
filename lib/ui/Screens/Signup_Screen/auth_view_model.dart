@@ -22,40 +22,28 @@ class AuthViewModel extends StateNotifier<AsyncValue<ResOtp>> {
 
   late final AuthRepository repositery = _reader(authRepositoryProvider);
 
+
+
+
   Future<ResOtp?> logIn(
       {required BuildContext context, required ReqOtp data}) async {
     final result = await repositery.logIn(data);
-
     return result.when(
-
         success: (result) async {
-
-          displayToast("${result.response?.otp}");
-
-          setString(prefUserID,"${result.response?.userId}" );
-
-          print("key Id-- ${getString(prefUserID)}");
-
-          navigationService.push(routeOtpVerification, arguments: {
-            navUserId: result.response?.userId,navUserType : result.response?.userType});
-
           return result;
         },
-
         failure: (error) {});
   }
+
+
 
   Future<ResVerifyOtp?> verifyOtp(
       {required BuildContext context, required ReqVerifyOtp data}) async {
     final result = await repositery.verifyOtp(data);
 
     return result.when(success: (result) async {
-      displayToast("${result.message}");
-      print('Result :  ${result.response}');
-      setString(prefLoginToken, "LoginSuccess");
-      setString(prefLoginNumber, "${result.response.mobile}");
-      navigationService.pushAndRemoveUntil(routeCustomeBottomNavigationBar, arguments: {navIndex: 0});},
 
+      },
         failure: (error) {
           displayToast("${error.message}");
       // displayToast(error.response!.data["errors"][0]['code']);

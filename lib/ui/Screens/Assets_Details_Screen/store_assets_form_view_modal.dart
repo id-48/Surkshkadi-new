@@ -5,55 +5,54 @@ import 'package:surakshakadi/data/model/home/dashboard/assets_details/get_select
 import 'package:surakshakadi/data/model/home/dashboard/assets_details/store_assets_form_details/req_store_assets_form_details.dart';
 import 'package:surakshakadi/data/model/home/dashboard/assets_details/store_assets_form_details/res_store_assets_form_details.dart';
 import 'package:surakshakadi/repository/store_repository.dart';
+import 'package:surakshakadi/utils/constants/loading_dialog.dart';
 
+final storeAssetsFormProvider = StateNotifierProvider<
+        StoreAssetsFormDetailsViewModel, AsyncValue<ResStoreAssetsFormDetails>>(
+    (ref) => StoreAssetsFormDetailsViewModel((ref.read)));
 
-final storeAssetsFormProvider = StateNotifierProvider<StoreAssetsFormDetailsViewModel, AsyncValue<ResStoreAssetsFormDetails>>(
-        (ref) => StoreAssetsFormDetailsViewModel((ref.read)));
-
-class StoreAssetsFormDetailsViewModel extends StateNotifier<AsyncValue<ResStoreAssetsFormDetails>> {
-
-
-  StoreAssetsFormDetailsViewModel(this._reader) : super(const AsyncValue.loading());
+class StoreAssetsFormDetailsViewModel
+    extends StateNotifier<AsyncValue<ResStoreAssetsFormDetails>> {
+  StoreAssetsFormDetailsViewModel(this._reader)
+      : super(const AsyncValue.loading());
   late final Reader _reader;
 
   late final StoreRepository repositery = _reader(storeRepositoryProvider);
 
   Future<ResStoreAssetsFormDetails?> assetsFormDetails(
-      {required BuildContext context, required ReqStoreAssetsFormDetails data}) async {
+      {required BuildContext context,
+      required ReqStoreAssetsFormDetails data}) async {
+    showLoadingDialog(context: context);
     final result = await repositery.assetsFormDetails(data);
     return result.when(
         success: (result) async {
-          // state= AsyncValue.data(result);
+          state= AsyncValue.data(result);
           return result;
         },
-        failure: (error) {}
-    );
+        failure: (error) {});
   }
-
 }
 
-final getSelectedAssetsProvider = StateNotifierProvider<GetSelectedAssetsViewModel, AsyncValue<ResGetSelectedAssets>>(
-        (ref) => GetSelectedAssetsViewModel((ref.read)));
+final getSelectedAssetsProvider = StateNotifierProvider<
+        GetSelectedAssetsViewModel, AsyncValue<ResGetSelectedAssets>>(
+    (ref) => GetSelectedAssetsViewModel((ref.read)));
 
-class GetSelectedAssetsViewModel extends StateNotifier<AsyncValue<ResGetSelectedAssets>> {
-
-
+class GetSelectedAssetsViewModel
+    extends StateNotifier<AsyncValue<ResGetSelectedAssets>> {
   GetSelectedAssetsViewModel(this._reader) : super(const AsyncValue.loading());
   late final Reader _reader;
 
   late final StoreRepository repositery = _reader(storeRepositoryProvider);
 
   Future<ResGetSelectedAssets?> getSelectedAssets(
-      {required BuildContext context, required ReqGetSelectedAssets data}) async {
+      {required BuildContext context,
+      required ReqGetSelectedAssets data}) async {
     final result = await repositery.getSelectedAssets(data);
     return result.when(
         success: (result) async {
-          state= AsyncValue.data(result);
+          state = AsyncValue.data(result);
           return result;
         },
-        failure: (error) {}
-    );
+        failure: (error) {});
   }
-
 }
-

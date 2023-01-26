@@ -10,8 +10,10 @@ import 'constants/fontsize_constant.dart';
 Future<bool?> displayToast(String message) {
   return Fluttertoast.showToast(
       msg: message,
+      webBgColor: "linear-gradient(to left, #4378B9, #4378B9",
+      webPosition: "center",
       toastLength: Toast.LENGTH_LONG,
-      gravity: ToastGravity.BOTTOM,
+      gravity: ToastGravity.TOP,
       timeInSecForIosWeb: 2,
       backgroundColor: darkPrimaryColor,
       textColor: Colors.white,

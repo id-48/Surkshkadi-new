@@ -1,3 +1,5 @@
+import 'dart:typed_data';
+
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
@@ -11,6 +13,7 @@ import 'package:surakshakadi/ui/Screens/Assets_Details_Screen/components/persona
 import 'package:surakshakadi/ui/Screens/Assets_Details_Screen/components/personal_vehicle_screen.dart';
 import 'package:surakshakadi/ui/Screens/Assets_Details_Screen/store_assets_form_view_modal.dart';
 import 'package:surakshakadi/utils/color_utils.dart';
+import 'package:surakshakadi/utils/constants/loading_dialog.dart';
 import 'package:surakshakadi/utils/constants/navigation_route_constants.dart';
 import 'package:surakshakadi/utils/constants/preference_key_constant.dart';
 import 'package:surakshakadi/utils/dialog_utils.dart';
@@ -23,13 +26,13 @@ import 'package:surakshakadi/widgets/custom_button.dart';
 import 'package:surakshakadi/widgets/custom_dottedborder.dart';
 import 'package:surakshakadi/widgets/custom_expandable_card.dart';
 import 'package:surakshakadi/widgets/custom_textfeild.dart';
-
+import 'package:http/http.dart' as http;
 
 class MiscellaneousCompany extends HookConsumerWidget {
   const MiscellaneousCompany({Key? key}) : super(key: key);
 
   @override
-  Widget build(BuildContext context,WidgetRef ref) {
+  Widget build(BuildContext context, WidgetRef ref) {
     final companyNameController = useTextEditingController();
     final cinController = useTextEditingController();
     final dinController = useTextEditingController();
@@ -51,82 +54,100 @@ class MiscellaneousCompany extends HookConsumerWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               iconText(context),
-
-              header(context, image: companygst, title: "Miscellaneous", description: "(Company)"),
-
+              header(context,
+                  image: companygst,
+                  title: "Miscellaneous",
+                  description: "(Company)"),
               Gap(16),
-
-              expandRow(context,controller: companyNameController,title: "Company Name"),
-              expandRow(context,controller: cinController,title: "Corporate Identification Number(CIN)"),
-              expandRow(context,controller: dinController,title: "Director Identification Number (DIN)"),
-              expandRow(context,controller: gstinController,title: "GSTIN"),
-
+              expandRow(context,
+                  controller: companyNameController, title: "Company Name"),
+              expandRow(context,
+                  controller: cinController,
+                  title: "Corporate Identification Number(CIN)"),
+              expandRow(context,
+                  controller: dinController,
+                  title: "Director Identification Number (DIN)"),
+              expandRow(context, controller: gstinController, title: "GSTIN"),
               Gap(6),
-
               Center(
                 child: CustomButton(
                   title: verify,
-                  padding:
-                  EdgeInsets.symmetric(horizontal: 30, vertical: 11),
+                  padding: EdgeInsets.symmetric(horizontal: 30, vertical: 11),
                   onTap: () {
                     // Navigator.push(context, MaterialPageRoute(builder: (context) => MiscellaneousCompany()));
                   },
                 ),
               ),
-
               Gap(20),
-
               Padding(
                   padding: EdgeInsets.only(left: 15),
-                  child: Text(addAnother,style: TextStyle(fontWeight: FontWeight.w500,color: blueee ,fontSize: 12),)),
+                  child: Text(
+                    addAnother,
+                    style: TextStyle(
+                        fontWeight: FontWeight.w500,
+                        color: blueee,
+                        fontSize: 12),
+                  )),
               Gap(10),
-
-              assetsPhotoText(context,controller: messageController,imageFileList: imageFileList.value),
-
+              assetsPhotoText(context,
+                  controller: messageController,
+                  imageFileList: imageFileList.value),
               Center(
                 child: CustomButton(
                   title: continuee,
-                  padding:
-                  EdgeInsets.symmetric(horizontal: 34, vertical: 11),
+                  padding: EdgeInsets.symmetric(horizontal: 34, vertical: 11),
                   onTap: () async {
+                    if (imageFileList.value.isNotEmpty) {
+                      for (int i = 0; i < imageFileList.value.length; i++) {
+                        Uint8List imageBytes =
+                            await imageFileList.value[i].readAsBytes();
+                        int length = imageBytes.length;
+                        http.ByteStream stream =
+                            http.ByteStream(imageFileList.value[i].openRead());
+                        imageList.add(
+                          MultipartFile(stream, length,
+                              filename: imageFileList.value[i].name),
+                        );
+                      }
 
-                    if(companyNameController.text.isNotEmpty
-                        && cinController.text.isNotEmpty
-                        && dinController.text.isNotEmpty
-                        && gstinController.text.isNotEmpty
-                    ){
+                      if (companyNameController.text.isNotEmpty &&
+                          cinController.text.isNotEmpty &&
+                          dinController.text.isNotEmpty &&
+                          gstinController.text.isNotEmpty) {
+                        Map<String, dynamic> formDetailsData = {
+                          "insuranceCompanyName": companyNameController.text,
+                          "typeInsurance": cinController.text,
+                          "policyNo": dinController.text,
+                          "beneficiary": gstinController.text,
+                          "legalHeir": messageController.text,
+                        };
 
-                      Map<String,dynamic>  formDetailsData =
-                      {
-                        "insuranceCompanyName": companyNameController.text,
-                        "typeInsurance": cinController.text,
-                        "policyNo": dinController.text,
-                        "beneficiary": gstinController.text,
-                        "legalHeir": messageController.text,
-                      };
+                        ReqStoreAssetsFormDetails storeAssetsFormData =
+                            ReqStoreAssetsFormDetails(
+                                // subscriptionAssetId: 1,
+                                subscriptionAssetId: int.parse(
+                                    getString(prefSubscriptionAssetId)),
+                                formDetails: ["${formDetailsData}"],
+                                assetDocuments: imageList);
 
-                      ReqStoreAssetsFormDetails storeAssetsFormData = ReqStoreAssetsFormDetails(
-                          // subscriptionAssetId: 1,
-                          subscriptionAssetId: int.parse(getString(prefSubscriptionAssetId)),
-                          formDetails: ["${formDetailsData}"],
-                          assetDocuments: imageList
-                      );
-
-                      await ref.read(storeAssetsFormProvider.notifier)
-                          .assetsFormDetails(context: context, data: storeAssetsFormData)
-                          .then((value) {
-
-                        if(value?.status == 1){
-                          print("enter ---->>> ");
-                          displayToast("${value?.message}");
-                          navigationService.push(routeAssetScreen);
-                        }else{
-                          displayToast("${value?.message}");
-                        }
-                      });
-
-                    }else{
-                      displayToast("Please Attach Field");
+                        await ref
+                            .read(storeAssetsFormProvider.notifier)
+                            .assetsFormDetails(
+                                context: context, data: storeAssetsFormData)
+                            .then((value) {
+                          if (value?.status == 1) {
+                            print("enter ---->>> ");
+                            displayToast("${value?.message}");
+                            navigationService.push(routeAssetScreen);
+                          } else {
+                            displayToast("${value?.message}");
+                          }
+                        });
+                      } else {
+                        displayToast("Please Attach Field");
+                      }
+                    } else {
+                      displayToast("Please Upload Image");
                     }
                   },
                 ),
@@ -134,8 +155,6 @@ class MiscellaneousCompany extends HookConsumerWidget {
               SizedBox(
                 height: Utils.getHeight(context) * 0.023,
               ),
-
-
             ],
           ),
         ),

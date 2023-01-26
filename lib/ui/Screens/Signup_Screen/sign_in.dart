@@ -3,10 +3,15 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:gap/gap.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:surakshakadi/data/model/auth/otp/req_otp.dart';
+import 'package:surakshakadi/di/locator.dart';
 import 'package:surakshakadi/ui/Screens/Signup_Screen/auth_view_model.dart';
 import 'package:surakshakadi/utils/color_utils.dart';
+import 'package:surakshakadi/utils/constants/navigation_route_constants.dart';
+import 'package:surakshakadi/utils/constants/navigations_key_constant.dart';
+import 'package:surakshakadi/utils/constants/preference_key_constant.dart';
 import 'package:surakshakadi/utils/dialog_utils.dart';
 import 'package:surakshakadi/utils/image_utils.dart';
+import 'package:surakshakadi/utils/preference_utils.dart';
 import 'package:surakshakadi/utils/strings.dart';
 import 'package:surakshakadi/widgets/custom_textfeild.dart';
 
@@ -172,7 +177,21 @@ class Sign_in extends HookConsumerWidget {
                       ReqOtp data = ReqOtp(mobileNo: mobilenocontroller.text,userType: "Customer");
                       ref
                           .read(authProvider.notifier)
-                          .logIn(context: context, data: data);
+                          .logIn(context: context, data: data).then((value) {
+                            if(value!.status == 1){
+                              displayToast("${value.response?.otp}");
+
+                              setString(prefUserID,"${value.response?.userId}" );
+
+                              print("key Id-- ${getString(prefUserID)}");
+
+                              navigationService.push(routeOtpVerification, arguments: {
+                                navUserId: value.response?.userId, navUserType : value.response?.userType});
+                            }else{
+                              displayToast("${value.message}");
+
+                            }
+                      });
                     } else {
                       displayToast('Accept Privacy Policy');
                     }

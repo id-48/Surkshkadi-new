@@ -1,9 +1,11 @@
 const String prefkeyId = "prefkeyId";
 const String prefLoginToken = 'prefLoginToken';
+const String prefLoginTokenWeb = 'prefLoginTokenWeb';
 const String prefLoginNumber = 'prefLoginNumber';
 const String prefPassword = 'prefPassword';
 const String prefPasswordToken = 'prefPasswordToken';
 const String prefUserID = 'prefUserID';
+const String prefCPUserID = 'prefCPUserID';
 const String prefSpecificAssets = 'prefSpecificAssets';
 const String prefSpecificAssetsChoose = 'prefSpecificAssetsChoose';
 const String prefDashboardResponse = 'prefDashboardResponse';

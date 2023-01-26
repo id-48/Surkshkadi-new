@@ -1,3 +1,5 @@
+import 'dart:typed_data';
+
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
@@ -14,8 +16,10 @@ import 'package:surakshakadi/ui/Screens/Assets_Details_Screen/components/persona
 import 'package:surakshakadi/ui/Screens/Assets_Details_Screen/store_assets_form_view_modal.dart';
 import 'package:surakshakadi/utils/color_utils.dart';
 import 'package:surakshakadi/utils/constants/navigation_route_constants.dart';
+import 'package:surakshakadi/utils/constants/preference_key_constant.dart';
 import 'package:surakshakadi/utils/dialog_utils.dart';
 import 'package:surakshakadi/utils/image_utils.dart';
+import 'package:surakshakadi/utils/preference_utils.dart';
 import 'package:surakshakadi/utils/strings.dart';
 import 'package:surakshakadi/utils/utils.dart';
 import 'package:surakshakadi/widgets/custom_appbar.dart';
@@ -23,7 +27,7 @@ import 'package:surakshakadi/widgets/custom_button.dart';
 import 'package:surakshakadi/widgets/custom_dottedborder.dart';
 import 'package:surakshakadi/widgets/custom_expandable_card.dart';
 import 'package:surakshakadi/widgets/custom_textfeild.dart';
-
+import 'package:http/http.dart' as http;
 
 class GovernmentPPF extends HookConsumerWidget {
   const GovernmentPPF({Key? key}) : super(key: key);
@@ -81,6 +85,19 @@ class GovernmentPPF extends HookConsumerWidget {
                   padding:
                   EdgeInsets.symmetric(horizontal: 34, vertical: 11),
                   onTap: () async {
+                    if(imageFileList.value.isNotEmpty) {
+                      for (int i = 0; i < imageFileList.value.length; i++) {
+                        Uint8List imageBytes =
+                        await imageFileList.value[i].readAsBytes();
+                        int length = imageBytes.length;
+                        http.ByteStream stream =
+                        http.ByteStream(imageFileList.value[i].openRead());
+                        imageList.add(
+                          MultipartFile(stream, length,
+                              filename: imageFileList.value[i].name),
+                        );
+                      }
+
                     if(ppfAcNoController.text.isNotEmpty
                         && bankBranchNameController.text.isNotEmpty
                         && nomineeController.text.isNotEmpty
@@ -91,12 +108,12 @@ class GovernmentPPF extends HookConsumerWidget {
                         "ppfAcNo": ppfAcNoController.text,
                         "bankBranchName": bankBranchNameController.text,
                         "nominee": nomineeController.text,
-                        "legalHeir": messageController.text ?? "",
+                        "legalHeir": messageController.text ,
                       };
 
                       ReqStoreAssetsFormDetails storeAssetsFormData = ReqStoreAssetsFormDetails(
-                          subscriptionAssetId: 1,
-                          // subscriptionAssetId: int.parse(getString(prefSubscriptionAssetId)),
+                          // subscriptionAssetId: 1,
+                          subscriptionAssetId: int.parse(getString(prefSubscriptionAssetId)),
                           formDetails: ["${formDetailsData}"],
                           assetDocuments: imageList
                       );
@@ -117,6 +134,11 @@ class GovernmentPPF extends HookConsumerWidget {
                     }else{
                       displayToast("Please Attach Field");
                     }
+
+
+    }else{
+    displayToast("Please Upload Image");
+    }
                   },
                 ),
               ),

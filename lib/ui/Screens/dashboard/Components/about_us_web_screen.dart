@@ -736,14 +736,18 @@ import 'package:gap/gap.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:responsive_grid/responsive_grid.dart';
+import 'package:surakshakadi/data/model/home/dashboard/state_and_city/city/req_city.dart';
 import 'package:surakshakadi/ui/Screens/dashboard/Components/components.dart';
+import 'package:surakshakadi/ui/Screens/state_and_city_view_modal.dart';
 import 'package:surakshakadi/utils/color_utils.dart';
 import 'package:surakshakadi/utils/constants/app_constant.dart';
+import 'package:surakshakadi/utils/dialog_utils.dart';
 import 'package:surakshakadi/utils/image_utils.dart';
 import 'package:surakshakadi/utils/strings.dart';
 import 'package:surakshakadi/utils/utils.dart';
 import 'package:surakshakadi/widgets/custom_appbar_web.dart';
 import 'package:surakshakadi/widgets/custom_expandable_card.dart';
+import 'package:surakshakadi/widgets/custom_select.dart';
 import 'package:surakshakadi/widgets/custom_textfeild.dart';
 import 'package:surakshakadi/widgets/custom_validation.dart';
 import 'package:surakshakadi/widgets/custom_web_bottombar.dart';
@@ -761,6 +765,9 @@ class AboutUsWeb extends HookConsumerWidget {
     TextEditingController cityController = TextEditingController();
     TextEditingController stateController = TextEditingController();
     TextEditingController addressController = TextEditingController();
+    final statee = useState<String>('');
+    final cityy = useState<String>('');
+    final cityList = useState<List<String>>([]);
 
     final isSubmit = useState<bool>(false);
     final isSoon = useState<bool>(false);
@@ -775,85 +782,6 @@ class AboutUsWeb extends HookConsumerWidget {
             Gap(40),
 
             GiveBackTo(),
-
-            // Padding(
-            //   padding: const EdgeInsets.only(left: 60),
-            //   child: Text(
-            //     giveBackToYourLovedOnes,
-            //     style: GoogleFonts.bonaNova(
-            //       textStyle: TextStyle(
-            //           fontSize: 60,
-            //           fontWeight: FontWeight.w700,
-            //           letterSpacing: 3,
-            //           wordSpacing: 1),
-            //     ),
-            //   ),
-            // ),
-            // Gap(30),
-            // Container(
-            //   height: Utils.getHeight(context) * 0.54,
-            //   width: Utils.getWidth(context),
-            //   color: indigo,
-            //   child: Stack(
-            //     clipBehavior: Clip.none,
-            //     children: [
-            //       Padding(
-            //         padding: const EdgeInsets.only(left: 70),
-            //         child: Column(
-            //           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            //           crossAxisAlignment: CrossAxisAlignment.start,
-            //           children: [
-            //             Text(
-            //               moneyIsNotTheOnlyCommodity,
-            //               style: TextStyle(
-            //                   fontSize: 26,
-            //                   fontWeight: FontWeight.w400,
-            //                   color: white),
-            //             ),
-            //             Container(
-            //               padding: EdgeInsets.symmetric(
-            //                   vertical: 10, horizontal: 35),
-            //               decoration: BoxDecoration(
-            //                 borderRadius: BorderRadius.circular(25),
-            //                 color: white,
-            //                 boxShadow: [
-            //                   BoxShadow(
-            //                       color: Colors.black12.withOpacity(0.2),
-            //                       blurRadius: 3.0,
-            //                       offset: Offset(0.0, 5))
-            //                 ],
-            //               ),
-            //               child: Text(
-            //                 secureNow,
-            //                 style: TextStyle(
-            //                     fontWeight: FontWeight.w600,
-            //                     fontSize: 18,
-            //                     color: buttonColor),
-            //               ),
-            //             ),
-            //             Gap(10),
-            //           ],
-            //         ),
-            //       ),
-            //       Positioned(
-            //         top: -260,
-            //         right: 50,
-            //         bottom: 60,
-            //         child: Container(
-            //           height: Utils.getHeight(context) * 0.7,
-            //           width: Utils.getWidth(context) * 0.54,
-            //           // color: black,
-            //           child: Image.asset(
-            //             aboutBanner,
-            //             scale: 4,
-            //             fit: BoxFit.fill,
-            //           ),
-            //         ),
-            //       ),
-            //     ],
-            //   ),
-            // ),
-
             Gap(80),
             ResponsiveGridRow(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -1229,55 +1157,55 @@ class AboutUsWeb extends HookConsumerWidget {
               ),
             ),
 
+            Gap(10),
 
-            Gap(50),
-            Padding(
-              padding: const EdgeInsets.only(left: 30),
-              child: QuetionText(
-                  boldName: faqs,
-                  boldNameColor: navyblue,
-                  smallName: weHaveYouCOvered,
-                  smallNameColor: black),
-            ),
-            Gap(50),
             ResponsiveGridRow(
               children: [
                 ResponsiveGridCol(
                   // lg: 2,
                   xl: 6,
-                  md: Utils.getWidth(context) < 1200 ? 11 : 7,
+                  md: Utils.getWidth(context) < 1200 ? 12 : 7,
                   xs: 12,
-                  child: Padding(
-                    padding: EdgeInsets.symmetric(
-                        horizontal: Utils.getWidth(context) < 660 ? 16 : 60),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        /// Api calling data FAQs  22/12/22
-                        // ...assetsData.response!.faqs!.map((e) {
-                        //   return Column(
-                        //     children: [
-                        //       CustomChildExpandableCard(
-                        //         padding: EdgeInsets.only(
-                        //             left: 16, right: 16, top: 16, bottom: 30),
-                        //         title: "${e.question}",
-                        //         isExpanded: ValueNotifier(1),
-                        //         index: 0,
-                        //         expandedChild: Container(
-                        //           padding: EdgeInsets.symmetric(horizontal: 20,vertical: 6),
-                        //           // height: 50,
-                        //           // color: Colors.lightBlueAccent,
-                        //           child: Text("${e.answer}",style: TextStyle(fontSize: 18,fontWeight: FontWeight.w400),),
-                        //         ),
-                        //       ),
-                        //       Gap(20),
-                        //     ],
-                        //   );
-                        // } ),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Padding(
+                        padding: EdgeInsets.only(left: Utils.getWidth(context) < 660 ? 0 : 24),
+                        child: QuetionText(
+                            boldName: faqs,
+                            boldNameColor: navyblue,
+                            smallName: weHaveYouCOvered,
+                            smallNameColor: black),
+                      ),
+                      Gap(50),
 
-                        /// Api without na data
+                      /// Api calling data FAQs  22/12/22
+                      // ...assetsData.response!.faqs!.map((e) {
+                      //   return Column(
+                      //     children: [
+                      //       CustomChildExpandableCard(
+                      //         padding: EdgeInsets.only(
+                      //             left: 16, right: 16, top: 16, bottom: 30),
+                      //         title: "${e.question}",
+                      //         isExpanded: ValueNotifier(1),
+                      //         index: 0,
+                      //         expandedChild: Container(
+                      //           padding: EdgeInsets.symmetric(horizontal: 20,vertical: 6),
+                      //           // height: 50,
+                      //           // color: Colors.lightBlueAccent,
+                      //           child: Text("${e.answer}",style: TextStyle(fontSize: 18,fontWeight: FontWeight.w400),),
+                      //         ),
+                      //       ),
+                      //       Gap(20),
+                      //     ],
+                      //   );
+                      // } ),
 
-                        CustomChildExpandableCard(
+                      /// Api without na data
+
+                      Padding(
+                        padding: EdgeInsets.symmetric(horizontal: Utils.getWidth(context) < 660 ? 16 : 60),
+                        child: CustomChildExpandableCard(
                           padding: EdgeInsets.only(
                               left: 16, right: 16, top: 16, bottom: 30),
                           title: howDoYouKeepMy,
@@ -1288,8 +1216,11 @@ class AboutUsWeb extends HookConsumerWidget {
                             color: Colors.lightBlueAccent,
                           ),
                         ),
-                        Gap(20),
-                        CustomChildExpandableCard(
+                      ),
+                      Gap(20),
+                      Padding(
+                        padding: EdgeInsets.symmetric(horizontal: Utils.getWidth(context) < 660 ? 16 : 60),
+                        child: CustomChildExpandableCard(
                           padding: EdgeInsets.only(
                               left: 16, right: 16, top: 16, bottom: 30),
                           title: howDoYouSign,
@@ -1300,8 +1231,11 @@ class AboutUsWeb extends HookConsumerWidget {
                             color: Colors.lightBlueAccent,
                           ),
                         ),
-                        Gap(20),
-                        CustomChildExpandableCard(
+                      ),
+                      Gap(20),
+                      Padding(
+                        padding: EdgeInsets.symmetric(horizontal: Utils.getWidth(context) < 660 ? 16 : 60),
+                        child: CustomChildExpandableCard(
                           padding: EdgeInsets.only(
                               left: 16, right: 16, top: 16, bottom: 30),
                           title: whoCreatesTheLegal,
@@ -1312,8 +1246,11 @@ class AboutUsWeb extends HookConsumerWidget {
                             color: Colors.lightBlueAccent,
                           ),
                         ),
-                        Gap(20),
-                        CustomChildExpandableCard(
+                      ),
+                      Gap(20),
+                      Padding(
+                        padding: EdgeInsets.symmetric(horizontal: Utils.getWidth(context) < 660 ? 16 : 60),
+                        child: CustomChildExpandableCard(
                           padding: EdgeInsets.only(
                               left: 16, right: 16, top: 16, bottom: 30),
                           title: whoReviewsMy,
@@ -1324,9 +1261,11 @@ class AboutUsWeb extends HookConsumerWidget {
                             color: Colors.lightBlueAccent,
                           ),
                         ),
+                      ),
 
-                        Gap(70),
-                        Container(
+                      Gap(70),
+                      Center(
+                        child: Container(
                           padding: EdgeInsets.symmetric(
                               vertical: 14, horizontal: 50),
                           decoration: BoxDecoration(
@@ -1338,8 +1277,8 @@ class AboutUsWeb extends HookConsumerWidget {
                             style: TextStyle(fontSize: 18, color: blue),
                           ),
                         ),
-                      ],
-                    ),
+                      ),
+                    ],
                   ),
                 ),
                 ResponsiveGridCol(
@@ -1349,14 +1288,16 @@ class AboutUsWeb extends HookConsumerWidget {
                   xs: 12,
                   child: Padding(
                     padding: EdgeInsets.only(
-                        left: 50,
+                        left: Utils.getWidth(context) > 1200 ? 50 : Utils.getWidth(context) > 660 ? 70 : 30,
                         top: Utils.getWidth(context) < 1200 ? 40 : 0,
                         right: 20),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       mainAxisAlignment: MainAxisAlignment.start,
                       children: [
-                        Gap(10),
+
+                        // if( isSubmit.value ==  false || isSoon.value ==  true )
+                          Gap(Utils.getWidth(context) < 1200 ? 0 : 120),
 
                         if( isSubmit.value ==  false )
                         Container(
@@ -1410,9 +1351,9 @@ class AboutUsWeb extends HookConsumerWidget {
                         if( isSoon.value ==  true )
                         Text(
                           ourLegalExpert,
-                          style: TextStyle(color: fullgray),
+                          style: TextStyle(color: fullgray,fontSize: 18,fontFamily: fontFamily),
                         ),
-                        if(  isSubmit.value ==  true && isSoon.value == false  )
+                        if(isSubmit.value ==  true && isSoon.value == false)
                           Container(
                           // width: MediaQuery.of(context).size.width * 0.5,
                           decoration: BoxDecoration(
@@ -1436,6 +1377,7 @@ class AboutUsWeb extends HookConsumerWidget {
                                         child: customeFormTextField(
                                           context: context,
                                           name: "First Name*",
+                                          maxLines: 1,
                                           controller: firstNameController,
                                           keyboardType: TextInputType.name,
                                           validation: validateName,
@@ -1447,6 +1389,7 @@ class AboutUsWeb extends HookConsumerWidget {
                                         child: customeFormTextField(
                                           context: context,
                                           name: "Last Name*",
+                                          maxLines: 1,
                                           controller: lastNameController,
                                           keyboardType: TextInputType.name,
                                           validation: validateName,
@@ -1463,6 +1406,7 @@ class AboutUsWeb extends HookConsumerWidget {
                                         child: customeFormTextField(
                                           context: context,
                                           name: "Mobile Number*",
+                                          maxLines: 1,
                                           controller: mobilenoController,
                                           keyboardType: TextInputType.number,
                                           maxLength: 10,
@@ -1475,6 +1419,7 @@ class AboutUsWeb extends HookConsumerWidget {
                                         child: customeFormTextField(
                                           context: context,
                                           name: "Email Id*",
+                                          maxLines: 1,
                                           controller: emailController,
                                           keyboardType:
                                               TextInputType.emailAddress,
@@ -1489,23 +1434,127 @@ class AboutUsWeb extends HookConsumerWidget {
                                     children: [
                                       Expanded(
                                         flex: 1,
-                                        child: customeFormTextField(
-                                          context: context,
-                                          name: "City*",
-                                          controller: cityController,
-                                          keyboardType: TextInputType.text,
-                                          validation: validateName,
+                                        child: Column(
+                                          crossAxisAlignment: CrossAxisAlignment.start,
+                                          children: [
+                                            Text("State*"),
+                                            Gap(10),
+                                            Padding(
+                                              padding:
+                                              const EdgeInsets.only(
+                                                  // right: 20.0,
+                                                  // top: 10,
+                                                  bottom: 10),
+                                              child: CustomSelectWeb(
+                                                boxShadow: [],
+                                                iconColor: Color(0xFF9FB9ED),
+                                                textStyle: TextStyle(
+                                                  fontSize: 16,
+                                                  color: greenjerry,
+                                                  fontWeight:
+                                                  FontWeight.w600,
+                                                ),
+                                                color: white,
+                                                onChanged:
+                                                    (stateVal) async {
+                                                  cityList.value.clear();
+                                                  statee.value = stateVal;
+
+                                                  ReqCity cityData = ReqCity(
+                                                      state:
+                                                      "${stateVal}");
+
+                                                  await ref
+                                                      .read(cityProvider
+                                                      .notifier)
+                                                      .getCity(
+                                                      context:
+                                                      context,
+                                                      data: cityData)
+                                                      .then((value) {
+                                                    if (value!.status ==
+                                                        1) {
+                                                      // displayToast("${value.message}");
+                                                      for (int j = 0;
+                                                      j <
+                                                          value
+                                                              .response
+                                                              .cities
+                                                              .length;
+                                                      j++) {
+                                                        cityList.value
+                                                            .add(value
+                                                            .response
+                                                            .cities[j]
+                                                            .name);
+                                                      }
+                                                    } else {
+                                                      displayToast(
+                                                          "${value.message}");
+                                                    }
+                                                  });
+                                                },
+                                                items: stateList,
+                                                // items: selectStateCity[0]
+                                                // ["dataList"],
+                                                hint: '',
+                                                borderCon: BorderSide(
+                                                  width: 1.0,
+                                                  color: Color(0xFF9FB9ED),
+                                                ),
+                                              ),
+                                            ),
+                                          ],
                                         ),
                                       ),
                                       Gap(10),
                                       Expanded(
                                         flex: 1,
-                                        child: customeFormTextField(
-                                          context: context,
-                                          name: "State*",
-                                          controller: stateController,
-                                          keyboardType: TextInputType.text,
-                                          validation: validateName,
+                                        child: Column(
+                                          crossAxisAlignment: CrossAxisAlignment.start,
+                                          children: [
+                                            Text("City*"),
+                                            Gap(10),
+                                            Padding(
+                                              padding:
+                                              const EdgeInsets.only(
+                                                // right: 20.0,
+                                                // top: 10,
+                                                bottom: 10,
+                                              ),
+                                              child: CustomSelectWeb(
+                                                boxShadow: [
+                                                  // BoxShadow(
+                                                  //   color: Colors.black26,
+                                                  //   blurRadius: 4.0,
+                                                  //   offset: Offset(
+                                                  //     0.0,
+                                                  //     0.0,
+                                                  //   ),
+                                                  // ),
+                                                ],
+                                                iconColor: Color(0xFF9FB9ED),
+                                                textStyle: TextStyle(
+                                                  fontSize: 16,
+                                                  color: greenjerry,
+                                                  fontWeight:
+                                                  FontWeight.w600,
+                                                ),
+                                                color: white,
+                                                onChanged: (val) {
+                                                  cityy.value = val;
+                                                },
+                                                items: cityList.value,
+                                                // items: selectStateCity[1]
+                                                // ["dataList"],
+                                                hint: '',
+                                                borderCon: BorderSide(
+                                                  width: 1.0,
+                                                  color: Color(0xFF9FB9ED),
+                                                ),
+                                              ),
+                                            ),
+                                          ],
                                         ),
                                       ),
                                     ],
@@ -1527,9 +1576,23 @@ class AboutUsWeb extends HookConsumerWidget {
                                       ),
                                     ],
                                   ),
+                                  Gap(10),
                                   InkWell(
                                     onTap: () {
-                                      isSoon.value =true ;
+                                      if(firstNameController.text.isNotEmpty
+                                          && lastNameController.text.isNotEmpty
+                                      && mobilenoController.text.isNotEmpty
+                                      && emailController.text.isNotEmpty
+                                      && addressController.text.isNotEmpty
+                                      && cityy.value.isNotEmpty
+                                      && statee.value.isNotEmpty
+
+                                      ) {
+
+                                        isSoon.value = true;
+                                      }else{
+                                        displayToast("Please Complete Form Details");
+                                      }
                                     },
                                     child: Container(
                                       padding: EdgeInsets.symmetric(

@@ -276,7 +276,6 @@ class CustomSelectState extends StatelessWidget {
 }
 
 
-
 class CustomSelectWeb extends StatelessWidget {
   CustomSelectWeb(
       {Key? key,
@@ -365,7 +364,7 @@ class CustomSelectWeb extends StatelessWidget {
               prefix:prefix,
 
               suffix: Padding(padding: EdgeInsets.only(left: 5,right: 5),
-                child: Image.asset(downarrow,scale: 3.5,color:iconColor ,),
+                child: Image.asset(downarrow,scale: 3.5,color:  iconColor ,),
               ),
 
               enabledBorder: OutlineInputBorder(

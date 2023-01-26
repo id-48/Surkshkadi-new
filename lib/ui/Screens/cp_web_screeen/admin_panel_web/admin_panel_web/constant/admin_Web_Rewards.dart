@@ -5,6 +5,8 @@ import 'package:gap/gap.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:surakshakadi/data/model/home/adminWeb/rewards_data_model/rewards_Data_Model.dart';
+import 'package:surakshakadi/data/model/home/channelPartner/clients/get_cp_rewards/req_get_rewards.dart';
+import 'package:surakshakadi/ui/Screens/cp_web_screeen/admin_panel_web/admin_panel_web/constant/client_view_modal.dart';
 import 'package:surakshakadi/ui/Screens/cp_web_screeen/admin_panel_web/admin_panel_web/dashboard_screen.dart';
 import 'package:surakshakadi/utils/color_utils.dart';
 import 'package:surakshakadi/utils/utils.dart';
@@ -155,6 +157,18 @@ class AdminWebRewards extends HookConsumerWidget {
     for (int i = 0; i < clientData.length; i++) {
       pages.value.add(i + 1);
     }
+
+    useEffect(() {
+      ReqGetRewards getRewardsData = ReqGetRewards(cpUserId: 1);
+
+      ref
+          .read(getRewardsProvider.notifier)
+          .getRewards(context: context, data: getRewardsData);
+    }, []);
+
+    final getSubscribedClientController = ref.watch(getRewardsProvider);
+
+
     return Container(
       margin: EdgeInsets.only(right: Utils.getWidth(context) / 20),
       height: 900,

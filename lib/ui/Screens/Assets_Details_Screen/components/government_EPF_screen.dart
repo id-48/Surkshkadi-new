@@ -1,3 +1,5 @@
+import 'dart:typed_data';
+
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
@@ -24,7 +26,7 @@ import 'package:surakshakadi/widgets/custom_button.dart';
 import 'package:surakshakadi/widgets/custom_dottedborder.dart';
 import 'package:surakshakadi/widgets/custom_expandable_card.dart';
 import 'package:surakshakadi/widgets/custom_textfeild.dart';
-
+import 'package:http/http.dart' as http;
 
 class GovernmentEPF extends HookConsumerWidget {
   const GovernmentEPF({Key? key}) : super(key: key);
@@ -83,7 +85,18 @@ class GovernmentEPF extends HookConsumerWidget {
                   padding:
                   EdgeInsets.symmetric(horizontal: 34, vertical: 11),
                   onTap: () async {
-
+                    if(imageFileList.value.isNotEmpty) {
+                      for (int i = 0; i < imageFileList.value.length; i++) {
+                        Uint8List imageBytes =
+                        await imageFileList.value[i].readAsBytes();
+                        int length = imageBytes.length;
+                        http.ByteStream stream =
+                        http.ByteStream(imageFileList.value[i].openRead());
+                        imageList.add(
+                          MultipartFile(stream, length,
+                              filename: imageFileList.value[i].name),
+                        );
+                      }
                     if(universalController.text.isNotEmpty
                         && epfController.text.isNotEmpty
                         && nameCompanyController.text.isNotEmpty
@@ -99,8 +112,8 @@ class GovernmentEPF extends HookConsumerWidget {
                       };
 
                       ReqStoreAssetsFormDetails storeAssetsFormData = ReqStoreAssetsFormDetails(
-                          subscriptionAssetId: 1,
-                          // subscriptionAssetId: int.parse(getString(prefSubscriptionAssetId)),
+                          // subscriptionAssetId: 1,
+                          subscriptionAssetId: int.parse(getString(prefSubscriptionAssetId)),
                           formDetails: ["${formDetailsData}"],
                           assetDocuments: imageList
                       );
@@ -121,6 +134,10 @@ class GovernmentEPF extends HookConsumerWidget {
                     }else{
                       displayToast("Please Attach Field");
                     }
+
+    }else{
+    displayToast("Please Upload Image");
+    }
                   },
                 ),
               ),

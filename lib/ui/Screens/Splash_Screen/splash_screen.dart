@@ -18,7 +18,9 @@ import 'package:surakshakadi/ui/Screens/Assets_Details_Screen/components/utility
 import 'package:surakshakadi/ui/Screens/Kyc_Screen/kyc_identity_screen.dart';
 import 'package:surakshakadi/ui/Screens/chatbot_screen/kyc_chatbot_mobile_screen.dart';
 import 'package:surakshakadi/ui/Screens/cp_web_screeen/admin_panel_web/admin_panel_web/dashboard_screen.dart';
+import 'package:surakshakadi/ui/Screens/cp_web_screeen/partner_with_web_screen.dart';
 import 'package:surakshakadi/ui/Screens/cp_web_screeen/register_web_screen.dart';
+import 'package:surakshakadi/ui/Screens/dashboard/Components/about_us_web_screen.dart';
 import 'package:surakshakadi/ui/Screens/dashboard/dashboard_web_screen.dart';
 import 'package:surakshakadi/ui/Screens/will_review_screen/will_review_screen.dart';
 import 'package:surakshakadi/utils/color_utils.dart';
@@ -41,27 +43,28 @@ class SplashScreen extends HookWidget {
       () {
         final timer = Timer(const Duration(seconds: 2), () async {
           print('Enter ===>');
-          print('Enter width ===> ${MediaQuery.of(context).size.width}');     // my-1536 , ccit06-1920
-          print('Enter Height ===> ${MediaQuery.of(context).size.height}');   // my-745  , ccit06-969
+          print(
+              'Enter width ===> ${MediaQuery.of(context).size.width}'); // my-1536 , ccit06-1920
+          print(
+              'Enter Height ===> ${MediaQuery.of(context).size.height}'); // my-745  , ccit06-969
 
           if (context.isMobile) {
             print("Aadhar token ${getString(prefUserID)}");
             if (getString(prefLoginToken).isNotEmpty) {
-              Navigator.push(context, MaterialPageRoute(builder: (context) => AssetsMobile()));
-              // navigationService
-              //     .pushAndRemoveUntil(routeCustomeBottomNavigationBar);
+              Navigator.push(context,
+                  MaterialPageRoute(builder: (context) => AssetsMobile()));
+              navigationService
+                  .pushAndRemoveUntil(routeCustomeBottomNavigationBar);
             } else {
               navigationService.push(routeCommonepagee);
             }
           } else {
-            // Navigator.push(context,
-            //     MaterialPageRoute(builder: (context) => DashBoardWeb()));
-            Navigator.push(context, MaterialPageRoute(builder: (context) => AdminDashboard()));
+            Navigator.push(context,
+                MaterialPageRoute(builder: (context) => DashBoardWeb()));
+            // Navigator.push(context, MaterialPageRoute(builder: (context) => PartnerWithWeb()));
           }
         });
         return timer.cancel;
-
-
       },
       [],
     );
