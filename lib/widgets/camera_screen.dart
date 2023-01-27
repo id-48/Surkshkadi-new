@@ -71,7 +71,7 @@ class _CameraPageState extends State<CameraPage> {
       return null;
     }
     try {
-      // await _cameraController.setFlashMode(FlashMode.off);
+      await _cameraController.setFlashMode(FlashMode.off);
 
     } on CameraException catch (e) {
       debugPrint('Error occured while taking picture: $e');
@@ -105,12 +105,12 @@ class _CameraPageState extends State<CameraPage> {
                     mainAxisAlignment: MainAxisAlignment.spaceAround,
                       children: [
                     IconButton(
-                      icon:  Icon( flash ? Icons.flash_on : Icons.flash_off, color: Colors.white,size: 27,),
+                      icon:  Icon( flash == true ? Icons.flash_on : Icons.flash_off, color: Colors.white,size: 27,),
                       onPressed: (){
                         setState(() {
                           flash = !flash;
                         });
-                        flash ? _cameraController.setFlashMode(FlashMode.always) : _cameraController.setFlashMode(FlashMode.off);
+                        flash == true ? _cameraController.setFlashMode(FlashMode.torch) : _cameraController.setFlashMode(FlashMode.off);
                         },
                       iconSize: 50,
                       padding: EdgeInsets.zero,
@@ -126,14 +126,11 @@ class _CameraPageState extends State<CameraPage> {
                       },
                       onLongPressUp: () async {
                          XFile videoFile = await _cameraController.stopVideoRecording();
-                         // await _cameraController.stopVideoRecording();
-
-                         print("video player --->> ${videoFile.path}");
                         setState(() {
                           isrecording = false;
 
                         });
-
+                         _cameraController.setFlashMode(FlashMode.off);
                         Navigator.push(context, MaterialPageRoute(builder: (builder) => VideoViewPage(videopicture:videoFile)));
                       },
 

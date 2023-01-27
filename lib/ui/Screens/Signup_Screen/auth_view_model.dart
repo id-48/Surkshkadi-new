@@ -42,7 +42,7 @@ class AuthViewModel extends StateNotifier<AsyncValue<ResOtp>> {
     final result = await repositery.verifyOtp(data);
 
     return result.when(success: (result) async {
-
+      return result;
       },
         failure: (error) {
           displayToast("${error.message}");

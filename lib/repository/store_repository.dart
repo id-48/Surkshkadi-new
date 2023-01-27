@@ -47,13 +47,10 @@ class StoreRepositoryImpl implements StoreRepository {
       return AppDio()
           .multipartPost(apiStoreWillReviewDetails, data:  FormData.fromMap(data.toJson()),)
           .then((value) async{
-            print("print responsev   ------>>>> ${value.data}");
-            print("print responsev   ------>>>> ${value.redirects}");
         final data = ResStoreWillReviewDetails.fromJson(value.data);
         return data;
       });
     }).catchError((error) {
-      print("print responsev   ------>>>>1111");
       throw error;
     });
   }

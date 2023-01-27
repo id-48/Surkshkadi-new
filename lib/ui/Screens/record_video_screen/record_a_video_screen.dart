@@ -1,4 +1,6 @@
+import 'dart:convert';
 import 'dart:io';
+import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
@@ -35,7 +37,7 @@ class _RecordAVideoState extends State<RecordAVideo> {
 
   late VideoPlayerController _controller;
   late Future<void> _initializeVideoPlayerFuture;
-  String videoData = "" ;
+  late String videoData = "${widget.videoBase64!}" ;
   @override
   void initState()
   {
@@ -43,7 +45,7 @@ class _RecordAVideoState extends State<RecordAVideo> {
     if(widget.videoRecord == true ) {
       _controller = VideoPlayerController.file(widget.videoPictureRV!);
       // _controller = VideoPlayerController.file(File(widget.videoPictureRV!.path));
-      videoData = "${widget.videoBase64}";
+      // videoData = widget.videoBase64!;
 
       _initializeVideoPlayerFuture = _controller.initialize();
 
@@ -159,50 +161,28 @@ class _RecordAVideoState extends State<RecordAVideo> {
                       title: submit,
                       padding: EdgeInsets.symmetric(horizontal: 34, vertical: 10),
                       onTap: () async{
-                        //
-                        // var headers = {
-                        //   'Cookie': 'ci_session=e3dd7dd3f24d62e15c0ff7b5c26014953a834619'
-                        // };
-                        // var request = MultipartRequest('POST', Uri.parse('https://backends.surakshakadi.com/store-will-review-details'));
-                        // request.fields.addAll({
-                        //   'user_id': '7',
-                        //   'terms_conditions_status': '1',
-                        //   'issue_details': 'yeajdk,djsckdsdsds   jdsndfnfd  sdkfs',
-                        //   'video_file': 'dabshdajkda  aasnxu oaxj safa usa jsa843d38r9'
-                        // });
-                        //
-                        // request.headers.addAll(headers);
-                        //
-                        // StreamedResponse response = await request.send();
-                        //
-                        // if (response.statusCode == 200) {
-                        //   print(await response.stream.bytesToString());
-                        // }
-                        // else {
-                        //   print(response.reasonPhrase);
-                        // }
-
-
-                        /// dio code
-
 
                         if(widget.videoRecord == true){
+                          Uint8List videoBytes = await widget.videoPictureRV!.readAsBytes();
+                          // Uint8List videoBytes = await widget.videoPictureRV!.readAsBytesSync();
+                          print("videodata----->>${videoBytes.runtimeType}");
+                          String  videoBase64 = base64.encode(videoBytes);
+                          // String  videoBase64 = base64Encode(videoBytes);
+                          String videoType = "data:image/" + '${widget.videoPictureRV!.path}'.split('.')[3] + ";base64,/";
+                          print("video type---${videoType}");
+                          // String  videoeeee =  videoType.replaceAll("'", "");
+                          String  videoData =  "${videoType}" + "${videoBase64}";
 
                           print("video--->> ${videoData}");
 
 
-                          if(widget.videoRecord == true){
+                              ReqStoreWillReviewDetails willReviewData = ReqStoreWillReviewDetails(
+                                userId: getString(prefUserID),
+                                issueDetails: "${getString(prefIssueDetail)}",
+                                termsConditionsStatus: 1,
+                                videoFile: "{videoData.toString()}",
+                              );
 
-
-
-                            ReqStoreWillReviewDetails willReviewData = ReqStoreWillReviewDetails(
-                              userId: getString(prefUserID),
-                              issueDetails: "${getString(prefIssueDetail)}",
-                              termsConditionsStatus: 1,
-                              videoFile: "videoData",
-                            );
-
-                            setState((){});
                             await ref.read(storeWillReviewProvider.notifier)
                                 .willReviewVideo(context: context, data: willReviewData)
                                 .then((value) {
@@ -213,8 +193,6 @@ class _RecordAVideoState extends State<RecordAVideo> {
                                     displayToast("${value?.message}");
                                   }
                             });
-                          }
-
 
                         }else{
                           displayToast("Please Record Video");

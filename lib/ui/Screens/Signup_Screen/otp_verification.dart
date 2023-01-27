@@ -137,16 +137,19 @@ class OTP_Verification extends HookConsumerWidget {
                         .read(authProvider.notifier)
                         .verifyOtp(context: context, data: data)
                         .then((value) {
-                      if (value?.status == 1) {
-                        displayToast("${value?.message}");
-                        print('Result :  ${value?.response}');
+                          print("enter>>>>>>>>");
+                      if (value!.status == 1) {
+                        print("enter>>>>>>>>111111");
+
+                        displayToast("${value.message}");
+                        print('Result :  ${value.response}');
                         setString(prefLoginToken, "LoginSuccess");
-                        setString(prefLoginNumber, "${value?.response.mobile}");
-                        navigationService.pushAndRemoveUntil(
-                            routeCustomeBottomNavigationBar,
-                            arguments: {navIndex: 0});
+                        setString(prefLoginNumber, "${value.response.mobile}");
+                        navigationService.pushAndRemoveUntil(routeCustomeBottomNavigationBar, arguments: {navIndex: 0});
                       } else {
-                        displayToast("${value?.message}");
+                        print("enter>>>>>>>> 22222");
+
+                        displayToast("${value.message}");
                       }
                     });
                   } else {

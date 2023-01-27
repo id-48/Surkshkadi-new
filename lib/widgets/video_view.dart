@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:surakshakadi/di/locator.dart';
 import 'package:surakshakadi/ui/Screens/record_video_screen/record_a_video_screen.dart';
+import 'package:surakshakadi/utils/color_utils.dart';
 import 'package:surakshakadi/utils/constants/navigation_route_constants.dart';
 import 'package:surakshakadi/utils/constants/navigations_key_constant.dart';
 import 'package:video_player/video_player.dart';
@@ -28,8 +29,6 @@ class _VideoViewPageState extends State<VideoViewPage> {
   void initState() {
     super.initState();
     _controller = VideoPlayerController.file(File(widget.videopicture.path));
-    // _controller = VideoPlayerController.file(File(widget.videopicture.path));
-
     _initializeVideoPlayerFuture = _controller.initialize();
 
     _controller.setLooping(true);
@@ -46,9 +45,6 @@ class _VideoViewPageState extends State<VideoViewPage> {
 
   @override
   Widget build(BuildContext context) {
-    print("video demo1 --->>>>> ${widget.videopicture.path}");
-    print("video demo2 --->>>>> ${videoData.readAsBytesSync()}");
-    print("video demo3 --->>>>> ${videoData.path}");
     return Scaffold(
       backgroundColor: Colors.black,
       appBar: AppBar(
@@ -73,7 +69,7 @@ class _VideoViewPageState extends State<VideoViewPage> {
                     );
                   } else {
                     return const Center(
-                      child: CircularProgressIndicator(),
+                      child: CircularProgressIndicator(color: darkPrimaryColor),
                     );
                   }
                 },
@@ -87,15 +83,16 @@ class _VideoViewPageState extends State<VideoViewPage> {
                 child: GestureDetector(
                   onTap: () async {
                     _controller.pause();
-                    print("video demo --->>>>> ${widget.videopicture}");
-                    var videoBytes = await widget.videopicture.readAsBytes();
+                    var videoBytes = await videoData.readAsBytesSync();
+
                     String  videoBase64 = base64Encode(videoBytes);
                     String videoType = "data:image/" + '${widget.videopicture.path}'.split('.')[3].replaceAll("'", "") + ";base64,/";
 
                     String  videoData64 =  "$videoType${videoBase64}";
-                    print("video base64 --- >> ${videoData64}");
 
+                     setState((){
                     navigationService.push(routeRecordAVideo,arguments: {navVideoPictureRV: File(widget.videopicture.path),navVideoRecord: true,navVideoBase64 : "${videoData64}"});
+                     });
                     // navigationService.push(routeRecordAVideo,arguments: {navVideoPictureRV: widget.videopicture,navVideoRecord: true});
                     // Navigator.push(context, MaterialPageRoute(builder: (context) => RecordAVideo()));
                   },

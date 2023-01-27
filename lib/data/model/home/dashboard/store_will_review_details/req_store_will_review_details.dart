@@ -3,18 +3,18 @@
 class ReqStoreWillReviewDetails {
 
 
-  String? userId;
-  int? termsConditionsStatus;
+  String userId;
+  int termsConditionsStatus;
   String? issueDetails;
-  String? videoFile;
+  String videoFile;
 
 
   ReqStoreWillReviewDetails(
       {
-        this.userId,
-        this.termsConditionsStatus,
+      required  this.userId,
+        required  this.termsConditionsStatus,
         this.issueDetails,
-        this.videoFile,
+        required  this.videoFile,
 
       });
   Map<String, dynamic> toJson() =>

@@ -44,8 +44,6 @@ class authRepositoryImpl implements AuthRepository {
       //   final data = ResVerifyOtp.fromJson(value.data);
       return AppDio().multipartPost(apiVerifyOtp, data: FormData.fromMap(data.toJson())).then((value) async {
         final data = ResVerifyOtp.fromJson(value.data);
-
-
         return data;
       });
     }).catchError((error) {
