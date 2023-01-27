@@ -108,13 +108,13 @@ final pickedImage = useState<File>(File(""));
 
           InkWell(
             onTap: () async{
-              print('------------->>>>>>>>>>>>>>>>>.image ');
+              // print('------------->>>>>>>>>>>>>>>>>.image ');
               image = await _picker.pickImage(source: ImageSource.gallery);
               print('image path 216${image}');
               if (image != null) {
                 pickedImage.value = File(image!.path);
-                print(
-                    ' image path 200 ---->>>>>>${pickedImage}');
+                // print(
+                //     ' image path 200 ---->>>>>>${pickedImage}');
                 imageFileList.add(image!);
                 displayToast("Image Successful Upload");
                 setState((){});

@@ -9,7 +9,8 @@ class ReqSingleUserAssets {
   String? email;
   String? state;
   String? city;
-  List<MultipartFile>? documents;
+  List? documents;
+  // List<MultipartFile>? documents;
   // List<ReqVariants> variants;
 
   ReqSingleUserAssets(

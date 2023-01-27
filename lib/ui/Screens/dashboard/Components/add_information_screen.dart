@@ -1,3 +1,4 @@
+import 'dart:io';
 import 'dart:typed_data';
 
 import 'package:cc_avenue/cc_avenue.dart';
@@ -51,10 +52,11 @@ class AddInformationScreen extends HookConsumerWidget {
     ImagePicker _picker = ImagePicker();
 
     final imageFileList = useState<List<XFile>>([]);
+    final imageList = useState<List<MultipartFile>>([]);
+    final imageListDemo = useState<List>([]);
 
      final cityList = useState<List<String>>([]);
 
-    List<MultipartFile> imageList = [];
 
 
     Future getImage(res) async {
@@ -164,6 +166,18 @@ class AddInformationScreen extends HookConsumerWidget {
       }
     }
 
+
+    XFile? image;
+    final pickedImage = useState<File>(File(""));
+
+
+    XFile? addImage;
+    final addPickedImage = useState<File>(File(""));
+
+
+    XFile? cameraImage;
+    final cameraPickedImage = useState<File>(File(""));
+    final isCameraPicked = useState<bool>(false);
 
 
 
@@ -410,30 +424,46 @@ class AddInformationScreen extends HookConsumerWidget {
                     SizedBox(
                       height: Utils.getHeight(context) * 0.06,
                     ),
-                    Container(
-                      width: Utils.getWidth(context),
-                      height: Utils.getHeight(context) * 0.055,
-                      decoration: BoxDecoration(
-                        color: blue,
-                        borderRadius: BorderRadius.circular(5),
-                      ),
-                      child: Row(
-                        children: [
-                          Gap(5),
-                          Icon(
-                            Icons.attach_file,
-                            size: 25,
-                            color: white,
-                          ),
-                          Gap(20),
-                          Text(
-                            attachDocument,
-                            style: TextStyle(
-                                fontSize: 14,
-                                fontWeight: FontWeight.w500,
-                                color: white),
-                          ),
-                        ],
+                    InkWell(
+                      onTap: () async {
+                        print('------------->>>>>>>>>>>>>>>>>.image ');
+                        image = await _picker.pickImage(source: ImageSource.gallery);
+                        print('image path 216${image}');
+                        if (image != null) {
+                          pickedImage.value = File(image!.path);
+                          print(
+                              ' image path 200 ---->>>>>>${pickedImage}');
+                          imageFileList.value.add(image!);
+                          displayToast("Image Successful Upload");
+                          setState((){});
+                        }
+
+                      },
+                      child: Container(
+                        width: Utils.getWidth(context),
+                        height: Utils.getHeight(context) * 0.055,
+                        decoration: BoxDecoration(
+                          color: blue,
+                          borderRadius: BorderRadius.circular(5),
+                        ),
+                        child: Row(
+                          children: [
+                            Gap(5),
+                            Icon(
+                              Icons.attach_file,
+                              size: 25,
+                              color: white,
+                            ),
+                            Gap(20),
+                            Text(
+                              attachDocument,
+                              style: TextStyle(
+                                  fontSize: 14,
+                                  fontWeight: FontWeight.w500,
+                                  color: white),
+                            ),
+                          ],
+                        ),
                       ),
                     ),
                     SizedBox(
@@ -442,10 +472,19 @@ class AddInformationScreen extends HookConsumerWidget {
                     InkWell(
                       onTap: () async {
 
-                        print("image list length ------>>>> ${imageFileList.value.length}");
+                        print('------------->>>>>>>>>>>>>>>>>.image ');
+                        addImage = await _picker.pickImage(source: ImageSource.gallery);
+                        print('image path 216${addImage}');
+                        if (addImage != null) {
+                          addPickedImage.value = File(addImage!.path);
+                          print(
+                              ' image path 200 ---->>>>>>${addPickedImage}');
+                          imageFileList.value.add(addImage!);
+                          displayToast("Image Successful Upload");
 
-                      getImage(imageFileList.value);
-                      isPicked.value = true;
+                          setState((){});
+
+                        }
                       },
                       child: Text(
                         addAnotherDocument,
@@ -461,9 +500,19 @@ class AddInformationScreen extends HookConsumerWidget {
                     StatefulBuilder(
                       builder: (BuildContext context, void Function(void Function()) setState) {
                         return InkWell(
-                          onTap: (){
-                            getImage(imageFileList.value);
-                            isPicked.value = true;
+                          onTap: () async {
+                            print('------------->>>>>>>>>>>>>>>>>.image ');
+                            cameraImage = await _picker.pickImage(source: ImageSource.camera);
+                            print('image path 216${cameraImage}');
+                            if (cameraImage != null) {
+                              cameraPickedImage.value = File(cameraImage!.path);
+                              imageFileList.value.add(cameraImage!);
+                              print(' image path 200 ---->>>>>>${cameraPickedImage}');
+                              isCameraPicked.value = true;
+                              displayToast("Image Successful Upload");
+                              setState((){});
+                            }
+
                           },
                           child: Container(
                             height: 170,
@@ -487,19 +536,14 @@ class AddInformationScreen extends HookConsumerWidget {
                                           child: Container(
                                             height: 90,
                                             width: Utils.getWidth(context) * 0.27,
-                                            child: GestureDetector(
-                                              child: imageFileList.value.isNotEmpty
-                                                  ? SelectedImageViewer(
-                                                      res: imageFileList.value,
-                                                      setState: (void Function()) {
-                                                        setState(() {});
-                                                      },
-                                                    )
-                                                  : Image.asset(
-                                                      informationupload,
-                                                      scale: 4,
-                                                      fit: BoxFit.fill,
-                                                    ),
+                                            child: isCameraPicked.value == true
+                                                ? Image.file(
+                                                cameraPickedImage.value
+                                            )
+                                                : Image.asset(
+                                              informationupload,
+                                              scale: 4,
+                                              fit: BoxFit.fill,
                                             ),
                                           ),
                                         ),
@@ -617,79 +661,90 @@ class AddInformationScreen extends HookConsumerWidget {
                     Center(
                       child: GestureDetector(
                         onTap: () async {
+                          if(imageFileList.value.isNotEmpty) {
+                            for (int i = 0; i <
+                                imageFileList.value.length; i++) {
+                              Uint8List imageBytes =
+                              await imageFileList.value[i].readAsBytes();
+                              int length = imageBytes.length;
+                              http.ByteStream stream =
+                              http.ByteStream(
+                                  imageFileList.value[i].openRead());
+                              imageList.value.add(
+                                MultipartFile(stream, length,
+                                    filename: imageFileList.value[i].name),
+                              );
 
-                          for (int i = 0; i < imageFileList.value.length; i++) {
-                            Uint8List imageBytes =
-                                await imageFileList.value[i].readAsBytes();
-                            int length = imageBytes.length;
-                            http.ByteStream stream =
-                                http.ByteStream(imageFileList.value[i].openRead());
-                            imageList.add(
-                              MultipartFile(stream, length,
-                                  filename: imageFileList.value[i].name),
-                            );
+                              imageListDemo.value.add(stream);
+                            }
+
+                            print('image List -------->>>>>>>>>> ${imageList
+                                .value} }');
+
+                            // initPlatformState();
+
+                            if (issueController.text.isNotEmpty &&
+                                emailController.text.isNotEmpty &&
+                                statee.value.isNotEmpty &&
+                                cityy.value.isNotEmpty) {
+                              singleChooseAssetsAI.otherDetails =
+                                  issueController.text;
+                              singleChooseAssetsAI.email = emailController.text;
+                              singleChooseAssetsAI.state = statee.value;
+                              singleChooseAssetsAI.city = cityy.value;
+                              singleChooseAssetsAI.documents = imageListDemo.value;
+                              // singleChooseAssetsAI.documents = imageList.value;
+
+                              await ref
+                                  .read(dashboardProvider.notifier)
+                                  .getSingleUserAssets(
+                                  context: context, data: singleChooseAssetsAI)
+                                  .then((value) {
+                                if (value?.status == 1) {
+                                  // openCheckout(9900);
+                                  setString(prefSingleUAId,
+                                      "${value?.response.singleUserAssetId}");
+                                  print(
+                                      "Single userId ---->>>> ${value?.response
+                                          .singleUserAssetId}");
+                                  ReqSingleUAPayment SingleUAPayment = ReqSingleUAPayment(
+                                      paymentAmount: "99",
+                                      singleUserAssetsId: "${value?.response
+                                          .singleUserAssetId}",
+                                      transactionId: "hashdafefojahfo",
+                                      transactionStatus: "Success"
+                                  );
+
+                                  ref.read(singleUAPaymentProvider.notifier)
+                                      .singleUAPayment(
+                                      context: context, data: SingleUAPayment)
+                                      .then((value) {
+                                    if (value!.status == 1) {
+                                      // openCheckout(9900);
+                                      displayToast(value.message);
+                                      navigationService.push(
+                                          routeConfirmationSpecific);
+                                    }
+                                  });
+
+
+                                  displayToast(value!.message);
+                                  print("Yashu Patel");
+                                } else {
+                                  displayToast(value!.message);
+                                }
+                              });
+                            } else {
+                              displayToast('Enter Your Information');
+                            }
+
+                            // openCheckout(9900);
+
+
+                            setState(() {});
+                          }else{
+                            displayToast('Please Upload Image');
                           }
-
-                          print('image List -------->>>>>>>>>> }');
-
-                          // initPlatformState();
-
-                          if (issueController.text.isNotEmpty &&
-                              emailController.text.isNotEmpty &&
-                              statee.value.isNotEmpty &&
-                              cityy.value.isNotEmpty) {
-
-
-
-                            singleChooseAssetsAI.otherDetails = issueController.text;
-                            singleChooseAssetsAI.email = emailController.text;
-                            singleChooseAssetsAI.state = statee.value;
-                            singleChooseAssetsAI.city = cityy.value;
-                            singleChooseAssetsAI.documents = imageList;
-
-                            await ref
-                                .read(dashboardProvider.notifier)
-                                .getSingleUserAssets(context: context, data: singleChooseAssetsAI)
-                                .then((value)  {
-                              if (value?.status == 1) {
-                                // openCheckout(9900);
-                                setString(prefSingleUAId,"${value?.response.singleUserAssetId}" );
-                                print("Single userId ---->>>> ${value?.response.singleUserAssetId}");
-                                ReqSingleUAPayment SingleUAPayment = ReqSingleUAPayment(
-                                    paymentAmount: "99",
-                                    singleUserAssetsId: "${value?.response.singleUserAssetId}",
-                                    transactionId: "hashdafefojahfo",
-                                    transactionStatus: "Success"
-                                );
-
-                                ref.read(singleUAPaymentProvider.notifier)
-                                    .singleUAPayment(context: context, data: SingleUAPayment)
-                                    .then((value) {
-                                  if(value!.status == 1){
-                                    // openCheckout(9900);
-                                    displayToast(value.message);
-                                    navigationService.push(routeConfirmationSpecific);
-                                  }
-                                });
-
-
-                                displayToast(value!.message);
-                                print("Yashu Patel");
-
-                              }else{
-                                displayToast(value!.message);
-                              }
-                            });
-
-                          } else {
-                            displayToast('Enter Your Information');
-                          }
-
-                          // openCheckout(9900);
-
-
-
-                          setState((){});
                         },
                         child: Container(
                           padding:
