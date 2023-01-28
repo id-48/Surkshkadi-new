@@ -8,6 +8,7 @@ import 'package:surakshakadi/data/model/home/chatboat/plan_chat/req_plan_chatbot
 import 'package:surakshakadi/data/model/home/chatboat/plan_chat/res_plan_chatbot.dart';
 import 'package:surakshakadi/repository/kyc_chatbot_repository.dart';
 import 'package:surakshakadi/repository/planchat_repository.dart';
+import 'package:surakshakadi/utils/constants/loading_dialog.dart';
 
 
 
@@ -22,6 +23,8 @@ class KycChatBotViewModel extends StateNotifier<AsyncValue<ResKycChatBot>> {
 
   Future<ResKycChatBot?> kycChatBot(
       {required BuildContext context, required ReqKycChatBot data,}) async {
+
+    showLoadingDialog(context: context);
     final result = await repositery.kycChatBot(data);
 
     return result.when(

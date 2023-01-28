@@ -33,7 +33,7 @@ class PlanScreen extends HookConsumerWidget {
     final isSelected = useState<int>(planIndex ?? 1);
     // final isSelectedPlanId = useState<int>(1);
     // final isPlanIndex = useState<int>(0);
-    final isCheck = useState<bool>(true);
+    final isCheck = useState<bool>( planType ?? true);
 
     final planController = ref.watch(dashboardProvider);
 

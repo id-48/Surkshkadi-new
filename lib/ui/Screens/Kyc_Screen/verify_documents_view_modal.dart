@@ -16,6 +16,7 @@ import 'package:surakshakadi/data/model/home/dashboard/verify_documents/verify_v
 import 'package:surakshakadi/data/model/home/dashboard/verify_documents/verify_vehicle_no/res_vehicle_no.dart';
 
 import 'package:surakshakadi/repository/verify_documents_repository.dart';
+import 'package:surakshakadi/utils/constants/loading_dialog.dart';
 import 'package:surakshakadi/utils/constants/preference_key_constant.dart';
 import 'package:surakshakadi/utils/preference_utils.dart';
 
@@ -33,11 +34,13 @@ class PanCardNoViewModel extends StateNotifier<AsyncValue<ResPancardNo>> {
 
   Future<ResPancardNo?> getPanCard({
     required BuildContext context, required ReqPancardNo data,}) async {
+
     final result = await repositery.getPanCard(data);
+
     return result.when(success: (result) async {
 
-      return result;
 
+      return result;
     }, failure: (error) {
       throw error;
     });
@@ -59,8 +62,11 @@ class AadharNoViewModel extends StateNotifier<AsyncValue<ResAadharNo>> {
 
   Future<ResAadharNo?> getAadharNo({
     required BuildContext context, required ReqAadharNo data,}) async {
+
+    showLoadingDialog(context: context);
     final result = await repositery.getAadharNo(data);
     return result.when(success: (result) async {
+      hideLoadingDialog(context: context);
 
       return result;
 
@@ -85,9 +91,10 @@ class AadharOtpViewModel extends StateNotifier<AsyncValue<ResAadharOtp>> {
 
   Future<ResAadharOtp?> getAadharOtp({
     required BuildContext context, required ReqAadharOtp data,}) async {
+    showLoadingDialog(context: context);
     final result = await repositery.getAadharOtp(data);
     return result.when(success: (result) async {
-
+      hideLoadingDialog(context: context);
       return result;
 
     }, failure: (error) {
@@ -111,6 +118,7 @@ class BankAcViewModel extends StateNotifier<AsyncValue<ResBankAc>> {
 
   Future<ResBankAc?> getBankAC({
     required BuildContext context, required ReqBankAc data,}) async {
+    showLoadingDialog(context: context);
     final result = await repositery.getBankAC(data);
     return result.when(success: (result) async {
 

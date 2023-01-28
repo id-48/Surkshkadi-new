@@ -31,7 +31,7 @@ class Custom_BottomNavigationBar extends HookConsumerWidget {
     // });
     return Scaffold(
       body: [
-        DeshBoard(),
+        DashBoard(),
         PlanScreen(),
         Account(),
         Demo_Help_Screen(),

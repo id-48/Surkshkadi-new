@@ -13,6 +13,7 @@ void getScreenSize(BuildContext context) {
 }
 
 int? planIndex;
+bool? planType;
 
  late ResDashboard  assetsData;
 

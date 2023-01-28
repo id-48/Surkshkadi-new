@@ -16,6 +16,7 @@ import 'package:surakshakadi/ui/Screens/Assets_Details_Screen/components/persona
 import 'package:surakshakadi/ui/Screens/Assets_Details_Screen/components/utility_electricity_screen.dart';
 import 'package:surakshakadi/ui/Screens/Assets_Details_Screen/components/utility_screen.dart';
 import 'package:surakshakadi/ui/Screens/Kyc_Screen/kyc_identity_screen.dart';
+import 'package:surakshakadi/ui/Screens/Kyc_Screen/kyc_screen.dart';
 import 'package:surakshakadi/ui/Screens/chatbot_screen/kyc_chatbot_mobile_screen.dart';
 import 'package:surakshakadi/ui/Screens/cp_web_screeen/admin_panel_web/admin_panel_web/dashboard_screen.dart';
 import 'package:surakshakadi/ui/Screens/cp_web_screeen/partner_with_web_screen.dart';
@@ -52,7 +53,7 @@ class SplashScreen extends HookWidget {
             print("Aadhar token ${getString(prefUserID)}");
             if (getString(prefLoginToken).isNotEmpty) {
               // Navigator.push(context,
-              //     MaterialPageRoute(builder: (context) => WillReview()));
+              //     MaterialPageRoute(builder: (context) => KYCIdentity()));
               navigationService
                   .pushAndRemoveUntil(routeCustomeBottomNavigationBar);
             } else {

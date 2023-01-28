@@ -1,4 +1,7 @@
 
+import 'package:surakshakadi/utils/constants/preference_key_constant.dart';
+import 'package:surakshakadi/utils/preference_utils.dart';
+
 ///       Date Utils File
 
 const String today = "Today";
@@ -154,7 +157,7 @@ const String allGood = "All Good";
 ///    KYC Screen
 
 const String verifyYour = "VERIFY YOUR\nIDENTITY !!";
-const String letBeginYourKYC = "Let's begin your KYC process\n<Name>\nto get better and secure services";
+String letBeginYourKYC = "Let's begin your KYC process\n<${getString(prefUserName)}>\nto get better and secure services";
 const String keepTheFollowing = "Keep the following documents ready\nAadhar Card and PAN Card";
 const String yourDataIs = "Your data is 100% secure using Smart Contract Blockchain Technology.We do not misuse or sell your personal data.Data is accessed, stored and shared as per our ";
 const String privacyPolicyDot = "Privacy Policy";
@@ -171,12 +174,13 @@ const String completeYour = "Complete your E-KYC";
 const String inOrderToComplete =
     "In order to complete your identity, please share the detail and a copy of your identity with a clear selfie photo to prove the document holder.";
 const String allowAccessToKyc = "Allow access to eKYC through";
-const String pleaseTakeYour = "Please take your Selfie";
+const String pleaseTakeYour = "Please take your Photo";
 const String shareYourAadhar = "Share your Aadhar details for verification";
 const String aadharCard = "Aadhar Card No.";
 const String uploadAadharFront = "Upload Aadhar Front card here.";
 const String uploadAadharBack = "Upload Aadhar Back card here.";
 const String pleaseAddYourPan = "Please add your Pan Card Details";
+const String verified = "Verified";
 const String panCard = "Pan Card No.";
 const String uploadPan = "Upload Pan card here.";
 const String pleaseAddYourBank = "Please add your Bank Details";

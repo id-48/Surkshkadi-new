@@ -55,6 +55,7 @@ const String informationupload = 'assets/images/informationupload.png';
 const String iconRight = 'assets/images/iconright.png';
 const String youBotIcon = 'assets/images/youboticon.png';
 const String testimonialsBG = 'assets/images/testimonials.png';
+const String verifiedIcon = 'assets/images/verifiedIcon.png';
 
 const String bank = 'assets/images/bank.png';
 const String utility = 'assets/images/utility.png';

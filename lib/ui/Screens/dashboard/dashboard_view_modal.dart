@@ -41,11 +41,10 @@ class DashboardViewModel extends StateNotifier<AsyncValue<ResDashboard>> {
 
   Future<ResSingleUserAssets?> getSingleUserAssets(
       {required BuildContext context, required ReqSingleUserAssets data,}) async {
+    showLoadingDialog(context: context);
     final result = await repositery.getSingleUserAssets(data);
-
     return result.when(
         success: (result) async {
-          // hideLoadingDialog(context: context);
           // displayToast(result.message.toString());
           //
           // navigationService.push(routeConfirmationSpecific);

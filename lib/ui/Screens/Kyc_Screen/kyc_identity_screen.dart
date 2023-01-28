@@ -233,10 +233,11 @@ class KYCIdentity extends HookConsumerWidget {
                   ///  Aadhar card No
 
               Container(
-                height: 315,
+                // height: 315,
+                padding: EdgeInsets.symmetric(horizontal: 1),
                 child: Custom_Dottedborder(
                   padding: EdgeInsets.only(
-                      left: 10, top: 10, right: 15, bottom: 10),
+                      left: 10, top: 10, right: 15,bottom: 10),
                   child: Container(
                     width: Utils.getWidth(context),
                     child: Column(
@@ -266,7 +267,7 @@ class KYCIdentity extends HookConsumerWidget {
                                   children: [
                                     Padding(
                                       padding:
-                                      EdgeInsets.only(bottom: 5, top: 8),
+                                      EdgeInsets.only(bottom: 5, top: 8,left: 3),
                                       child: Text(
                                         aadharCard,
                                         style: TextStyle(
@@ -300,61 +301,66 @@ class KYCIdentity extends HookConsumerWidget {
                                         // hinttext: 'Enter your username',
                                       ),
                                     ),
-                                    Gap(12),
-                                    CustomButton(
-                                      padding: EdgeInsets.symmetric(
-                                          vertical: 6, horizontal: 12),
-                                      onTap: isOtp.value == true
-                                          ? () {}
-                                          : () async {
-                                        if (aadharcardnocontroller
-                                            .text.isNotEmpty) {
-                                          ReqAadharNo aadharCardNo =
-                                          ReqAadharNo(
-                                              aadhaarNumber:
-                                              aadharcardnocontroller
-                                                  .text);
+                                    // Gap( isAadhar.value == true ? 6 : 12),
 
-                                          ref
-                                              .read(aadharNoProvider
-                                              .notifier)
-                                              .getAadharNo(
-                                            context: context,
-                                            data: aadharCardNo,
-                                          )
-                                              .then((value) {
-                                            if (value!.result!
-                                                .statusCode ==
-                                                200) {
-                                              displayToast(
-                                                  "OTP Sent."); //OTP Sent.
+                                    if(isAadhar.value == false) ...[
+                                      Gap( 12),
+                                      CustomButton(
+                                        padding: EdgeInsets.symmetric(
+                                            vertical: 6, horizontal: 12),
+                                        onTap: isOtp.value == true
+                                            ? () {}
+                                            : () async {
+                                          if (aadharcardnocontroller
+                                              .text.isNotEmpty) {
+                                            ReqAadharNo aadharCardNo =
+                                            ReqAadharNo(
+                                                aadhaarNumber:
+                                                aadharcardnocontroller
+                                                    .text);
 
-                                              print(
-                                                  "Your Pan Card Verify");
-                                              print(
-                                                  "Your Name --->> ${value.toJson()}");
-                                              print(
-                                                  "Your Name --->> ${value.result!.message}");
-                                              aadharClientId.value =
-                                              "${value.result!.data!.clientId}";
-                                              isOtp.value = true;
-                                            } else {
-                                              displayToast(
-                                                  "Enter Valid Aadhar Card Number");
-                                            }
-                                          });
-                                        } else {
-                                          displayToast(
-                                              "Please Enter Your Aadhar Card No.");
-                                        }
-                                      },
-                                      title: sendOtp,
-                                    ),
-                                    Gap(12),
+                                            ref
+                                                .read(aadharNoProvider
+                                                .notifier)
+                                                .getAadharNo(
+                                              context: context,
+                                              data: aadharCardNo,
+                                            )
+                                                .then((value) {
+                                              if (value!.result!
+                                                  .statusCode ==
+                                                  200) {
+                                                displayToast(
+                                                    "OTP Sent."); //OTP Sent.
+
+                                                print(
+                                                    "Your Pan Card Verify");
+                                                print(
+                                                    "Your Name --->> ${value.toJson()}");
+                                                print(
+                                                    "Your Name --->> ${value.result!.message}");
+                                                aadharClientId.value =
+                                                "${value.result!.data!.clientId}";
+                                                isOtp.value = true;
+                                              } else {
+                                                displayToast(
+                                                    "Enter Valid Aadhar Card Number");
+                                              }
+                                            });
+                                          } else {
+                                            displayToast(
+                                                "Please Enter Your Aadhar Card No.");
+                                          }
+                                        },
+                                        title: sendOtp,
+                                      ),
+                                      Gap(10),
+                                    ],
+
                                     if (isOtp.value == true) ...[
                                       Padding(
                                         padding: EdgeInsets.only(
-                                            bottom: 5, top: 8),
+                                            bottom: 5, top: 10,left: 3),
                                         child: Text(
                                           enterOtp,
                                           style: TextStyle(
@@ -390,8 +396,21 @@ class KYCIdentity extends HookConsumerWidget {
                                           // hinttext: 'Enter your username',
                                         ),
                                       ),
-                                      Gap(12),
-                                      CustomButton(
+                                      Gap(isAadhar.value == true ? 8 : 12),
+                                      isAadhar.value == true ? Row(
+                                        children: [
+                                          Gap(2),
+                                          Container(
+                                              height: 16,
+                                              width: 16,
+                                              child: Image.asset(verifiedIcon,color: pista,)),
+
+                                          Gap(4),
+
+                                          Text(verified,style: TextStyle(fontSize: 12,color: pista,),),
+                                        ],
+                                      ) : Container(),
+                                      isAadhar.value == true ?  Container() : CustomButton(
                                         padding: EdgeInsets.symmetric(
                                             vertical: 6, horizontal: 12),
                                         onTap: isAadhar.value == true
@@ -556,6 +575,7 @@ class KYCIdentity extends HookConsumerWidget {
 
               Container(
                 height: 180,
+                padding: EdgeInsets.symmetric(horizontal: 1),
                 child: Custom_Dottedborder(
                   padding: EdgeInsets.only(
                       left: 10, top: 10, right: 15, bottom: 10),
@@ -573,6 +593,7 @@ class KYCIdentity extends HookConsumerWidget {
                         ),
                         Gap(14),
                         Row(
+                          crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Expanded(
                               flex: 11,
@@ -615,8 +636,23 @@ class KYCIdentity extends HookConsumerWidget {
                                       // hinttext: 'Enter your username',
                                     ),
                                   ),
-                                  Gap(20),
-                                  CustomButton(
+                                  Gap( isPanCard.value == true ? 8 : 20),
+
+                                  isPanCard.value == true ? Row(
+                                    children: [
+                                      Gap(2),
+                                      Container(
+                                        height: 16,
+                                          width: 16,
+                                          child: Image.asset(verifiedIcon,color: pista,)),
+
+                                      Gap(4),
+
+                                      Text(verified,style: TextStyle(fontSize: 12,color: pista,),),
+                                    ],
+                                  ) : Container(),
+
+                                  isPanCard.value == true ? Container() : CustomButton(
                                     padding: EdgeInsets.symmetric(
                                         vertical: 6, horizontal: 12),
                                     onTap: isPanCard.value == true
@@ -665,59 +701,62 @@ class KYCIdentity extends HookConsumerWidget {
                             Gap(15),
                             Expanded(
                               flex: 7,
-                              child: GestureDetector(
-                                onTap: () async {
-                                  print(
-                                      '------------->>>>>>>>>>>>>>>>>.image ');
-                                  panImage = await _picker.pickImage(
-                                      source: ImageSource.gallery);
-                                  print('image path 216${panImage}');
-                                  if (panImage != null) {
-                                    panPickedImage.value = File(panImage!.path);
-                                    print(' ------------------------- image path 200 --------------------------->>>>>>>${panPickedImage}');
-                                    print('runtime type --->>  ${panPickedImage.value.runtimeType}');
-                                    print('absolute  ------>>>>' '${panPickedImage.value.absolute}'.split('.')[3].replaceAll("'", ""));
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                children: [
+                                  GestureDetector(
+                                    onTap: () async {
+                                      print(
+                                          '------------->>>>>>>>>>>>>>>>>.image ');
+                                      panImage = await _picker.pickImage(
+                                          source: ImageSource.gallery);
+                                      print('image path 216${panImage}');
+                                      if (panImage != null) {
+                                        panPickedImage.value = File(panImage!.path);
+                                        print(' ------------------------- image path 200 --------------------------->>>>>>>${panPickedImage}');
+                                        print('runtime type --->>  ${panPickedImage.value.runtimeType}');
+                                        print('absolute  ------>>>>' '${panPickedImage.value.absolute}'.split('.')[3].replaceAll("'", ""));
 
-                                    panFrontType.value = "data:image/" + '${panPickedImage.value.absolute}'.split('.')[3].replaceAll("'", "") + ";base64,";
+                                        panFrontType.value = "data:image/" + '${panPickedImage.value.absolute}'.split('.')[3].replaceAll("'", "") + ";base64,";
 
 
-                                    print('frontType  --->> ${panFrontType}');
-                                    isPanPicked.value = true;
-                                  }
-                                },
-                                child: Container(
-                                  height: Utils.getHeight(context) * 0.11,
-                                  width: double.infinity,
-                                  margin: EdgeInsets.only(top: 10),
-                                  child: isPanPicked.value == true
-                                      ? Image.file(
-                                    panPickedImage.value,
-                                    fit: BoxFit.fill,
-                                  )
-                                      : Image.asset(
-                                    kycuploadimage,
-                                    scale: 4,
+                                        print('frontType  --->> ${panFrontType}');
+                                        isPanPicked.value = true;
+                                      }
+                                    },
+                                    child: Container(
+                                      height: Utils.getHeight(context) * 0.11,
+                                      width: double.infinity,
+                                      margin: EdgeInsets.only(top: 10),
+                                      child: isPanPicked.value == true
+                                          ? Image.file(
+                                        panPickedImage.value,
+                                        fit: BoxFit.fill,
+                                      )
+                                          : Image.asset(
+                                        kycuploadimage,
+                                        scale: 4,
+                                      ),
+                                    ),
                                   ),
-                                ),
+
+                                  Gap(6),
+                                  Center(
+                                    child: Text(
+                                      uploadPan,
+                                      style: TextStyle(
+                                          fontSize: 9,
+                                          fontWeight: FontWeight.w400,
+                                          color: lightGrey),
+                                    ),
+                                  ),
+                                ],
                               ),
                             ),
                           ],
                         ),
-                        Spacer(),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.end,
-                          children: [
 
-                            Text(
-                              uploadPan,
-                              style: TextStyle(
-                                  fontSize: 9,
-                                  fontWeight: FontWeight.w400,
-                                  color: lightGrey),
-                            ),
-                            Gap(10),
-                          ],
-                        ),
                       ],
                     ),
                   ),
@@ -1146,7 +1185,7 @@ class KYCIdentity extends HookConsumerWidget {
                         Gap(6),
                         Center(
                             child: Text(
-                              'Take a selfie',
+                              'Take a Photo',
                               style: TextStyle(
                                   fontSize: 9,
                                   fontWeight: FontWeight.w400,

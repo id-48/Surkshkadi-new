@@ -54,8 +54,9 @@ class _PlanChatBotMobileState extends State<PlanChatBotMobile> {
 
   List<ChatMessage> messages = [
     ChatMessage(messageContent: [
-      "Hello, my name is SURAKSHABOT.",
-      "Should we proceed?"
+      "Hi, I am SURAKSHA BOT.",
+      "Thanks for choosing the\nsubscription plan",
+      "I appreciate that you are taking\nproactive steps for the\nwelfare of your family."
     ], messageType: "receiver"),
   ];
   ScrollController controller = ScrollController();

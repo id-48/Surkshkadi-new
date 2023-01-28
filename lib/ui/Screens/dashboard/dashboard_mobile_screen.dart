@@ -21,8 +21,8 @@ import 'package:surakshakadi/utils/strings.dart';
 import 'package:surakshakadi/utils/utils.dart';
 import 'package:surakshakadi/widgets/loading.dart';
 
-class DeshBoard extends HookConsumerWidget {
-  const DeshBoard({Key? key, required}) : super(key: key);
+class DashBoard extends HookConsumerWidget {
+  const DashBoard({Key? key, required}) : super(key: key);
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -478,6 +478,9 @@ class DeshBoard extends HookConsumerWidget {
                                             arguments: {navIndex: 1});
                                         planIndex = data.response.plans[1].plans
                                             .indexOf(e);
+
+                                        planType = isCheck.value;
+
                                       },
                                       child: Container(
                                         margin:
@@ -566,6 +569,7 @@ class DeshBoard extends HookConsumerWidget {
                                             arguments: {navIndex: 1});
                                         planIndex = data.response.plans[0].plans
                                             .indexOf(e);
+                                        planType = isCheck.value;
                                       },
                                       child: Container(
                                         margin:

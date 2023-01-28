@@ -721,6 +721,8 @@ class AddInformationScreen extends HookConsumerWidget {
                                       .then((value) {
                                     if (value!.status == 1) {
                                       // openCheckout(9900);
+                                      hideLoadingDialog(context: context);
+
                                       displayToast(value.message);
                                       navigationService.push(
                                           routeConfirmationSpecific);

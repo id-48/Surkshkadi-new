@@ -39,11 +39,14 @@ class AuthViewModel extends StateNotifier<AsyncValue<ResOtp>> {
 
   Future<ResVerifyOtp?> verifyOtp(
       {required BuildContext context, required ReqVerifyOtp data}) async {
-    final result = await repositery.verifyOtp(data);
+    showLoadingDialog(context: context);
 
+    final result = await repositery.verifyOtp(data);
     return result.when(success: (result) async {
+      hideLoadingDialog(context: context);
       return result;
-      },
+
+    },
         failure: (error) {
           displayToast("${error.message}");
       // displayToast(error.response!.data["errors"][0]['code']);

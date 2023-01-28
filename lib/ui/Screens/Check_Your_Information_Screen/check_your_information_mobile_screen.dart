@@ -376,6 +376,9 @@ class CheckyourInformation extends HookConsumerWidget {
                         title: submit,
                         padding: EdgeInsets.symmetric(horizontal: 34, vertical: 10),
                         onTap: () async{
+
+                          setString(prefUserName, popFamilyNewData.value.isEmpty ?  '${data.response.name}' : "${popFamilyNewData.value["fullName"]}");
+
                           ReqPlanChatUpdate chatBotUpdate = ReqPlanChatUpdate(
                               userId: getString(prefUserID),
                               name:  popFamilyNewData.value.isEmpty ?  '${data.response.name}' : "${popFamilyNewData.value["fullName"]}",

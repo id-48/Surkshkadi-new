@@ -24,6 +24,7 @@ const String prefSubChatBotCompletedMobile = 'prefSubChatBotCompleted';
 const String prefPlanTitle = 'prefPlanTitle';
 const String prefIssueDetail = 'prefIssueDetail';
 const String prefSubscriptionAssetId = 'prefSubscriptionAssetId';
+const String prefUserName = 'prefUserName';
 
 
 

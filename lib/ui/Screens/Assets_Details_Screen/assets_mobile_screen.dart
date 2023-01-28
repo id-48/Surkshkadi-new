@@ -70,66 +70,72 @@ class AssetsMobile extends HookConsumerWidget {
     return StatefulBuilder(builder: (BuildContext context, setState) {
       return selectedAssetsController.when(
           data: (data) {
-            return Scaffold(
-              appBar: CustomAppBar(
-                title: assets,
-                backonTap: () {
-                  Navigator.pop(context);
-                },
-                notionTap: () {},
-              ),
-              body: Container(
-                padding: EdgeInsets.only(left: 15, right: 15, top: 15),
-                child: SingleChildScrollView(
-                  scrollDirection: Axis.vertical,
-                  child: Column(
-                    children: [
-                      Text(
-                        noOneElseEven,
-                        style: TextStyle(
-                            color: black,
-                            fontSize: 13,
-                            fontWeight: FontWeight.w500),
-                      ),
-                      Gap(16),
-                      Container(
-                        child: ListView.builder(
-                            shrinkWrap: true,
-                            physics: NeverScrollableScrollPhysics(),
-                            itemCount: data.response.length,
-                            itemBuilder: (context, index) {
-                              return AssetMobileData(context,data: data.response[index]);
-                            }),
-                      ),
-                      Gap(16),
+            return WillPopScope(
+              onWillPop: (){
+                navigationService.push(routeCustomeBottomNavigationBar);
+                return Future.value(false);
+              },
+              child: Scaffold(
+                appBar: CustomAppBar(
+                  title: assets,
+                  backonTap: () {
+                    navigationService.push(routeCustomeBottomNavigationBar);
+                  },
+                  notionTap: () {},
+                ),
+                body: Container(
+                  padding: EdgeInsets.only(left: 15, right: 15, top: 15),
+                  child: SingleChildScrollView(
+                    scrollDirection: Axis.vertical,
+                    child: Column(
+                      children: [
+                        Text(
+                          noOneElseEven,
+                          style: TextStyle(
+                              color: black,
+                              fontSize: 13,
+                              fontWeight: FontWeight.w500),
+                        ),
+                        Gap(16),
+                        Container(
+                          child: ListView.builder(
+                              shrinkWrap: true,
+                              physics: NeverScrollableScrollPhysics(),
+                              itemCount: data.response.length,
+                              itemBuilder: (context, index) {
+                                return AssetMobileData(context,data: data.response[index]);
+                              }),
+                        ),
+                        Gap(16),
 
-                       CustomButton(
-                              title: continuee,
-                              padding: EdgeInsets.symmetric(vertical: 12,horizontal: 36),
-                              onTap: (){
+                         CustomButton(
+                                title: continuee,
+                                padding: EdgeInsets.symmetric(vertical: 12,horizontal: 36),
+                                onTap: (){
 
-                                print("length ----- >> ${length.value}");
-                                print("length ----- >> ${assetsList.value.length}");
+                                  print("length ----- >> ${length.value}");
+                                  print("length ----- >> ${assetsList.value.length}");
 
-                                        if(assetsList.value.length == length.value){
-                                          navigationService.push(routeCustomeBottomNavigationBar);
-                                        }else{
-                                          displayToast("Complete Your Selected Assets");
-                                        }
-                              },
-                          ),
+                                          if(assetsList.value.length == length.value){
+                                            navigationService.push(routeCustomeBottomNavigationBar);
+                                          }else{
+                                            displayToast("Complete Your Selected Assets");
+                                          }
+                                },
+                            ),
 
-                      Gap(16),
+                        Gap(16),
 
-                      Text(
-                        noteItIs,
-                        style: TextStyle(
-                            color: black,
-                            fontSize: 13,
-                            fontWeight: FontWeight.w500),
-                      ),
-                      Gap(16),
-                    ],
+                        Text(
+                          noteItIs,
+                          style: TextStyle(
+                              color: black,
+                              fontSize: 13,
+                              fontWeight: FontWeight.w500),
+                        ),
+                        Gap(16),
+                      ],
+                    ),
                   ),
                 ),
               ),
