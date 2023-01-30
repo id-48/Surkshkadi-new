@@ -105,7 +105,6 @@ class DashBoard extends HookConsumerWidget {
       },
       child: dashboardController.when(
           data: (data) {
-
             return Scaffold(
               appBar: AppBar(
                   elevation: 1,
@@ -181,7 +180,7 @@ class DashBoard extends HookConsumerWidget {
                         child: Container(
                           alignment: Alignment.center,
                           height: 180,
-                          width: w,
+                          width: MediaQuery.of(context).size.width,
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(10),
                             // color: indigo,
@@ -489,8 +488,8 @@ class DashBoard extends HookConsumerWidget {
                                         decoration: BoxDecoration(
                                           borderRadius:
                                               BorderRadius.circular(5),
-                                          color: lightyellowtwo,
-                                          // color: Color(int.parse(e.colour!)),
+                                          // color: lightyellowtwo,
+                                          color: Color(int.parse("0xff${e.bgColor}")),
                                         ),
                                         child: Column(
                                           children: [
@@ -578,7 +577,8 @@ class DashBoard extends HookConsumerWidget {
                                         decoration: BoxDecoration(
                                           borderRadius:
                                               BorderRadius.circular(5),
-                                          color: lightyellowtwo,
+                                          // color: lightyellowtwo,
+                                          color: Color(int.parse("0xff${e.bgColor}")),
                                         ),
                                         child: Column(
                                           children: [

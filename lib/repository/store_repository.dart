@@ -1,4 +1,3 @@
-
 import 'package:dio/dio.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:surakshakadi/data/datasource/app_dio.dart';
@@ -19,17 +18,19 @@ import 'package:surakshakadi/utils/constants/api_end_points.dart';
 
 import '../data/model/result.dart';
 
-
 abstract class StoreRepository {
+  Future<Result<ResStoreWillReviewDetails>> willReviewVideo(
+      ReqStoreWillReviewDetails data);
 
-  Future<Result<ResStoreWillReviewDetails>> willReviewVideo(ReqStoreWillReviewDetails data);
-  Future<Result<ResStoreAssetsFormDetails>> assetsFormDetails(ReqStoreAssetsFormDetails data);
-  Future<Result<ResGetSelectedAssets>> getSelectedAssets(ReqGetSelectedAssets data);
+  Future<Result<ResStoreAssetsFormDetails>> assetsFormDetails(
+      ReqStoreAssetsFormDetails data);
 
+  Future<Result<ResGetSelectedAssets>> getSelectedAssets(
+      ReqGetSelectedAssets data);
 }
 
 final storeRepositoryProvider =
-Provider((ref) => StoreRepositoryImpl(ref.read));
+    Provider((ref) => StoreRepositoryImpl(ref.read));
 
 class StoreRepositoryImpl implements StoreRepository {
   StoreRepositoryImpl(this._reader);
@@ -38,32 +39,41 @@ class StoreRepositoryImpl implements StoreRepository {
 
   late final Dio dio = _reader(dioProvider);
 
-
-
   @override
-  Future<Result<ResStoreWillReviewDetails>> willReviewVideo(ReqStoreWillReviewDetails data) {
+  Future<Result<ResStoreWillReviewDetails>> willReviewVideo(
+      ReqStoreWillReviewDetails data) {
     return Result.guardFuture(() async {
-      print("tests ---->> ${data.toJson()}");
+      print("tests ---->> ${data.videoFile}");
       return AppDio()
-          .multipartPost(apiStoreWillReviewDetails, data:  FormData.fromMap(data.toJson()),)
-          .then((value) async{
+          .multipartPost(
+        apiStoreWillReviewDetails,
+        data: FormData.fromMap(data.toJson()),
+      )
+          .then((value) async {
+        print('test 11111 ---->');
         final data = ResStoreWillReviewDetails.fromJson(value.data);
+        print('test 3333 ---->');
         return data;
       });
     }).catchError((error) {
+      print('test 22222 ---->');
+
       throw error;
     });
   }
 
-
   @override
-  Future<Result<ResStoreAssetsFormDetails>> assetsFormDetails(ReqStoreAssetsFormDetails data) {
+  Future<Result<ResStoreAssetsFormDetails>> assetsFormDetails(
+      ReqStoreAssetsFormDetails data) {
     return Result.guardFuture(() async {
       print("tests111 ---->> ${data.toJson()}");
 
       return AppDio()
-          .multipartPost(apiAssetsFormDetails, data:  FormData.fromMap(data.toJson()),)
-          .then((value) async{
+          .multipartPost(
+        apiAssetsFormDetails,
+        data: FormData.fromMap(data.toJson()),
+      )
+          .then((value) async {
         final data = ResStoreAssetsFormDetails.fromJson(value.data);
         return data;
       });
@@ -73,11 +83,15 @@ class StoreRepositoryImpl implements StoreRepository {
   }
 
   @override
-  Future<Result<ResGetSelectedAssets>> getSelectedAssets(ReqGetSelectedAssets data) {
+  Future<Result<ResGetSelectedAssets>> getSelectedAssets(
+      ReqGetSelectedAssets data) {
     return Result.guardFuture(() async {
       return AppDio()
-          .multipartPost(apiGetSelectedAssets, data:  FormData.fromMap(data.toJson()),)
-          .then((value) async{
+          .multipartPost(
+        apiGetSelectedAssets,
+        data: FormData.fromMap(data.toJson()),
+      )
+          .then((value) async {
         final data = ResGetSelectedAssets.fromJson(value.data);
         return data;
       });
@@ -85,7 +99,4 @@ class StoreRepositoryImpl implements StoreRepository {
       throw error;
     });
   }
-
-
-
 }

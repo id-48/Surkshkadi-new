@@ -833,7 +833,9 @@ class _YoutubeVideoPlayerState extends State<YoutubeVideoPlayer> {
   @override
   void initState() {
     super.initState();
-    _controller = VideoPlayerController.network("${widget.videoUrl}"
+    _controller = VideoPlayerController.network(
+        "${widget.videoUrl}"
+        // 'https://youtu.be/MvtPLoxf8SY'
         // 'https://flutter.github.io/assets-for-api-docs/assets/videos/bee.mp4'
         // "https://pagalsong.in/uploads/systemuploads/video/Simmba/Tere%20Bin%20-%20Simmba.mp4"
 
@@ -852,10 +854,9 @@ class _YoutubeVideoPlayerState extends State<YoutubeVideoPlayer> {
 
   @override
   Widget build(BuildContext context) {
+
     return Scaffold(
       body: Container(
-        // height: 350,
-        // width: 600,
         child: Stack(
           children: [
             InkWell(
@@ -864,10 +865,12 @@ class _YoutubeVideoPlayerState extends State<YoutubeVideoPlayer> {
                 _controller.pause();
                 setState(() {});
               },
-              child: AspectRatio(
-                aspectRatio: _controller.value.aspectRatio,
-                child: VideoPlayer(_controller),
-              ),
+              // child: AspectRatio(
+              //   aspectRatio: _controller.value.aspectRatio,
+                child: Container(
+                    width: double.infinity,
+                    child: VideoPlayer(_controller)),
+              // ),
             ),
             if (context.isWeb) ...[
               Positioned(

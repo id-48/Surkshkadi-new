@@ -45,7 +45,7 @@ class _RecordAVideoState extends State<RecordAVideo> {
     if(widget.videoRecord == true ) {
       _controller = VideoPlayerController.file(widget.videoPictureRV!);
       // _controller = VideoPlayerController.file(File(widget.videoPictureRV!.path));
-      // videoData = widget.videoBase64!;
+      videoData = widget.videoBase64!;
 
       _initializeVideoPlayerFuture = _controller.initialize();
 
@@ -163,25 +163,37 @@ class _RecordAVideoState extends State<RecordAVideo> {
                       onTap: () async{
 
                         if(widget.videoRecord == true){
-                          Uint8List videoBytes = await widget.videoPictureRV!.readAsBytes();
-                          // Uint8List videoBytes = await widget.videoPictureRV!.readAsBytesSync();
-                          print("videodata----->>${videoBytes.runtimeType}");
-                          String  videoBase64 = base64.encode(videoBytes);
-                          // String  videoBase64 = base64Encode(videoBytes);
+                          // Uint8List videoBytes = await widget.videoPictureRV!.readAsBytes();
+                          // // Uint8List videoBytes = await widget.videoPictureRV!.readAsBytesSync();
+                          // print("videodata----->>${videoBytes.runtimeType}");
+                          // String  videoBase64 = base64.encode(videoBytes);
+                          // // String  videoBase64 = base64Encode(videoBytes);
                           String videoType = "data:image/" + '${widget.videoPictureRV!.path}'.split('.')[3] + ";base64,/";
-                          print("video type---${videoType}");
-                          // String  videoeeee =  videoType.replaceAll("'", "");
-                          String  videoData =  "${videoType}" + "${videoBase64}";
+                          // print("video type---${videoType}");
+                          // // String  videoeeee =  videoType.replaceAll("'", "");
+                          String  videoDataa =  "videoType";
+                          // String  videoData =  "${videoType}" + "${videoBase64}";
+                          // print("video--->> ${videoData}");
 
-                          print("video--->> ${videoData}");
+
+                          print("enter your imageFile 111---->>>>> ${widget.videoPictureRV!.path.toString()}");
+                          File imageFile =  File(widget.videoPictureRV!.path);
+                          print("enter your imageFile ---->>>>> ${imageFile}");
+                          List<int> imageBytes = imageFile.readAsBytesSync();
+                          String base64Image = base64Encode(imageBytes);
+
+                          print("enter your ---->>>>> $base64Image  --");
 
 
-                              ReqStoreWillReviewDetails willReviewData = ReqStoreWillReviewDetails(
+                              ReqStoreWillReviewDetails willReviewData = await ReqStoreWillReviewDetails(
                                 userId: getString(prefUserID),
                                 issueDetails: "${getString(prefIssueDetail)}",
                                 termsConditionsStatus: 1,
-                                videoFile: "{videoData.toString()}",
+                                videoFile: "'$videoType${base64Image}'",
+                                // videoFile: "${imageFile}",
                               );
+
+                              print("--------${willReviewData.videoFile}");
 
                             await ref.read(storeWillReviewProvider.notifier)
                                 .willReviewVideo(context: context, data: willReviewData)
@@ -190,6 +202,7 @@ class _RecordAVideoState extends State<RecordAVideo> {
                                     displayToast("${value?.message}");
                                     navigationService.push(routeAssetScreen);
                                   }else{
+
                                     displayToast("${value?.message}");
                                   }
                             });

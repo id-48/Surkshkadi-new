@@ -137,6 +137,7 @@ class ResponsePlan {
 class PlanPlan {
   PlanPlan({
     required this.planId,
+    required this.bgColor,
     required this.planTitle,
     required this.actualPrice,
     required this.offerPrice,
@@ -146,6 +147,7 @@ class PlanPlan {
   });
 
   String planId;
+  String bgColor;
   String planTitle;
   String actualPrice;
   String offerPrice;
@@ -155,6 +157,7 @@ class PlanPlan {
 
   factory PlanPlan.fromJson(Map<String, dynamic> json) => PlanPlan(
         planId: json["plan_id"],
+        bgColor: json["bg_color"],
         planTitle: json["plan_title"],
         actualPrice: json["actual_price"],
         offerPrice: json["offer_price"],
@@ -166,6 +169,7 @@ class PlanPlan {
 
   Map<String, dynamic> toJson() => {
         "plan_id": planId,
+        "bg_color": bgColor,
         "plan_title": planTitle,
         "actual_price": actualPrice,
         "offer_price": offerPrice,
