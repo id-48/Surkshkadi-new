@@ -90,7 +90,7 @@ class CheckyourInformation extends HookConsumerWidget {
                         Text(famliyInformation,style: TextStyle(fontWeight: FontWeight.bold),),
                         Spacer(),
                         GestureDetector(
-                          onTap: (){
+                          onTap: popFamilyNewData.value.isEmpty ?  (){
                             showDialog(
                               barrierDismissible: false,
                               context: context,
@@ -107,11 +107,9 @@ class CheckyourInformation extends HookConsumerWidget {
                               },
                             ).then((value) {
                               popFamilyNewData.value = value;
-                              print("name : ${popFamilyNewData.value["fullName"]}");
-                              print("dob : ${popFamilyNewData.value["dob"]}");
-                              print("gender : ${popFamilyNewData.value["gender"]}");
+
                             });
-                          },
+                          } : (){},
 
                           child: Row(
                             children: [
@@ -223,7 +221,7 @@ class CheckyourInformation extends HookConsumerWidget {
                       Text(contactInformation,style: TextStyle(fontWeight: FontWeight.bold),),
                       Spacer(),
                       GestureDetector(
-                        onTap: (){
+                        onTap: popContactNewData.value.isEmpty ? (){
                           showDialog(
                             barrierDismissible: false,
                             context: context,
@@ -241,7 +239,7 @@ class CheckyourInformation extends HookConsumerWidget {
                           ).then((value) {
                             popContactNewData.value = value ;
                           });
-                        },
+                        } : (){},
                         child: Row(
                           children: [
                             Icon(Icons.edit_outlined,color: oreng,size: 20,),
@@ -308,7 +306,7 @@ class CheckyourInformation extends HookConsumerWidget {
                       Text(professionalInformation,style: TextStyle(fontWeight: FontWeight.bold),),
                       Spacer(),
                       GestureDetector(
-                        onTap: (){
+                        onTap:popProfessionalNewData.value.isEmpty ? (){
                           showDialog(
                             barrierDismissible: false,
                             context: context,
@@ -326,7 +324,7 @@ class CheckyourInformation extends HookConsumerWidget {
                           ).then((value) {
                             popProfessionalNewData.value = value ;
                           });
-                        },
+                        } : (){},
                         child: Row(
                           children: [
                             Icon(Icons.edit_outlined,color: oreng,size: 20,),

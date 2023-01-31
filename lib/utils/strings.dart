@@ -157,7 +157,7 @@ const String allGood = "All Good";
 ///    KYC Screen
 
 const String verifyYour = "VERIFY YOUR\nIDENTITY !!";
-String letBeginYourKYC = "Let's begin your KYC process\n<${getString(prefUserName)}>\nto get better and secure services";
+String letBeginYourKYC = "Let’s begin your e-KYC process ${getString(prefUserName)}\nto get better and secure service";
 const String keepTheFollowing = "Keep the following documents ready\nAadhar Card and PAN Card";
 const String yourDataIs = "Your data is 100% secure using Smart Contract Blockchain Technology.We do not misuse or sell your personal data.Data is accessed, stored and shared as per our ";
 const String privacyPolicyDot = "Privacy Policy";

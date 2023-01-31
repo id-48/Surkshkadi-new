@@ -20,7 +20,7 @@ class KYCScreen extends HookConsumerWidget {
     ]);
     return WillPopScope(
       onWillPop: (){
-        navigationService.push(routeCustomeBottomNavigationBar);
+        navigationService.push(routeCustomBottomNavigationBar);
         return Future.value(false);
       },
       child: Scaffold(
@@ -42,7 +42,7 @@ class KYCScreen extends HookConsumerWidget {
 
               GestureDetector(
                 onTap: (){
-                 navigationService.push(routeCustomeBottomNavigationBar);
+                 navigationService.push(routeCustomBottomNavigationBar);
                 },
                 child: Container(
                   alignment: Alignment.centerLeft,

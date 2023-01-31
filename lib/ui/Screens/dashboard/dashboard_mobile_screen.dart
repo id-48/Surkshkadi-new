@@ -111,7 +111,7 @@ class DashBoard extends HookConsumerWidget {
                   backgroundColor: gerywhite,
                   leading: GestureDetector(
                     onTap: () {
-                      navigationService.push(routeCustomeDrawer);
+                      navigationService.push(routeCustomDrawer);
                     },
                     child: Icon(
                       Icons.menu, color: black, // add custom icons also
@@ -338,7 +338,7 @@ class DashBoard extends HookConsumerWidget {
                           InkWell(
                             onTap: () {
                               navigationService.push(
-                                  routeCustomeBottomNavigationBar,
+                                  routeCustomBottomNavigationBar,
                                   arguments: {navIndex: 1});
 
                               planIndex = 1;
@@ -473,7 +473,7 @@ class DashBoard extends HookConsumerWidget {
                                     child: InkWell(
                                       onTap: () {
                                         navigationService.push(
-                                            routeCustomeBottomNavigationBar,
+                                            routeCustomBottomNavigationBar,
                                             arguments: {navIndex: 1});
                                         planIndex = data.response.plans[1].plans
                                             .indexOf(e);
@@ -564,7 +564,7 @@ class DashBoard extends HookConsumerWidget {
                                     child: InkWell(
                                       onTap: () {
                                         navigationService.push(
-                                            routeCustomeBottomNavigationBar,
+                                            routeCustomBottomNavigationBar,
                                             arguments: {navIndex: 1});
                                         planIndex = data.response.plans[0].plans
                                             .indexOf(e);

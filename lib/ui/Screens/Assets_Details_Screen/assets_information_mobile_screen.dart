@@ -235,7 +235,7 @@ class AssetsInformation extends HookConsumerWidget {
 
 
 
-                    navigationService.push(routeCustomeBottomNavigationBar,);
+                    navigationService.push(routeCustomBottomNavigationBar,);
                   },
                 ),
               ),

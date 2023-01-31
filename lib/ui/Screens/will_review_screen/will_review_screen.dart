@@ -27,14 +27,14 @@ class WillReview extends HookConsumerWidget {
     final issueController = useTextEditingController();
     return WillPopScope(
       onWillPop: (){
-        navigationService.push(routeCustomeBottomNavigationBar);
+        navigationService.push(routeCustomBottomNavigationBar);
         return Future.value(false);
       },
       child: Scaffold(
         appBar: CustomAppBar(
           title: willReview,
           backonTap: () {
-            navigationService.push(routeCustomeBottomNavigationBar);
+            navigationService.push(routeCustomBottomNavigationBar);
 
           },
           notionTap: () {},

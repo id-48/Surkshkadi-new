@@ -26,7 +26,8 @@ class ConfirmationPlanScreen extends HookConsumerWidget {
           backonTap: () {
             Navigator.pop(context);
           },
-          notionTap: (){}
+        notificationIcon: false,
+
       ),
 
       body: Container(
@@ -81,7 +82,7 @@ class ConfirmationPlanScreen extends HookConsumerWidget {
 
                     children: const <TextSpan>[
                       TextSpan(text: 'Please Proceed Further By Filling By The\n', style: TextStyle(fontWeight: FontWeight.w400,color: deepindigo)),
-                      TextSpan(text: '"E- Kyc" ', style: TextStyle(fontWeight: FontWeight.bold,color: blue,),),
+                      TextSpan(text: '"e-KYC" ', style: TextStyle(fontWeight: FontWeight.bold,color: blue,),),
                       TextSpan(text: 'Details.', style: TextStyle(fontWeight: FontWeight.w400,color: deepindigo)),
 
                     ],
