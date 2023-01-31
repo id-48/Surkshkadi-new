@@ -72,7 +72,7 @@ class AssetsMobile extends HookConsumerWidget {
           data: (data) {
             return WillPopScope(
               onWillPop: (){
-                navigationService.push(routeCustomeBottomNavigationBar);
+                navigationService.push(routeCustomBottomNavigationBar);
                 return Future.value(false);
               },
               child: Scaffold(
@@ -118,7 +118,7 @@ class AssetsMobile extends HookConsumerWidget {
                                   print("length ----- >> ${assetsList.value.length}");
 
                                           if(assetsList.value.length == length.value){
-                                            navigationService.push(routeCustomeBottomNavigationBar);
+                                            navigationService.push(routeCustomBottomNavigationBar);
                                           }else{
                                             displayToast("Complete Your Selected Assets");
                                           }

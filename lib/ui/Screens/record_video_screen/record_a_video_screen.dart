@@ -177,35 +177,42 @@ class _RecordAVideoState extends State<RecordAVideo> {
 
 
                           print("enter your imageFile 111---->>>>> ${widget.videoPictureRV!.path.toString()}");
-                          File imageFile =  File(widget.videoPictureRV!.path);
+                          File imageFile =  File(widget.videoPictureRV!.path.toString());
                           print("enter your imageFile ---->>>>> ${imageFile}");
                           List<int> imageBytes = imageFile.readAsBytesSync();
-                          String base64Image = base64Encode(imageBytes);
+                          String base64Image = await base64Encode(imageBytes);
 
-                          print("enter your ---->>>>> $base64Image  --");
+                          String video = "${videoType + base64Image}";
+
+                          print("enter your ---->>>>> $base64Image -----");
+                          print("enter your leg- ---->>>>> ${video} -----");
+
 
 
                               ReqStoreWillReviewDetails willReviewData = await ReqStoreWillReviewDetails(
                                 userId: getString(prefUserID),
                                 issueDetails: "${getString(prefIssueDetail)}",
                                 termsConditionsStatus: 1,
-                                videoFile: "'$videoType${base64Image}'",
+                                videoFile: 'video',
                                 // videoFile: "${imageFile}",
                               );
 
                               print("--------${willReviewData.videoFile}");
 
-                            await ref.read(storeWillReviewProvider.notifier)
-                                .willReviewVideo(context: context, data: willReviewData)
-                                .then((value) {
-                                  if(value?.status == 1){
-                                    displayToast("${value?.message}");
-                                    navigationService.push(routeAssetScreen);
-                                  }else{
+                         // Future.delayed(Duration(seconds: 5),() async{
+                         await ref.read(storeWillReviewProvider.notifier)
+                             .willReviewVideo(context: context, data: willReviewData)
+                             .then((value) {
+                         if(value?.status == 1){
+                         displayToast("${value?.message}");
+                         navigationService.push(routeAssetScreen);
+                         }else{
 
-                                    displayToast("${value?.message}");
-                                  }
-                            });
+                         displayToast("${value?.message}");
+                         }
+                         });
+
+                         // });
 
                         }else{
                           displayToast("Please Record Video");

@@ -145,7 +145,7 @@ class OTP_Verification extends HookConsumerWidget {
                         print('Result :  ${value.response}');
                         setString(prefLoginToken, "LoginSuccess");
                         setString(prefLoginNumber, "${value.response.mobile}");
-                        navigationService.pushAndRemoveUntil(routeCustomeBottomNavigationBar, arguments: {navIndex: 0});
+                        navigationService.pushAndRemoveUntil(routeCustomBottomNavigationBar, arguments: {navIndex: 0});
                       } else {
                         print("enter>>>>>>>> 22222");
 

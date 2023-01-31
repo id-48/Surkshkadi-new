@@ -99,8 +99,8 @@ class _KYCChatBotMobileState extends State<KYCChatBotMobile> {
 
   List<ChatMessage> messages = [
     ChatMessage(messageContent: [
-      "Hey <${getString(prefUserName)}>,\nI am SURAKSHA BOT.",
-      "Thanks for providing your eKYC\ndetails",
+      "Hey ${getString(prefUserName)},\nI am SURAKSHA BOT.",
+      "Thanks for providing your e-KYC\ndetails",
       "I Appreciate that you are taking\nprotective steps for the\nwelfare of your family."
     ], messageType: "receiver"),
   ];
@@ -115,7 +115,7 @@ class _KYCChatBotMobileState extends State<KYCChatBotMobile> {
 /*3*/    ChatMessage(messageContent: ["Please confirm the below\mpointers."], messageType: "receiver"),      // 8
 /*4*/    ChatMessage(messageContent: ["Please share how many\nchildren you have."], messageType: "receiver"), //  10 ----> 10
 /*5*/    ChatMessage(messageContent: ["Can you share the Name, Age and\nGender of your child/children?"], messageType: "receiver"), //  12 ----> 12
-/*6*/    ChatMessage(messageContent: ["Who is to be appointed as Trustee/\nguardian of the trust set up\nfor minor beneficiaries?"], messageType: "receiver"), //  14 ----> 14
+/*6*/    ChatMessage(messageContent: ["Who is to be appointed as Trustee/\nGuardian of the trust set up\nfor minor beneficiaries?"], messageType: "receiver"), //  14 ----> 14
 /*7*/    ChatMessage(messageContent: ["Thanks for confirming;\nplease attest to the\nbelow statement."], messageType: "receiver"), //  16
 /*8*/    ChatMessage(messageContent: ["Thank You"], messageType: "receiver"), //  20
   ];
@@ -134,20 +134,20 @@ class _KYCChatBotMobileState extends State<KYCChatBotMobile> {
   Widget build(BuildContext context) {
     return WillPopScope(
       onWillPop: (){
-        navigationService.push(routeCustomeBottomNavigationBar);
+        navigationService.push(routeCustomBottomNavigationBar);
         return Future.value(false);
       },
       child: Scaffold(
         appBar: AppBar(
           elevation: 0.5,
           title: Text(
-            'Get to know you Kyc',
+            'Get to know you e-KYC',
             style: TextStyle(
                 fontWeight: FontWeight.bold, fontSize: 17, color: Colors.black),
           ),
           leading: IconButton(
             onPressed: () {
-              navigationService.push(routeCustomeBottomNavigationBar);
+              navigationService.push(routeCustomBottomNavigationBar);
             },
             icon: Icon(
               Icons.arrow_back_ios,
@@ -850,7 +850,7 @@ class _KYCChatBotMobileState extends State<KYCChatBotMobile> {
                                 child: Container(
                                   height: 19,
                                   width: 20,
-                                  margin: EdgeInsets.only(top: 5),
+                                  // margin: EdgeInsets.only(top: 5),
                                   decoration: BoxDecoration(
                                     color: oneCheck == true ? blue : white,
                                     // border: Border.all(color: blue),
@@ -891,7 +891,7 @@ class _KYCChatBotMobileState extends State<KYCChatBotMobile> {
                                 child: Container(
                                   height: 19,
                                   width: 20,
-                                  margin: EdgeInsets.only(top: 5),
+                                  // margin: EdgeInsets.only(top: 5),
                                   decoration: BoxDecoration(
                                     // border: Border.all(color: blue),
                                     color: twoCheck == true ? blue : white,
@@ -968,16 +968,18 @@ class _KYCChatBotMobileState extends State<KYCChatBotMobile> {
                                     children: const <TextSpan>[
                                       TextSpan(
                                           text: 'I agree with the',
-                                          style: TextStyle(fontSize: 12, color: black)),
+                                          style: TextStyle(fontSize: 11, color: jerryColor)),
                                       TextSpan(
                                         text: 'Terms and Conditions',
                                         style: TextStyle(
                                             fontWeight: FontWeight.bold,
-                                            fontSize: 12,
-                                            color: oreng,decoration: TextDecoration.underline),),
+                                            fontSize: 11,
+                                            color: jerryColor,
+                                            decoration: TextDecoration.underline
+                                        ),),
                                       TextSpan(
                                           text: ' of the service',
-                                          style: TextStyle(fontSize: 12, color: black)),
+                                          style: TextStyle(fontSize: 11, color: jerryColor)),
 
                                     ],
                                   ),
@@ -1207,7 +1209,7 @@ class _KYCChatBotMobileState extends State<KYCChatBotMobile> {
                                     child: Row(
                                         children: [
                                           Gap(14),
-                                          Expanded(flex: 1,child: Container(
+                                          Expanded(flex: 4,child: Container(
                                             height: 44,
                                             decoration: BoxDecoration(
                                               color: Colors.white,
@@ -1230,7 +1232,7 @@ class _KYCChatBotMobileState extends State<KYCChatBotMobile> {
                                             ),
                                           ),),
                                           Gap(10),
-                                          Expanded(flex: 1,child: Container(height: 44,
+                                          Expanded(flex: 2,child: Container(height: 44,
                                             decoration: BoxDecoration(
                                               color: Colors.white,
                                               border: Border.all(color: blue),
@@ -1241,8 +1243,10 @@ class _KYCChatBotMobileState extends State<KYCChatBotMobile> {
                                               enabled: isChildTextField == true ? false : true ,
                                               controller: ageCon[index],
                                               keyboardType:TextInputType.number,
+                                              maxLength: 2,
                                               // keyboardType: TextInputType.text,
                                               decoration: InputDecoration(
+                                                counterText: '',
                                                 contentPadding: EdgeInsets.only(
                                                     left: 10, bottom: 0, top: 0),
                                                 hintText: "Age",
@@ -1252,7 +1256,7 @@ class _KYCChatBotMobileState extends State<KYCChatBotMobile> {
                                             ),
                                           ),),
                                           Gap(10),
-                                          Expanded(flex: 1,child: Container(
+                                          Expanded(flex: 3,child: Container(
 
                                             child: CustomSelect(
                                               isColorBox: false,
@@ -1360,7 +1364,7 @@ class _KYCChatBotMobileState extends State<KYCChatBotMobile> {
                                 child: Container(
                                   height: 19,
                                   width: 20,
-                                  margin: EdgeInsets.only(top: 5),
+                                  // margin: EdgeInsets.only(top: 5),
                                   decoration: BoxDecoration(
                                     color: oneCheck == true ? blue : white,
                                     // border: Border.all(color: blue),
@@ -1401,7 +1405,7 @@ class _KYCChatBotMobileState extends State<KYCChatBotMobile> {
                                 child: Container(
                                   height: 19,
                                   width: 20,
-                                  margin: EdgeInsets.only(top: 5),
+                                  // margin: EdgeInsets.only(top: 5),
                                   decoration: BoxDecoration(
                                     // border: Border.all(color: blue),
                                     color: twoCheck == true ? blue : white,
@@ -1478,16 +1482,18 @@ class _KYCChatBotMobileState extends State<KYCChatBotMobile> {
                                     children: const <TextSpan>[
                                       TextSpan(
                                           text: 'I agree with the',
-                                          style: TextStyle(fontSize: 12, color: black)),
+                                          style: TextStyle(fontSize: 11, color: jerryColor)),
                                       TextSpan(
                                         text: 'Terms and Conditions',
                                         style: TextStyle(
                                             fontWeight: FontWeight.bold,
-                                            fontSize: 12,
-                                            color: oreng,decoration: TextDecoration.underline),),
+                                            fontSize: 11,
+                                            color: jerryColor,
+                                            decoration: TextDecoration.underline
+                                        ),),
                                       TextSpan(
                                           text: ' of the service',
-                                          style: TextStyle(fontSize: 12, color: black)),
+                                          style: TextStyle(fontSize: 11, color: jerryColor)),
 
                                     ],
                                   ),
@@ -1681,7 +1687,7 @@ class _KYCChatBotMobileState extends State<KYCChatBotMobile> {
                               child: Container(
                                 height: 19,
                                 width: 20,
-                                 margin: EdgeInsets.only(top: 5),
+                                 // margin: EdgeInsets.only(top: 5),
                                 decoration: BoxDecoration(
                                   color: oneCheck == true ? blue : white,
                                   // border: Border.all(color: blue),
@@ -1722,7 +1728,7 @@ class _KYCChatBotMobileState extends State<KYCChatBotMobile> {
                               child: Container(
                                 height: 19,
                                 width: 20,
-                                margin: EdgeInsets.only(top: 5),
+                                // margin: EdgeInsets.only(top: 5),
                                 decoration: BoxDecoration(
                                   // border: Border.all(color: blue),
                                 color: twoCheck == true ? blue : white,
@@ -1773,7 +1779,6 @@ class _KYCChatBotMobileState extends State<KYCChatBotMobile> {
                               child: Container(
                                 height: 19,
                                 width: 20,
-
                                 decoration: BoxDecoration(
                                   color: check == true ? blue : white,
                                   // border: Border.all(color: blue),
@@ -1798,17 +1803,18 @@ class _KYCChatBotMobileState extends State<KYCChatBotMobile> {
                                 text: TextSpan(
                                   children: const <TextSpan>[
                                     TextSpan(
-                                        text: 'I agree with the',
-                                        style: TextStyle(fontSize: 12, color: black)),
+                                        text: 'I agree with the ',
+                                        style: TextStyle(fontSize: 11, color: jerryColor)),
                                     TextSpan(
                                         text: 'Terms and Conditions',
                                         style: TextStyle(
-                                            fontWeight: FontWeight.bold,
-                                            fontSize: 12,
-                                            color: oreng,decoration: TextDecoration.underline),),
+                                            fontSize: 11,
+                                            color: jerryColor,
+                                            decoration: TextDecoration.underline
+                                        ),),
                                     TextSpan(
                                         text: ' of the service',
-                                        style: TextStyle(fontSize: 12, color: black)),
+                                        style: TextStyle(fontSize: 11, color: jerryColor)),
 
                                   ],
                                 ),

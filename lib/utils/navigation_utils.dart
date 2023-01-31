@@ -100,15 +100,15 @@ class NavigationUtils {
             settings: const RouteSettings(name: routeOtpVerification),
             builder: (_) => OTP_Verification(userId: args![navUserId],userType: args[navUserType],));
 
-      case routeCustomeDrawer:
+      case routeCustomDrawer:
         return CustomRoute(
-            settings: const RouteSettings(name: routeCustomeDrawer),
+            settings: const RouteSettings(name: routeCustomDrawer),
             builder: (_) => Custom_drawer());
 
-      case routeCustomeBottomNavigationBar:
+      case routeCustomBottomNavigationBar:
         return CustomRoute(
             settings:
-                const RouteSettings(name: routeCustomeBottomNavigationBar),
+                const RouteSettings(name: routeCustomBottomNavigationBar),
             builder: (_) => Custom_BottomNavigationBar(index: args?[navIndex] ?? 0,));
 
       case routeChooseAssetMobile:

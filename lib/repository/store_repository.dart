@@ -43,7 +43,7 @@ class StoreRepositoryImpl implements StoreRepository {
   Future<Result<ResStoreWillReviewDetails>> willReviewVideo(
       ReqStoreWillReviewDetails data) {
     return Result.guardFuture(() async {
-      print("tests ---->> ${data.videoFile}");
+      // print("tests ---->> ${data.videoFile}");
       return AppDio()
           .multipartPost(
         apiStoreWillReviewDetails,

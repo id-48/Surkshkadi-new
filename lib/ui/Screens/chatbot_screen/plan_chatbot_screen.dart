@@ -614,7 +614,7 @@ class _PlanChatBotMobileState extends State<PlanChatBotMobile> {
                                 '5L - 7.9L',
                                 '8L - 9.9L',
                                 '10L - 19.9L',
-                                "20 & Above"
+                                "20L & Above"
 
                               ],
                               hint: 'Income',
@@ -810,6 +810,7 @@ class _PlanChatBotMobileState extends State<PlanChatBotMobile> {
                     ],
                     if (index == 14) ...[
 
+                      Gap(messages.length == 15 ? 6 :0),
 
                       messages.length == 15
                           ? Align(
@@ -883,7 +884,7 @@ class _PlanChatBotMobileState extends State<PlanChatBotMobile> {
                         ),
                       )
                           : Container(),
-
+                      Gap(messages.length == 15 ? 10 :0),
                       messages.length == 15 &&   nomineeReName == true
                           ? Row(
                         children: [
@@ -907,7 +908,7 @@ class _PlanChatBotMobileState extends State<PlanChatBotMobile> {
                                 setState((){});
                               }
                                   : (st) {},
-                              items: ["Spouse","Father","Mother","Son","Daughter","other"],
+                              items: ["Spouse","Father","Mother","Son","Daughter","Other"],
                               hint: 'Nominee Relationship',
                             ),
                           ),
@@ -1134,7 +1135,8 @@ class _PlanChatBotMobileState extends State<PlanChatBotMobile> {
                           }
                          )
                        : Container(),
-                      Gap(10),
+
+                      Gap(address == true ? 10 : 180),
 
                       messages.length == 19 &&  address == true
                           ? Column(

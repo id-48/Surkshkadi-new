@@ -45,7 +45,7 @@ class Custom_drawer extends HookConsumerWidget {
     List<Map<String, dynamic>> nameProfile = [
       {"name": 'Home', "icons": home},
       {"name": 'Profile', "icons": profile},
-      {"name": 'Legal Documnets', "icons": legal},
+      {"name": 'Legal Documents', "icons": legal},
       {"name": 'Refer & Earn', "icons": refer},
     ];
 
@@ -54,7 +54,7 @@ class Custom_drawer extends HookConsumerWidget {
       {"Name": 'Terms & Conditions', "icon": terms},
       {"Name": 'How to us', "icon": use},
       {"Name": 'Know more about us', "icon": know},
-      {"Name": 'Leegal Notice', "icon": notice},
+      {"Name": 'Legal Notice', "icon": notice},
     ];
     return SafeArea(
       child: Scaffold(

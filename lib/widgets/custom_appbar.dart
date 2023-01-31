@@ -10,12 +10,14 @@ class CustomAppBar extends StatelessWidget with PreferredSizeWidget {
          this.notionTap,
 
         this.menuIcon = false,
+        this.notificationIcon = true,
         this.menuonTap
       })
       : super(key: key);
 
   final String? title;
   final bool menuIcon;
+  final bool notificationIcon;
 
   final Function()? backonTap;
   final Function()? notionTap;
@@ -49,7 +51,7 @@ class CustomAppBar extends StatelessWidget with PreferredSizeWidget {
             ),
           ),
           actions: <Widget>[
-            Padding(
+            notificationIcon == true ?  Padding(
                 padding: EdgeInsets.only(right: 20.0),
                 child: GestureDetector(
                   onTap: notionTap,
@@ -58,17 +60,8 @@ class CustomAppBar extends StatelessWidget with PreferredSizeWidget {
                     color: black,
                     size: 26.0,
                   ),
-                )),
-            // Padding(
-            //     padding: EdgeInsets.only(right: 20.0),
-            //     child: GestureDetector(
-            //         onTap: cartonTap,
-            //         child: cartIcon == true
-            //             ? Icon(
-            //           Icons.shopping_cart_outlined,
-            //           color: black,
-            //         )
-            //             : Container())),
+                )) : Container(),
+
           ]),
     );
   }

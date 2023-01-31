@@ -89,7 +89,7 @@ class ConfirmationSpecific extends HookConsumerWidget {
               onTap: () {
 
 
-                navigationService.push(routeCustomeBottomNavigationBar);
+                navigationService.push(routeCustomBottomNavigationBar);
 
                 // navigationService.push(routeCheckInformationScreen);
 
