@@ -101,7 +101,7 @@ class _KYCChatBotMobileState extends State<KYCChatBotMobile> {
     ChatMessage(messageContent: [
       "Hey ${getString(prefUserName)},\nI am SURAKSHA BOT.",
       "Thanks for providing your e-KYC\ndetails",
-      "I Appreciate that you are taking\nprotective steps for the\nwelfare of your family."
+      "I appreciate that you are taking\nprotective steps for the\nwelfare of your family."
     ], messageType: "receiver"),
   ];
 
