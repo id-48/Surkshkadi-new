@@ -1,24 +1,12 @@
-import 'dart:convert';
-import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:gap/gap.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:http/http.dart';
-import 'package:image_picker/image_picker.dart';
 import 'package:responsive_grid/responsive_grid.dart';
 import 'package:surakshakadi/data/model/home/channelPartner/store_partner_details/req_store_cp_details.dart';
 import 'package:surakshakadi/data/model/home/dashboard/state_and_city/city/req_city.dart';
-import 'package:surakshakadi/data/model/home/dashboard/submit_kyc/req_submit_kyc.dart';
-import 'package:surakshakadi/data/model/home/dashboard/verify_documents/verify_aadhar_card/verify_aadhar_card_no/req_aadhar_no.dart';
-import 'package:surakshakadi/data/model/home/dashboard/verify_documents/verify_aadhar_card/verify_aadhar_card_otp/req_aadhar_otp.dart';
-import 'package:surakshakadi/data/model/home/dashboard/verify_documents/verify_pancard_no/req_pancard_no.dart';
 import 'package:surakshakadi/di/locator.dart';
-import 'package:surakshakadi/ui/Screens/Kyc_Screen/submit_kyc_view_modal.dart';
-import 'package:surakshakadi/ui/Screens/Kyc_Screen/verify_documents_view_modal.dart';
-import 'package:surakshakadi/ui/Screens/confirmation_Screen/confirmation_cp_partner_web.dart';
 import 'package:surakshakadi/ui/Screens/cp_web_screeen/resgister_view_model.dart';
 import 'package:surakshakadi/ui/Screens/state_and_city_view_modal.dart';
 import 'package:surakshakadi/utils/color_utils.dart';
@@ -26,15 +14,11 @@ import 'package:surakshakadi/utils/constants/app_constant.dart';
 import 'package:surakshakadi/utils/constants/navigation_route_constants.dart';
 import 'package:surakshakadi/utils/constants/preference_key_constant.dart';
 import 'package:surakshakadi/utils/dialog_utils.dart';
-import 'package:surakshakadi/utils/image_utils.dart';
 import 'package:surakshakadi/utils/preference_utils.dart';
 import 'package:surakshakadi/utils/strings.dart';
-import 'package:surakshakadi/utils/utils.dart';
 import 'package:surakshakadi/widgets/custom_appbar_web.dart';
-import 'package:surakshakadi/widgets/custom_button.dart';
 import 'package:surakshakadi/widgets/custom_select.dart';
 import 'package:surakshakadi/widgets/custom_textfeild.dart';
-import 'package:surakshakadi/widgets/custom_validation.dart';
 import 'package:surakshakadi/widgets/custom_web_bottombar.dart';
 
 class RegisterWeb extends HookConsumerWidget {
@@ -48,58 +32,13 @@ class RegisterWeb extends HookConsumerWidget {
     final companyCheck = useState<bool>(false);
     final statee = useState<String>('');
     final cityy = useState<String>('');
-    final selectedindex = useState<int>(0);
-    final formkey = GlobalKey<FormState>();
     final firstNameController = useTextEditingController();
     final lastNameController = useTextEditingController();
     final mailController = useTextEditingController();
     final companyNameController = useTextEditingController();
     final mobileController = useTextEditingController();
-    final adharCardController = useTextEditingController();
-    final pANCardController = useTextEditingController();
-    final adharCardOTPController = useTextEditingController();
-    final pANCardOTPController = useTextEditingController();
-
-    final isOtp = useState<bool>(false);
-    final aadharClientId = useState<String>("");
-
-    final aadharFrontType = useState<String>("");
-    final aadharBackType = useState<String>("");
-    final panFrontType = useState<String>("");
-    final selfieType = useState<String>("");
-    final isAadhar = useState<bool>(false);
-    final isPanCard = useState<bool>(false);
-    ImagePicker _picker = ImagePicker();
-
-    final aadharImage = useState<XFile?>(XFile(''));
-    final aadharPickedImage = useState<File>(File(""));
-    final isAadharPicked = useState<bool>(false);
-
-    final aadharBackImage = useState<XFile?>(XFile(''));
-    final aadharBackPickedImage = useState<File>(File(""));
-    final isAadharBackPicked = useState<bool>(false);
-
-    final panImage = useState<XFile?>(XFile(''));
-    final panPickedImage = useState<File>(File(""));
-    final isPanPicked = useState<bool>(false);
-
-    final selfieImage = useState<XFile?>(XFile(''));
-    final selfiePickedImage = useState<File>(File(""));
-    final isSelfiePicked = useState<bool>(false);
 
     final cityList = useState<List<String>>([]);
-    List selectStateCity = [
-      {
-        "title": "State",
-        "dataList": ["Gujarat", "Rajasthan", "Kerala", "Goa"]
-      },
-      {
-        "title": "City",
-        "dataList": ["Amreli", "Rajkot", "Ahmedabad", "Surat"]
-      },
-    ];
-
-    print(" widhth :::: ${MediaQuery.of(context).size.width}");
     return Scaffold(
       body: SingleChildScrollView(
         scrollDirection: Axis.vertical,
@@ -1177,6 +1116,40 @@ class RegisterWeb extends HookConsumerWidget {
 
 ///     KYC code  in web -------- Not Remove  ------
 
+//final adharCardController = useTextEditingController();
+// final pANCardController = useTextEditingController();
+// final adharCardOTPController = useTextEditingController();
+// final pANCardOTPController = useTextEditingController();
+//
+// final isOtp = useState<bool>(false);
+// final aadharClientId = useState<String>("");
+//
+// final aadharFrontType = useState<String>("");
+// final aadharBackType = useState<String>("");
+// final panFrontType = useState<String>("");
+// final selfieType = useState<String>("");
+// final isAadhar = useState<bool>(false);
+// final isPanCard = useState<bool>(false);
+// ImagePicker _picker = ImagePicker();
+//
+// final aadharImage = useState<XFile?>(XFile(''));
+// final aadharPickedImage = useState<File>(File(""));
+// final isAadharPicked = useState<bool>(false);
+//
+// final aadharBackImage = useState<XFile?>(XFile(''));
+// final aadharBackPickedImage = useState<File>(File(""));
+// final isAadharBackPicked = useState<bool>(false);
+//
+// final panImage = useState<XFile?>(XFile(''));
+// final panPickedImage = useState<File>(File(""));
+// final isPanPicked = useState<bool>(false);
+//
+// final selfieImage = useState<XFile?>(XFile(''));
+// final selfiePickedImage = useState<File>(File(""));
+// final isSelfiePicked = useState<bool>(false);
+
+
+///
 //Column(
 //                               children: [
 //                                 Container(

@@ -142,7 +142,7 @@ class NavigationUtils {
       case routeCheckYourInformation:
         return CustomRoute(
             settings: const RouteSettings(name: routeCheckYourInformation),
-            builder: (_) => CheckyourInformation());
+            builder: (_) => CheckYourInformation());
 
       case routeKycIdentiyScreen:
         return CustomRoute(

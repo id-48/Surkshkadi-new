@@ -4,14 +4,9 @@ import 'package:surakshakadi/data/model/auth/otp/req_otp.dart';
 import 'package:surakshakadi/data/model/auth/otp/res_otp.dart';
 import 'package:surakshakadi/data/model/auth/verify_otp/req_verify_otp.dart';
 import 'package:surakshakadi/data/model/auth/verify_otp/res_verify_otp.dart';
-import 'package:surakshakadi/di/locator.dart';
 import 'package:surakshakadi/repository/auth_respository.dart';
 import 'package:surakshakadi/utils/constants/loading_dialog.dart';
-import 'package:surakshakadi/utils/constants/navigation_route_constants.dart';
-import 'package:surakshakadi/utils/constants/navigations_key_constant.dart';
-import 'package:surakshakadi/utils/constants/preference_key_constant.dart';
 import 'package:surakshakadi/utils/dialog_utils.dart';
-import 'package:surakshakadi/utils/preference_utils.dart';
 
 final authProvider = StateNotifierProvider<AuthViewModel, AsyncValue<ResOtp>>(
     (ref) => AuthViewModel((ref.read)));

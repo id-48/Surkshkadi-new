@@ -1,7 +1,5 @@
 import 'dart:convert';
 import 'dart:io';
-import 'dart:typed_data';
-
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -171,7 +169,7 @@ class _RecordAVideoState extends State<RecordAVideo> {
                           String videoType = "data:image/" + '${widget.videoPictureRV!.path}'.split('.')[3] + ";base64,/";
                           // print("video type---${videoType}");
                           // // String  videoeeee =  videoType.replaceAll("'", "");
-                          String  videoDataa =  "videoType";
+                          // String  videoDataa =  "videoType";
                           // String  videoData =  "${videoType}" + "${videoBase64}";
                           // print("video--->> ${videoData}");
 

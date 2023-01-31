@@ -1,22 +1,11 @@
-
-
-
-
 import 'package:flutter/Material.dart';
-import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:gap/gap.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:intl/intl.dart';
 import 'package:surakshakadi/data/model/home/chatboat/kyc_chatbot/req_kyc_chatbot.dart';
-import 'package:surakshakadi/data/model/home/dashboard/state_and_city/city/req_city.dart';
 import 'package:surakshakadi/di/locator.dart';
 import 'package:surakshakadi/ui/Screens/chatbot_screen/kyc_chatbot_view_modal.dart';
 import 'package:surakshakadi/ui/Screens/chatbot_screen/plan_chatbot_screen.dart';
-import 'package:surakshakadi/ui/Screens/chatbot_screen/planchat_view_modal.dart';
-
-import 'package:surakshakadi/ui/Screens/state_and_city_view_modal.dart';
 import 'package:surakshakadi/utils/color_utils.dart';
-import 'package:surakshakadi/utils/constants/app_constant.dart';
 import 'package:surakshakadi/utils/constants/navigation_route_constants.dart';
 import 'package:surakshakadi/utils/constants/preference_key_constant.dart';
 import 'package:surakshakadi/utils/dialog_utils.dart';
@@ -26,7 +15,6 @@ import 'package:surakshakadi/utils/strings.dart';
 import 'package:surakshakadi/utils/utils.dart';
 import 'package:surakshakadi/widgets/custom_button.dart';
 import 'package:surakshakadi/widgets/custom_select.dart';
-import 'package:surakshakadi/widgets/custom_textfeild.dart';
 
 class KYCChatBotMobile extends StatefulWidget {
   const KYCChatBotMobile({Key? key}) : super(key: key);

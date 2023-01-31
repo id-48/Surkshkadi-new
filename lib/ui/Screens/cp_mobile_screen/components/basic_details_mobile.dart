@@ -7,7 +7,6 @@ import 'package:surakshakadi/ui/Screens/state_and_city_view_modal.dart';
 import 'package:surakshakadi/utils/color_utils.dart';
 import 'package:surakshakadi/utils/constants/app_constant.dart';
 import 'package:surakshakadi/utils/dialog_utils.dart';
-import 'package:surakshakadi/utils/image_utils.dart';
 import 'package:surakshakadi/utils/strings.dart';
 import 'package:surakshakadi/widgets/custom_select.dart';
 import 'package:surakshakadi/widgets/custom_textfeild.dart';

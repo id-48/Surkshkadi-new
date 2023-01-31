@@ -26,14 +26,12 @@ import 'package:surakshakadi/widgets/custom_appbar.dart';
 import 'package:surakshakadi/widgets/custom_button.dart';
 import 'package:surakshakadi/widgets/custom_dottedborder.dart';
 import 'package:surakshakadi/widgets/custom_textfeild.dart';
-import 'package:http/http.dart' as http;
 
 class KYCIdentity extends HookConsumerWidget {
   const KYCIdentity({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final isDigiLocker = useState<bool>(true);
     final isOtp = useState<bool>(false);
     final aadharClientId = useState<String>("");
 
@@ -44,19 +42,11 @@ class KYCIdentity extends HookConsumerWidget {
     final selfieType = useState<String>("");
     final isAadhar = useState<bool>(false);
     final isPanCard = useState<bool>(false);
-    final isBank = useState<bool>(false);
-    final isVehicle = useState<bool>(false);
-    final isGST = useState<bool>(false);
     ImagePicker _picker = ImagePicker();
 
     final aadharcardnocontroller = useTextEditingController();
     final aadharOtpController = useTextEditingController();
     final pancardnocontroller = useTextEditingController();
-    final bankACNoController = useTextEditingController();
-    final bankIFSCCodeController = useTextEditingController();
-    final vehicleNoController = useTextEditingController();
-    final GSTNoController = useTextEditingController();
-    final digiLockerController = useTextEditingController();
 
 
 

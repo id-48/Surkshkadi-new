@@ -6,7 +6,6 @@ import 'package:surakshakadi/ui/Screens/cp_mobile_screen/components/basic_detail
 import 'package:surakshakadi/utils/color_utils.dart';
 import 'package:surakshakadi/utils/strings.dart';
 import 'package:surakshakadi/widgets/custom_appbar.dart';
-import 'package:surakshakadi/widgets/custom_textfeild.dart';
 
 class RegisterMobile extends HookConsumerWidget {
   const RegisterMobile({Key? key}) : super(key: key);

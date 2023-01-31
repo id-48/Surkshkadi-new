@@ -7,13 +7,10 @@ import 'package:image_picker/image_picker.dart';
 import 'package:surakshakadi/utils/color_utils.dart';
 import 'package:surakshakadi/utils/dialog_utils.dart';
 import 'package:surakshakadi/utils/image_utils.dart';
-import 'package:surakshakadi/utils/selectedImageViewer.dart';
 import 'package:surakshakadi/utils/strings.dart';
 import 'package:surakshakadi/utils/utils.dart';
-import 'package:surakshakadi/widgets/custom_button.dart';
 import 'package:surakshakadi/widgets/custom_dottedborder.dart';
 import 'package:surakshakadi/widgets/custom_textfeild.dart';
-import 'package:surakshakadi/widgets/selectedImageViewer.dart';
 
 class FillTextField extends HookWidget {
   final String  title ;
@@ -82,13 +79,6 @@ final pickedImage = useState<File>(File(""));
   final cameraPickedImage = useState<File>(File(""));
   final isCameraPicked = useState<bool>(false);
 
-  Future getImage(res) async {
-    try {
-      res.value = (await _picker.pickMultiImage());
-    } catch (e) {
-      Error();
-    }
-  }
   return StatefulBuilder(
     builder: (context,setState) {
       return Column(
@@ -210,9 +200,6 @@ final pickedImage = useState<File>(File(""));
                                       displayToast("Image Successful Upload");
                                       setState((){});
                                     }
-
-                                    // getImage(imageFileList);
-                                    // isPicked.value = true;
                                   },
                                   child: Container(
 

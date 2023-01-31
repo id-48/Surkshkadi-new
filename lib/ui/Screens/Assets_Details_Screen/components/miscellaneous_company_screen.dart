@@ -9,11 +9,8 @@ import 'package:image_picker/image_picker.dart';
 import 'package:surakshakadi/data/model/home/dashboard/assets_details/store_assets_form_details/req_store_assets_form_details.dart';
 import 'package:surakshakadi/di/locator.dart';
 import 'package:surakshakadi/ui/Screens/Assets_Details_Screen/components/components.dart';
-import 'package:surakshakadi/ui/Screens/Assets_Details_Screen/components/personal_screen.dart';
-import 'package:surakshakadi/ui/Screens/Assets_Details_Screen/components/personal_vehicle_screen.dart';
 import 'package:surakshakadi/ui/Screens/Assets_Details_Screen/store_assets_form_view_modal.dart';
 import 'package:surakshakadi/utils/color_utils.dart';
-import 'package:surakshakadi/utils/constants/loading_dialog.dart';
 import 'package:surakshakadi/utils/constants/navigation_route_constants.dart';
 import 'package:surakshakadi/utils/constants/preference_key_constant.dart';
 import 'package:surakshakadi/utils/dialog_utils.dart';
@@ -23,9 +20,6 @@ import 'package:surakshakadi/utils/strings.dart';
 import 'package:surakshakadi/utils/utils.dart';
 import 'package:surakshakadi/widgets/custom_appbar.dart';
 import 'package:surakshakadi/widgets/custom_button.dart';
-import 'package:surakshakadi/widgets/custom_dottedborder.dart';
-import 'package:surakshakadi/widgets/custom_expandable_card.dart';
-import 'package:surakshakadi/widgets/custom_textfeild.dart';
 import 'package:http/http.dart' as http;
 
 class MiscellaneousCompany extends HookConsumerWidget {

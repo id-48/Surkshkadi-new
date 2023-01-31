@@ -3,7 +3,7 @@ import 'package:gap/gap.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:surakshakadi/ui/Screens/Assets_Details_Screen/assets_web_screen.dart';
-import 'package:surakshakadi/ui/Screens/Check_Your_Information_Screen/components.dart';
+import 'package:surakshakadi/ui/Screens/Check_Your_Information_Screen/components/components.dart';
 import 'package:surakshakadi/utils/color_utils.dart';
 import 'package:surakshakadi/utils/strings.dart';
 import 'package:surakshakadi/widgets/custom_logo_backbutton.dart';

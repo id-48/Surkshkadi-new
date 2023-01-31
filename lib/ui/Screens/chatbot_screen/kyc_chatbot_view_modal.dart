@@ -4,10 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:surakshakadi/data/model/home/chatboat/kyc_chatbot/req_kyc_chatbot.dart';
 import 'package:surakshakadi/data/model/home/chatboat/kyc_chatbot/res_kyc_chatbot.dart';
-import 'package:surakshakadi/data/model/home/chatboat/plan_chat/req_plan_chatbot.dart';
-import 'package:surakshakadi/data/model/home/chatboat/plan_chat/res_plan_chatbot.dart';
 import 'package:surakshakadi/repository/kyc_chatbot_repository.dart';
-import 'package:surakshakadi/repository/planchat_repository.dart';
 import 'package:surakshakadi/utils/constants/loading_dialog.dart';
 
 
