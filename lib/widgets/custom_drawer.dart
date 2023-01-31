@@ -1,6 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:surakshakadi/di/locator.dart';
+import 'package:surakshakadi/ui/Screens/drawer_item_screen/about_us_screen.dart';
+import 'package:surakshakadi/ui/Screens/drawer_item_screen/how_to_use_screen.dart';
+import 'package:surakshakadi/ui/Screens/drawer_item_screen/my_profile_screen.dart';
+import 'package:surakshakadi/ui/Screens/drawer_item_screen/terms_and_condition_screen.dart';
+import 'package:surakshakadi/utils/constants/navigation_route_constants.dart';
 import 'package:surakshakadi/utils/image_utils.dart';
 import 'package:surakshakadi/widgets/custom_appbar.dart';
 
@@ -56,137 +62,187 @@ class Custom_drawer extends HookConsumerWidget {
       {"Name": 'Know more about us', "icon": know},
       {"Name": 'Legal Notice', "icon": notice},
     ];
-    return SafeArea(
-      child: Scaffold(
-        appBar: CustomAppBar(
-          backonTap: () {
-            Navigator.pop(context);
-          },
-          title: 'Surakshakadi',
-        ),
-        body: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Gap(40),
-            Container(
-              height: MediaQuery.of(context).size.height * 0.3,
-              child: ListView.builder(
-                  physics:
-                  ScrollPhysics(parent: NeverScrollableScrollPhysics()),
-                  itemCount: nameProfile.length,
-                  itemBuilder: (BuildContext context, int index) {
-                    return Column(
-                      children: [
-                        Container(
-                          padding: EdgeInsets.only(left: 15,right: 20,top: 12,bottom: 12),
-                          color: lowwhite,
-                          child: Row(
-                            children: [
-                              Image.asset( nameProfile[index]["icons"], scale: 4,),
-                              Gap(30),
-                              Expanded(
-                                child: Text(
-                                    nameProfile[index]["name"],
-                                    style:
-                                    TextStyle(color: Colors.black, fontSize: 16),
+    return WillPopScope(
+      onWillPop: (){
+        navigationService.push(routeCustomBottomNavigationBar);
+        return Future.value(false);
+      },
+      child: SafeArea(
+        child: Scaffold(
+          appBar: CustomAppBar(
+            backonTap: () {
+              Navigator.pop(context);
+            },
+            title: 'Surakshakadi',
+          ),
+          body: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Gap(40),
+              Container(
+                height: MediaQuery.of(context).size.height * 0.3,
+                child: ListView.builder(
+                    physics:
+                    ScrollPhysics(parent: NeverScrollableScrollPhysics()),
+                    itemCount: nameProfile.length,
+                    itemBuilder: (BuildContext context, int index) {
+                      return Column(
+                        children: [
+                          InkWell(
+                            onTap: (){
+                              if(index == 0){
+                                // Navigator.push(context, MaterialPageRoute(builder: (context) => ));
+                              }else if(index == 1){
+                                Navigator.push(context, MaterialPageRoute(builder: (context) => MyProfile()));
+
+                              }else if(index == 2){
+                                // Navigator.push(context, MaterialPageRoute(builder: (context) => ));
+
+                              }else{
+                                // Navigator.push(context, MaterialPageRoute(builder: (context) => ));
+
+                              }
+
+
+                            },
+                            child: Container(
+                              padding: EdgeInsets.only(left: 15,right: 20,top: 12,bottom: 12),
+                              color: lowwhite,
+                              child: Row(
+                                children: [
+                                  Image.asset( nameProfile[index]["icons"], scale: 4,),
+                                  Gap(30),
+                                  Expanded(
+                                    child: Text(
+                                        nameProfile[index]["name"],
+                                        style:
+                                        TextStyle(color: Colors.black, fontSize: 16),
+                                      ),
                                   ),
+
+                                  Icon(Icons.arrow_forward_ios,size: 25,color: blue,),
+                                ],
                               ),
-
-                              Icon(Icons.arrow_forward_ios,size: 25,color: blue,),
-                            ],
+                            ),
                           ),
-                        ),
-                        Divider(
-                          color: blue,height: 0.0,
-                          thickness: 1.5,
-                        ),
-                        Gap(7),
-                      ],
-                    );
-                  }),
-            ),
-            Gap(10),
-            Text(
-              'Need Help?',
-              style: TextStyle(
-                  color: Colors.black,
-                  fontSize: 17,letterSpacing: 0.5,
-                  fontWeight: FontWeight.w600),
-            ),
+                          Divider(
+                            color: blue,height: 0.0,
+                            thickness: 1.5,
+                          ),
+                          Gap(7),
+                        ],
+                      );
+                    }),
+              ),
+
+
+              Gap(10),
+
+
+              Text(
+                'Need Help?',
+                style: TextStyle(
+                    color: Colors.black,
+                    fontSize: 17,letterSpacing: 0.5,
+                    fontWeight: FontWeight.w600),
+              ),
 
 
 
-            Gap(20),
-            Expanded(
-              child: ListView.builder(
-                  physics:
-                  ScrollPhysics(parent: NeverScrollableScrollPhysics()),
-                  itemCount: needHelp.length,
-                  itemBuilder: (BuildContext context, int index) {
-                    return  Column(
-                      children: [
-                        Container(
-                          padding: EdgeInsets.only(left: 15,right: 20,top: 12,bottom: 12),
-                          color: lowwhite,
-                          child: Row(
-                            children: [
-                              Image.asset( needHelp[index]["icon"], scale: 4,),
-                              Gap(30),
-                              Expanded(
-                                child: Text(
-                                  needHelp[index]["Name"],
-                                  style:
-                                  TextStyle(color: Colors.black, fontSize: 16),
-                                ),
+              Gap(20),
+              Expanded(
+                child: ListView.builder(
+                    physics:
+                    ScrollPhysics(parent: NeverScrollableScrollPhysics()),
+                    itemCount: needHelp.length,
+                    itemBuilder: (BuildContext context, int index) {
+                      return  Column(
+                        children: [
+                          InkWell(
+                            onTap: (){
+
+                              if(index == 0){
+                                // Navigator.push(context, MaterialPageRoute(builder: (context) => ));
+                              }else if(index == 1){
+                                Navigator.push(context, MaterialPageRoute(builder: (context) => TermsAndCondition()));
+
+                              }else if(index == 2){
+                                Navigator.push(context, MaterialPageRoute(builder: (context) => HowToUse()));
+
+                              }else if(index == 3){
+                                Navigator.push(context, MaterialPageRoute(builder: (context) => AboutUs()));
+
+                              }else {
+                                // Navigator.push(context, MaterialPageRoute(builder: (context) => ));
+
+                              }
+
+
+                            },
+                            child: Container(
+                              padding: EdgeInsets.only(left: 15,right: 20,top: 12,bottom: 12),
+                              color: lowwhite,
+                              child: Row(
+                                children: [
+                                  Image.asset( needHelp[index]["icon"], scale: 4,),
+                                  Gap(30),
+                                  Expanded(
+                                    child: Text(
+                                      needHelp[index]["Name"],
+                                      style:
+                                      TextStyle(color: Colors.black, fontSize: 16),
+                                    ),
+                                  ),
+
+                                  Icon(Icons.arrow_forward_ios,size: 25,color: blue,),
+                                ],
                               ),
-
-                              Icon(Icons.arrow_forward_ios,size: 25,color: blue,),
-                            ],
+                            ),
                           ),
-                        ),
-                        Divider(
-                          color: blue,height: 0.0,
-                          thickness: 1.5,
-                        ),
-                        Gap(7),
-                      ],
-                    );
+                          Divider(
+                            color: blue,height: 0.0,
+                            thickness: 1.5,
+                          ),
+                          Gap(7),
+                        ],
+                      );
 
 
-                    //   Column(
-                    //   children: [
-                    //
-                    //     ListTile(
-                    //         tileColor: Colors.black12.withOpacity(0.04),
-                    //         leading: Image.asset(
-                    //        // IconButton(
-                    //          // icon: Icon(
-                    //             needHelp[index]["icon"],
-                    //             scale: 4,
-                    //           //),
-                    //          // onPressed: () {},
-                    //         ),
-                    //         title: Text(
-                    //           needHelp[index]["Name"],
-                    //           style:
-                    //           TextStyle(color: Colors.black, fontSize: 20),
-                    //         ),
-                    //         trailing:  Icon(
-                    //                    Icons.arrow_forward_ios,
-                    //                    color: Colors.blue,
-                    //                   ),),
-                    //     Divider(
-                    //       color: Colors.blue,
-                    //       thickness: 1.5,
-                    //     ),
-                    //     // Gap(5)
-                    //   ],
-                    // );
-                  }),
-            ),
-          ],
+                      //   Column(
+                      //   children: [
+                      //
+                      //     ListTile(
+                      //         tileColor: Colors.black12.withOpacity(0.04),
+                      //         leading: Image.asset(
+                      //        // IconButton(
+                      //          // icon: Icon(
+                      //             needHelp[index]["icon"],
+                      //             scale: 4,
+                      //           //),
+                      //          // onPressed: () {},
+                      //         ),
+                      //         title: Text(
+                      //           needHelp[index]["Name"],
+                      //           style:
+                      //           TextStyle(color: Colors.black, fontSize: 20),
+                      //         ),
+                      //         trailing:  Icon(
+                      //                    Icons.arrow_forward_ios,
+                      //                    color: Colors.blue,
+                      //                   ),),
+                      //     Divider(
+                      //       color: Colors.blue,
+                      //       thickness: 1.5,
+                      //     ),
+                      //     // Gap(5)
+                      //   ],
+                      // );
+                    }),
+              ),
+            ],
+          ),
+
         ),
-
       ),
     );
   }

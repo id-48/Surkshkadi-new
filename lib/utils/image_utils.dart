@@ -77,6 +77,11 @@ const String use = 'assets/images/use.png';
 const String know = 'assets/images/know.png';
 const String notice = 'assets/images/notice.png';
 
+const String callIconTwo = "assets/images/calliconTwo.png";
+const String momentsIcon = "assets/images/momentsIcon.png";
+const String scanBarcodeIcon = "assets/images/scanBarcode.png";
+
+
 const String infoicon = 'assets/images/infoicon.png';
 const String verificationicon = 'assets/images/panicon.png';
 const String mailiocn = 'assets/images/mailcon.png';

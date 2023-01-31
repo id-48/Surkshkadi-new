@@ -94,7 +94,7 @@ class App extends HookConsumerWidget {
           LayoutBuilder(builder: (layoutContext, BoxConstraints constraints) {
         return OrientationBuilder(builder: (context, Orientation orientation) {
           return ScreenUtilInit(
-              designSize: Size(1450, 700),
+              designSize: Size(360, 800),
               minTextAdapt: true,
               splitScreenMode: true,
               builder: (context, child) {

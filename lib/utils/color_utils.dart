@@ -70,6 +70,8 @@ const Color greenjerry = Color(0xff6C6B6B);
 const Color textFieldBorder = Color(0xffd9d9d9);
 const Color dividerColor = Color(0xff9d9d9d);
 const Color hintTextColor = Color(0xff9E9E9E);
+const Color bgProfileColor = Color(0xfff6f6f6);
+const Color dividerProColor = Color(0xffdbdbdb);
 
 
 

@@ -219,13 +219,21 @@ const String eKyc = "E Kyc";
 
 
 
+///        -------    Drawer Item   --------
+
+const String myProfile = "My Profile";
+const String howToUse = "How To Use";
+
+
+
+
 
 ///        ------------>>>>>>>>>>>>>>         W E B    S T R I N G          <<<<<<<<<<<<<<<-----------------         \\\
 
 ///       DashBoard  web
 const String linkingYouAnd = "Linking You And Your Loved Ones";
 const String weAreHereToHelp =
-    "\"We are here to help your loved ones every step of the way\"";
+    '"We are here to help your loved ones every step of the way"';
 const String secureNow = "Secure Now";
 const String whySur = "Why Surakshakadi?";
 const String convenientEfficient =
