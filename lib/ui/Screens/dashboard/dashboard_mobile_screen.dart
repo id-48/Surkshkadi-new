@@ -108,7 +108,7 @@ class DashBoard extends HookConsumerWidget {
             return Scaffold(
               appBar: AppBar(
                   elevation: 1,
-                  backgroundColor: gerywhite,
+                    backgroundColor: gerywhite,
                   leading: GestureDetector(
                     onTap: () {
                       navigationService.push(routeCustomDrawer);
@@ -737,49 +737,59 @@ class DashBoard extends HookConsumerWidget {
                       ),
                       Gap(20),
                       Row(
-                        children: [
+                        children:[
                           Expanded(
                             flex: 1,
-                            child: Container(
-                              alignment: Alignment.center,
-                              height: 100,
-                              decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(5),
-                                  // color: blue,
-                                  image: DecorationImage(
-                                      image: AssetImage(workbg),
-                                      scale: 4,
-                                      fit: BoxFit.fill)),
-                              child: Text(
-                                howItWorks,
-                                style: TextStyle(
-                                    fontSize: 14,
-                                    fontWeight: FontWeight.w700,
-                                    color: white,
-                                    letterSpacing: 0.7),
+                            child: InkWell(
+                              onTap: (){
+
+                              },
+                              child: Container(
+                                alignment: Alignment.center,
+                                height: 100,
+                                decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(5),
+                                    // color: blue,
+                                    image: DecorationImage(
+                                        image: AssetImage(workbg),
+                                        scale: 4,
+                                        fit: BoxFit.fill)),
+                                child: Text(
+                                  howItWorks,
+                                  style: TextStyle(
+                                      fontSize: 14,
+                                      fontWeight: FontWeight.w700,
+                                      color: white,
+                                      letterSpacing: 0.7),
+                                ),
                               ),
                             ),
                           ),
                           Gap(15),
                           Expanded(
                             flex: 1,
-                            child: Container(
-                              alignment: Alignment.center,
-                              height: 100,
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(5),
-                                image: DecorationImage(
-                                    image: AssetImage(referearnbanner),
-                                    scale: 4,
-                                    fit: BoxFit.fill),
-                              ),
-                              child: Text(
-                                referAndEarn,
-                                style: TextStyle(
-                                    fontSize: 14,
-                                    fontWeight: FontWeight.bold,
-                                    color: white,
-                                    letterSpacing: 0.7),
+                            child: InkWell(
+                              onTap: (){
+
+                              },
+                              child: Container(
+                                alignment: Alignment.center,
+                                height: 100,
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(5),
+                                  image: DecorationImage(
+                                      image: AssetImage(referearnbanner),
+                                      scale: 4,
+                                      fit: BoxFit.fill),
+                                ),
+                                child: Text(
+                                  referAndEarn,
+                                  style: TextStyle(
+                                      fontSize: 14,
+                                      fontWeight: FontWeight.bold,
+                                      color: white,
+                                      letterSpacing: 0.7),
+                                ),
                               ),
                             ),
                           ),
