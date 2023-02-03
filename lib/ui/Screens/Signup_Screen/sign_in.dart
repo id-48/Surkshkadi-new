@@ -177,7 +177,8 @@ class Sign_in extends HookConsumerWidget {
                       ReqOtp data = ReqOtp(mobileNo: mobilenocontroller.text,userType: "Customer");
                       ref
                           .read(authProvider.notifier)
-                          .logIn(context: context, data: data).then((value) {
+                          .logIn(context: context, data: data).then((value)
+                      {
                             if(value!.status == 1){
                               displayToast("${value.response?.otp}");
 

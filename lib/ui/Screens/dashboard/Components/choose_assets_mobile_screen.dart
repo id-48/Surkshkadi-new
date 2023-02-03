@@ -910,7 +910,7 @@ class ChooseAssetMobile extends HookConsumerWidget {
                           if (getBool(prefSubChatBotCompletedMobile) == false) {
                             print("mobile number ----->>> ${getString(prefLoginNumber)}");
 
-                            String  wpNumber = messagesList![3].messageContent[0] == "No" ? messagesList![3].messageContent[1] : "4324";
+                            String  wpNumber = messagesList![3].messageContent[0] == "No" ? messagesList![3].messageContent[1] : "${getString((prefLoginNumber))}";
                             print("mobile WatsApp number ----->>> ${wpNumber}");
                             print(
                                 "fatherName: ${messagesList![21].messageContent[0]}");
