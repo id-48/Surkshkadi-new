@@ -33,18 +33,18 @@ class DashBoardWeb extends HookConsumerWidget {
     final lifeTime = useState<bool>(false);
 
     useEffect(() {
-      ref.read(stateProvider.notifier).getState(context: context).then((value) {
-        print("Yashu Patel");
-        if (value!.status == 1) {
-          print("Yashu Patel111111");
-          for (int i = 0; i < value.response.states.length; i++) {
-            print("Yashu Patel22222");
-            stateList.add(value.response.states[i].name);
-          }
-        } else {
-          displayToast("${value.message}");
-        }
-      });
+      // ref.read(stateProvider.notifier).getState(context: context).then((value) {
+      //   print("Yashu Patel");
+      //   if (value!.status == 1) {
+      //     print("Yashu Patel111111");
+      //     for (int i = 0; i < value.response.states.length; i++) {
+      //       print("Yashu Patel22222");
+      //       stateList.add(value.response.states[i].name);
+      //     }
+      //   } else {
+      //     displayToast("${value.message}");
+      //   }
+      // });
 
       ref.read(dashboardProvider.notifier).getDashboard(context: context);
     }, []);
@@ -66,7 +66,7 @@ class DashBoardWeb extends HookConsumerWidget {
                   CustomAppbarWeb(index: 0),
                   Gap(40),
                   LinkingLoved(),
-                  Gap(70),
+                  Gap(40),
                   QuetionText(
                       boldName: whySur,
                       boldNameColor: buttonColor,
@@ -79,36 +79,51 @@ class DashBoardWeb extends HookConsumerWidget {
                         video.value = true;
                       },
                       child: Container(
-                        height: 490,
-                        width: 750,
-                        alignment: Alignment.center,
-                        decoration: BoxDecoration(
-                          color: blue,
-                          border: Border.all(color: black, width: 1.5),
-                        ),
+                        height: MediaQuery.of(context).size.height / 1.58,
+                        width: MediaQuery.of(context).size.width / 1.84,
+                        // alignment: Alignment.center,
+                        // decoration: BoxDecoration(
+                        //   color: blue,
+                        //   border: Border.all(color: black, width: 1.5),
+                        // ),
                         child: video.value == true
-                            ? YoutubeVideoPlayer(
-                                videoUrl: data.response.video,
-                              )
-                            : Column(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Text(
-                                    'Why Surakshakadi?',
-                                    style: TextStyle(fontSize: 26),
-                                  ),
-                                  Gap(20),
-                                  Icon(
-                                    Icons.play_circle_outlined,
-                                    size: 50,
-                                    color: black,
-                                  )
-                                ],
-                              ),
+                            ? Container(
+                          decoration: BoxDecoration(
+
+                            border: Border.all(color: black, width: 1.5),
+                          ),
+                              child: YoutubeVideoPlayer(
+                                  videoUrl: data.response.video,
+                                ),
+                            )
+                            : Container(
+                          height: MediaQuery.of(context).size.height / 1.58,
+                          width: MediaQuery.of(context).size.width / 1.84,
+                          alignment: Alignment.center,
+                          decoration: BoxDecoration(
+                            color: blue,
+                            border: Border.all(color: black, width: 1.5),
+                          ),
+                              child: Column(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Text(
+                                      'Why Surakshakadi?',
+                                      style: TextStyle(fontSize: 26),
+                                    ),
+                                    Gap(20),
+                                    Icon(
+                                      Icons.play_circle_outlined,
+                                      size: 50,
+                                      color: black,
+                                    )
+                                  ],
+                                ),
+                            ),
                       ),
                     ),
                   ),
-                  Gap(40),
+                  Gap(50),
                   Center(
                       child: Text(
                     assetTransfer,
@@ -124,7 +139,7 @@ class DashBoardWeb extends HookConsumerWidget {
                     color: dashAssetColor,
                     width: MediaQuery.of(context).size.width,
                     // height: 400,
-                    padding: EdgeInsets.only(top: 50),
+                    padding: EdgeInsets.only(top: 40),
                     child: Column(
                       children: [
                         Container(
@@ -135,7 +150,7 @@ class DashBoardWeb extends HookConsumerWidget {
                               smallName: toHassleFree,
                               smallNameColor: black),
                         ),
-                        Gap(40),
+                        Gap(52),
                         Wrap(
                           runSpacing: runSpacing,
                           spacing: spacing,
@@ -146,7 +161,8 @@ class DashBoardWeb extends HookConsumerWidget {
                                 data.response.specialities[index];
 
                             return Container(
-                              height: 230,
+                              // height:  230,
+                              height: MediaQuery.of(context).size.height / 3.15 ,
                               width: Utils.getWidth(context) > 1350 ? 250 : 200,
                               margin: EdgeInsets.only(right: 16, left: 16),
                               padding: EdgeInsets.only(top: 20, bottom: 5),
@@ -214,7 +230,7 @@ class DashBoardWeb extends HookConsumerWidget {
                             );
                           }),
                         ),
-                        Gap(50),
+                        Gap(56),
                       ],
                     ),
                   ),
@@ -393,8 +409,8 @@ class DashBoardWeb extends HookConsumerWidget {
                                   Gap(9),
                                   Text(
                                     lifeTime.value == true
-                                        ? "Rs ${data.response.plans[0].plans[0].offerPrice}/-"
-                                        : "Rs ${data.response.plans[1].plans[0].offerPrice}/-",
+                                        ? "₹${data.response.plans[0].plans[0].offerPrice}/-"
+                                        : "₹${data.response.plans[1].plans[0].offerPrice}/-",
                                     // yearly.value == true ? 'Rs 1499/-' : 'Rs 14999/-',
                                     style: TextStyle(
                                         fontSize: Utils.getWidth(context) < 750
@@ -423,8 +439,8 @@ class DashBoardWeb extends HookConsumerWidget {
                                       Gap(4),
                                       Text(
                                         lifeTime.value == true
-                                            ? "Rs ${data.response.plans[0].plans[0].actualPrice}/-"
-                                            : "Rs ${data.response.plans[1].plans[0].actualPrice}/-",
+                                            ? "₹${data.response.plans[0].plans[0].actualPrice}/-"
+                                            : "₹${data.response.plans[1].plans[0].actualPrice}/-",
 
                                         // yearly.value == true
                                         //     ? 'Rs 2998/-'
@@ -520,8 +536,8 @@ class DashBoardWeb extends HookConsumerWidget {
                                   Gap(9),
                                   Text(
                                     lifeTime.value == true
-                                        ? "Rs ${data.response.plans[0].plans[1].offerPrice}/-"
-                                        : "Rs ${data.response.plans[1].plans[1].offerPrice}/-",
+                                        ? "₹${data.response.plans[0].plans[1].offerPrice}/-"
+                                        : "₹${data.response.plans[1].plans[1].offerPrice}/-",
 
                                     // yearly.value == true
                                     //     ? 'Rs 2499/-'
@@ -553,8 +569,8 @@ class DashBoardWeb extends HookConsumerWidget {
                                       Gap(4),
                                       Text(
                                         lifeTime.value == true
-                                            ? "Rs ${data.response.plans[0].plans[1].actualPrice}/-"
-                                            : "Rs ${data.response.plans[1].plans[1].actualPrice}/-",
+                                            ? "₹${data.response.plans[0].plans[1].actualPrice}/-"
+                                            : "₹${data.response.plans[1].plans[1].actualPrice}/-",
 
                                         // yearly.value == true
                                         //     ? 'Rs 4998/-'
@@ -651,8 +667,8 @@ class DashBoardWeb extends HookConsumerWidget {
                                   Gap(9),
                                   Text(
                                     lifeTime.value == true
-                                        ? "Rs ${data.response.plans[0].plans[2].offerPrice}/-"
-                                        : "Rs ${data.response.plans[1].plans[2].offerPrice}/-",
+                                        ? "₹${data.response.plans[0].plans[2].offerPrice}/-"
+                                        : "₹${data.response.plans[1].plans[2].offerPrice}/-",
 
                                     // yearly.value == true
                                     //     ? 'Rs 3499/-'
@@ -686,8 +702,8 @@ class DashBoardWeb extends HookConsumerWidget {
                                       Gap(4),
                                       Text(
                                         lifeTime.value == true
-                                            ? "Rs ${data.response.plans[0].plans[2].actualPrice}/-"
-                                            : "Rs ${data.response.plans[1].plans[2].actualPrice}/-",
+                                            ? "₹${data.response.plans[0].plans[2].actualPrice}/-"
+                                            : "₹${data.response.plans[1].plans[2].actualPrice}/-",
 
                                         // yearly.value == true
                                         //     ? 'Rs 6998/-'

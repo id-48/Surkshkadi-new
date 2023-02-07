@@ -39,6 +39,7 @@ import 'package:surakshakadi/ui/Screens/cp_web_screeen/admin_panel_web/admin_pan
 import 'package:surakshakadi/ui/Screens/cp_web_screeen/partner_with_web_screen.dart';
 import 'package:surakshakadi/ui/Screens/cp_web_screeen/register_web_screen.dart';
 import 'package:surakshakadi/ui/Screens/cp_web_screeen/start_partner_with_web_screen.dart';
+import 'package:surakshakadi/ui/Screens/dashboard/Components/about_us_web_screen.dart';
 import 'package:surakshakadi/ui/Screens/dashboard/Components/add_information_screen.dart';
 import 'package:surakshakadi/ui/Screens/dashboard/Components/add_information_web_screen.dart';
 import 'package:surakshakadi/ui/Screens/dashboard/Components/choose_assets_mobile_screen.dart';
@@ -272,6 +273,11 @@ class NavigationUtils {
         return CustomRoute(
             settings: const RouteSettings(name: routePlansWeb),
             builder: (_) => PlansWeb());
+
+      case routeAboutUsWeb:
+        return CustomRoute(
+            settings: const RouteSettings(name: routeAboutUsWeb),
+            builder: (_) => AboutUsWeb());
 
       case routeChooseAssetsWeb:
         return CustomRoute(

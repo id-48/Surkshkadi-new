@@ -115,7 +115,7 @@ const String iWasLookingFor =
 const String soFarSoGood =
     "So far so good, easy to add info and generate the legal document online.";
 const String allLegalDocument =
-    "All legal documents are reviewed and created by legal experts who are the backbone of this platform with an overall litigation experience of 51 years.We don’t share any of your wishes with anyone.";
+    "All legal documents are reviewed and created by legal experts who are the backbone of this platform with an overall litigation experience of 51 years. We don’t share any of your wishes with anyone.";
 const String noOneElse = "NO ONE ELSE, even Surakshakadi, will not be able to access the details of assets during your lifetime. All your data is encrypted and secure using SMART CONTRACT BLOCKCHAIN TECHNOLOGY and will be transferred to your legal heir in your absence.";
 const String forMoreInformation = "For more information refer to";
 const String faq = "FAQ";
@@ -286,7 +286,7 @@ const String theArticlesInformation =
 const String termsConditions = "Terms & Conditions";
 const String getOurApp = "Get our App";
 const String disclaimer = "Disclaimer";
-const String privacyPolicy = "Privacy Policy.";
+const String privacyPolicy = "Privacy Policy";
 const String copyright = "Copyright 2022 ";
 const String surRightReserved = " Surakshakadi . All rights reserved.";
 
@@ -297,7 +297,7 @@ const String aboutUs = "About Us";
 const String legall = "Legal";
 const String contact = "Contact";
 const String phNumber =
-    "Ph: + 91 - 9834514832\nEmail : help@surkshakadigmail.com\nAddress :Surakshakadi Digital Estate\nServices Pvt. Ltd. Sector-C, C-203, Near Blue\nBells School, Mahanagar, Lucknow, Uttar\nPradesh, 226006. INDIA.";
+    "Address :Surakshakadi Digital Estate\nServices Pvt. Ltd. Sector-C, C-203, Near Blue\nBells School, Mahanagar, Lucknow, Uttar\nPradesh, 226006. INDIA.\nEmail : help@surkshakadigmail.com\nPh: + 91 - 9834514832";
 const String emailSur = "Email : surakshakadi.contactus@gmail.com";
 const String addressBlock = "Address :Block no. XX, Lane no. 06,";
 const String PuneNo = "Pune - 411001";
@@ -320,6 +320,7 @@ const String pleaseSelectThe =
 const String complementaryEWillCreation = "Complementary e-Will Creation";
 const String freeInsuranceCover = "Free Insurance Cover";
 const String returnOfYourSubscription = "Return of your subscription cost";
+const String contactUs = "Contact Us";
 const String giveBackToYourLovedOnes = "\"Give Back To Your Loved Ones\"";
 const String aVibrantGroup =
     '''A vibrant group, the individuals who make up the core of Surakshakadi,
@@ -412,9 +413,9 @@ const String anOtpWillBeSent =
     "An OTP will be sent to the Mobile No. & E-mail Id above.";
 const String sendOtp = "Send OTP";
 const String reSend = "Re-send";
-const String alreadyHave = "Already have an account?  ";
+const String alreadyHave = "Already have an account? ";
 const String login = "Login";
-const String asPartner = "as Partner With US";
+const String asPartner = " as Partner With US";
 const String joinUs = "Join Us";
 const String whyPartnerWithUs = "Why Partner With Us?";
 const String wealthTransfer =

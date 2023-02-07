@@ -105,61 +105,6 @@ class PartnerWithWeb extends HookConsumerWidget {
                           ),
                         ),
 
-                        Gap(50),
-
-                        InkWell(
-                          onTap: () {
-
-                            displayToast("Yahsu Patel");
-
-                          //   Navigator.push(
-                          //       context,
-                          //       MaterialPageRoute(
-                          //           builder: (context) => RegisterWeb()));
-                          },
-                          child: Container(
-                            padding: EdgeInsets.symmetric(
-                                vertical: 10, horizontal: 40),
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(25),
-                              color: white,
-                              boxShadow: [
-                                BoxShadow(
-                                    color: Colors.black12.withOpacity(0.2),
-                                    blurRadius: 3.0,
-                                    offset: Offset(0.0, 5))
-                              ],
-                            ),
-                            child: Text(
-                              joinUs,
-                              style: TextStyle(
-                                  fontWeight: FontWeight.w600,
-                                  fontSize: 18,
-                                  color: buttonColor),
-                            ),
-                          ),
-                          // child: Container(
-                          //   padding: EdgeInsets.symmetric(
-                          //       vertical: 8, horizontal: 35),
-                          //   decoration: BoxDecoration(
-                          //     borderRadius: BorderRadius.circular(15),
-                          //     color: oreng,
-                          //     boxShadow: [
-                          //       BoxShadow(
-                          //           color: Colors.black12.withOpacity(0.2),
-                          //           blurRadius: 3.0,
-                          //           offset: Offset(0.0, 5))
-                          //     ],
-                          //   ),
-                          //   child: Text(
-                          //     konwMore,
-                          //     style: TextStyle(
-                          //         fontWeight: FontWeight.w500,
-                          //         fontSize: 22,
-                          //         color: white),
-                          //   ),
-                          // ),
-                        ),
                       ],
                     ),
                   ),
@@ -259,7 +204,7 @@ class PartnerWithWeb extends HookConsumerWidget {
                                   value) {
                                 if (value?.status == 1) {
                                   sendOTP.value = true;
-                                  displayToast("${value?.response?.otp}");
+                                  // displayToast("${value?.response?.otp}");
 
                                   setString(prefCPUserID,
                                       "${value?.response?.userId}");
@@ -309,7 +254,7 @@ class PartnerWithWeb extends HookConsumerWidget {
                               .logIn(context: context, data: data).then((value) {
                             if(value?.status == 1){
                               sendOTP.value = true;
-                              displayToast("${value?.response?.otp}");
+                              // displayToast("${value?.response?.otp}");
 
                               setString(prefCPUserID,"${value?.response?.userId}" );
                               cpUserId.value = "${value?.response?.userId}";

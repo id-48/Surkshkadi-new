@@ -23,8 +23,8 @@ class AuthViewModel extends StateNotifier<AsyncValue<ResOtp>> {
   Future<ResOtp?> logIn(
       {required BuildContext context, required ReqOtp data}) async {
 
-    final result = await repositery.logIn(data);
     showLoadingDialog(context: context);
+    final result = await repositery.logIn(data);
     return result.when(
         success: (result) async {
           hideLoadingDialog(context: context);

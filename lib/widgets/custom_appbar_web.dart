@@ -93,10 +93,12 @@ class CustomAppbarWeb extends HookConsumerWidget {
                     child: InkWell(
                         onTap: () {
                           selectedindex.value = 0;
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => DashBoardWeb()));
+                          navigationService.push(routeDashboardWeb);
+
+                          // Navigator.push(
+                          //     context,
+                          //     MaterialPageRoute(
+                          //         builder: (context) => DashBoardWeb()));
                         },
                         child: Center(
                             child: Padding(
@@ -123,10 +125,12 @@ class CustomAppbarWeb extends HookConsumerWidget {
                     child: InkWell(
                         onTap: () {
                           selectedindex.value = 1;
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => AboutUsWeb()));
+                          navigationService.push(routeAboutUsWeb);
+
+                          // Navigator.push(
+                          //     context,
+                          //     MaterialPageRoute(
+                          //         builder: (context) => AboutUsWeb()));
                         },
                         child: Center(
                             child: Padding(
@@ -153,10 +157,12 @@ class CustomAppbarWeb extends HookConsumerWidget {
                     child: InkWell(
                         onTap: () {
                           selectedindex.value = 2;
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => PlansWeb()));
+                          navigationService.push(routePlansWeb);
+
+                          // Navigator.push(
+                          //     context,
+                          //     MaterialPageRoute(
+                          //         builder: (context) => PlansWeb()));
                         },
                         child: Center(
                             child: Padding(
@@ -254,6 +260,7 @@ class CustomAppbarWeb extends HookConsumerWidget {
                     child: button == true
                         ? Center(
                             child: Container(
+                              margin: EdgeInsets.only(bottom: 9),
                               padding: EdgeInsets.symmetric(
                                   vertical: 8, horizontal: 16),
                               decoration: BoxDecoration(
@@ -261,7 +268,7 @@ class CustomAppbarWeb extends HookConsumerWidget {
                                 borderRadius: BorderRadius.circular(25),
                               ),
                               child: Text(
-                                'Sing up / Login',
+                                'Signup / Login',
                                 style: TextStyle(fontSize: 17, color: white),
                               ),
                             ),
@@ -278,249 +285,4 @@ class CustomAppbarWeb extends HookConsumerWidget {
   }
 }
 
-///
-// return Container(
-//       // height: 154,
-//       padding: EdgeInsets.only(bottom: 20),
-//       width: Utils.getWidth(context),
-//       decoration: BoxDecoration(
-//         color: white,
-//         border: Border(
-//           bottom: BorderSide(
-//             color: navyblue,
-//           ),
-//         ),
-//         boxShadow: [
-//           boxShadow == true
-//               ? BoxShadow(
-//                   color: Colors.black12,
-//                   spreadRadius: 3.0,
-//                   offset: Offset(0.0, 3.0))
-//               : BoxShadow(),
-//         ],
-//       ),
-//       // color: Colors.lightBlueAccent,
-//       child: Row(
-//         crossAxisAlignment: CrossAxisAlignment.center,
-//         mainAxisAlignment: MainAxisAlignment.center,
-//         children: [
-//           Expanded(
-//               flex: 3,
-//               child: Image.asset(
-//                 icLogo,
-//                 scale: 5,
-//               )),
-//           Expanded(
-//             flex: 7,
-//             child: Padding(
-//               padding: EdgeInsets.only(
-//                   top: MediaQuery.of(context).orientation ==
-//                           Orientation.landscape
-//                       ? 40
-//                       : MediaQuery.of(context).size.width <= 700
-//                           ? 0
-//                           : 20),
-//               child: ResponsiveGridRow(
-//                 crossAxisAlignment: CrossAxisAlignment.center,
-//                 // mainAxisAlignment: MainAxisAlignment.center,
-//                 children: [
-//                   ResponsiveGridCol(
-//                       // lg: 2,
-//                       xl: 1,
-//                       md: 2,
-//                       xs: 2,
-//                       child: Container()),
-//                   ResponsiveGridCol(
-//                     // lg: 1,
-//                     xl: 1,
-//                     md: 2,
-//                     xs: 2,
-//                     child: InkWell(
-//                         onTap: () {
-//                           selectedindex.value = 0;
-//                           Navigator.push(
-//                               context,
-//                               MaterialPageRoute(
-//                                   builder: (context) => DashBoardWeb()));
-//                         },
-//                         child: Center(
-//                             child: Padding(
-//                           padding: EdgeInsets.only(
-//                               bottom: MediaQuery.of(context).size.width <= 500
-//                                   ? 0
-//                                   : 12),
-//                           child: Text(
-//                             'Home',
-//                             style: TextStyle(
-//                                 fontSize: 18.sp,
-//                                 color: selectedindex.value == 0
-//                                     ? buttonColor
-//                                     : textColor),
-//                           ),
-//                         ))),
-//                   ),
-//                   ResponsiveGridCol(
-//                     // lg: 1,
-//                     xl: 1,
-//                     md: 2,
-//                     xs: 2,
-//                     child: InkWell(
-//                         onTap: () {
-//                           selectedindex.value = 1;
-//                           Navigator.push(
-//                               context,
-//                               MaterialPageRoute(
-//                                   builder: (context) => AboutUsWeb()));
-//                         },
-//                         child: Center(
-//                             child: Padding(
-//                           padding: EdgeInsets.only(
-//                               bottom: MediaQuery.of(context).size.width <= 550
-//                                   ? 0
-//                                   : 12),
-//                           child: Text(
-//                             'About Us',
-//                             style: TextStyle(
-//                                 fontSize: 18.sp,
-//                                 color: selectedindex.value == 1
-//                                     ? buttonColor
-//                                     : textColor),
-//                           ),
-//                         ))),
-//                   ),
-//                   ResponsiveGridCol(
-//                     // lg: 1,
-//                     xl: 1,
-//                     md: 2,
-//                     xs: 2,
-//                     child: InkWell(
-//                         onTap: () {
-//                           selectedindex.value = 2;
-//                           Navigator.push(
-//                               context,
-//                               MaterialPageRoute(
-//                                   builder: (context) => PlansWeb()));
-//                         },
-//                         child: Center(
-//                             child: Padding(
-//                           padding: EdgeInsets.only(
-//                               bottom: MediaQuery.of(context).size.width <= 550
-//                                   ? 0
-//                                   : 12),
-//                           child: Text(
-//                             'Plans',
-//                             style: TextStyle(
-//                                 fontSize: 18,
-//                                 color: selectedindex.value == 2
-//                                     ? buttonColor
-//                                     : textColor),
-//                           ),
-//                         ))),
-//                   ),
-//                   ResponsiveGridCol(
-//                     // lg: 2,
-//                     xl: 2,
-//                     md: 4,
-//                     xs: 3,
-//                     child: InkWell(
-//                         onTap: () {
-//                           selectedindex.value = 3;
-//                           navigationService.push(routePartnerWithWeb);
-//                         },
-//                         child: Center(
-//                             child: Padding(
-//                           padding: EdgeInsets.only(
-//                               bottom: MediaQuery.of(context).size.width <= 550
-//                                   ? 0
-//                                   : 12),
-//                           child: Text(
-//                             partnerWithUs,
-//                             style: TextStyle(
-//                                 fontSize: 18,
-//                                 color: selectedindex.value == 3
-//                                     ? buttonColor
-//                                     : textColor),
-//                           ),
-//                         ))),
-//                   ),
-//                   ResponsiveGridCol(
-//                     // lg: 0,
-//                     xl: 0,
-//                     md: 1,
-//                     xs: 2,
-//                     child: Container(),
-//                   ),
-//                   ResponsiveGridCol(
-//                     // lg: 1,
-//                     xl: 1,
-//                     md: 1,
-//                     xs: 2,
-//                     child: Center(
-//                         child: Padding(
-//                       padding: EdgeInsets.only(
-//                           bottom: MediaQuery.of(context).size.width <= 550
-//                               ? 0
-//                               : 12),
-//                       child: Text(
-//                         faq,
-//                         style: TextStyle(fontSize: 18, color: textColor),
-//                       ),
-//                     )),
-//                   ),
-//                   ResponsiveGridCol(
-//                     xl: 2,
-//                     md: 2,
-//                     xs: 2,
-//                     child: Center(
-//                         child: Padding(
-//                       padding: EdgeInsets.only(
-//                           bottom: MediaQuery.of(context).size.width <= 550
-//                               ? 0
-//                               : 12),
-//                       child: Text(
-//                         'My Account',
-//                         style: TextStyle(fontSize: 18.sp, color: textColor),
-//                       ),
-//                     )),
-//                   ),
-//                   ResponsiveGridCol(
-//                     // lg: 2,
-//                     xl: 2,
-//                     xs: 3,
-//                     md: 3,
-//                     child: button == true
-//                         ? Center(
-//                             child: Container(
-//                               padding: EdgeInsets.symmetric(
-//                                   vertical: 8, horizontal: 16),
-//                               decoration: BoxDecoration(
-//                                 color: buttonColor,
-//                                 borderRadius: BorderRadius.circular(25),
-//                               ),
-//                               child: Text(
-//                                 'Sing up / Login',
-//                                 style: TextStyle(fontSize: 18.sp, color: white),
-//                               ),
-//                             ),
-//                           )
-//                         : Row(
-//                             children: [
-//                               Image.asset(
-//                                 info,
-//                                 scale: 4,
-//                               ),
-//                               Gap(6),
-//                               Text(
-//                                 'Hi Avinash',
-//                                 style: TextStyle(fontSize: 18, color: navyblue),
-//                               ),
-//                             ],
-//                           ),
-//                   ),
-//                 ],
-//               ),
-//             ),
-//           ),
-//         ],
-//       ),
-//     );
+

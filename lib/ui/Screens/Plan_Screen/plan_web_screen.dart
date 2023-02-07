@@ -53,25 +53,25 @@ class PlansWeb extends HookConsumerWidget {
                       SizedBox(
                         width: MediaQuery.of(context).size.width * 0.07,
                       ),
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-
-                          Gap(16),
-                          Text(
-                            weSimplyTheProcess,
-                            style: TextStyle(
-                                fontSize: 22,
-                                fontWeight: FontWeight.w400,
-                                color: navyblue),
-                          ),
-                          Text(
-                            getBestIn,
-                            style: TextStyle(
-                                fontSize: 16, fontWeight: FontWeight.w400),
-                          ),
-                        ],
-                      ),
+                      // Column(
+                      //   crossAxisAlignment: CrossAxisAlignment.start,
+                      //   children: [
+                      //
+                      //     Gap(16),
+                      //     Text(
+                      //       weSimplyTheProcess,
+                      //       style: TextStyle(
+                      //           fontSize: 22,
+                      //           fontWeight: FontWeight.w400,
+                      //           color: navyblue),
+                      //     ),
+                      //     Text(
+                      //       getBestIn,
+                      //       style: TextStyle(
+                      //           fontSize: 16, fontWeight: FontWeight.w400),
+                      //     ),
+                      //   ],
+                      // ),
                       SizedBox(
                         width: MediaQuery.of(context).size.width * 0.04,
                       ),
@@ -131,157 +131,169 @@ class PlansWeb extends HookConsumerWidget {
                   ),
 
                   Gap(10),
-                  // Row(
-                  //   children: [
-                  //     SizedBox(
-                  //       width: MediaQuery.of(context).size.width * 0.18,
-                  //     ),
-                  //     BlinkText(freeeWill,
-                  //         style: TextStyle(
-                  //             fontWeight: FontWeight.w400,
-                  //             color: Colors.black,
-                  //             fontSize: 22),
-                  //         textAlign: TextAlign.start,
-                  //         times: 40,
-                  //         duration: Duration(seconds: 3)),
-                  //   ],
-                  // ),
                   ResponsiveGridRow(
+                    crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
                       ResponsiveGridCol(
                         // lg: 2,
-                          xl: Utils.getWidth(context) < 1370 ? 0 : 1,
-                          md: 0,
+                          xl: Utils.getWidth(context) < 1370 ? 1 : 1,
+                          md: 1,
                           xs: 0,
                           child: Container()),
                       ResponsiveGridCol(
                         // lg: 2,
-                        xl: Utils.getWidth(context) < 1370 ? 4 : 3,
-                        md: 6,
-                        xs: 12,
-                        child: Center(
-                          child: Container(
-                            padding: EdgeInsets.only(left: 20,right: 20),
-                            height: 140,
-                            width: 280,
-                            decoration: BoxDecoration(
-                                color: lowBlue,
-                                borderRadius: BorderRadius.circular(15),
-                                boxShadow: [
-                                  BoxShadow(
-                                      color: Colors.black38,
-                                      blurRadius: 5,
-                                      offset: Offset(0.0, 4)),
-                                ]),
-                            child: Column(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Image.asset(
-                                  willVector,
-                                  scale: 4,
-                                ),
-                                Gap(20),
-                                Padding(
-                                  padding:
-                                  const EdgeInsets.symmetric(horizontal: 4),
-                                  child: Text(
-                                    complementaryEWillCreation,
-                                    style: TextStyle(
-                                      fontWeight: FontWeight.w600,
-                                      fontSize: 18,
-                                    ),
-                                    textAlign: TextAlign.center,
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                        ),
-                      ),
+                          xl: 0,
+                          md: 0,
+                          xs: 0,
+                          child: Gap(Utils.getWidth(context) <  1370 ? 0 : Utils.getWidth(context) * 0.05)),
                       ResponsiveGridCol(
                         // lg: 2,
-                        xl: 4,
-                        md: 6,
+                        xl: Utils.getWidth(context) < 1370 ? 4 : 3,
+                        md: 5,
                         xs: 12,
-                        child: Center(
-                          child: Container(
-                            padding: EdgeInsets.only(left: 20,right: 20),
-                            height: 140,
-                            width: 280,
-                            decoration: BoxDecoration(
-                                color: lowBlue,
-                                borderRadius: BorderRadius.circular(15),
-                                boxShadow: [
-                                  BoxShadow(
-                                      color: Colors.black38,
-                                      blurRadius: 5,
-                                      offset: Offset(0.0, 4)),
-                                ]),
-                            child: Column(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Image.asset(
-                                  vactor,
-                                  scale: 4,
-                                ),
-                                Gap(20),
-                                Padding(
-                                  padding:
-                                  const EdgeInsets.symmetric(horizontal: 4),
-                                  child: Text(
-                                    freeInsuranceCover,
-                                    style: TextStyle(
-                                      fontWeight: FontWeight.w600,
-                                      fontSize: 20,
-                                    ),
-                                    textAlign: TextAlign.center,
+                        child: Container(
+                          child: Align(
+                            alignment: Utils.getWidth(context) < 1370 ? Alignment.center : Alignment.centerRight,
+                            child: Container(
+                              margin: EdgeInsets.only(top: 30),
+                              padding: EdgeInsets.only(left: 20,right: 20),
+                              height: 140,
+                              width: 240,
+                              decoration: BoxDecoration(
+                                  color: lowBlue,
+                                  borderRadius: BorderRadius.circular(15),
+                                  boxShadow: [
+                                    BoxShadow(
+                                        color: Colors.black38,
+                                        blurRadius: 5,
+                                        offset: Offset(0.0, 4)),
+                                  ]),
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Image.asset(
+                                    willVector,
+                                    scale: 4,
                                   ),
-                                ),
-                              ],
+                                  Gap(20),
+                                  Padding(
+                                    padding:
+                                    const EdgeInsets.symmetric(horizontal: 4),
+                                    child: Text(
+                                      complementaryEWillCreation,
+                                      style: TextStyle(
+                                        fontWeight: FontWeight.w600,
+                                        fontSize: 18,
+                                      ),
+                                      textAlign: TextAlign.center,
+                                    ),
+                                  ),
+                                ],
+                              ),
                             ),
                           ),
                         ),
                       ),
+
+
+
+                      ResponsiveGridCol(
+                        // lg: 2,
+                        xl: 3,
+                        md: 5,
+                        xs: 12,
+                        child: Container(
+                          child: Align(
+                            alignment: Alignment.center,
+
+                            child: Container(
+                              margin: EdgeInsets.only(top: 30),
+
+                              padding: EdgeInsets.only(left: 20,right: 20),
+                              height: 140,
+                              width: 240,
+                              decoration: BoxDecoration(
+                                  color: lowBlue,
+                                  borderRadius: BorderRadius.circular(15),
+                                  boxShadow: [
+                                    BoxShadow(
+                                        color: Colors.black38,
+                                        blurRadius: 5,
+                                        offset: Offset(0.0, 4)),
+                                  ]),
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Image.asset(
+                                    vactor,
+                                    scale: 4,
+                                  ),
+                                  Gap(20),
+                                  Padding(
+                                    padding:
+                                    const EdgeInsets.symmetric(horizontal: 4),
+                                    child: Text(
+                                      freeInsuranceCover,
+                                      style: TextStyle(
+                                        fontWeight: FontWeight.w600,
+                                        fontSize: 20,
+                                      ),
+                                      textAlign: TextAlign.center,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+
                       ResponsiveGridCol(
                         // lg: 2,
                         xl: Utils.getWidth(context) < 1370 ? 4 : 3,
                         md: 12,
                         xs: 12,
-                        child: Center(
-                          child: Container(
-                            padding: EdgeInsets.only(left: 20, right: 20),
-                            height: 140,
-                            width: 280,
-                            decoration: BoxDecoration(
-                                color: lowBlue,
-                                borderRadius: BorderRadius.circular(15),
-                                boxShadow: [
-                                  BoxShadow(
-                                      color: Colors.black38,
-                                      blurRadius: 5,
-                                      offset: Offset(0.0, 4)),
-                                ]),
-                            child: Column(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Image.asset(
-                                  subscriptionModel,
-                                  scale: 4,
-                                ),
-                                Gap(20),
-                                Padding(
-                                  padding:
-                                  const EdgeInsets.symmetric(horizontal: 4),
-                                  child: Text(
-                                    returnOfYourSubscription,
-                                    style: TextStyle(
-                                      fontWeight: FontWeight.w600,
-                                      fontSize: 20,
-                                    ),
-                                    textAlign: TextAlign.center,
+                        child: Container(
+                          child: Align(
+                            alignment: Utils.getWidth(context) < 1370 ? Alignment.center : Alignment.centerLeft,
+
+                            child: Container(
+                              margin: EdgeInsets.only(top: 30),
+
+                              padding: EdgeInsets.only(left: 20, right: 20),
+                              height: 140,
+                              width: 240,
+                              decoration: BoxDecoration(
+                                  color: lowBlue,
+                                  borderRadius: BorderRadius.circular(15),
+                                  boxShadow: [
+                                    BoxShadow(
+                                        color: Colors.black38,
+                                        blurRadius: 5,
+                                        offset: Offset(0.0, 4)),
+                                  ]),
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Image.asset(
+                                    subscriptionModel,
+                                    scale: 4,
                                   ),
-                                ),
-                              ],
+                                  Gap(20),
+                                  Padding(
+                                    padding:
+                                    const EdgeInsets.symmetric(horizontal: 4),
+                                    child: Text(
+                                      returnOfYourSubscription,
+                                      style: TextStyle(
+                                        fontWeight: FontWeight.w600,
+                                        fontSize: 20,
+                                      ),
+                                      textAlign: TextAlign.center,
+                                    ),
+                                  ),
+                                ],
+                              ),
                             ),
                           ),
                         ),
@@ -432,14 +444,14 @@ class PlansWeb extends HookConsumerWidget {
                                       Padding(
                                         padding: const EdgeInsets.only(top: 4),
                                         child: Text(
-                                          'Rs ',
+                                          '₹',
                                           style: TextStyle(
                                               fontWeight: FontWeight.w700,
                                               color: isSelected.value == 0
                                                   ? white
                                                   : black,
                                               letterSpacing: 0.5,
-                                              fontSize: 30),
+                                              fontSize: 38),
                                         ),
                                       ),
                                       Gap(2),
@@ -482,8 +494,8 @@ class PlansWeb extends HookConsumerWidget {
                                       Gap(2),
                                       Text(
                                         isCheck.value == true
-                                            ? 'Rs ${data.response.plans[1].plans[0].actualPrice}/-'
-                                            : "Rs ${data.response.plans[1].plans[0].actualPrice}/-",
+                                            ? '₹${data.response.plans[1].plans[0].actualPrice}/-'
+                                            : "₹${data.response.plans[1].plans[0].actualPrice}/-",
                                         // isCheck.value == true ?
                                         // 'Rs 2,998/-' ,
                                         // :
@@ -593,14 +605,14 @@ class PlansWeb extends HookConsumerWidget {
                                       Padding(
                                         padding: const EdgeInsets.only(top: 4),
                                         child: Text(
-                                          'Rs',
+                                          '₹',
                                           style: TextStyle(
                                               fontWeight: FontWeight.w500,
                                               color: isSelected.value == 1
                                                   ? white
                                                   : black,
                                               letterSpacing: 0.5,
-                                              fontSize: 30),
+                                              fontSize: 38),
                                         ),
                                       ),
                                       Gap(2),
@@ -643,8 +655,8 @@ class PlansWeb extends HookConsumerWidget {
                                       Text(
                                         // isCheck.value == true ? 'Rs ${data.plans![0].yearly![1].price}/-' : "Rs ${data.plans![0].lifetime![1].price}/-" ,
                                         isCheck.value == true
-                                            ? 'Rs ${data.response.plans[1].plans[1].actualPrice}/-'
-                                            : "Rs ${data.response.plans[0].plans[1].actualPrice}/-",
+                                            ? '₹${data.response.plans[1].plans[1].actualPrice}/-'
+                                            : "₹${data.response.plans[0].plans[1].actualPrice}/-",
                                         // isCheck.value == true ?
                                         // 'Rs 4,998/-',
                                         // :
@@ -755,14 +767,14 @@ class PlansWeb extends HookConsumerWidget {
                                       Padding(
                                         padding: const EdgeInsets.only(top: 4),
                                         child: Text(
-                                          'Rs',
+                                          '₹',
                                           style: TextStyle(
                                               fontWeight: FontWeight.w700,
                                               color: isSelected.value == 2
                                                   ? white
                                                   : black,
                                               letterSpacing: 0.5,
-                                              fontSize: 30),
+                                              fontSize: 38),
                                         ),
                                       ),
                                       Gap(2),
@@ -804,8 +816,8 @@ class PlansWeb extends HookConsumerWidget {
                                       Gap(2),
                                       Text(
                                         isCheck.value == true
-                                            ? 'Rs ${data.response.plans[1].plans[2].actualPrice}/-'
-                                            : "Rs ${data.response.plans[0].plans[2].actualPrice}/-",
+                                            ? '₹${data.response.plans[1].plans[2].actualPrice}/-'
+                                            : "₹${data.response.plans[0].plans[2].actualPrice}/-",
                                         // isCheck.value == true ? 'Rs ${data.plans![0].yearly![2].price}/-' : "Rs ${data.plans![0].lifetime![2].price}/-" ,
                                         // isCheck.value == true ?
                                         // 'Rs 6,998/-',

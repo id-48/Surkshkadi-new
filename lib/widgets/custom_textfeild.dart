@@ -123,6 +123,7 @@ customeFormTextField({
     crossAxisAlignment: CrossAxisAlignment.start,
     children: [
       if (name != null) ...[
+        Gap(6),
         Text("$name"),
         Gap(10),
       ],

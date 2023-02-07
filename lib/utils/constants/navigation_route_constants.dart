@@ -18,6 +18,7 @@ const String routeAssetsInformation = "/routeAssetsInformation";
 const String routeConfirmationSpecific = "/routeConfirmationSpecific";
 const String routeDashboardWeb = "/routeDashboardWeb";
 const String routePlansWeb = "/routePlansWeb";
+const String routeAboutUsWeb = "/routeAboutUsWeb";
 const String routeChooseAssetsWeb = "/routeChooseAssetsWeb";
 const String routePaymentConfirPlanWeb = "/routePaymentConfirPlanWeb";
 const String routeCheckYourInfoWeb = "/routeCheckYourInfoWeb";

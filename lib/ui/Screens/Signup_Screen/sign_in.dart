@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:surakshakadi/data/model/auth/otp/req_otp.dart';
@@ -13,6 +14,8 @@ import 'package:surakshakadi/utils/dialog_utils.dart';
 import 'package:surakshakadi/utils/image_utils.dart';
 import 'package:surakshakadi/utils/preference_utils.dart';
 import 'package:surakshakadi/utils/strings.dart';
+import 'package:surakshakadi/utils/utils.dart';
+import 'package:surakshakadi/widgets/custom_button.dart';
 import 'package:surakshakadi/widgets/custom_textfeild.dart';
 
 class Sign_in extends HookConsumerWidget {
@@ -22,6 +25,8 @@ class Sign_in extends HookConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final check = useState<bool>(false);
     final mobilenocontroller = useTextEditingController();
+
+    TextEditingController referController = TextEditingController();
 
     var h = MediaQuery.of(context).size.height;
     var w = MediaQuery.of(context).size.width;
@@ -104,7 +109,23 @@ class Sign_in extends HookConsumerWidget {
                 ),
               ),
 
-              Gap(40),
+              Gap(14),
+
+              Row(
+                crossAxisAlignment: CrossAxisAlignment.end,
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: [
+                  InkWell(
+                    onTap: (){
+                      referDialog(context,referController);
+                    },
+                      child: Container(child: Text("Have A Refer Code?",style: TextStyle(color: blue,fontWeight: FontWeight.w600,fontSize: 15),))),
+
+                  Gap(28),
+                ],
+              ),
+
+              Gap(14),
 
               Container(
                 padding: EdgeInsets.only(left: 40, right: 30),
@@ -229,3 +250,137 @@ class Sign_in extends HookConsumerWidget {
     );
   }
 }
+
+
+
+void referDialog(BuildContext context,TextEditingController controller) {
+  showDialog(
+
+    context: context,
+    barrierDismissible: false,
+    builder: (BuildContext context) {
+      return AlertDialog(
+        contentPadding: EdgeInsets.symmetric(horizontal: 0,vertical: 0),
+        content: Container(
+          padding: EdgeInsets.symmetric(vertical: 16,horizontal: 16),
+
+          width: MediaQuery.of(context).size.width / 2,
+          height: MediaQuery.of(context).size.height / 3.5,
+          decoration: const BoxDecoration(
+            color: redFroly
+            // borderRadius: BorderRadius.all(Radius.circular(50)),
+          ),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+
+              Center(
+                child: GestureDetector(
+                  onTap: (){
+                    Navigator.pop(context);
+                  },
+                  child: Container(
+                      decoration: BoxDecoration(
+                          border: Border.all(color: Colors.black ,width: 1),
+                          borderRadius: BorderRadius.circular(50)
+                      ),
+                      child: const Icon (Icons.close ,size: 25,)
+                  ) ,
+                ),
+              ),
+
+              Padding(
+                padding: const EdgeInsets.only( left: 6,
+                    bottom: 2, top: 20, right: 25),
+                child: Text(
+                  'Refer Code',
+                  style: TextStyle(color: black, fontWeight: FontWeight.w400),
+                ),
+              ),
+
+              Container(
+                // margin: EdgeInsets.only(left: 6, right: 6),
+                child: Card(
+                  elevation: 3,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                  child: CustomTextfeild(
+                    textCapitalization: TextCapitalization.none,
+                    borderRadius: BorderRadius.circular(10),
+                    gradient: LinearGradient(
+                      colors: [
+                        multicolorone,
+                        multicolortwo,
+                      ],
+                      begin: Alignment.topCenter,
+                      end: Alignment.bottomCenter,
+                    ),
+                    blurRadius: 5.0,
+                    offset: Offset(-3, 4),
+                    maxLength: 10,
+                    controller: controller,
+                    border: InputBorder.none,
+                    textInputType: TextInputType.number,
+                    hinttext: '',
+
+                  ),
+                ),
+              ),
+
+              Gap(16),
+
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Expanded(
+                    flex: 1,
+                    child: GestureDetector(
+                      onTap: (){
+                        navigationService.pop();
+                      },
+                      child: Container(
+                        alignment: Alignment.center,
+                        padding: EdgeInsets.symmetric(vertical: 9),
+                        child:
+                        Text("Close", style: TextStyle(color: Colors.blue)),
+                        decoration: BoxDecoration(
+                          color: white,
+                          border: Border.all(color: blue),
+                          boxShadow: [
+                            BoxShadow(
+                              color: Colors.grey,
+                              // spreadRadius: 1,
+                              blurRadius: 1,
+                              offset: const Offset(0, 1),
+                            )
+                          ],
+
+                          borderRadius: BorderRadius.circular(15),
+                        ),
+                      ),
+                    ),
+                  ),
+
+                  Gap(16),
+                  Expanded(
+                    flex: 1,
+                    child: CustomButton(
+                      padding: EdgeInsets.symmetric(vertical: 10),
+                      title: "Ok",
+                      onTap: (){
+                        navigationService.pop();
+                      },
+                    ),
+                  ),
+                ],
+              ),
+
+            ],
+          ),
+        ),
+      );
+    },
+  );
+}
+

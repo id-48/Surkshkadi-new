@@ -505,7 +505,7 @@ class LinkingLoved extends HookWidget {
 
             // Gap(30),
             Container(
-              height: Utils.getHeight(context) * 0.58,
+              height: Utils.getHeight(context) * 0.53,
               // height: 400,
               width: Utils.getWidth(context),
               color: indigo,
@@ -544,28 +544,7 @@ class LinkingLoved extends HookWidget {
                             fontWeight: FontWeight.w400,
                             color: white),
                       ),
-                      Gap(50),
-                      Container(
-                        padding:
-                            EdgeInsets.symmetric(vertical: 10, horizontal: 35),
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(25),
-                          color: white,
-                          boxShadow: [
-                            BoxShadow(
-                                color: Colors.black12.withOpacity(0.2),
-                                blurRadius: 3.0,
-                                offset: Offset(0.0, 5))
-                          ],
-                        ),
-                        child: Text(
-                          secureNow,
-                          style: TextStyle(
-                              fontWeight: FontWeight.w600,
-                              fontSize: 16,
-                              color: buttonColor),
-                        ),
-                      ),
+
                     ],
                   )),
               ResponsiveGridCol(
@@ -868,18 +847,19 @@ class _YoutubeVideoPlayerState extends State<YoutubeVideoPlayer> {
               // child: AspectRatio(
               //   aspectRatio: _controller.value.aspectRatio,
                 child: Container(
+                  height: double.infinity,
                     width: double.infinity,
                     child: VideoPlayer(_controller)),
               // ),
             ),
             if (context.isWeb) ...[
               Positioned(
-                  // bottom: 0,
-                  // right: 0,
-                  // left: 0,
-                  // top: 0,
-                  left: 250,
-                  top: 120,
+                  bottom: 0,
+                  right: 0,
+                  left: 0,
+                  top: 0,
+                  // left: 250,
+                  // top: 120,
                   child: Container(
                     height: 30,
                     width: 30,
@@ -901,6 +881,7 @@ class _YoutubeVideoPlayerState extends State<YoutubeVideoPlayer> {
                                 ? Icons.pause
                                 : Icons.play_arrow,
                             color: Colors.white,
+                            size: 35,
                           )),
                     ),
                   )),
