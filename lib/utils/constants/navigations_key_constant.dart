@@ -1,6 +1,7 @@
 const navAuthToken = "authToken";
 const navUserId = "userId";
 const navUserType = "UserType";
+const navReferCode = "ReferCode";
 const navDashboardResponse = "dashboardResponse";
 const navIndex = "index";
 const navDattaa = "dattaa";

@@ -197,7 +197,7 @@ class PartnerWithWeb extends HookConsumerWidget {
                             if(numberController.text.length == 10) {
                               ReqOtp data = ReqOtp(
                                   mobileNo: numberController.text,
-                                  userType: cp);
+                                  userType: cp, );
                            await   ref
                                   .read(authProvider.notifier)
                                   .logIn(context: context, data: data).then((
@@ -248,7 +248,7 @@ class PartnerWithWeb extends HookConsumerWidget {
                         onTap:sendOTP.value == false
                             ? (){}
                             : ()async{
-                          ReqOtp data = ReqOtp(mobileNo: numberController.text,userType: cp);
+                          ReqOtp data = ReqOtp(mobileNo: numberController.text,userType: cp, );
                         await  ref
                               .read(authProvider.notifier)
                               .logIn(context: context, data: data).then((value) {

@@ -30,7 +30,12 @@ class AuthViewModel extends StateNotifier<AsyncValue<ResOtp>> {
           hideLoadingDialog(context: context);
           return result;
         },
-        failure: (error) {});
+        failure: (error) {
+          hideLoadingDialog(context: context);
+          displayToast("${error.message}");
+
+
+        });
   }
 
 
@@ -46,6 +51,8 @@ class AuthViewModel extends StateNotifier<AsyncValue<ResOtp>> {
 
     },
         failure: (error) {
+          hideLoadingDialog(context: context);
+
           displayToast("${error.message}");
       // displayToast(error.response!.data["errors"][0]['code']);
     });

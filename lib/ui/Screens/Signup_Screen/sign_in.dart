@@ -26,7 +26,7 @@ class Sign_in extends HookConsumerWidget {
     final check = useState<bool>(false);
     final mobilenocontroller = useTextEditingController();
 
-    TextEditingController referController = TextEditingController();
+    final referController = useTextEditingController();
 
     var h = MediaQuery.of(context).size.height;
     var w = MediaQuery.of(context).size.width;
@@ -192,25 +192,26 @@ class Sign_in extends HookConsumerWidget {
                   //   ?
                   // Navigator.push(context, MaterialPageRoute(builder: (context) => OTP_Verification()));
                   //     :null;
+                  print("refercode------>${referController.text}");
 
                   if (mobilenocontroller.text.length == 10) {
                     if (check.value == true) {
-                      ReqOtp data = ReqOtp(mobileNo: mobilenocontroller.text,userType: "Customer");
+                      ReqOtp data = ReqOtp(mobileNo: mobilenocontroller.text,userType: "Customer",);
                       ref
                           .read(authProvider.notifier)
                           .logIn(context: context, data: data).then((value)
                       {
-                            if(value!.status == 1){
-                              displayToast("${value.response?.otp}");
+                            if(value?.status == 1){
+                              displayToast("${value?.response?.otp}");
 
-                              setString(prefUserID,"${value.response?.userId}" );
+                              setString(prefUserID,"${value?.response?.userId}" );
 
                               print("key Id-- ${getString(prefUserID)}");
 
                               navigationService.push(routeOtpVerification, arguments: {
-                                navUserId: value.response?.userId, navUserType : value.response?.userType});
+                                navUserId: value?.response?.userId, navUserType : value?.response?.userType });
                             }else{
-                              displayToast("${value.message}");
+                              displayToast("${value?.message}");
 
                             }
                       });
@@ -265,9 +266,9 @@ void referDialog(BuildContext context,TextEditingController controller) {
           padding: EdgeInsets.symmetric(vertical: 16,horizontal: 16),
 
           width: MediaQuery.of(context).size.width / 2,
-          height: MediaQuery.of(context).size.height / 3.5,
+          height: MediaQuery.of(context).size.height / 3.3,
           decoration: const BoxDecoration(
-            color: redFroly
+            color: white,
             // borderRadius: BorderRadius.all(Radius.circular(50)),
           ),
           child: Column(
@@ -299,9 +300,11 @@ void referDialog(BuildContext context,TextEditingController controller) {
               ),
 
               Container(
+
                 // margin: EdgeInsets.only(left: 6, right: 6),
                 child: Card(
                   elevation: 3,
+
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(10),
                   ),
@@ -310,15 +313,15 @@ void referDialog(BuildContext context,TextEditingController controller) {
                     borderRadius: BorderRadius.circular(10),
                     gradient: LinearGradient(
                       colors: [
-                        multicolorone,
-                        multicolortwo,
+                        white,
+                        white,
                       ],
                       begin: Alignment.topCenter,
                       end: Alignment.bottomCenter,
                     ),
                     blurRadius: 5.0,
-                    offset: Offset(-3, 4),
-                    maxLength: 10,
+                    offset: Offset(0,0),
+                    maxLength: 6,
                     controller: controller,
                     border: InputBorder.none,
                     textInputType: TextInputType.number,
@@ -369,7 +372,29 @@ void referDialog(BuildContext context,TextEditingController controller) {
                       padding: EdgeInsets.symmetric(vertical: 10),
                       title: "Ok",
                       onTap: (){
-                        navigationService.pop();
+
+
+                        if (controller.text.isNotEmpty)  {
+
+                          if (controller.text.length >= 5) {
+
+                            Navigator.pop(context);
+
+
+                          }else{
+
+                            displayToast('Enter Valid 6 Digit Refer Code');
+
+                          }
+
+
+
+
+                        }else{
+                          displayToast('Enter Refer Code');
+
+                        }
+
                       },
                     ),
                   ),

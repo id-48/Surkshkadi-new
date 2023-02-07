@@ -99,7 +99,9 @@ class NavigationUtils {
       case routeOtpVerification:
         return CustomRoute(
             settings: const RouteSettings(name: routeOtpVerification),
-            builder: (_) => OTP_Verification(userId: args![navUserId],userType: args[navUserType],));
+            builder: (_) => OTP_Verification(userId: args![navUserId],userType: args[navUserType],
+              // referCode: args[navReferCode],
+            ));
 
       case routeCustomDrawer:
         return CustomRoute(
