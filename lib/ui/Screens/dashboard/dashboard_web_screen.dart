@@ -80,24 +80,18 @@ class DashBoardWeb extends HookConsumerWidget {
                       },
                       child: Container(
                         height: MediaQuery.of(context).size.height / 1.58,
-                        width: MediaQuery.of(context).size.width / 1.84,
-                        // alignment: Alignment.center,
-                        // decoration: BoxDecoration(
-                        //   color: blue,
-                        //   border: Border.all(color: black, width: 1.5),
-                        // ),
+                        margin: EdgeInsets.only(left: 30,right: 30),
                         child: video.value == true
                             ? Container(
-                          decoration: BoxDecoration(
-
-                            border: Border.all(color: black, width: 1.5),
-                          ),
+                          // decoration: BoxDecoration(
+                          //   border: Border.all(color: black, width: 1.5),
+                          // ),
                               child: YoutubeVideoPlayer(
                                   videoUrl: data.response.video,
                                 ),
                             )
                             : Container(
-                          height: MediaQuery.of(context).size.height / 1.58,
+                          // height: MediaQuery.of(context).size.height / 1.58,
                           width: MediaQuery.of(context).size.width / 1.84,
                           alignment: Alignment.center,
                           decoration: BoxDecoration(

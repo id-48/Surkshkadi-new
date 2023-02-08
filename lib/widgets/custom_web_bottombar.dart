@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:gap/gap.dart';
 import 'package:responsive_grid/responsive_grid.dart';
+import 'package:surakshakadi/di/locator.dart';
 import 'package:surakshakadi/utils/color_utils.dart';
+import 'package:surakshakadi/utils/constants/navigation_route_constants.dart';
 import 'package:surakshakadi/utils/image_utils.dart';
 import 'package:surakshakadi/utils/strings.dart';
 import 'package:surakshakadi/utils/utils.dart';
@@ -189,28 +191,48 @@ class CustomWebBottomBar extends HookWidget {
                             color: Color(0xFF002E9E)),
                       ),
                       Gap(16),
-                      Text(
-                        homee,
-                        style: TextStyle(
-                            fontWeight: FontWeight.w500, fontSize: 16),
+                      GestureDetector(
+                        onTap: (){
+                          navigationService.push(routeDashboardWeb);
+                        },
+                        child: Text(
+                          homee,
+                          style: TextStyle(
+                              fontWeight: FontWeight.w500, fontSize: 16),
+                        ),
                       ),
                       Gap(7),
-                      Text(
-                        aboutUs,
-                        style: TextStyle(
-                            fontWeight: FontWeight.w500, fontSize: 16),
+                      GestureDetector(
+                        onTap: (){
+                          navigationService.push(routeAboutUsWeb);
+                        },
+                        child: Text(
+                          aboutUs,
+                          style: TextStyle(
+                              fontWeight: FontWeight.w500, fontSize: 16),
+                        ),
                       ),
                       Gap(7),
-                      Text(
-                        plans,
-                        style: TextStyle(
-                            fontWeight: FontWeight.w500, fontSize: 16),
+                      GestureDetector(
+                        onTap: (){
+                          navigationService.push(routePlansWeb);
+                        },
+                        child: Text(
+                          plans,
+                          style: TextStyle(
+                              fontWeight: FontWeight.w500, fontSize: 16),
+                        ),
                       ),
                       Gap(7),
-                      Text(
-                        partnerWithUs,
-                        style: TextStyle(
-                            fontWeight: FontWeight.w500, fontSize: 16),
+                      GestureDetector(
+                        onTap: (){
+                          navigationService.push(routePartnerWithWeb);
+                        },
+                        child: Text(
+                          partnerWithUs,
+                          style: TextStyle(
+                              fontWeight: FontWeight.w500, fontSize: 16),
+                        ),
                       ),
                       Gap(7),
                       Text(

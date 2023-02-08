@@ -67,12 +67,7 @@ class CustomAppbarWeb extends HookConsumerWidget {
             flex: 8,
             child: Padding(
               padding: EdgeInsets.only(
-                  top: MediaQuery.of(context).orientation ==
-                          Orientation.landscape
-                      ? 40
-                      : MediaQuery.of(context).size.width <= 700
-                          ? 0
-                          : 20),
+                  top: MediaQuery.of(context).orientation == Orientation.landscape ? 40 : MediaQuery.of(context).size.width <= 700 ? 0 : 20),
               child: ResponsiveGridRow(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 // mainAxisAlignment: MainAxisAlignment.center,
@@ -117,7 +112,7 @@ class CustomAppbarWeb extends HookConsumerWidget {
                         ))),
                   ),
                   ResponsiveGridCol(
-                    lg: 2,
+                    lg: 1,
                     // xl: 1,
                     md: 3,
                     sm: 3,
@@ -259,22 +254,43 @@ class CustomAppbarWeb extends HookConsumerWidget {
 
                     child: button == true
                         ? Center(
-                            child: Container(
-                              margin: EdgeInsets.only(bottom: 9),
-                              padding: EdgeInsets.symmetric(
-                                  vertical: 8, horizontal: 16),
-                              decoration: BoxDecoration(
-                                color: buttonColor,
-                                borderRadius: BorderRadius.circular(25),
-                              ),
-                              child: Text(
-                                'Signup / Login',
-                                style: TextStyle(fontSize: 17, color: white),
+                            child: SizedBox(
+                              child: Container(
+                                margin: EdgeInsets.only(bottom: 9),
+                                padding: EdgeInsets.symmetric(
+                                    vertical: 8, horizontal: 16),
+                                decoration: BoxDecoration(
+                                  color: buttonColor,
+                                  borderRadius: BorderRadius.circular(25),
+                                ),
+                                child: Text(
+                                  'Signup / Login',
+                                  style: TextStyle(fontSize: 17, color: white),
+                                ),
                               ),
                             ),
                           )
                         : Container(),
                   ),
+
+                  ResponsiveGridCol(
+                    // xl: 2,
+                    lg: 2,
+                    md: 3,
+                    sm: 3,
+                    xs: 3,
+                    child: Container(
+                      // color: Colors.redAccent,
+                        margin: EdgeInsets.only(right: MediaQuery.of(context).size.width <= 550 ? 0 : 20 ),
+                        child: Padding(
+                          padding: EdgeInsets.only(
+                              bottom: MediaQuery.of(context).size.width <= 550
+                                  ? 0
+                                  : 12),
+                          child: Image.asset(startupIndia)
+                        )),
+                  ),
+
                 ],
               ),
             ),

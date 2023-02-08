@@ -60,12 +60,12 @@ class SplashScreen extends HookConsumerWidget {
 
               // Navigator.push(context,
               //     MaterialPageRoute(builder: (context) => Sign_in()));
-              navigationService.push(routeCommonepagee);
+              navigationService.pushAndRemoveUntil(routeCommonepagee);
             }
           } else {
             // Navigator.push(context,
             //     MaterialPageRoute(builder: (context) => DashBoardWeb()));
-            navigationService.push(routeDashboardWeb);
+            navigationService.pushAndRemoveUntil(routeDashboardWeb);
           }
         });
         return timer.cancel;

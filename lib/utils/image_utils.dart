@@ -144,6 +144,7 @@ const String uploadAdharCard = "assets/images/uploadAdharCard.png";
 const String takeSelfie = "assets/images/takeSelfie.png";
 const String visaMasterUpi = "assets/images/visaMasterUpi.png";
 const String msmeStart = "assets/images/msmeStart.png";
+const String startupIndia = "assets/images/startupIndia.png";
 const String socialMediaIcon = "assets/images/socialMediaIcon.png";
 
 const String webAdminDashboad = "assets/images/dashboard_web_admin.png";
