@@ -196,13 +196,13 @@ class Sign_in extends HookConsumerWidget {
 
                   if (mobilenocontroller.text.length == 10) {
                     if (check.value == true) {
-                      ReqOtp data = ReqOtp(mobileNo: mobilenocontroller.text,userType: "Customer",);
+                      ReqOtp data = ReqOtp(mobileNo: mobilenocontroller.text,userType: "Customer",referCode: referController.text);
                       ref
                           .read(authProvider.notifier)
                           .logIn(context: context, data: data).then((value)
                       {
                             if(value?.status == 1){
-                              displayToast("${value?.response?.otp}");
+                              // displayToast("${value?.response?.otp}");
 
                               setString(prefUserID,"${value?.response?.userId}" );
 
@@ -311,6 +311,7 @@ void referDialog(BuildContext context,TextEditingController controller) {
                   child: CustomTextfeild(
                     textCapitalization: TextCapitalization.none,
                     borderRadius: BorderRadius.circular(10),
+                    contentPadding: EdgeInsets.only(left: 6),
                     gradient: LinearGradient(
                       colors: [
                         white,
