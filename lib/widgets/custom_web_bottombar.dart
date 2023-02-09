@@ -155,9 +155,19 @@ class CustomWebBottomBar extends HookWidget {
                         scale: 4.5,
                       ),
                       Gap(10),
-                      Image.asset(
-                        msmeStart,
-                        scale: 3.5,
+                      Row(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Image.asset(
+                            manageBlockChain,
+                            scale: 3,
+                          ),
+                          Gap(6),
+                          Image.asset(
+                            msmeStart,
+                            scale: 3.5,
+                          ),
+                        ],
                       ),
                     ],
                   ),
@@ -274,12 +284,12 @@ class CustomWebBottomBar extends HookWidget {
                             color: Color(0xFF002E9E)),
                       ),
                       Gap(16),
-                      Text(
-                        referAndEarn,
-                        style: TextStyle(
-                            fontWeight: FontWeight.w500, fontSize: 16),
-                      ),
-                      Gap(7),
+                      // Text(
+                      //   referAndEarn,
+                      //   style: TextStyle(
+                      //       fontWeight: FontWeight.w500, fontSize: 16),
+                      // ),
+                      // Gap(7),
                       Text(
                         termsConditions,
                         style: TextStyle(

@@ -53,7 +53,252 @@ class CustomAppbarWeb extends HookConsumerWidget {
         ],
       ),
       // color: Colors.lightBlueAccent,
-      child: Row(
+      child: MediaQuery.of(context).size.width <= 924  ? Column(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Padding(
+            padding:  EdgeInsets.only(
+                bottom: MediaQuery.of(context).size.width <= 705 ? 10 :  0.0,
+              top:  MediaQuery.of(context).size.width <= 924 ? 10 :  0.0,
+
+            ),
+            child: Image.asset(
+              icLogo,
+              scale: 6,
+            ),
+          ),
+          Padding(
+            padding: EdgeInsets.only(
+                top: MediaQuery.of(context).orientation == Orientation.landscape ? 40 : MediaQuery.of(context).size.width <= 700 ? 0 : 20),
+            child: ResponsiveGridRow(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              // mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                // ResponsiveGridCol(
+                //
+                //     // xl: 1,
+                //     lg: 1,
+                //     md: 2,
+                //     xs: 2,
+                //     child: Container()),
+                ResponsiveGridCol(
+                  // xl: 1,
+                  lg: 1,
+                  md: 1,
+                  sm: 2,
+                  xs: 2,
+                  child: InkWell(
+                      onTap: () {
+                        selectedindex.value = 0;
+                        navigationService.push(routeDashboardWeb);
+
+                        // Navigator.push(
+                        //     context,
+                        //     MaterialPageRoute(
+                        //         builder: (context) => DashBoardWeb()));
+                      },
+                      child: Center(
+                          child: Padding(
+                        padding: EdgeInsets.only(
+                            bottom: MediaQuery.of(context).size.width <= 500
+                                ? 0
+                                : 12),
+                        child: Text(
+                          'Home',
+                          style: TextStyle(
+                              fontSize: 17,
+                              color: selectedindex.value == 0
+                                  ? buttonColor
+                                  : textColor),
+                        ),
+                      ))),
+                ),
+                ResponsiveGridCol(
+                  lg: 1,
+                  // xl: 1,
+                  md: 3,
+                  sm: 3,
+                  xs: 3,
+                  child: InkWell(
+                      onTap: () {
+                        selectedindex.value = 1;
+                        navigationService.push(routeAboutUsWeb);
+
+                        // Navigator.push(
+                        //     context,
+                        //     MaterialPageRoute(
+                        //         builder: (context) => AboutUsWeb()));
+                      },
+                      child: Center(
+                          child: Padding(
+                        padding: EdgeInsets.only(
+                            bottom: MediaQuery.of(context).size.width <= 550
+                                ? 0
+                                : 12),
+                        child: Text(
+                          'About Us',
+                          style: TextStyle(
+                              fontSize: 17,
+                              color: selectedindex.value == 1
+                                  ? buttonColor
+                                  : textColor),
+                        ),
+                      ))),
+                ),
+                ResponsiveGridCol(
+                  lg: 1,
+                  // xl: 1,
+                  md: 1,
+                  sm: 2,
+                  xs: 2,
+                  child: InkWell(
+                      onTap: () {
+                        selectedindex.value = 2;
+                        navigationService.push(routePlansWeb);
+
+                        // Navigator.push(
+                        //     context,
+                        //     MaterialPageRoute(
+                        //         builder: (context) => PlansWeb()));
+                      },
+                      child: Center(
+                          child: Padding(
+                        padding: EdgeInsets.only(
+                            bottom: MediaQuery.of(context).size.width <= 550
+                                ? 0
+                                : 12),
+                        child: Text(
+                          'Plans',
+                          style: TextStyle(
+                              fontSize: 17,
+                              color: selectedindex.value == 2
+                                  ? buttonColor
+                                  : textColor),
+                        ),
+                      ))),
+                ),
+                ResponsiveGridCol(
+                  lg: 2,
+                  // xl: 2,
+                  md: 4,
+                  sm: 5,
+                  xs: 5,
+                  child: InkWell(
+                      onTap: () {
+                        selectedindex.value = 3;
+                        navigationService.push(routePartnerWithWeb);
+                      },
+                      child: Center(
+                          child: Padding(
+                        padding: EdgeInsets.only(
+                            bottom: MediaQuery.of(context).size.width <= 550
+                                ? 0
+                                : 12),
+                        child: Text(
+                          partnerWithUs,
+                          style: TextStyle(
+                              fontSize: 17,
+                              color: selectedindex.value == 3
+                                  ? buttonColor
+                                  : textColor),
+                        ),
+                      ))),
+                ),
+                // ResponsiveGridCol(
+                //   // lg: 0,
+                //   // xl: 0,
+                //   md: 1,
+                //   xs: 2,
+                //   child: Container(),
+                // ),
+                ResponsiveGridCol(
+                  lg: 1,
+                  // xl: 1,
+                  md: 1,
+                  sm: 2,
+                  xs: 2,
+                  child: Center(
+                      child: Padding(
+                    padding: EdgeInsets.only(
+                        bottom: MediaQuery.of(context).size.width <= 550
+                            ? 0
+                            : 12),
+                    child: Text(
+                      faq,
+                      style: TextStyle(fontSize: 17, color: textColor),
+                    ),
+                  )),
+                ),
+                ResponsiveGridCol(
+                  // xl: 2,
+                  lg: 2,
+                  md: 3,
+                  sm: 3,
+                  xs: 3,
+                  child: Center(
+                      child: Padding(
+                    padding: EdgeInsets.only(
+                        bottom: MediaQuery.of(context).size.width <= 550
+                            ? 0
+                            : 12),
+                    child: Text(
+                      'My Account',
+                      style: TextStyle(fontSize: 17, color: textColor),
+                    ),
+                  )),
+                ),
+                ResponsiveGridCol(
+                  lg: 2,
+                  // xl: 2,
+                  md: 5,
+                  sm: 5,
+                  xs: 5,
+
+                  child: button == true
+                      ? Center(
+                          child: SizedBox(
+                            child: Container(
+                              margin: EdgeInsets.only(bottom: 9),
+                              padding: EdgeInsets.symmetric(
+                                  vertical: 8, horizontal: 16),
+                              decoration: BoxDecoration(
+                                color: buttonColor,
+                                borderRadius: BorderRadius.circular(25),
+                              ),
+                              child: Text(
+                                'Signup / Login',
+                                style: TextStyle(fontSize: 17, color: white),
+                              ),
+                            ),
+                          ),
+                        )
+                      : Container(),
+                ),
+
+                ResponsiveGridCol(
+                  // xl: 2,
+                  lg: 2,
+                  md: 3,
+                  sm: 3,
+                  xs: 3,
+                  child: Container(
+                    // color: Colors.redAccent,
+                      margin: EdgeInsets.only(right: MediaQuery.of(context).size.width <= 550 ? 0 : 20 ),
+                      child: Padding(
+                        padding: EdgeInsets.only(
+                            bottom: MediaQuery.of(context).size.width <= 550
+                                ? 0
+                                : 12),
+                        child: Image.asset(startupIndia)
+                      )),
+                ),
+
+              ],
+            ),
+          ),
+        ],
+      ) :Row(
         crossAxisAlignment: CrossAxisAlignment.center,
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
@@ -97,19 +342,19 @@ class CustomAppbarWeb extends HookConsumerWidget {
                         },
                         child: Center(
                             child: Padding(
-                          padding: EdgeInsets.only(
-                              bottom: MediaQuery.of(context).size.width <= 500
-                                  ? 0
-                                  : 12),
-                          child: Text(
-                            'Home',
-                            style: TextStyle(
-                                fontSize: 17,
-                                color: selectedindex.value == 0
-                                    ? buttonColor
-                                    : textColor),
-                          ),
-                        ))),
+                              padding: EdgeInsets.only(
+                                  bottom: MediaQuery.of(context).size.width <= 500
+                                      ? 0
+                                      : 12),
+                              child: Text(
+                                'Home',
+                                style: TextStyle(
+                                    fontSize: 17,
+                                    color: selectedindex.value == 0
+                                        ? buttonColor
+                                        : textColor),
+                              ),
+                            ))),
                   ),
                   ResponsiveGridCol(
                     lg: 1,
@@ -129,19 +374,19 @@ class CustomAppbarWeb extends HookConsumerWidget {
                         },
                         child: Center(
                             child: Padding(
-                          padding: EdgeInsets.only(
-                              bottom: MediaQuery.of(context).size.width <= 550
-                                  ? 0
-                                  : 12),
-                          child: Text(
-                            'About Us',
-                            style: TextStyle(
-                                fontSize: 17,
-                                color: selectedindex.value == 1
-                                    ? buttonColor
-                                    : textColor),
-                          ),
-                        ))),
+                              padding: EdgeInsets.only(
+                                  bottom: MediaQuery.of(context).size.width <= 550
+                                      ? 0
+                                      : 12),
+                              child: Text(
+                                'About Us',
+                                style: TextStyle(
+                                    fontSize: 17,
+                                    color: selectedindex.value == 1
+                                        ? buttonColor
+                                        : textColor),
+                              ),
+                            ))),
                   ),
                   ResponsiveGridCol(
                     lg: 1,
@@ -161,19 +406,19 @@ class CustomAppbarWeb extends HookConsumerWidget {
                         },
                         child: Center(
                             child: Padding(
-                          padding: EdgeInsets.only(
-                              bottom: MediaQuery.of(context).size.width <= 550
-                                  ? 0
-                                  : 12),
-                          child: Text(
-                            'Plans',
-                            style: TextStyle(
-                                fontSize: 17,
-                                color: selectedindex.value == 2
-                                    ? buttonColor
-                                    : textColor),
-                          ),
-                        ))),
+                              padding: EdgeInsets.only(
+                                  bottom: MediaQuery.of(context).size.width <= 550
+                                      ? 0
+                                      : 12),
+                              child: Text(
+                                'Plans',
+                                style: TextStyle(
+                                    fontSize: 17,
+                                    color: selectedindex.value == 2
+                                        ? buttonColor
+                                        : textColor),
+                              ),
+                            ))),
                   ),
                   ResponsiveGridCol(
                     lg: 2,
@@ -188,19 +433,19 @@ class CustomAppbarWeb extends HookConsumerWidget {
                         },
                         child: Center(
                             child: Padding(
-                          padding: EdgeInsets.only(
-                              bottom: MediaQuery.of(context).size.width <= 550
-                                  ? 0
-                                  : 12),
-                          child: Text(
-                            partnerWithUs,
-                            style: TextStyle(
-                                fontSize: 17,
-                                color: selectedindex.value == 3
-                                    ? buttonColor
-                                    : textColor),
-                          ),
-                        ))),
+                              padding: EdgeInsets.only(
+                                  bottom: MediaQuery.of(context).size.width <= 550
+                                      ? 0
+                                      : 12),
+                              child: Text(
+                                partnerWithUs,
+                                style: TextStyle(
+                                    fontSize: 17,
+                                    color: selectedindex.value == 3
+                                        ? buttonColor
+                                        : textColor),
+                              ),
+                            ))),
                   ),
                   // ResponsiveGridCol(
                   //   // lg: 0,
@@ -217,15 +462,15 @@ class CustomAppbarWeb extends HookConsumerWidget {
                     xs: 2,
                     child: Center(
                         child: Padding(
-                      padding: EdgeInsets.only(
-                          bottom: MediaQuery.of(context).size.width <= 550
-                              ? 0
-                              : 12),
-                      child: Text(
-                        faq,
-                        style: TextStyle(fontSize: 17, color: textColor),
-                      ),
-                    )),
+                          padding: EdgeInsets.only(
+                              bottom: MediaQuery.of(context).size.width <= 550
+                                  ? 0
+                                  : 12),
+                          child: Text(
+                            faq,
+                            style: TextStyle(fontSize: 17, color: textColor),
+                          ),
+                        )),
                   ),
                   ResponsiveGridCol(
                     // xl: 2,
@@ -235,15 +480,15 @@ class CustomAppbarWeb extends HookConsumerWidget {
                     xs: 3,
                     child: Center(
                         child: Padding(
-                      padding: EdgeInsets.only(
-                          bottom: MediaQuery.of(context).size.width <= 550
-                              ? 0
-                              : 12),
-                      child: Text(
-                        'My Account',
-                        style: TextStyle(fontSize: 17, color: textColor),
-                      ),
-                    )),
+                          padding: EdgeInsets.only(
+                              bottom: MediaQuery.of(context).size.width <= 550
+                                  ? 0
+                                  : 12),
+                          child: Text(
+                            'My Account',
+                            style: TextStyle(fontSize: 17, color: textColor),
+                          ),
+                        )),
                   ),
                   ResponsiveGridCol(
                     lg: 2,
@@ -254,22 +499,22 @@ class CustomAppbarWeb extends HookConsumerWidget {
 
                     child: button == true
                         ? Center(
-                            child: SizedBox(
-                              child: Container(
-                                margin: EdgeInsets.only(bottom: 9),
-                                padding: EdgeInsets.symmetric(
-                                    vertical: 8, horizontal: 16),
-                                decoration: BoxDecoration(
-                                  color: buttonColor,
-                                  borderRadius: BorderRadius.circular(25),
-                                ),
-                                child: Text(
-                                  'Signup / Login',
-                                  style: TextStyle(fontSize: 17, color: white),
-                                ),
-                              ),
-                            ),
-                          )
+                      child: SizedBox(
+                        child: Container(
+                          margin: EdgeInsets.only(bottom: 9),
+                          padding: EdgeInsets.symmetric(
+                              vertical: 8, horizontal: 16),
+                          decoration: BoxDecoration(
+                            color: buttonColor,
+                            borderRadius: BorderRadius.circular(25),
+                          ),
+                          child: Text(
+                            'Signup / Login',
+                            style: TextStyle(fontSize: 17, color: white),
+                          ),
+                        ),
+                      ),
+                    )
                         : Container(),
                   ),
 
@@ -283,11 +528,11 @@ class CustomAppbarWeb extends HookConsumerWidget {
                       // color: Colors.redAccent,
                         margin: EdgeInsets.only(right: MediaQuery.of(context).size.width <= 550 ? 0 : 20 ),
                         child: Padding(
-                          padding: EdgeInsets.only(
-                              bottom: MediaQuery.of(context).size.width <= 550
-                                  ? 0
-                                  : 12),
-                          child: Image.asset(startupIndia)
+                            padding: EdgeInsets.only(
+                                bottom: MediaQuery.of(context).size.width <= 550
+                                    ? 0
+                                    : 12),
+                            child: Image.asset(startupIndia)
                         )),
                   ),
 
@@ -296,7 +541,7 @@ class CustomAppbarWeb extends HookConsumerWidget {
             ),
           ),
         ],
-      ),
+      ) ,
     );
   }
 }

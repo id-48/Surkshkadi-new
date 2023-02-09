@@ -32,7 +32,20 @@ class DashBoardWeb extends HookConsumerWidget {
     final yearly = useState<bool>(true);
     final lifeTime = useState<bool>(false);
 
+    ScrollController scrollController = ScrollController();
+    final showbtn = useState<bool>(false) ;
+
     useEffect(() {
+      scrollController.addListener(() { //scroll listener
+        double showoffset = 10.0; //Back to top botton will show on scroll offset 10.0
+
+        if(scrollController.offset > showoffset){
+          showbtn.value = true;
+
+        }else{
+          showbtn.value = false;
+        }
+      });
       // ref.read(stateProvider.notifier).getState(context: context).then((value) {
       //   print("Yashu Patel");
       //   if (value!.status == 1) {
@@ -59,6 +72,7 @@ class DashBoardWeb extends HookConsumerWidget {
         data: (data) {
           return Scaffold(
             body: SingleChildScrollView(
+              controller: scrollController,
               scrollDirection: Axis.vertical,
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -988,6 +1002,24 @@ class DashBoardWeb extends HookConsumerWidget {
                   Disclaimers(),
                   CustomWebBottomBar(bgColor: true),
                 ],
+              ),
+            ),
+
+
+            floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
+            floatingActionButton: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: FloatingActionButton(
+                 mini: true,
+                onPressed: () {
+                  scrollController.animateTo( //go to top of scroll
+                      0,  //scroll offset to go
+                      duration: Duration(milliseconds: 100), //duration of scroll
+                      curve:Curves.fastOutSlowIn //scroll type
+                  );
+                },
+                backgroundColor: blue,
+                child: Icon(Icons.arrow_upward_outlined,color: white,),
               ),
             ),
           );
