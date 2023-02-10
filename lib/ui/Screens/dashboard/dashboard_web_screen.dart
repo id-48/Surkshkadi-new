@@ -29,6 +29,7 @@ class DashBoardWeb extends HookConsumerWidget {
     double spacing = 0;
     double runSpacing = 60;
     final video = useState<bool>(false);
+    final isCheck = useState<bool>(true);
     final yearly = useState<bool>(true);
     final lifeTime = useState<bool>(false);
 
@@ -306,6 +307,7 @@ class DashBoardWeb extends HookConsumerWidget {
                           yearly.value = true;
                           if (yearly.value == true) {
                             lifeTime.value = false;
+                            isCheck.value = true;
                           }
                         },
                         child: Padding(
@@ -332,6 +334,7 @@ class DashBoardWeb extends HookConsumerWidget {
                           lifeTime.value = true;
                           if (lifeTime.value == true) {
                             yearly.value = false;
+                            isCheck.value = false;
                           }
                         },
                         child: Padding(
@@ -356,6 +359,9 @@ class DashBoardWeb extends HookConsumerWidget {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
+                      // ...data.response.plans[1].plans.map((e) {
+                      //
+                      // })
                       Column(
                         children: [
                           Container(
@@ -383,6 +389,14 @@ class DashBoardWeb extends HookConsumerWidget {
                             onTap: () {
                               // navigationService.push(routeCustomeBottomNavigationBar,arguments: {navIndex: 1});
                               // planIndex = 0;
+                              // print("${data.response.plans[0].plans[0].planType}");
+                              // planIndexWeb = data.response.plans[0].plans.indexOf(e);
+
+                              planTypeWeb = isCheck.value;
+
+                              planIndexWeb = 0;
+
+                              navigationService.push(routePlansWeb);
                             },
                             child: Container(
                               padding: EdgeInsets.symmetric(
@@ -507,6 +521,12 @@ class DashBoardWeb extends HookConsumerWidget {
                             onTap: () {
                               // navigationService.push(routeCustomeBottomNavigationBar,arguments: {navIndex: 1});
                               // planIndex = 0;
+                              // planIndexWeb = data.response.plans[1].plans.indexOf(e);
+
+                              planTypeWeb = isCheck.value;
+                              planIndexWeb = 1;
+
+                              navigationService.push(routePlansWeb);
                             },
                             child: Container(
                               // height: 160,
@@ -636,8 +656,18 @@ class DashBoardWeb extends HookConsumerWidget {
                           Gap(18),
                           InkWell(
                             onTap: () {
-                              // navigationService.push(routeCustomeBottomNavigationBar,arguments: {navIndex: 1});
+
                               // planIndex = 0;
+                              // navigationService.push(
+                              //     routeCustomBottomNavigationBar,
+                              //     arguments: {navIndex: 1});
+                              // planIndexWeb = data.response.plans[2].plans.indexOf(e);
+
+                              planTypeWeb = isCheck.value;
+                              planIndexWeb = 2;
+
+                              navigationService.push(routePlansWeb);
+
                             },
                             child: Container(
                               // height: 160,

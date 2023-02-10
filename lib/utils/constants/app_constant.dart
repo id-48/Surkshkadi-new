@@ -15,6 +15,9 @@ void getScreenSize(BuildContext context) {
 int? planIndex;
 bool? planType;
 
+int? planIndexWeb;
+bool? planTypeWeb;
+
  late ResDashboard  assetsData;
 
  List<String>  stateList = [];

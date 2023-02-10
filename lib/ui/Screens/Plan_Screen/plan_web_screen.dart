@@ -20,8 +20,8 @@ class PlansWeb extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final isSelected = useState<int>(1);
-    final isCheck = useState<bool>(true);
+    final isSelected = useState<int>( planIndexWeb ?? 1);
+    final isCheck = useState<bool>( planTypeWeb ?? true);
     final planWebController = ref.watch(dashboardProvider);
 
     useEffect(() {
