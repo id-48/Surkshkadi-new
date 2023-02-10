@@ -38,7 +38,7 @@ class PartnerWithWeb extends HookConsumerWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            CustomAppbarWeb(index: 3),
+            CustomAppbarWeb(index: 3,button: false),
             Gap(60),
             Padding(
               padding: const EdgeInsets.only(left: 60),

@@ -37,30 +37,35 @@ class DashBoardWeb extends HookConsumerWidget {
     final showbtn = useState<bool>(false) ;
 
     useEffect(() {
-      scrollController.addListener(() { //scroll listener
-        double showoffset = 10.0; //Back to top botton will show on scroll offset 10.0
 
-        if(scrollController.offset > showoffset){
-          showbtn.value = true;
 
-        }else{
-          showbtn.value = false;
+      ref.read(dashboardProvider.notifier).getDashboard(context: context);
+
+
+      ref.read(stateProvider.notifier).getState(context: context).then((value) {
+        print("Yashu Patel");
+        if (value!.status == 1) {
+          print("Yashu Patel111111");
+          for (int i = 0; i < value.response.states.length; i++) {
+            print("Yashu Patel22222");
+            stateList.add(value.response.states[i].name);
+          }
+        } else {
+          displayToast("${value.message}");
         }
       });
-      // ref.read(stateProvider.notifier).getState(context: context).then((value) {
-      //   print("Yashu Patel");
-      //   if (value!.status == 1) {
-      //     print("Yashu Patel111111");
-      //     for (int i = 0; i < value.response.states.length; i++) {
-      //       print("Yashu Patel22222");
-      //       stateList.add(value.response.states[i].name);
-      //     }
-      //   } else {
-      //     displayToast("${value.message}");
+
+      // scrollController.addListener(() { //scroll listener
+      //   double showoffset = 10.0; //Back to top botton will show on scroll offset 10.0
+      //
+      //   if(scrollController.offset > showoffset){
+      //     showbtn.value = true;
+      //
+      //   }else{
+      //     showbtn.value = false;
       //   }
       // });
 
-      ref.read(dashboardProvider.notifier).getDashboard(context: context);
     }, []);
 
     final dashboardController = ref.watch(dashboardProvider);
@@ -71,6 +76,10 @@ class DashBoardWeb extends HookConsumerWidget {
 
     return dashboardController.when(
         data: (data) {
+
+          print("test state --->>> ${stateList.toList()}");
+
+
           return Scaffold(
             body: SingleChildScrollView(
               controller: scrollController,
@@ -1042,10 +1051,12 @@ class DashBoardWeb extends HookConsumerWidget {
               child: FloatingActionButton(
                  mini: true,
                 onPressed: () {
-                  scrollController.animateTo( //go to top of scroll
-                      0,  //scroll offset to go
-                      duration: Duration(milliseconds: 100), //duration of scroll
-                      curve:Curves.fastOutSlowIn //scroll type
+                  scrollController.animateTo(
+                      0,
+                      duration: Duration(milliseconds: 1500),
+                      curve:Curves.easeInOutSine
+                      // curve:Curves.easeInOutCubicEmphasized //scroll type
+                      // curve:Curves.fastOutSlowIn
                   );
                 },
                 backgroundColor: blue,

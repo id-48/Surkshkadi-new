@@ -169,7 +169,7 @@ class CustomAppbarWeb extends HookConsumerWidget {
                                 ? 0
                                 : 12),
                         child: Text(
-                          'Plans',
+                          'Plan',
                           style: TextStyle(
                               fontSize: 17,
                               color: selectedindex.value == 2
@@ -411,7 +411,7 @@ class CustomAppbarWeb extends HookConsumerWidget {
                                       ? 0
                                       : 12),
                               child: Text(
-                                'Plans',
+                                'Plan',
                                 style: TextStyle(
                                     fontSize: 17,
                                     color: selectedindex.value == 2

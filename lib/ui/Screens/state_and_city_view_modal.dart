@@ -19,7 +19,7 @@ class StateViewModel extends StateNotifier<AsyncValue<ResState>> {
   Future<ResState?> getState({required BuildContext context}) async {
     final result = await repositery.getState();
     return result.when(success: (result) async {
-      state = AsyncValue.data(result);
+      // state = AsyncValue.data(result);
 
       return result;
 
