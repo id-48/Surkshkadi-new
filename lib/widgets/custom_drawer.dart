@@ -9,8 +9,6 @@ import 'package:surakshakadi/ui/Screens/drawer_item_screen/terms_and_condition_s
 import 'package:surakshakadi/utils/constants/navigation_route_constants.dart';
 import 'package:surakshakadi/utils/image_utils.dart';
 import 'package:surakshakadi/widgets/custom_appbar.dart';
-
-
 import '../utils/color_utils.dart';
 
 class Custom_drawer extends HookConsumerWidget {

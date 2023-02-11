@@ -19,6 +19,7 @@ import 'package:surakshakadi/utils/strings.dart';
 import 'package:surakshakadi/utils/utils.dart';
 import 'package:surakshakadi/widgets/custom_appbar_web.dart';
 import 'package:surakshakadi/widgets/custom_web_bottombar.dart';
+import 'package:surakshakadi/widgets/custome_drawer_web.dart';
 import 'package:surakshakadi/widgets/loading.dart';
 
 class DashBoardWeb extends HookConsumerWidget {
@@ -37,10 +38,16 @@ class DashBoardWeb extends HookConsumerWidget {
     final showbtn = useState<bool>(false) ;
 
     useEffect(() {
-
-
-      ref.read(dashboardProvider.notifier).getDashboard(context: context);
-
+      // scrollController.addListener(() { //scroll listener
+      //   double showoffset = 10.0; //Back to top botton will show on scroll offset 10.0
+      //
+      //   if(scrollController.offset > showoffset){
+      //     showbtn.value = true;
+      //
+      //   }else{
+      //     showbtn.value = false;
+      //   }
+      // });
 
       ref.read(stateProvider.notifier).getState(context: context).then((value) {
         print("Yashu Patel");
@@ -55,39 +62,31 @@ class DashBoardWeb extends HookConsumerWidget {
         }
       });
 
-      // scrollController.addListener(() { //scroll listener
-      //   double showoffset = 10.0; //Back to top botton will show on scroll offset 10.0
-      //
-      //   if(scrollController.offset > showoffset){
-      //     showbtn.value = true;
-      //
-      //   }else{
-      //     showbtn.value = false;
-      //   }
-      // });
-
+      ref.read(dashboardProvider.notifier).getDashboard(context: context);
     }, []);
 
     final dashboardController = ref.watch(dashboardProvider);
+    final selectedindex = useState<int>(0);
 
     SystemChrome.setPreferredOrientations([
       DeviceOrientation.portraitUp,
     ]);
-
+    final scaffoldKey = GlobalKey<ScaffoldState>();
     return dashboardController.when(
         data: (data) {
-
-          print("test state --->>> ${stateList.toList()}");
-
-
           return Scaffold(
+            key: scaffoldKey,
+            // drawer: Drawer(
+            //   backgroundColor: blue,
+            // ),
+            drawer: Custome_drawer_web(index: selectedindex.value, button: true),
             body: SingleChildScrollView(
               controller: scrollController,
               scrollDirection: Axis.vertical,
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  CustomAppbarWeb(index: 0),
+                  CustomAppbarWeb(index: 0,scaffoldkey: scaffoldKey,),
                   Gap(40),
                   LinkingLoved(),
                   Gap(40),
@@ -1051,12 +1050,10 @@ class DashBoardWeb extends HookConsumerWidget {
               child: FloatingActionButton(
                  mini: true,
                 onPressed: () {
-                  scrollController.animateTo(
-                      0,
-                      duration: Duration(milliseconds: 1500),
-                      curve:Curves.easeInOutSine
-                      // curve:Curves.easeInOutCubicEmphasized //scroll type
-                      // curve:Curves.fastOutSlowIn
+                  scrollController.animateTo( //go to top of scroll
+                      0,  //scroll offset to go
+                      duration: Duration(milliseconds: 100), //duration of scroll
+                      curve:Curves.fastOutSlowIn //scroll type
                   );
                 },
                 backgroundColor: blue,

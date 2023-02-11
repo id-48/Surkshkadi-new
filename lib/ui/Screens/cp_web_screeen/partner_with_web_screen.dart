@@ -20,6 +20,7 @@ import 'package:surakshakadi/utils/utils.dart';
 import 'package:surakshakadi/widgets/custom_appbar_web.dart';
 import 'package:surakshakadi/widgets/custom_textfeild.dart';
 import 'package:surakshakadi/widgets/custom_web_bottombar.dart';
+import 'package:surakshakadi/widgets/custome_drawer_web.dart';
 
 class PartnerWithWeb extends HookConsumerWidget {
   const PartnerWithWeb({Key? key}) : super(key: key);
@@ -31,14 +32,17 @@ class PartnerWithWeb extends HookConsumerWidget {
 
     final sendOTP = useState<bool>(false);
     final cpUserId = useState<String>("");
-
+    final scaffoldKey = GlobalKey<ScaffoldState>();
+    final selectedindex = useState<int>(3);
     return Scaffold(
+      key: scaffoldKey,
+      drawer: Custome_drawer_web(index: selectedindex.value, button: true),
       body: SingleChildScrollView(
         scrollDirection: Axis.vertical,
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            CustomAppbarWeb(index: 3,button: false),
+            CustomAppbarWeb(index: 3,scaffoldkey: scaffoldKey,),
             Gap(60),
             Padding(
               padding: const EdgeInsets.only(left: 60),
