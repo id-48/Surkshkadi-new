@@ -20,6 +20,7 @@ import 'package:surakshakadi/widgets/custom_select.dart';
 import 'package:surakshakadi/widgets/custom_textfeild.dart';
 import 'package:surakshakadi/widgets/custom_validation.dart';
 import 'package:surakshakadi/widgets/custom_web_bottombar.dart';
+import 'package:surakshakadi/widgets/custome_drawer_web.dart';
 
 class AboutUsWeb extends HookConsumerWidget {
   const AboutUsWeb({Key? key}) : super(key: key);
@@ -56,14 +57,17 @@ class AboutUsWeb extends HookConsumerWidget {
       });
     },[]);
 
-
+    final scaffoldKey = GlobalKey<ScaffoldState>();
+    final selectedindex = useState<int>(1);
     return Scaffold(
+      key: scaffoldKey,
+      drawer: Custome_drawer_web(index: selectedindex.value, button: true),
       body: SingleChildScrollView(
         scrollDirection: Axis.vertical,
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            CustomAppbarWeb(button: true, index: 1),
+            CustomAppbarWeb(button: true, index: 1,scaffoldkey: scaffoldKey,),
             Gap(40),
 
             GiveBackTo(),

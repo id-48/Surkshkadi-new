@@ -13,6 +13,7 @@ import 'package:surakshakadi/utils/strings.dart';
 import 'package:surakshakadi/utils/utils.dart';
 import 'package:surakshakadi/widgets/custom_appbar_web.dart';
 import 'package:surakshakadi/widgets/custom_web_bottombar.dart';
+import 'package:surakshakadi/widgets/custome_drawer_web.dart';
 import 'package:surakshakadi/widgets/loading.dart';
 
 class PlansWeb extends HookConsumerWidget {
@@ -28,15 +29,21 @@ class PlansWeb extends HookConsumerWidget {
       ref.read(dashboardProvider.notifier).getDashboard(context: context);
     }, []);
 
+    final scaffoldKey = GlobalKey<ScaffoldState>();
+
+    final selectedindex = useState<int>(2);
+
     return planWebController.when(
         data: (data) {
           return Scaffold(
+            key: scaffoldKey,
+            drawer: Custome_drawer_web(index: selectedindex.value, button: true),
             body: SingleChildScrollView(
               scrollDirection: Axis.vertical,
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  CustomAppbarWeb(button: true, index: 2),
+                  CustomAppbarWeb(button: true, index: 2,scaffoldkey: scaffoldKey,),
                   Container(
                     height: 1.5,
                     width: MediaQuery.of(context).size.width,

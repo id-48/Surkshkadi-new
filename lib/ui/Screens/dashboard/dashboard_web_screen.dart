@@ -19,6 +19,7 @@ import 'package:surakshakadi/utils/strings.dart';
 import 'package:surakshakadi/utils/utils.dart';
 import 'package:surakshakadi/widgets/custom_appbar_web.dart';
 import 'package:surakshakadi/widgets/custom_web_bottombar.dart';
+import 'package:surakshakadi/widgets/custome_drawer_web.dart';
 import 'package:surakshakadi/widgets/loading.dart';
 
 class DashBoardWeb extends HookConsumerWidget {
@@ -37,48 +38,55 @@ class DashBoardWeb extends HookConsumerWidget {
     final showbtn = useState<bool>(false) ;
 
     useEffect(() {
-      scrollController.addListener(() { //scroll listener
-        double showoffset = 10.0; //Back to top botton will show on scroll offset 10.0
-
-        if(scrollController.offset > showoffset){
-          showbtn.value = true;
-
-        }else{
-          showbtn.value = false;
-        }
-      });
-      // ref.read(stateProvider.notifier).getState(context: context).then((value) {
-      //   print("Yashu Patel");
-      //   if (value!.status == 1) {
-      //     print("Yashu Patel111111");
-      //     for (int i = 0; i < value.response.states.length; i++) {
-      //       print("Yashu Patel22222");
-      //       stateList.add(value.response.states[i].name);
-      //     }
-      //   } else {
-      //     displayToast("${value.message}");
+      // scrollController.addListener(() { //scroll listener
+      //   double showoffset = 10.0; //Back to top botton will show on scroll offset 10.0
+      //
+      //   if(scrollController.offset > showoffset){
+      //     showbtn.value = true;
+      //
+      //   }else{
+      //     showbtn.value = false;
       //   }
       // });
+
+      ref.read(stateProvider.notifier).getState(context: context).then((value) {
+        print("Yashu Patel");
+        if (value!.status == 1) {
+          print("Yashu Patel111111");
+          for (int i = 0; i < value.response.states.length; i++) {
+            print("Yashu Patel22222");
+            stateList.add(value.response.states[i].name);
+          }
+        } else {
+          displayToast("${value.message}");
+        }
+      });
 
       ref.read(dashboardProvider.notifier).getDashboard(context: context);
     }, []);
 
     final dashboardController = ref.watch(dashboardProvider);
+    final selectedindex = useState<int>(0);
 
     SystemChrome.setPreferredOrientations([
       DeviceOrientation.portraitUp,
     ]);
-
+    final scaffoldKey = GlobalKey<ScaffoldState>();
     return dashboardController.when(
         data: (data) {
           return Scaffold(
+            key: scaffoldKey,
+            // drawer: Drawer(
+            //   backgroundColor: blue,
+            // ),
+            drawer: Custome_drawer_web(index: selectedindex.value, button: true),
             body: SingleChildScrollView(
               controller: scrollController,
               scrollDirection: Axis.vertical,
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  CustomAppbarWeb(index: 0),
+                  CustomAppbarWeb(index: 0,scaffoldkey: scaffoldKey,),
                   Gap(40),
                   LinkingLoved(),
                   Gap(40),
