@@ -154,7 +154,7 @@ class CustomAppbarWeb extends HookConsumerWidget {
                     },
                     child: Center(
                         child: Text(
-                          'Plans',
+                          'Plan',
                           style: TextStyle(
                               fontSize: 17,
                               color: selectedindex.value == 2
