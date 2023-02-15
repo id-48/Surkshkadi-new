@@ -100,6 +100,7 @@ class DashBoardWeb extends HookConsumerWidget {
                     child: InkWell(
                       onTap: () {
                         video.value = true;
+                        print("------------ video ${data.response.video}");
                       },
                       child: Container(
                         height: MediaQuery.of(context).size.height / 1.58,
