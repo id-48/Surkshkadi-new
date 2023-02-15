@@ -285,44 +285,49 @@ class DashBoardWeb extends HookConsumerWidget {
                   ),
                   Gap(80),
                   Center(
-                    child: Container(
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(20),
-                        image: DecorationImage(
-                            image: AssetImage(partnerBanner), fit: BoxFit.fill),
-                      ),
-                      child: Padding(
-                        padding: const EdgeInsets.symmetric(
-                            vertical: 20, horizontal: 80),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: [
-                            Text(
-                              flatFeeNo,
-                              style: TextStyle(
-                                  fontSize: 22,
-                                  fontWeight: FontWeight.w700,
-                                  color: white),
-                            ),
-                            Gap(20),
-                            Text(
-                              noEndlessLawyers,
-                              style: TextStyle(
-                                  fontSize: 18,
-                                  fontWeight: FontWeight.w500,
-                                  color: black),
-                            ),
-                            Gap(20),
-                            Text(
-                              seeOuqPricing,
-                              style: TextStyle(
-                                fontSize: 18,
-                                fontWeight: FontWeight.w600,
-                                color: white,
-                                decoration: TextDecoration.underline,
+                    child: InkWell(
+                      onTap: (){
+                        navigationService.push(routePlansWeb);
+                      },
+                      child: Container(
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(20),
+                          image: DecorationImage(
+                              image: AssetImage(partnerBanner), fit: BoxFit.fill),
+                        ),
+                        child: Padding(
+                          padding: const EdgeInsets.symmetric(
+                              vertical: 20, horizontal: 80),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              Text(
+                                flatFeeNo,
+                                style: TextStyle(
+                                    fontSize: 22,
+                                    fontWeight: FontWeight.w700,
+                                    color: white),
                               ),
-                            ),
-                          ],
+                              Gap(20),
+                              Text(
+                                noEndlessLawyers,
+                                style: TextStyle(
+                                    fontSize: 18,
+                                    fontWeight: FontWeight.w500,
+                                    color: black),
+                              ),
+                              Gap(20),
+                              Text(
+                                seeOuqPricing,
+                                style: TextStyle(
+                                  fontSize: 18,
+                                  fontWeight: FontWeight.w600,
+                                  color: white,
+                                  decoration: TextDecoration.underline,
+                                ),
+                              ),
+                            ],
+                          ),
                         ),
                       ),
                     ),

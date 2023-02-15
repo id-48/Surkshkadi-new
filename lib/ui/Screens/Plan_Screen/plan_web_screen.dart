@@ -922,7 +922,7 @@ class PlansWeb extends HookConsumerWidget {
                       ),
                       Text(haveAQuerry, style: TextStyle(fontSize: 16)),
                       Gap(3),
-                      Text(callUs,
+                      Text(contactUs,
                           style: TextStyle(fontSize: 16, color: indigo))
                     ],
                   ),

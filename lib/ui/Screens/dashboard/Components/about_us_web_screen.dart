@@ -662,7 +662,7 @@ class AboutUsWeb extends HookConsumerWidget {
                             ],
                           ),
                         ),
-                        if(isSoon.value ==  true )
+                        if(isSoon.value ==  true)
                         Text(
                           ourLegalExpert,
                           style: TextStyle(color: fullgray,fontSize: 18,fontFamily: fontFamily),
@@ -909,6 +909,7 @@ class AboutUsWeb extends HookConsumerWidget {
                                       Gap(10),
                                       InkWell(
                                         onTap: () {
+
                                           // if(firstNameController.text.isNotEmpty
                                           //     && lastNameController.text.isNotEmpty
                                           // && mobilenoController.text.isNotEmpty
@@ -919,10 +920,13 @@ class AboutUsWeb extends HookConsumerWidget {
                                           //
                                           // ) {
                                           //
+
                                             isSoon.value = true;
+
                                           // }else{
                                           //   displayToast("Please Complete Form Details");
                                           // }
+
                                         },
                                         child: Container(
                                           padding: EdgeInsets.symmetric(
@@ -953,7 +957,9 @@ class AboutUsWeb extends HookConsumerWidget {
                 ),
               ],
             ),
+
             Gap(50),
+
             AppSurakshakadi(),
             Disclaimers(),
             CustomWebBottomBar(),
