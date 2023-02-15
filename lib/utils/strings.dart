@@ -410,12 +410,14 @@ const String income = "Income";
 const String kindlyStartYour =
     "Kindly start your registration process by entering your mobile number below. ";
 const String anOtpWillBeSent =
-    "An OTP will be sent to the Mobile No. & E-mail Id above.";
+    "An OTP will be sent to the Mobile No.";
+// const String anOtpWillBeSent =
+//     "An OTP will be sent to the Mobile No. & E-mail Id above.";
 const String sendOtp = "Send OTP";
 const String reSend = "Re-send";
 const String alreadyHave = "Already have an account? ";
 const String login = "Login";
-const String asPartner = " as Partner With US";
+const String asPartner = " as Partner With Us";
 const String joinUs = "Join Us";
 const String whyPartnerWithUs = "Why Partner With Us?";
 const String wealthTransfer =

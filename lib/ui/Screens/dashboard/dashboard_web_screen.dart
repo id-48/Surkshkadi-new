@@ -1,3 +1,4 @@
+import 'package:flick_video_player/flick_video_player.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
@@ -21,6 +22,7 @@ import 'package:surakshakadi/widgets/custom_appbar_web.dart';
 import 'package:surakshakadi/widgets/custom_web_bottombar.dart';
 import 'package:surakshakadi/widgets/custome_drawer_web.dart';
 import 'package:surakshakadi/widgets/loading.dart';
+import 'package:video_player/video_player.dart';
 
 class DashBoardWeb extends HookConsumerWidget {
   const DashBoardWeb({Key? key}) : super(key: key);
@@ -37,10 +39,15 @@ class DashBoardWeb extends HookConsumerWidget {
     ScrollController scrollController = ScrollController();
     final showbtn = useState<bool>(false) ;
 
+    FlickManager? flickManager;
+
     useEffect(() {
       ref.read(dashboardProvider.notifier).getDashboard(context: context);
 
-
+      flickManager = FlickManager(
+        videoPlayerController:
+        VideoPlayerController.network("https://player.vimeo.com/external/474244488.sd.mp4?s=19273845afa857f08a67830a2ea84c369996efc2&profile_id=164&oauth2_token_id=57447761"),
+      );
       ref.read(stateProvider.notifier).getState(context: context).then((value) {
         print("Yashu Patel");
         if (value!.status == 1) {
@@ -87,6 +94,7 @@ class DashBoardWeb extends HookConsumerWidget {
                       smallName: convenientEfficient,
                       smallNameColor: black),
                   Gap(40),
+                  /// old video player
                   Center(
                     child: InkWell(
                       onTap: () {
@@ -132,6 +140,38 @@ class DashBoardWeb extends HookConsumerWidget {
                       ),
                     ),
                   ),
+                  /// new video player
+                  // Center(
+                  //   child: SizedBox(
+                  //     height: MediaQuery.of(context).size.height / 1.58,
+                  //     width: 924,
+                  //     child: FlickVideoPlayer(
+                  //       flickManager: flickManager ?? FlickManager(videoPlayerController:  VideoPlayerController.network("https://player.vimeo.com/external/474244488.sd.mp4?s=19273845afa857f08a67830a2ea84c369996efc2&profile_id=164&oauth2_token_id=57447761"),),
+                  //       wakelockEnabledFullscreen: true,
+                  //       wakelockEnabled: true,
+                  //       flickVideoWithControlsFullscreen: FlickVideoWithControls(
+                  //         controls: FlickLandscapeControls(),
+                  //       ),
+                  //
+                  //       flickVideoWithControls: FlickVideoWithControls(
+                  //         videoFit: BoxFit.fill,
+                  //         backgroundColor: Colors.black,
+                  //
+                  //         controls: VideoControl(
+                  //           // dataManager: dataManager!,
+                  //           iconSize: 30,
+                  //           fontSize: 14,
+                  //           progressBarSettings: FlickProgressBarSettings(
+                  //             height: 5,
+                  //             handleRadius: 5.5,
+                  //           ),
+                  //         ),
+                  //       ),
+                  //
+                  //
+                  //     ),
+                  //   ),
+                  // ),
                   Gap(50),
                   Center(
                       child: Text(

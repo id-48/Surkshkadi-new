@@ -8,6 +8,7 @@ import 'package:surakshakadi/utils/constants/navigation_route_constants.dart';
 import 'package:surakshakadi/utils/image_utils.dart';
 import 'package:surakshakadi/utils/strings.dart';
 import 'package:surakshakadi/utils/utils.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class CustomWebBottomBar extends HookWidget {
   final bool bgColor;
@@ -18,6 +19,16 @@ class CustomWebBottomBar extends HookWidget {
 
   @override
   Widget build(BuildContext context) {
+
+    _launchURL(String url) async {
+
+      if (!await launchUrl(
+        Uri.parse(url),
+        mode: LaunchMode.externalApplication,
+      )) {
+        throw 'Could not launch $url';
+      }
+    }
     print("test    ----->${MediaQuery.of(context).size.width}");
     return Container(
       // height: 330,
@@ -290,10 +301,15 @@ class CustomWebBottomBar extends HookWidget {
                       //       fontWeight: FontWeight.w500, fontSize: 16),
                       // ),
                       // Gap(7),
-                      Text(
-                        termsConditions,
-                        style: TextStyle(
-                            fontWeight: FontWeight.w500, fontSize: 16),
+                      GestureDetector(
+                        onTap: (){
+                          _launchURL("https://blog.logrocket.com");
+                        },
+                        child: Text(
+                          termsConditions,
+                          style: TextStyle(
+                              fontWeight: FontWeight.w500, fontSize: 16),
+                        ),
                       ),
                       Gap(7),
                       Text(
