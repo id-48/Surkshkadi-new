@@ -42,20 +42,20 @@ class AboutUsWeb extends HookConsumerWidget {
     final isSubmit = useState<bool>(false);
     final isSoon = useState<bool>(false);
 
-    useEffect(() {
-      ref.read(stateProvider.notifier).getState(context: context).then((value) {
-        print("Yashu Patel");
-        if (value!.status == 1) {
-          print("Yashu Patel111111");
-          for (int i = 0; i < value.response.states.length; i++) {
-            print("Yashu Patel22222");
-            stateList.add(value.response.states[i].name);
-          }
-        } else {
-          displayToast("${value.message}");
-        }
-      });
-    },[]);
+    // useEffect(() {
+    //   ref.read(stateProvider.notifier).getState(context: context).then((value) {
+    //     print("Yashu Patel");
+    //     if (value!.status == 1) {
+    //       print("Yashu Patel111111");
+    //       for (int i = 0; i < value.response.states.length; i++) {
+    //         print("Yashu Patel22222");
+    //         stateList.add(value.response.states[i].name);
+    //       }
+    //     } else {
+    //       displayToast("${value.message}");
+    //     }
+    //   });
+    // },[]);
 
     final scaffoldKey = GlobalKey<ScaffoldState>();
     final selectedindex = useState<int>(1);

@@ -38,16 +38,8 @@ class DashBoardWeb extends HookConsumerWidget {
     final showbtn = useState<bool>(false) ;
 
     useEffect(() {
-      // scrollController.addListener(() { //scroll listener
-      //   double showoffset = 10.0; //Back to top botton will show on scroll offset 10.0
-      //
-      //   if(scrollController.offset > showoffset){
-      //     showbtn.value = true;
-      //
-      //   }else{
-      //     showbtn.value = false;
-      //   }
-      // });
+      ref.read(dashboardProvider.notifier).getDashboard(context: context);
+
 
       ref.read(stateProvider.notifier).getState(context: context).then((value) {
         print("Yashu Patel");
@@ -62,7 +54,6 @@ class DashBoardWeb extends HookConsumerWidget {
         }
       });
 
-      ref.read(dashboardProvider.notifier).getDashboard(context: context);
     }, []);
 
     final dashboardController = ref.watch(dashboardProvider);
@@ -1053,8 +1044,8 @@ class DashBoardWeb extends HookConsumerWidget {
                 onPressed: () {
                   scrollController.animateTo( //go to top of scroll
                       0,  //scroll offset to go
-                      duration: Duration(milliseconds: 100), //duration of scroll
-                      curve:Curves.fastOutSlowIn //scroll type
+                      duration: Duration(milliseconds: 1500), //duration of scroll
+                      curve:Curves.fastLinearToSlowEaseIn
                   );
                 },
                 backgroundColor: blue,

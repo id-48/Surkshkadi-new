@@ -502,7 +502,7 @@ class PlansWeb extends HookConsumerWidget {
                                       Text(
                                         isCheck.value == true
                                             ? '₹${data.response.plans[1].plans[0].actualPrice}/-'
-                                            : "₹${data.response.plans[1].plans[0].actualPrice}/-",
+                                            : "₹${data.response.plans[0].plans[0].actualPrice}/-",
                                         // isCheck.value == true ?
                                         // 'Rs 2,998/-' ,
                                         // :

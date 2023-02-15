@@ -18,7 +18,6 @@ class Custome_drawer_web extends HookConsumerWidget {
 
     final selectedindex = useState<int>(index);
 
-    final scaffoldKey = GlobalKey<ScaffoldState>();
     return Drawer(
       // width: 300,
       elevation: 0,
@@ -94,7 +93,7 @@ class Custome_drawer_web extends HookConsumerWidget {
                 child: Padding(
                   padding: EdgeInsets.all(12),
                   child: Text(
-                    'Plans',
+                    'Plan',
                     style: TextStyle(
                         fontSize: 17,
                         color: selectedindex.value == 2
