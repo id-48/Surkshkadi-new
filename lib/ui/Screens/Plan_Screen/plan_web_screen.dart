@@ -4,7 +4,7 @@ import 'package:gap/gap.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:responsive_grid/responsive_grid.dart';
 import 'package:surakshakadi/data/model/home/dashboard/res_dashboard.dart';
-import 'package:surakshakadi/ui/Screens/chatbot_screen/plan_bot_web_screen.dart';
+import 'package:surakshakadi/ui/Screens/chatbot_screen/plan_chatbot_web_screen.dart';
 import 'package:surakshakadi/ui/Screens/dashboard/dashboard_view_modal.dart';
 import 'package:surakshakadi/utils/color_utils.dart';
 import 'package:surakshakadi/utils/constants/app_constant.dart';
@@ -873,7 +873,7 @@ class PlansWeb extends HookConsumerWidget {
                       Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: (context) => PlanBotWeb()));
+                              builder: (context) => PlanChatBotWeb()));
                     },
                     child: Container(
                       padding:

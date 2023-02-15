@@ -30,6 +30,7 @@ import 'package:surakshakadi/ui/Screens/Splash_Screen/common_screen/commonpage.d
 import 'package:surakshakadi/ui/Screens/Splash_Screen/splash_screen.dart';
 import 'package:surakshakadi/ui/Screens/chatbot_screen/kyc_chatbot_mobile_screen.dart';
 import 'package:surakshakadi/ui/Screens/chatbot_screen/plan_chatbot_screen.dart';
+import 'package:surakshakadi/ui/Screens/chatbot_screen/plan_chatbot_web_screen.dart';
 import 'package:surakshakadi/ui/Screens/confirmation_Screen/confirmation_plan_screen.dart';
 import 'package:surakshakadi/ui/Screens/confirmation_Screen/confirmation_specific_screen.dart';
 import 'package:surakshakadi/ui/Screens/confirmation_Screen/payment_confirmation_plan_web_screen.dart';
@@ -317,6 +318,11 @@ class NavigationUtils {
         return CustomRoute(
             settings: const RouteSettings(name: routeRegisterWeb),
             builder: (_) => RegisterWeb());
+
+      case routePlanChatBotWeb:
+        return CustomRoute(
+            settings: const RouteSettings(name: routePlanChatBotWeb),
+            builder: (_) => PlanChatBotWeb());
 
       case routeAddInfoWeb:
         return CustomRoute(

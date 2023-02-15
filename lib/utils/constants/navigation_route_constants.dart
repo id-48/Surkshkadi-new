@@ -28,6 +28,7 @@ const String routePartnerWithWeb = "/routePartnerWithWeb";
 const String routeAssetsWeb = "/routeAssetsWeb";
 const String routeAssetsInformationWeb = "/routeAssetsInformationWeb";
 const String routeRegisterWeb = "/routeRegisterWeb";
+const String routePlanChatBotWeb = "/routePlanChatBotWeb";
 const String routePaymentConfoSpeciWeb = "/routePaymentConfoSpeciWeb";
 const String routeAddInfoWeb = "/routeAddInfoWeb";
 const String routeStartPartnerWithWeb = "/routeStartPartnerWithWeb";

@@ -13,11 +13,12 @@ const String prefSingleAssetsPrice = 'prefSingleAssetsPrice';
 const String prefRazorpayId = 'prefRazorpayId';
 const String prefCompanyName = 'prefCompanyName';
 const String prefClientType= 'prefClientType';
+const String prefChatBot= 'prefChatBot';
 
 const String prefPlanIdMobile = 'prefPlanId PlanScreen Mobile';
 const String prefSingleUAId = 'pref Single user Assets Id';
 const String prefSubscriptionId = 'pref Subscription Id';
-  const String prefPaymentId = 'prefPaymentId';
+const String prefPaymentId = 'prefPaymentId';
 const String prefPlanPrice = 'pref Plan Prince';
 const String prefAadharToken = 'prefAadharToken';
 const String prefSubChatBotCompletedMobile = 'prefSubChatBotCompleted';
