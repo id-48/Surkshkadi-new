@@ -36,6 +36,8 @@ const String apiSubscribedClient = "get-channel-partner-subscribed-clients";
 const String apiRewards = "get-channel-partner-rewards";
 const String apiSecurityContent = "security-contents";
 const String apiShareApplicationLinks = "share-application-links";
+const String apiSendAccountVerification = "send-account-verification-link";
+const String apiStoreInquiryDetails = "store-enquiry-details";
 
 
 
