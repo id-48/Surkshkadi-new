@@ -889,8 +889,13 @@ class PlansWeb extends HookConsumerWidget {
                       ),
                       Text(haveAQuerry, style: TextStyle(fontSize: 16)),
                       Gap(3),
-                      Text(contactUs,
-                          style: TextStyle(fontSize: 16, color: indigo))
+                      InkWell(
+                        onTap: (){
+                          navigationService.push(routeAboutUsWeb);
+                        },
+                        child: Text(contactUs,
+                            style: TextStyle(fontSize: 16, color: indigo)),
+                      )
                     ],
                   ),
                   Gap(40),

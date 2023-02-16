@@ -58,10 +58,12 @@ class AboutUsWeb extends HookConsumerWidget {
     // },[]);
 
     final scaffoldKey = GlobalKey<ScaffoldState>();
-    final selectedindex = useState<int>(1);
+    final viewAll = useState<bool>(false);
+
+
     return Scaffold(
       key: scaffoldKey,
-      // drawer: Custome_drawer_web(index: selectedindex.value, button: true),
+      drawer: Custome_drawer_web(index: 1, button: true),
       body: SingleChildScrollView(
         scrollDirection: Axis.vertical,
         child: Column(
@@ -491,13 +493,12 @@ class AboutUsWeb extends HookConsumerWidget {
                       ),
                       Gap(50),
 
-                      /// Api calling data FAQs  22/12/22
                       Container(
-                        height: 340,
+                        height: viewAll.value == false ? 340 : 720,
                         child: ListView.builder(
                           scrollDirection: Axis.vertical,
-                            physics: ClampingScrollPhysics(),
-                          itemCount: assetsData.response.faqs.length,
+                            // physics: ClampingScrollPhysics(),
+                          itemCount: viewAll.value == false ? 4 : assetsData.response.faqs.length,
                          itemBuilder: ( context, index){
                           return Column(
                             children: [
@@ -581,23 +582,28 @@ class AboutUsWeb extends HookConsumerWidget {
                       //   ),
                       // ),
 
-
-
+                      if(viewAll.value == false)...[
                       Gap(70),
                       Center(
-                        child: Container(
-                          padding: EdgeInsets.symmetric(
-                              vertical: 14, horizontal: 50),
-                          decoration: BoxDecoration(
-                            border: Border.all(color: blue, width: 1.5),
-                            borderRadius: BorderRadius.circular(10),
-                          ),
-                          child: Text(
-                            viewMore,
-                            style: TextStyle(fontSize: 18, color: blue),
+                        child: InkWell(
+                          onTap: (){
+                            viewAll.value = true;
+                          },
+                          child: Container(
+                            padding: EdgeInsets.symmetric(
+                                vertical: 14, horizontal: 50),
+                            decoration: BoxDecoration(
+                              border: Border.all(color: blue, width: 1.5),
+                              borderRadius: BorderRadius.circular(10),
+                            ),
+                            child: Text(
+                              viewMore,
+                              style: TextStyle(fontSize: 18, color: blue),
+                            ),
                           ),
                         ),
                       ),
+                      ],
                     ],
                   ),
                 ),
