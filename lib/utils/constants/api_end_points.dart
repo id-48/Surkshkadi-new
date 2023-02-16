@@ -34,6 +34,9 @@ const String apiGetClient = "get-channel-partner-clients";
 const String apiAddClient = "add-channel-partner-client";
 const String apiSubscribedClient = "get-channel-partner-subscribed-clients";
 const String apiRewards = "get-channel-partner-rewards";
+const String apiSecurityContent = "security-contents";
+const String apiShareApplicationLinks = "share-application-links";
+
 
 
 const String apiPanCard = "https://api.emptra.com/fetchPanDetails";
