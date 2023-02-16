@@ -7,7 +7,7 @@ import 'package:responsive_grid/responsive_grid.dart';
 import 'package:surakshakadi/di/locator.dart';
 import 'package:surakshakadi/ui/Screens/Plan_Screen/plan_web_screen.dart';
 import 'package:surakshakadi/ui/Screens/cp_web_screeen/partner_with_web_screen.dart';
-import 'package:surakshakadi/ui/Screens/cp_web_screeen/start_partner_with_web_screen.dart';
+import 'package:surakshakadi/ui/Screens/cp_web_screeen/start_partners/start_partner_with_web_screen.dart';
 import 'package:surakshakadi/ui/Screens/dashboard/Components/about_us_web_screen.dart';
 import 'package:surakshakadi/ui/Screens/dashboard/dashboard_web_screen.dart';
 import 'package:surakshakadi/utils/color_utils.dart';

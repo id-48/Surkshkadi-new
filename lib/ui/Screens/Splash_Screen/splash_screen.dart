@@ -6,6 +6,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:surakshakadi/di/locator.dart';
 import 'package:surakshakadi/ui/Screens/Demo_Screen/demo_plans_screen.dart';
 import 'package:surakshakadi/ui/Screens/chatbot_screen/plan_chatbot_web_screen.dart';
+import 'package:surakshakadi/ui/Screens/dashboard/Components/legal_screen.dart';
 import 'package:surakshakadi/utils/color_utils.dart';
 import 'package:surakshakadi/utils/constants/navigation_route_constants.dart';
 import 'package:surakshakadi/utils/constants/preference_key_constant.dart';
@@ -60,10 +61,10 @@ class SplashScreen extends HookConsumerWidget {
             }
           } else {
 
-            // Navigator.push(context, MaterialPageRoute(builder: (context) => MyHomePage(title: 'html view to flutter'),));
+            Navigator.push(context, MaterialPageRoute(builder: (context) => LegalAll(),));
             // navigationService.pushAndRemoveUntil(routePlanChatBotWeb);
 
-            navigationService.pushAndRemoveUntil(routeDashboardWeb);
+            // navigationService.pushAndRemoveUntil(routeDashboardWeb);
           }
         });
         return timer.cancel;
