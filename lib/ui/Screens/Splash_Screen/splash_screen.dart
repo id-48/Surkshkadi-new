@@ -4,6 +4,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:surakshakadi/di/locator.dart';
+import 'package:surakshakadi/ui/Screens/Demo_Screen/demo_plans_screen.dart';
 import 'package:surakshakadi/ui/Screens/chatbot_screen/plan_chatbot_web_screen.dart';
 import 'package:surakshakadi/utils/color_utils.dart';
 import 'package:surakshakadi/utils/constants/navigation_route_constants.dart';
@@ -59,9 +60,10 @@ class SplashScreen extends HookConsumerWidget {
             }
           } else {
 
-            navigationService.pushAndRemoveUntil(routePlanChatBotWeb);
+            // Navigator.push(context, MaterialPageRoute(builder: (context) => MyHomePage(title: 'html view to flutter'),));
+            // navigationService.pushAndRemoveUntil(routePlanChatBotWeb);
 
-            // navigationService.pushAndRemoveUntil(routeDashboardWeb);
+            navigationService.pushAndRemoveUntil(routeDashboardWeb);
           }
         });
         return timer.cancel;
