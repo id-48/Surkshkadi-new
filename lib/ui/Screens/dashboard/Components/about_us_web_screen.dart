@@ -61,7 +61,7 @@ class AboutUsWeb extends HookConsumerWidget {
     final selectedindex = useState<int>(1);
     return Scaffold(
       key: scaffoldKey,
-      drawer: Custome_drawer_web(index: selectedindex.value, button: true),
+      // drawer: Custome_drawer_web(index: selectedindex.value, button: true),
       body: SingleChildScrollView(
         scrollDirection: Axis.vertical,
         child: Column(
@@ -646,12 +646,9 @@ class AboutUsWeb extends HookConsumerWidget {
                               ),
                               Gap(30),
                               GestureDetector(
-
                                 onTap: (){
-                                  isSubmit.value  = true ;
-
-
-                                },
+                                  isSubmit.value  = true;
+                                  },
                                 child: Container(
                                   padding: EdgeInsets.symmetric(vertical: 14),
                                   width: 450,
