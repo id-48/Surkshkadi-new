@@ -5,7 +5,9 @@ import 'package:gap/gap.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:responsive_grid/responsive_grid.dart';
+import 'package:surakshakadi/di/locator.dart';
 import 'package:surakshakadi/utils/color_utils.dart';
+import 'package:surakshakadi/utils/constants/navigation_route_constants.dart';
 import 'package:surakshakadi/utils/extensions/size_extension.dart';
 import 'package:surakshakadi/utils/image_utils.dart';
 import 'package:surakshakadi/utils/strings.dart';
@@ -719,41 +721,49 @@ class Disclaimers extends HookWidget {
                     ),
 
                     Gap(16),
-                    RichText(
-                      text: TextSpan(
-                        children: const <TextSpan>[
-                          TextSpan(
-                              text: forMoreInformation,
+
+                    Row(
+                        children:  [
+                          Text(
+                              forMoreInformation,
                               style: TextStyle(
                                   fontWeight: FontWeight.w300,
                                   color: indigo,
                                   fontSize: 18,
                                   letterSpacing: 0.2)),
-                          TextSpan(
-                            text: " " + faq + " ",
-                            style: TextStyle(
-                                fontWeight: FontWeight.bold,
-                                color: indigo,
-                                fontSize: 18,
-                                letterSpacing: 0.2),
-                          ),
-                          TextSpan(
-                              text: and + " ",
-                              style: TextStyle(
-                                  fontWeight: FontWeight.w300,
-                                  color: indigo,
-                                  fontSize: 18,
-                                  letterSpacing: 0.2)),
-                          TextSpan(
-                              text: termsAndConditions,
+                          InkWell(
+                            onTap: (){
+
+                            },
+                            child: Text(
+                              " " + faq + " ",
                               style: TextStyle(
                                   fontWeight: FontWeight.bold,
                                   color: indigo,
                                   fontSize: 18,
+                                  letterSpacing: 0.2),
+                            ),
+                          ),
+                          Text(
+                               and + " ",
+                              style: TextStyle(
+                                  fontWeight: FontWeight.w300,
+                                  color: indigo,
+                                  fontSize: 18,
                                   letterSpacing: 0.2)),
+                          InkWell(
+                            onTap: (){},
+                            child: Text(
+                                termsAndConditions,
+                                style: TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                    color: indigo,
+                                    fontSize: 18,
+                                    letterSpacing: 0.2)),
+                          ),
                         ],
                       ),
-                    ),
+
                   ],
                 )),
           ],

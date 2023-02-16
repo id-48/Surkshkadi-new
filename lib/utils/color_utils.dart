@@ -39,6 +39,7 @@ const Color multicolorone = Color(0xffCAE2F8);
 const Color multicolortwo = Color(0xffC5DEF6);
 const Color oreng = Color(0xffFA9836);
 const Color lightoreng = Color(0xffFFB062);
+const Color orangeFullLight = Color(0xffFFC182);
 const Color gerywhite = Color(0xfff5f5f5);
 const Color indigo = Color(0xff4378B9);
 const Color lightindigo = Color(0xff597EC8);

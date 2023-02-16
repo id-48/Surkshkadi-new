@@ -59,9 +59,9 @@ class SplashScreen extends HookConsumerWidget {
             }
           } else {
 
-            navigationService.pushAndRemoveUntil(routePlanChatBotWeb);
+            // navigationService.pushAndRemoveUntil(routePlansWeb);
 
-            // navigationService.pushAndRemoveUntil(routeDashboardWeb);
+            navigationService.pushAndRemoveUntil(routeDashboardWeb);
           }
         });
         return timer.cancel;

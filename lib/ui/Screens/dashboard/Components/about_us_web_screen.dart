@@ -492,87 +492,97 @@ class AboutUsWeb extends HookConsumerWidget {
                       Gap(50),
 
                       /// Api calling data FAQs  22/12/22
-                      // ...assetsData.response!.faqs!.map((e) {
-                      //   return Column(
-                      //     children: [
-                      //       CustomChildExpandableCard(
-                      //         padding: EdgeInsets.only(
-                      //             left: 16, right: 16, top: 16, bottom: 30),
-                      //         title: "${e.question}",
-                      //         isExpanded: ValueNotifier(1),
-                      //         index: 0,
-                      //         expandedChild: Container(
-                      //           padding: EdgeInsets.symmetric(horizontal: 20,vertical: 6),
-                      //           // height: 50,
-                      //           // color: Colors.lightBlueAccent,
-                      //           child: Text("${e.answer}",style: TextStyle(fontSize: 18,fontWeight: FontWeight.w400),),
-                      //         ),
-                      //       ),
-                      //       Gap(20),
-                      //     ],
-                      //   );
-                      // } ),
+                      Container(
+                        height: 340,
+                        child: ListView.builder(
+                          scrollDirection: Axis.vertical,
+                            physics: ClampingScrollPhysics(),
+                          itemCount: assetsData.response.faqs.length,
+                         itemBuilder: ( context, index){
+                          return Column(
+                            children: [
+                              CustomChildExpandableCard(
+                                padding: EdgeInsets.only(
+                                    left: 16, right: 16, top: 16, bottom: 30),
+                                title: "${assetsData.response.faqs[index].question}",
+                                isExpanded: ValueNotifier(1),
+                                index: 0,
+                                expandedChild: Container(
+                                  padding: EdgeInsets.symmetric(horizontal: 20,vertical: 6),
+                                  // height: 50,
+                                  // color: Colors.lightBlueAccent,
+                                  child: Text("${assetsData.response.faqs[index].answer}",style: TextStyle(fontSize: 18,fontWeight: FontWeight.w400),),
+                                ),
+                              ),
+                              Gap(20),
+                            ],
+                          );
+                        }),
+                      ),
 
                       /// Api without na data
-                      Padding(
-                        padding: EdgeInsets.symmetric(horizontal: Utils.getWidth(context) < 660 ? 16 : 60),
-                        child: CustomChildExpandableCard(
-                          padding: EdgeInsets.only(
-                              left: 16, right: 16, top: 16, bottom: 30),
-                          title: howDoYouKeepMy,
-                          isExpanded: ValueNotifier(1),
-                          index: 0,
-                          expandedChild: Container(
-                            height: 50,
-                            color: Colors.lightBlueAccent,
-                          ),
-                        ),
-                      ),
-                      Gap(20),
-                      Padding(
-                        padding: EdgeInsets.symmetric(horizontal: Utils.getWidth(context) < 660 ? 16 : 60),
-                        child: CustomChildExpandableCard(
-                          padding: EdgeInsets.only(
-                              left: 16, right: 16, top: 16, bottom: 30),
-                          title: howDoYouSign,
-                          isExpanded: ValueNotifier(2),
-                          index: 1,
-                          expandedChild: Container(
-                            height: 50,
-                            color: Colors.lightBlueAccent,
-                          ),
-                        ),
-                      ),
-                      Gap(20),
-                      Padding(
-                        padding: EdgeInsets.symmetric(horizontal: Utils.getWidth(context) < 660 ? 16 : 60),
-                        child: CustomChildExpandableCard(
-                          padding: EdgeInsets.only(
-                              left: 16, right: 16, top: 16, bottom: 30),
-                          title: whoCreatesTheLegal,
-                          isExpanded: ValueNotifier(3),
-                          index: 2,
-                          expandedChild: Container(
-                            height: 50,
-                            color: Colors.lightBlueAccent,
-                          ),
-                        ),
-                      ),
-                      Gap(20),
-                      Padding(
-                        padding: EdgeInsets.symmetric(horizontal: Utils.getWidth(context) < 660 ? 16 : 60),
-                        child: CustomChildExpandableCard(
-                          padding: EdgeInsets.only(
-                              left: 16, right: 16, top: 16, bottom: 30),
-                          title: whoReviewsMy,
-                          isExpanded: ValueNotifier(4),
-                          index: 3,
-                          expandedChild: Container(
-                            height: 50,
-                            color: Colors.lightBlueAccent,
-                          ),
-                        ),
-                      ),
+                      // Padding(
+                      //   padding: EdgeInsets.symmetric(horizontal: Utils.getWidth(context) < 660 ? 16 : 60),
+                      //   child: CustomChildExpandableCard(
+                      //     padding: EdgeInsets.only(
+                      //         left: 16, right: 16, top: 16, bottom: 30),
+                      //     title: howDoYouKeepMy,
+                      //     isExpanded: ValueNotifier(1),
+                      //     index: 0,
+                      //     expandedChild: Container(
+                      //       height: 50,
+                      //       color: Colors.lightBlueAccent,
+                      //     ),
+                      //   ),
+                      // ),
+                      // Gap(20),
+                      // Padding(
+                      //   padding: EdgeInsets.symmetric(horizontal: Utils.getWidth(context) < 660 ? 16 : 60),
+                      //   child: CustomChildExpandableCard(
+                      //     padding: EdgeInsets.only(
+                      //         left: 16, right: 16, top: 16, bottom: 30),
+                      //     title: howDoYouSign,
+                      //     isExpanded: ValueNotifier(2),
+                      //     index: 1,
+                      //     expandedChild: Container(
+                      //       height: 50,
+                      //       color: Colors.lightBlueAccent,
+                      //     ),
+                      //   ),
+                      // ),
+                      // Gap(20),
+                      // Padding(
+                      //   padding: EdgeInsets.symmetric(horizontal: Utils.getWidth(context) < 660 ? 16 : 60),
+                      //   child: CustomChildExpandableCard(
+                      //     padding: EdgeInsets.only(
+                      //         left: 16, right: 16, top: 16, bottom: 30),
+                      //     title: whoCreatesTheLegal,
+                      //     isExpanded: ValueNotifier(3),
+                      //     index: 2,
+                      //     expandedChild: Container(
+                      //       height: 50,
+                      //       color: Colors.lightBlueAccent,
+                      //     ),
+                      //   ),
+                      // ),
+                      // Gap(20),
+                      // Padding(
+                      //   padding: EdgeInsets.symmetric(horizontal: Utils.getWidth(context) < 660 ? 16 : 60),
+                      //   child: CustomChildExpandableCard(
+                      //     padding: EdgeInsets.only(
+                      //         left: 16, right: 16, top: 16, bottom: 30),
+                      //     title: whoReviewsMy,
+                      //     isExpanded: ValueNotifier(4),
+                      //     index: 3,
+                      //     expandedChild: Container(
+                      //       height: 50,
+                      //       color: Colors.lightBlueAccent,
+                      //     ),
+                      //   ),
+                      // ),
+
+
+
                       Gap(70),
                       Center(
                         child: Container(

@@ -14,6 +14,7 @@ const String callicon = 'assets/images/callicon.png';
 const String mailicon = 'assets/images/mailcon.png';
 const String roundChatBot = 'assets/images/chatbot.png';
 const String chatboticon = 'assets/images/chatboticon.png';
+const String bigChatBotIcon = 'assets/images/bigChatBotIcon.png';
 const String homeicon = 'assets/images/homeicon.svg';
 const String homecoloricon = 'assets/images/homecoloricon.svg';
 const String plansicon = 'assets/images/plansicon.svg';

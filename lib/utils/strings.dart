@@ -407,18 +407,24 @@ const String income = "Income";
 
 ///       Partner With Web
 
-const String kindlyStartYour =
-    "Kindly start your registration process by entering your mobile number below. ";
+const String kindlyStartYour = "Kindly start your registration process by entering your mobile number below.";
+const String kindlyLogInto = "Kindly Log into your account by entering your mobile number below.";
 const String anOtpWillBeSent =
     "An OTP will be sent to the Mobile No.";
 // const String anOtpWillBeSent =
 //     "An OTP will be sent to the Mobile No. & E-mail Id above.";
 const String sendOtp = "Send OTP";
 const String reSend = "Re-send";
+
 const String alreadyHave = "Already have an account? ";
+const String newToSur = "New to Surakshakadi? ";
+
 const String login = "Login";
+const String register = "Register";
+
 const String asPartner = " as Partner With Us";
 const String joinUs = "Join Us";
+const String partnerLogin = "Partner Login";
 const String whyPartnerWithUs = "Why Partner With Us?";
 const String wealthTransfer =
     "Wealth Transfer is a vastly untapped market allowing you to earn substantial income, now and in the future";

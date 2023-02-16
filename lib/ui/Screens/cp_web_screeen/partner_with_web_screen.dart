@@ -31,6 +31,7 @@ class PartnerWithWeb extends HookConsumerWidget {
     final otpController = useTextEditingController();
 
     final sendOTP = useState<bool>(false);
+    final loginType = useState<bool>(false);
     final cpUserId = useState<String>("");
     final scaffoldKey = GlobalKey<ScaffoldState>();
     final selectedindex = useState<int>(3);
@@ -131,10 +132,12 @@ class PartnerWithWeb extends HookConsumerWidget {
               ),
             ),
             Gap(40),
+
+
             Padding(
               padding:  EdgeInsets.only(left: Utils.getWidth(context) < 550 ? 16 :60 ),
               child: Text(
-                partnerWithUs,
+                loginType.value == true ? partnerLogin : partnerWithUs,
                 style: GoogleFonts.bonaNova(
                   textStyle: TextStyle(
                       fontSize: 53,
@@ -153,7 +156,7 @@ class PartnerWithWeb extends HookConsumerWidget {
               color: oreng,
             ),
             Gap(34),
-            Container(
+            Container (
 
               padding:  EdgeInsets.only(left: Utils.getWidth(context) < 550 ? 16 : 70),
               child: Column(
@@ -161,7 +164,7 @@ class PartnerWithWeb extends HookConsumerWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    kindlyStartYour,
+                    loginType.value == true ? kindlyLogInto : kindlyStartYour,
                     style: TextStyle(
                         fontSize: 23,
                         fontWeight: FontWeight.w100,
@@ -318,7 +321,11 @@ class PartnerWithWeb extends HookConsumerWidget {
                               print('Result :  ${value?.response}');
                               setString(prefLoginTokenWeb, "LoginSuccessWeb");
                               setString(prefLoginNumber, "${value?.response.mobile}");
-                              navigationService.pushAndRemoveUntil(routeRegisterWeb);
+
+                              loginType.value == true
+                            ?  navigationService.pushAndRemoveUntil(routeDashboardWeb)
+                            :  navigationService.pushAndRemoveUntil(routeRegisterWeb);
+
                             }else{
                               displayToast("${value?.message}");
                             }
@@ -360,30 +367,36 @@ class PartnerWithWeb extends HookConsumerWidget {
                         color: black),
                   ),
                   Gap(40),
-                  RichText(
-                    text: TextSpan(
-                      children: const <TextSpan>[
-                        TextSpan(
-                            text: alreadyHave,
+                   Row(
+                      children: [
+                        Text(
+                            loginType.value == true ?  newToSur : alreadyHave,
                             style: TextStyle(
                                 fontWeight: FontWeight.w100, color: black)),
-                        TextSpan(
-                          text: login,
-                          style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              color: oreng,
-                              fontSize: 16),
+                        InkWell(
+                          onTap: (){
+                            loginType.value =  !loginType.value ;
+                          },
+                          child: Text(
+                            loginType.value == true ? register : login ,
+                            style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                color: oreng,
+                                fontSize: 16),
+                          ),
                         ),
-                        TextSpan(
-                            text: asPartner,
+                        Text(
+                             asPartner,
                             style: TextStyle(
                                 fontWeight: FontWeight.w100, color: black)),
                       ],
-                    ),
-                  ),
+                   ),
                 ],
               ),
             ),
+
+
+
             Gap(50),
             Container(
               padding: EdgeInsets.only(top: 28,bottom: 28),

@@ -256,10 +256,15 @@ class CustomWebBottomBar extends HookWidget {
                         ),
                       ),
                       Gap(7),
-                      Text(
-                        faqs,
-                        style: TextStyle(
-                            fontWeight: FontWeight.w500, fontSize: 16),
+                      InkWell(
+                        onTap: (){
+                          navigationService.push(routeAboutUsWeb);
+                        },
+                        child: Text(
+                          faqs,
+                          style: TextStyle(
+                              fontWeight: FontWeight.w500, fontSize: 16),
+                        ),
                       ),
                       Gap(7),
                       Text(
@@ -295,15 +300,11 @@ class CustomWebBottomBar extends HookWidget {
                             color: Color(0xFF002E9E)),
                       ),
                       Gap(16),
-                      // Text(
-                      //   referAndEarn,
-                      //   style: TextStyle(
-                      //       fontWeight: FontWeight.w500, fontSize: 16),
-                      // ),
-                      // Gap(7),
+
                       GestureDetector(
                         onTap: (){
-                          _launchURL("https://blog.logrocket.com");
+
+                          // _launchURL("https://blog.logrocket.com");
                         },
                         child: Text(
                           termsConditions,
@@ -312,22 +313,43 @@ class CustomWebBottomBar extends HookWidget {
                         ),
                       ),
                       Gap(7),
-                      Text(
-                        privacyPolicy,
-                        style: TextStyle(
-                            fontWeight: FontWeight.w500, fontSize: 16),
+                      InkWell(
+                        onTap: (){
+
+                        },
+                        child: Text(
+                          privacyPolicy,
+                          style: TextStyle(
+                              fontWeight: FontWeight.w500, fontSize: 16),
+                        ),
                       ),
                       Gap(7),
-                      Text(
-                        disclaimer,
-                        style: TextStyle(
-                            fontWeight: FontWeight.w500, fontSize: 16),
+                      InkWell(
+                        onTap: (){
+
+                        },
+                        child: Text(
+                          disclaimer,
+                          style: TextStyle(
+                              fontWeight: FontWeight.w500, fontSize: 16),
+                        ),
                       ),
+                      // Gap(7),
+                      // Text(
+                      //   referAndEarn,
+                      //   style: TextStyle(
+                      //       fontWeight: FontWeight.w500, fontSize: 16),
+                      // ),
                       Gap(7),
-                      Text(
-                        contactUs,
-                        style: TextStyle(
-                            fontWeight: FontWeight.w500, fontSize: 16),
+                      InkWell(
+                        onTap: (){
+                          navigationService.push(routeAboutUsWeb);
+                        },
+                        child: Text(
+                          contactUs,
+                          style: TextStyle(
+                              fontWeight: FontWeight.w500, fontSize: 16),
+                        ),
                       ),
                     ],
                   ),

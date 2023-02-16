@@ -35,7 +35,7 @@ class CustomAppbarWeb extends HookConsumerWidget {
     final selectedindex = useState<int>(index);
 
 
-
+    final scaffoldKey = GlobalKey<ScaffoldState>();
     return Container(
       // height: 154,
       padding: EdgeInsets.only(bottom: 20,top: 20),

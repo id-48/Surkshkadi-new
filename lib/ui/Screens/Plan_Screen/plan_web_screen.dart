@@ -4,10 +4,12 @@ import 'package:gap/gap.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:responsive_grid/responsive_grid.dart';
 import 'package:surakshakadi/data/model/home/dashboard/res_dashboard.dart';
+import 'package:surakshakadi/di/locator.dart';
 import 'package:surakshakadi/ui/Screens/chatbot_screen/plan_chatbot_web_screen.dart';
 import 'package:surakshakadi/ui/Screens/dashboard/dashboard_view_modal.dart';
 import 'package:surakshakadi/utils/color_utils.dart';
 import 'package:surakshakadi/utils/constants/app_constant.dart';
+import 'package:surakshakadi/utils/constants/navigation_route_constants.dart';
 import 'package:surakshakadi/utils/image_utils.dart';
 import 'package:surakshakadi/utils/strings.dart';
 import 'package:surakshakadi/utils/utils.dart';
@@ -33,6 +35,8 @@ class PlansWeb extends HookConsumerWidget {
 
     final selectedindex = useState<int>(2);
 
+    print(
+        'Enter Height ===> ${MediaQuery.of(context).size.height}');
     return planWebController.when(
         data: (data) {
           return Scaffold(
@@ -44,18 +48,14 @@ class PlansWeb extends HookConsumerWidget {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   CustomAppbarWeb(button: true, index: 2,scaffoldkey: scaffoldKey,),
-                  Container(
-                    height: 1.5,
-                    width: MediaQuery.of(context).size.width,
-                    color: navyblue,
-                  ),
-                  Gap(20),
+                  Gap(Utils.getHeight(context) * 0.02),
                   Row(
                     children: [
                       Spacer(),
                       Image.asset(
                         transfer,
                         scale: 2,
+                        height: Utils.getHeight(context) < 725 ? 100 : 120,
                       ),
                       SizedBox(
                         width: MediaQuery.of(context).size.width * 0.07,
@@ -136,8 +136,6 @@ class PlansWeb extends HookConsumerWidget {
                       Spacer(),
                     ],
                   ),
-
-                  Gap(10),
                   ResponsiveGridRow(
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
@@ -164,8 +162,8 @@ class PlansWeb extends HookConsumerWidget {
                             child: Container(
                               margin: EdgeInsets.only(top: 30),
                               padding: EdgeInsets.only(left: 20,right: 20),
-                              height: 140,
-                              width: 240,
+                              height: Utils.getHeight(context) < 725 ? 128 : 140,
+                              width: Utils.getHeight(context) < 725 ? 210 : 240,
                               decoration: BoxDecoration(
                                   color: lowBlue,
                                   borderRadius: BorderRadius.circular(15),
@@ -176,13 +174,13 @@ class PlansWeb extends HookConsumerWidget {
                                         offset: Offset(0.0, 4)),
                                   ]),
                               child: Column(
-                                mainAxisAlignment: MainAxisAlignment.center,
+                                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                                 children: [
                                   Image.asset(
                                     willVector,
                                     scale: 4,
                                   ),
-                                  Gap(20),
+                                  // Gap(20),
                                   Padding(
                                     padding:
                                     const EdgeInsets.symmetric(horizontal: 4),
@@ -217,8 +215,8 @@ class PlansWeb extends HookConsumerWidget {
                               margin: EdgeInsets.only(top: 30),
 
                               padding: EdgeInsets.only(left: 20,right: 20),
-                              height: 140,
-                              width: 240,
+                              height: Utils.getHeight(context) < 725 ? 130 : 140,
+                              width: Utils.getHeight(context) < 725 ? 220 : 240,
                               decoration: BoxDecoration(
                                   color: lowBlue,
                                   borderRadius: BorderRadius.circular(15),
@@ -268,8 +266,8 @@ class PlansWeb extends HookConsumerWidget {
                               margin: EdgeInsets.only(top: 30),
 
                               padding: EdgeInsets.only(left: 20, right: 20),
-                              height: 140,
-                              width: 240,
+                              height: Utils.getHeight(context) < 725 ? 130 : 140,
+                              width: Utils.getHeight(context) < 725 ? 220 : 240,
                               decoration: BoxDecoration(
                                   color: lowBlue,
                                   borderRadius: BorderRadius.circular(15),
@@ -313,8 +311,7 @@ class PlansWeb extends HookConsumerWidget {
                           child: Container()),
                     ],
                   ),
-
-                  Gap(40),
+                  Gap(Utils.getHeight(context) * 0.045),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
@@ -365,493 +362,464 @@ class PlansWeb extends HookConsumerWidget {
                       Spacer(),
                     ],
                   ),
-                  Gap(30),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Column(
-                        children: [
-                          Container(
-                            padding: EdgeInsets.symmetric(
-                              vertical: 6,
-                            ),
-                            width: MediaQuery.of(context).size.width * 0.13,
-                            alignment: Alignment.center,
-                            decoration: BoxDecoration(
-                              // color: blue,
-                              borderRadius: BorderRadius.circular(3),
-                              // gradient: LinearGradient(
-                              //     colors: [
-                              //       Color(0xffD33E3E),
-                              //       Color(0xffFF9595),
-                              //     ],
-                              //     begin: Alignment.topCenter,
-                              //     end: Alignment.bottomCenter),
-                            ),
-                            child: Text(
-                              // data.plans![1].type ??
-                              'Top Seller',
-                              style: TextStyle(
-                                  fontWeight: FontWeight.w700,
-                                  fontSize: 19,
-                                  color: white,
-                                  letterSpacing: 0.5),
-                            ),
-                          ),
-                          Gap(18),
-                          GestureDetector(
-                            onTap: () {
-                              isSelected.value = 0;
-                            },
-                            child: Container(
+                  Gap(Utils.getHeight(context) * 0.036),
+                  Container(
+                    width: 760,
+                    margin: EdgeInsets.symmetric(horizontal: 20),
+                    // color: redFroly,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Column(
+                          children: [
+                            Container(
                               padding: EdgeInsets.symmetric(
-                                  vertical: 12, horizontal: 15),
-                              decoration: BoxDecoration(
-                                gradient: isSelected.value == 0
-                                    ? LinearGradient(
-                                        colors: [
-                                          Color(0xff2476D9),
-                                          Color(0xff062B56),
-                                        ],
-                                        begin: Alignment.topCenter,
-                                        end: Alignment.bottomCenter,
-                                      )
-                                    : LinearGradient(colors: [
-                                        Colors.white,
-                                        Colors.white,
-                                      ]),
-                                borderRadius: BorderRadius.circular(5),
-                                boxShadow: [
-                                  BoxShadow(
-                                    color: Colors.grey.shade300,
-                                    spreadRadius: 1,
-                                    blurRadius: 1,
-                                  ),
-                                ],
+                                vertical: 6,
                               ),
-                              child: Column(
-                                children: [
-                                  Text(
-                                    // 'SILVER',
-                                    isCheck.value == true
-                                        ? "${data.response.plans[1].plans[0].planTitle}"
-                                        : "${data.response.plans[0].plans[0].planTitle}",
-                                    style: TextStyle(
-                                        fontWeight: FontWeight.bold,
-                                        color: isSelected.value == 0
-                                            ? white
-                                            : black,
-                                        letterSpacing: 0.5,
-                                        fontSize: 28),
-                                  ),
-                                  // Gap(3),
-                                  Row(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
-                                      Padding(
-                                        padding: const EdgeInsets.only(top: 4),
-                                        child: Text(
-                                          '₹',
-                                          style: TextStyle(
-                                              fontWeight: FontWeight.w700,
-                                              color: isSelected.value == 0
-                                                  ? white
-                                                  : black,
-                                              letterSpacing: 0.5,
-                                              fontSize: 38),
-                                        ),
-                                      ),
-                                      Gap(2),
-                                      Text(
-                                        isCheck.value == true
-                                            ? "${data.response.plans[1].plans[0].offerPrice}/-"
-                                            : "${data.response.plans[0].plans[0].offerPrice}/-",
+                              width: MediaQuery.of(context).size.width < 630 ? 140 : 220,
+                              alignment: Alignment.center,
+                              decoration: BoxDecoration(
+                                // color: blue,
+                                borderRadius: BorderRadius.circular(3),
+                                gradient: LinearGradient(
+                                    colors: [
 
-                                        // isCheck.value == true ? "${data.plans![0].yearly![0].offerPrice}/-" : "${data.plans![0].lifetime![0].offerPrice}/-" ,
-                                        // isCheck.value == true ?
-                                        // '1,499/-',
-                                        // :
-                                        // '14,999/-',
-                                        style: TextStyle(
-                                            fontWeight: FontWeight.w700,
-                                            color: isSelected.value == 0
-                                                ? white
-                                                : black,
-                                            letterSpacing: 0.5,
-                                            fontSize: 38),
-                                      ),
+                                      "${data.response.plans[isCheck.value == true ? 1 : 0].plans[0].planType}" == "" ? white :  Color(0xffD33E3E),
+                                      "${data.response.plans[isCheck.value == true ? 1 : 0].plans[0].planType}" == "" ? white :  Color(0xffFF9595),
+
+                                      // Color(0xffD33E3E),
+                                      // Color(0xffFF9595),
                                     ],
-                                  ),
-                                  Gap(2),
-                                  Row(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
-                                      Text(
-                                        // isCheck.value == true ? "${data.plans![0].yearly![0].offer}% off" : "${data.plans![0].lifetime![0].offer}% off" ,
-                                        '50% off',
-                                        style: TextStyle(
-                                            fontWeight: FontWeight.w700,
-                                            fontSize: 20,
-                                            color: isSelected.value == 0
-                                                ? white
-                                                : cinnabarRed,
-                                            // color: cinnabarRed,
-                                            letterSpacing: 0.5),
-                                      ),
-                                      Gap(2),
-                                      Text(
-                                        isCheck.value == true
-                                            ? '₹${data.response.plans[1].plans[0].actualPrice}/-'
-                                            : "₹${data.response.plans[0].plans[0].actualPrice}/-",
-                                        // isCheck.value == true ?
-                                        // 'Rs 2,998/-' ,
-                                        // :
-                                        // 'Rs 29,998/-',
-                                        style: TextStyle(
-                                          fontWeight: FontWeight.w400,
+                                    begin: Alignment.topCenter,
+                                    end: Alignment.bottomCenter),
+                              ),
+                              child: Text(
+                                isCheck.value == true
+                                    ? "${data.response.plans[1].plans[0].planType}"
+                                    : "${data.response.plans[0].plans[0].planType}",
+                                // 'Top Seller',
+                                style: TextStyle(
+                                    fontWeight: FontWeight.w700,
+                                    fontSize: MediaQuery.of(context).size.width < 630 ? 15 : 19,
+                                    color: white,
+                                    letterSpacing: 0.5),
+                              ),
+                            ),
+                            Gap(18),
+                            GestureDetector(
+                              onTap: () {
+                                isSelected.value = 0;
+                              },
+                              child: Container(
+                                width: MediaQuery.of(context).size.width < 630 ? 140 : 220,
+                                padding: EdgeInsets.symmetric(
+                                    vertical: 12,),
+                                decoration: BoxDecoration(
+                                  gradient: isSelected.value == 0
+                                      ? LinearGradient(
+                                          colors: [
+                                            Color(0xff2476D9),
+                                            Color(0xff062B56),
+                                          ],
+                                          begin: Alignment.topCenter,
+                                          end: Alignment.bottomCenter,
+                                        )
+                                      : LinearGradient(colors: [
+                                          Colors.white,
+                                          Colors.white,
+                                        ]),
+                                  borderRadius: BorderRadius.circular(5),
+                                  boxShadow: [
+                                    BoxShadow(
+                                      color: Colors.grey.shade300,
+                                      spreadRadius: 1,
+                                      blurRadius: 1,
+                                    ),
+                                  ],
+                                ),
+                                child: Column(
+                                  children: [
+                                    Text(
+                                      // 'SILVER',
+                                      isCheck.value == true
+                                          ? "${data.response.plans[1].plans[0].planTitle}"
+                                          : "${data.response.plans[0].plans[0].planTitle}",
+                                      style: TextStyle(
+                                          fontWeight: FontWeight.bold,
                                           color: isSelected.value == 0
                                               ? white
                                               : black,
-                                          fontSize: 19,
                                           letterSpacing: 0.5,
-                                          decoration:
-                                              TextDecoration.lineThrough,
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
-                      Gap(36),
-                      Column(
-                        children: [
-                          Container(
-                            padding: EdgeInsets.symmetric(
-                              vertical: 6,
-                            ),
-                            width: MediaQuery.of(context).size.width * 0.13,
-                            alignment: Alignment.center,
-                            decoration: BoxDecoration(
-                              // color: blue,
-                              borderRadius: BorderRadius.circular(3),
-                              gradient: LinearGradient(
-                                  colors: [
-                                    Color(0xffD33E3E),
-                                    Color(0xffFF9595),
-                                  ],
-                                  begin: Alignment.topCenter,
-                                  end: Alignment.bottomCenter),
-                            ),
-                            child: Text(
-                              // data.plans![1].type ??
-                              'Top Seller',
-                              style: TextStyle(
-                                  fontWeight: FontWeight.w700,
-                                  fontSize: 19,
-                                  color: white,
-                                  letterSpacing: 0.5),
-                            ),
-                          ),
-                          Gap(18),
-                          GestureDetector(
-                            onTap: () {
-                              isSelected.value = 1;
+                                          fontSize: MediaQuery.of(context).size.width < 630 ? 22 :28),
+                                    ),
+                                    // Gap(3),
+                                    Text(
+                                      isCheck.value == true
+                                          ? "₹${data.response.plans[1].plans[0].offerPrice}/-"
+                                          : "₹${data.response.plans[0].plans[0].offerPrice}/-",
 
-                              // print('hhhhh : ${isSelected.value}');
-                            },
-                            child: Container(
-                              padding: EdgeInsets.symmetric(
-                                  vertical: 12, horizontal: 15),
-                              decoration: BoxDecoration(
-                                gradient: isSelected.value == 1
-                                    ? LinearGradient(
-                                        colors: [
-                                          Color(0xff2476D9),
-                                          Color(0xff062B56),
-                                        ],
-                                        begin: Alignment.topCenter,
-                                        end: Alignment.bottomCenter,
-                                      )
-                                    : LinearGradient(colors: [
-                                        Colors.white,
-                                        Colors.white,
-                                      ]),
-                                borderRadius: BorderRadius.circular(5),
-                                boxShadow: [
-                                  BoxShadow(
-                                    color: Colors.grey.shade300,
-                                    spreadRadius: 1,
-                                    blurRadius: 1,
-                                  ),
-                                ],
-                              ),
-                              child: Column(
-                                children: [
-                                  Text(
-                                    // isCheck.value == true ? "${data.plans![0].yearly![1].title}"   :  "${data.plans![0].lifetime![1].title}" ,
-                                    isCheck.value == true
-                                        ? "${data.response.plans[1].plans[1].planTitle}"
-                                        : "${data.response.plans[0].plans[1].planTitle}",
-                                    // 'GOLD',
-                                    style: TextStyle(
-                                        fontWeight: FontWeight.bold,
-                                        letterSpacing: 0.5,
-                                        color: isSelected.value == 1
-                                            ? white
-                                            : black,
-                                        fontSize: 28),
-                                  ),
-                                  // Gap(3),
-                                  Row(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
-                                      Padding(
-                                        padding: const EdgeInsets.only(top: 4),
-                                        child: Text(
-                                          '₹',
+                                      // isCheck.value == true ? "${data.plans![0].yearly![1].offerPrice}/-" : "${data.plans![0].lifetime![1].offerPrice}/-" ,
+                                      // isCheck.value == true ?
+                                      // ' 2,499/-',
+                                      // :
+                                      // ' 24,999/-',
+                                      style: TextStyle(
+                                          fontWeight: FontWeight.w700,
+                                          color: isSelected.value == 0
+                                              ? white
+                                              : black,
+                                          letterSpacing: 0.5,
+                                          fontSize:MediaQuery.of(context).size.width < 630 ? 26 : 38),
+                                    ),
+                                    Gap(2),
+                                    Row(
+                                      mainAxisAlignment: MainAxisAlignment.center,
+                                      children: [
+                                        Text(
+                                          // isCheck.value == true ? "${data.plans![0].yearly![0].offer}% off" : "${data.plans![0].lifetime![0].offer}% off" ,
+                                          '50% off',
                                           style: TextStyle(
-                                              fontWeight: FontWeight.w500,
-                                              color: isSelected.value == 1
+                                              fontWeight: FontWeight.w700,
+                                              fontSize: MediaQuery.of(context).size.width < 630 ? 13 : 16,
+                                              color: isSelected.value == 0
                                                   ? white
-                                                  : black,
-                                              letterSpacing: 0.5,
-                                              fontSize: 38),
+                                                  : cinnabarRed,
+                                              // color: cinnabarRed,
+                                              letterSpacing: 0.5),
                                         ),
-                                      ),
-                                      Gap(2),
-                                      Text(
-                                        isCheck.value == true
-                                            ? "${data.response.plans[1].plans[1].offerPrice}/-"
-                                            : "${data.response.plans[0].plans[1].offerPrice}/-",
-
-                                        // isCheck.value == true ? "${data.plans![0].yearly![1].offerPrice}/-" : "${data.plans![0].lifetime![1].offerPrice}/-" ,
-                                        // isCheck.value == true ?
-                                        // ' 2,499/-',
-                                        // :
-                                        // ' 24,999/-',
-                                        style: TextStyle(
-                                            fontWeight: FontWeight.w700,
-                                            color: isSelected.value == 1
+                                        Gap(2),
+                                        Text(
+                                          isCheck.value == true
+                                              ? '₹${data.response.plans[1].plans[0].actualPrice}/-'
+                                              : "₹${data.response.plans[0].plans[0].actualPrice}/-",
+                                          // isCheck.value == true ?
+                                          // 'Rs 2,998/-' ,
+                                          // :
+                                          // 'Rs 29,998/-',
+                                          style: TextStyle(
+                                            fontWeight: FontWeight.w400,
+                                            color: isSelected.value == 0
                                                 ? white
                                                 : black,
+                                            fontSize:MediaQuery.of(context).size.width < 630 ? 15 : 20,
                                             letterSpacing: 0.5,
-                                            fontSize: 38),
-                                      ),
+                                            decoration:
+                                                TextDecoration.lineThrough,
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+
+                        Column(
+                          children: [
+                            Container(
+                              padding: EdgeInsets.symmetric(
+                                vertical: 6,
+                              ),
+                              width: MediaQuery.of(context).size.width < 630 ? 140 : 220,
+
+                              alignment: Alignment.center,
+                              decoration: BoxDecoration(
+                                // color: blue,
+                                borderRadius: BorderRadius.circular(3),
+                                gradient: LinearGradient(
+                                    colors: [
+
+                                      "${data.response.plans[isCheck.value == true ? 1 : 0].plans[1].planType}" == "" ? white :  Color(0xffD33E3E),
+                                      "${data.response.plans[isCheck.value == true ? 1 : 0].plans[1].planType}" == "" ? white :  Color(0xffFF9595),
+
+                                      // Color(0xffD33E3E),
+                                      // Color(0xffFF9595),
                                     ],
-                                  ),
-                                  Gap(2),
-                                  Row(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
-                                      Text(
-                                        // isCheck.value == true ? "${data.plans![0].yearly![1].offer}% off" : "${data.plans![0].lifetime![1].offer}% off" ,
-                                        '50% off',
-                                        style: TextStyle(
-                                            fontWeight: FontWeight.w400,
-                                            fontSize: 16,
-                                            color: isSelected.value == 1
-                                                ? white
-                                                : cinnabarRed,
-                                            letterSpacing: 0.5),
-                                      ),
-                                      Gap(2),
-                                      Text(
-                                        // isCheck.value == true ? 'Rs ${data.plans![0].yearly![1].price}/-' : "Rs ${data.plans![0].lifetime![1].price}/-" ,
-                                        isCheck.value == true
-                                            ? '₹${data.response.plans[1].plans[1].actualPrice}/-'
-                                            : "₹${data.response.plans[0].plans[1].actualPrice}/-",
-                                        // isCheck.value == true ?
-                                        // 'Rs 4,998/-',
-                                        // :
-                                        // 'Rs 49,998/-',
-                                        style: TextStyle(
+                                    begin: Alignment.topCenter,
+                                    end: Alignment.bottomCenter),
+                              ),
+                              child: Text(
+                                isCheck.value == true
+                                    ? "${data.response.plans[1].plans[1].planType}"
+                                    : "${data.response.plans[0].plans[1].planType}",
+                                // 'Top Seller',
+                                style: TextStyle(
+                                    fontWeight: FontWeight.w700,
+                                    fontSize: MediaQuery.of(context).size.width < 630 ? 15 : 19,
+                                    color: white,
+                                    letterSpacing: 0.5),
+                              ),
+                            ),
+                            Gap(18),
+                            GestureDetector(
+                              onTap: () {
+                                isSelected.value = 1;
+
+                                // print('hhhhh : ${isSelected.value}');
+                              },
+                              child: Container(
+                                width: MediaQuery.of(context).size.width < 630 ? 140 : 220,
+
+                                padding: EdgeInsets.symmetric(
+                                    vertical: 12,),
+                                decoration: BoxDecoration(
+                                  gradient: isSelected.value == 1
+                                      ? LinearGradient(
+                                          colors: [
+                                            Color(0xff2476D9),
+                                            Color(0xff062B56),
+                                          ],
+                                          begin: Alignment.topCenter,
+                                          end: Alignment.bottomCenter,
+                                        )
+                                      : LinearGradient(colors: [
+                                          Colors.white,
+                                          Colors.white,
+                                        ]),
+                                  borderRadius: BorderRadius.circular(5),
+                                  boxShadow: [
+                                    BoxShadow(
+                                      color: Colors.grey.shade300,
+                                      spreadRadius: 1,
+                                      blurRadius: 1,
+                                    ),
+                                  ],
+                                ),
+                                child: Column(
+                                  children: [
+                                    Text(
+                                      // isCheck.value == true ? "${data.plans![0].yearly![1].title}"   :  "${data.plans![0].lifetime![1].title}" ,
+                                      isCheck.value == true
+                                          ? "${data.response.plans[1].plans[1].planTitle}"
+                                          : "${data.response.plans[0].plans[1].planTitle}",
+                                      // 'GOLD',
+                                      style: TextStyle(
+                                          fontWeight: FontWeight.bold,
+                                          letterSpacing: 0.5,
+                                          color: isSelected.value == 1
+                                              ? white
+                                              : black,
+                                          fontSize: MediaQuery.of(context).size.width < 630 ? 22 : 28),
+                                    ),
+                                    // Gap(3),
+                                    Text(
+                                      isCheck.value == true
+                                          ? "₹${data.response.plans[1].plans[1].offerPrice}/-"
+                                          : "₹${data.response.plans[0].plans[1].offerPrice}/-",
+
+                                      // isCheck.value == true ? "${data.plans![0].yearly![1].offerPrice}/-" : "${data.plans![0].lifetime![1].offerPrice}/-" ,
+                                      // isCheck.value == true ?
+                                      // ' 2,499/-',
+                                      // :
+                                      // ' 24,999/-',
+                                      style: TextStyle(
                                           fontWeight: FontWeight.w700,
-                                          fontSize: 20,
                                           color: isSelected.value == 1
                                               ? white
                                               : black,
                                           letterSpacing: 0.5,
-                                          decoration:
-                                              TextDecoration.lineThrough,
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
-                      Gap(36),
-                      Column(
-                        children: [
-                          Container(
-                            padding: EdgeInsets.symmetric(
-                              vertical: 6,
-                            ),
-                            width: MediaQuery.of(context).size.width * 0.13,
-                            alignment: Alignment.center,
-                            decoration: BoxDecoration(
-                              // color: blue,
-                              borderRadius: BorderRadius.circular(3),
-                              gradient: LinearGradient(
-                                  colors: [
-                                    Color(0xffD33E3E),
-                                    Color(0xffFF9595),
-                                  ],
-                                  begin: Alignment.topCenter,
-                                  end: Alignment.bottomCenter),
-                            ),
-                            child: Text(
-                              // data.plans![1].type ??
-                              'Value Pack',
-                              style: TextStyle(
-                                  fontWeight: FontWeight.w700,
-                                  fontSize: 19,
-                                  color: white,
-                                  letterSpacing: 0.5),
-                            ),
-                          ),
-                          Gap(18),
-                          GestureDetector(
-                            onTap: () {
-                              isSelected.value = 2;
-
-                              // print('hhhhh : ${isSelected.value}');
-                            },
-                            child: Container(
-                              padding: EdgeInsets.symmetric(
-                                  vertical: 12, horizontal: 15),
-                              decoration: BoxDecoration(
-                                gradient: isSelected.value == 2
-                                    ? LinearGradient(
-                                        colors: [
-                                          Color(0xff2476D9),
-                                          Color(0xff062B56),
-                                        ],
-                                        begin: Alignment.topCenter,
-                                        end: Alignment.bottomCenter,
-                                      )
-                                    : LinearGradient(colors: [
-                                        Colors.white,
-                                        Colors.white,
-                                      ]),
-                                borderRadius: BorderRadius.circular(5),
-                                boxShadow: [
-                                  BoxShadow(
-                                    color: Colors.grey.shade300,
-                                    spreadRadius: 1,
-                                    blurRadius: 1,
-                                  ),
-                                ],
-                              ),
-                              child: Column(
-                                children: [
-                                  Text(
-                                    // isCheck.value == true ? "${data.plans![0].yearly![2].title}"   :  "${data.plans![0].lifetime![2].title}" ,
-                                    isCheck.value == true
-                                        ? "${data.response.plans[1].plans[2].planTitle}"
-                                        : "${data.response.plans[0].plans[2].planTitle}",
-
-                                    // 'TITANIUM',
-                                    style: TextStyle(
-                                        fontWeight: FontWeight.bold,
-                                        color: isSelected.value == 2
-                                            ? white
-                                            : black,
-                                        letterSpacing: 0.5,
-                                        fontSize: 28),
-                                  ),
-                                  // Gap(3),
-                                  Row(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
-                                      Padding(
-                                        padding: const EdgeInsets.only(top: 4),
-                                        child: Text(
-                                          '₹',
+                                          fontSize:MediaQuery.of(context).size.width < 630 ? 26 : 38),
+                                    ),
+                                    Gap(2),
+                                    Row(
+                                      mainAxisAlignment: MainAxisAlignment.center,
+                                      children: [
+                                        Text(
+                                          // isCheck.value == true ? "${data.plans![0].yearly![1].offer}% off" : "${data.plans![0].lifetime![1].offer}% off" ,
+                                          '50% off',
                                           style: TextStyle(
-                                              fontWeight: FontWeight.w700,
-                                              color: isSelected.value == 2
+                                              fontWeight: FontWeight.w400,
+                                              fontSize: MediaQuery.of(context).size.width < 630 ? 13 : 16,
+                                              color: isSelected.value == 1
                                                   ? white
-                                                  : black,
-                                              letterSpacing: 0.5,
-                                              fontSize: 38),
+                                                  : cinnabarRed,
+                                              letterSpacing: 0.5),
                                         ),
-                                      ),
-                                      Gap(2),
-                                      Text(
-                                        isCheck.value == true
-                                            ? "${data.response.plans[1].plans[2].offerPrice}/-"
-                                            : "${data.response.plans[0].plans[2].offerPrice}/-",
-
-                                        // isCheck.value == true ? "${data.plans![0].yearly![2].offerPrice}/-" : "${data.plans![0].lifetime![2].offerPrice}/-" ,
-                                        // isCheck.value == true ?
-                                        // ' 3,499/-' ,
-                                        // :
-                                        // '  34,999/-',
-                                        style: TextStyle(
+                                        Gap(2),
+                                        Text(
+                                          // isCheck.value == true ? 'Rs ${data.plans![0].yearly![1].price}/-' : "Rs ${data.plans![0].lifetime![1].price}/-" ,
+                                          isCheck.value == true
+                                              ? '₹${data.response.plans[1].plans[1].actualPrice}/-'
+                                              : "₹${data.response.plans[0].plans[1].actualPrice}/-",
+                                          // isCheck.value == true ?
+                                          // 'Rs 4,998/-',
+                                          // :
+                                          // 'Rs 49,998/-',
+                                          style: TextStyle(
                                             fontWeight: FontWeight.w700,
-                                            color: isSelected.value == 2
+                                            fontSize:MediaQuery.of(context).size.width < 630 ? 15 : 20,
+                                            color: isSelected.value == 1
                                                 ? white
                                                 : black,
                                             letterSpacing: 0.5,
-                                            fontSize: 38),
-                                      ),
+                                            decoration:
+                                                TextDecoration.lineThrough,
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+
+                        Column(
+                          children: [
+                            Container(
+                              padding: EdgeInsets.symmetric(
+                                vertical: 6,
+                              ),
+                              width: MediaQuery.of(context).size.width < 630 ? 140 : 220,
+
+                              alignment: Alignment.center,
+                              decoration: BoxDecoration(
+                                // color: blue,
+                                borderRadius: BorderRadius.circular(3),
+                                gradient: LinearGradient(
+                                    colors: [
+
+                                      "${data.response.plans[isCheck.value == true ? 1 : 0].plans[2].planType}" == "" ? white :  Color(0xffD33E3E),
+                                      "${data.response.plans[isCheck.value == true ? 1 : 0].plans[2].planType}" == "" ? white :  Color(0xffFF9595),
+
+                                      // Color(0xffD33E3E),
+                                      // Color(0xffFF9595),
                                     ],
-                                  ),
-                                  Gap(2),
-                                  Row(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
-                                      Text(
-                                        // isCheck.value == true ? "${data.plans![0].yearly![2].offer}% off" : "${data.plans![0].lifetime![2].offer}% off" ,
-                                        '50% off',
-                                        style: TextStyle(
-                                            fontWeight: FontWeight.w700,
-                                            fontSize: 20,
-                                            color: isSelected.value == 2
-                                                ? white
-                                                : cinnabarRed,
-                                            letterSpacing: 0.5),
-                                      ),
-                                      Gap(2),
-                                      Text(
-                                        isCheck.value == true
-                                            ? '₹${data.response.plans[1].plans[2].actualPrice}/-'
-                                            : "₹${data.response.plans[0].plans[2].actualPrice}/-",
-                                        // isCheck.value == true ? 'Rs ${data.plans![0].yearly![2].price}/-' : "Rs ${data.plans![0].lifetime![2].price}/-" ,
-                                        // isCheck.value == true ?
-                                        // 'Rs 6,998/-',
-                                        // :
-                                        // 'Rs 69,998/-',
-                                        style: TextStyle(
-                                          fontWeight: FontWeight.w400,
+                                    begin: Alignment.topCenter,
+                                    end: Alignment.bottomCenter),
+                              ),
+                              child: Text(
+                                isCheck.value == true
+                                    ? "${data.response.plans[1].plans[2].planType}"
+                                    : "${data.response.plans[0].plans[2].planType}",
+                                // 'Value Pack',
+                                style: TextStyle(
+                                    fontWeight: FontWeight.w700,
+                                    fontSize:MediaQuery.of(context).size.width < 630 ? 15 : 19,
+                                    color: white,
+                                    letterSpacing: 0.5),
+                              ),
+                            ),
+                            Gap(18),
+                            GestureDetector(
+                              onTap: () {
+                                isSelected.value = 2;
+
+                                // print('hhhhh : ${isSelected.value}');
+                              },
+                              child: Container(
+                                width: MediaQuery.of(context).size.width < 630 ? 140 : 220,
+                                padding: EdgeInsets.symmetric(
+                                    vertical: 12,),
+                                decoration: BoxDecoration(
+                                  gradient: isSelected.value == 2
+                                      ? LinearGradient(
+                                          colors: [
+                                            Color(0xff2476D9),
+                                            Color(0xff062B56),
+                                          ],
+                                          begin: Alignment.topCenter,
+                                          end: Alignment.bottomCenter,
+                                        )
+                                      : LinearGradient(colors: [
+                                          Colors.white,
+                                          Colors.white,
+                                        ]),
+                                  borderRadius: BorderRadius.circular(5),
+                                  boxShadow: [
+                                    BoxShadow(
+                                      color: Colors.grey.shade300,
+                                      spreadRadius: 1,
+                                      blurRadius: 1,
+                                    ),
+                                  ],
+                                ),
+                                child: Column(
+                                  children: [
+                                    Text(
+                                      // isCheck.value == true ? "${data.plans![0].yearly![2].title}"   :  "${data.plans![0].lifetime![2].title}" ,
+                                      isCheck.value == true
+                                          ? "${data.response.plans[1].plans[2].planTitle}"
+                                          : "${data.response.plans[0].plans[2].planTitle}",
+
+                                      // 'TITANIUM',
+                                      style: TextStyle(
+                                          fontWeight: FontWeight.bold,
                                           color: isSelected.value == 2
                                               ? white
                                               : black,
-                                          fontSize: 19,
                                           letterSpacing: 0.5,
-                                          decoration:
-                                              TextDecoration.lineThrough,
+                                          fontSize:MediaQuery.of(context).size.width < 630 ? 22 : 28),
+                                    ),
+                                    Text(
+                                      isCheck.value == true
+                                          ? "₹${data.response.plans[1].plans[2].offerPrice}/-"
+                                          : "₹${data.response.plans[0].plans[2].offerPrice}/-",
+
+                                      // isCheck.value == true ? "${data.plans![0].yearly![1].offerPrice}/-" : "${data.plans![0].lifetime![1].offerPrice}/-" ,
+                                      // isCheck.value == true ?
+                                      // ' 2,499/-',
+                                      // :
+                                      // ' 24,999/-',
+                                      style: TextStyle(
+                                          fontWeight: FontWeight.w700,
+                                          color: isSelected.value == 2
+                                              ? white
+                                              : black,
+                                          letterSpacing: 0.5,
+                                          fontSize:MediaQuery.of(context).size.width < 630 ? 26 : 38),
+                                    ),
+                                    Gap(2),
+                                    Row(
+                                      mainAxisAlignment: MainAxisAlignment.center,
+                                      children: [
+                                        Text(
+                                          // isCheck.value == true ? "${data.plans![0].yearly![2].offer}% off" : "${data.plans![0].lifetime![2].offer}% off" ,
+                                          '50% off',
+                                          style: TextStyle(
+                                              fontWeight: FontWeight.w700,
+                                              fontSize: MediaQuery.of(context).size.width < 630 ? 13 : 16,
+                                              color: isSelected.value == 2
+                                                  ? white
+                                                  : cinnabarRed,
+                                              letterSpacing: 0.5),
                                         ),
-                                      ),
-                                    ],
-                                  ),
-                                ],
+                                        Gap(2),
+                                        Text(
+                                          isCheck.value == true
+                                              ? '₹${data.response.plans[1].plans[2].actualPrice}/-'
+                                              : "₹${data.response.plans[0].plans[2].actualPrice}/-",
+                                          // isCheck.value == true ? 'Rs ${data.plans![0].yearly![2].price}/-' : "Rs ${data.plans![0].lifetime![2].price}/-" ,
+                                          // isCheck.value == true ?
+                                          // 'Rs 6,998/-',
+                                          // :
+                                          // 'Rs 69,998/-',
+                                          style: TextStyle(
+                                            fontWeight: FontWeight.w400,
+                                            color: isSelected.value == 2
+                                                ? white
+                                                : black,
+                                            fontSize: MediaQuery.of(context).size.width < 630 ? 15 : 20,
+                                            letterSpacing: 0.5,
+                                            decoration:
+                                                TextDecoration.lineThrough,
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ],
+                                ),
                               ),
                             ),
-                          ),
-                        ],
-                      ),
-                    ],
+                          ],
+                        ),
+                      ],
+                    ),
                   ),
-                  Gap(30),
+                  Gap(Utils.getHeight(context) * 0.036),
                   Center(
                     child: ListView.builder(
                         shrinkWrap: true,
@@ -870,10 +838,9 @@ class PlansWeb extends HookConsumerWidget {
                   Gap(50),
                   GestureDetector(
                     onTap: () {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => PlanChatBotWeb()));
+
+
+                      navigationService.push(routePlanChatBotWeb);
                     },
                     child: Container(
                       padding:
@@ -927,9 +894,7 @@ class PlansWeb extends HookConsumerWidget {
                     ],
                   ),
                   Gap(40),
-                  CustomWebBottomBar(
-                    bgColor: true,
-                  ),
+                  CustomWebBottomBar(bgColor: true,),
                 ],
               ),
             ),
@@ -950,122 +915,139 @@ CustomWebRow(
   return Column(
     children: [
       Gap(20),
-      Row(
-        children: [
-          SizedBox(
-            width: MediaQuery.of(context).size.width * 0.27,
-          ),
-          Text(planData[0].planModules[index].specialityName,
-              // assetsName![index].category,
-              style: TextStyle(
-                fontSize: 18,
-              )),
-          Gap(10),
-          InkWell(
-            onTap: () {
-              displayDialogWeb(context, data: assetsName![index]);
-            },
-            child: Icon(
-              Icons.info_outline,
-              color: greyFontColor,
-              size: 16,
-            ),
-          )
-        ],
+      Container(
+        width: 700,
+        // color: redFroly,
+        margin: EdgeInsets.symmetric(horizontal: 20),
+        alignment: Alignment.centerLeft,
+        child: Row(
+          // crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            // SizedBox(
+            //   width: MediaQuery.of(context).size.width * 0.27,
+            // ),
+            Text(planData[0].planModules[index].specialityName,
+                // assetsName![index].category,
+                style: TextStyle(
+                  fontSize: 18,
+                )),
+            Gap(10),
+            InkWell(
+              onTap: () {
+                displayDialogWeb(context, data: assetsName![index]);
+              },
+              child: Icon(
+                Icons.info_outline,
+                color: greyFontColor,
+                size: 16,
+              ),
+            )
+          ],
+        ),
       ),
       Gap(10),
-      InkWell(
-        onTap: () {
-          displayDialogWeb(context, data: assetsName![index]);
-        },
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Container(
-              width: MediaQuery.of(context).size.width * 0.13,
-              alignment: Alignment.center,
-              padding: EdgeInsets.symmetric(vertical: 12),
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(3),
-                color: selecetdIndex == 0 ? gradientblue : Colors.white,
-                boxShadow: [
-                  BoxShadow(
-                    color: Colors.grey.shade300,
-                    spreadRadius: 1,
-                    blurRadius: 1,
-                  ),
-                ],
+      Container(
+        width: 700,
+        margin: EdgeInsets.symmetric(horizontal: 20),
+        // color: redFroly,
+        child: InkWell(
+          onTap: () {
+            displayDialogWeb(context, data: assetsName![index]);
+          },
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Container(
+                width: MediaQuery.of(context).size.width < 630 ? 140 :  180 ,
+
+                // width: MediaQuery.of(context).size.width * 0.13,
+                alignment: Alignment.center,
+                padding: EdgeInsets.symmetric(vertical: 12),
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(3),
+                  color: selecetdIndex == 0 ? gradientblue : Colors.white,
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.grey.shade300,
+                      spreadRadius: 1,
+                      blurRadius: 1,
+                    ),
+                  ],
+                ),
+                child: Text(
+                    planData[0].planModules[index].specialityStatus,
+                    style: TextStyle(
+                      fontSize: 20,
+                      color: selecetdIndex == 0
+                          ? green
+                          : planData[0].planModules[index].specialityStatus ==
+                                  "X"
+                              ? jerrygreen
+                              : green,
+                    )),
               ),
-              child: Text(
-                  planData[0].planModules[index].specialityStatus,
-                  style: TextStyle(
-                    fontSize: 20,
-                    color: selecetdIndex == 0
-                        ? green
-                        : planData[0].planModules[index].specialityStatus ==
-                                "X"
-                            ? jerrygreen
-                            : green,
-                  )),
-            ),
-            Gap(56),
-            Container(
-              width: MediaQuery.of(context).size.width * 0.13,
-              alignment: Alignment.center,
-              padding: EdgeInsets.symmetric(vertical: 12),
-              decoration: BoxDecoration(
-                color: selecetdIndex == 1 ? gradientblue : Colors.white,
-                boxShadow: [
-                  BoxShadow(
-                    color: Colors.grey.shade300,
-                    spreadRadius: 1,
-                    blurRadius: 1,
-                  ),
-                ],
+              // Gap(56),
+              Container(
+                width: MediaQuery.of(context).size.width < 630 ? 140 : 180 ,
+                // margin: EdgeInsets.symmetric(horizontal: 30),
+                // width: MediaQuery.of(context).size.width * 0.13,
+                alignment: Alignment.center,
+                padding: EdgeInsets.symmetric(vertical: 12),
+                decoration: BoxDecoration(
+                  color: selecetdIndex == 1 ? gradientblue : Colors.white,
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.grey.shade300,
+                      spreadRadius: 1,
+                      blurRadius: 1,
+                    ),
+                  ],
+                ),
+                child:
+                    Text(planData[1].planModules[index].specialityStatus,
+                        style: TextStyle(
+                          fontSize: 20,
+                          // color: green,
+                          color: selecetdIndex == 1
+                              ? green
+                              : planData[1].planModules[index].specialityStatus ==
+                              "X"
+                              ? jerrygreen
+                              : green,
+                        )),
               ),
-              child:
-                  Text(planData[1].planModules[index].specialityStatus,
-                      style: TextStyle(
-                        fontSize: 20,
-                        // color: green,
-                        color: selecetdIndex == 1
-                            ? green
-                            : planData[1].planModules[index].specialityStatus ==
-                            "X"
-                            ? jerrygreen
-                            : green,
-                      )),
-            ),
-            Gap(56),
-            Container(
-              width: MediaQuery.of(context).size.width * 0.13,
-              alignment: Alignment.center,
-              padding: EdgeInsets.symmetric(vertical: 12),
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(3),
-                color: selecetdIndex == 2 ? gradientblue : Colors.white,
-                boxShadow: [
-                  BoxShadow(
-                    color: Colors.grey.shade300,
-                    spreadRadius: 1,
-                    blurRadius: 1,
-                  ),
-                ],
+              // Gap(56),
+              Container(
+                width: MediaQuery.of(context).size.width < 630 ? 140 : 180   ,
+                // width: MediaQuery.of(context).size.width * 0.13,
+                alignment: Alignment.center,
+                padding: EdgeInsets.symmetric(vertical: 12),
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(3),
+                  color: selecetdIndex == 2 ? gradientblue : Colors.white,
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.grey.shade300,
+                      spreadRadius: 1,
+                      blurRadius: 1,
+                    ),
+                  ],
+                ),
+                child:
+                    Text(planData[2].planModules[index].specialityStatus ,
+                        style: TextStyle(
+                          fontSize: 20,
+                          // color: green,
+                          color: selecetdIndex == 2
+                              ? green
+                              : planData[2].planModules[index].specialityStatus ==
+                              "X"
+                              ? jerrygreen
+                              : green,
+                        )),
               ),
-              child:
-                  Text(planData[2].planModules[index].specialityStatus ,
-                      style: TextStyle(
-                        fontSize: 20,
-                        // color: green,
-                        color: selecetdIndex == 2
-                            ? green
-                            : planData[2].planModules[index].specialityStatus ==
-                            "X"
-                            ? jerrygreen
-                            : green,
-                      )),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     ],
