@@ -25,8 +25,9 @@ import 'package:surakshakadi/widgets/loading.dart';
 import 'package:video_player/video_player.dart';
 
 class DashBoardWeb extends HookConsumerWidget {
-  const DashBoardWeb({Key? key}) : super(key: key);
+   DashBoardWeb({Key? key}) : super(key: key);
 
+  final scaffoldKey = GlobalKey<ScaffoldState>();
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     double spacing = 0;
@@ -49,11 +50,11 @@ class DashBoardWeb extends HookConsumerWidget {
         VideoPlayerController.network("https://player.vimeo.com/external/474244488.sd.mp4?s=19273845afa857f08a67830a2ea84c369996efc2&profile_id=164&oauth2_token_id=57447761"),
       );
       ref.read(stateProvider.notifier).getState(context: context).then((value) {
-        print("Yashu Patel");
+
         if (value!.status == 1) {
-          print("Yashu Patel111111");
+
           for (int i = 0; i < value.response.states.length; i++) {
-            print("Yashu Patel22222");
+
             stateList.add(value.response.states[i].name);
           }
         } else {
@@ -69,7 +70,7 @@ class DashBoardWeb extends HookConsumerWidget {
     SystemChrome.setPreferredOrientations([
       DeviceOrientation.portraitUp,
     ]);
-    final scaffoldKey = GlobalKey<ScaffoldState>();
+
     return dashboardController.when(
         data: (data) {
           return Scaffold(

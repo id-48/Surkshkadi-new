@@ -42,6 +42,21 @@ class RegisterWeb extends HookConsumerWidget {
 
     final cityList = useState<List<String>>([]);
 
+    useEffect(() {
+      ref.read(stateProvider.notifier).getState(context: context).then((value) {
+
+        if (value!.status == 1) {
+
+          for (int i = 0; i < value.response.states.length; i++) {
+
+            stateList.add(value.response.states[i].name);
+          }
+        } else {
+          displayToast("${value.message}");
+        }
+      });
+    },[]);
+
 
 
 
@@ -269,6 +284,7 @@ class RegisterWeb extends HookConsumerWidget {
                                                                 fontWeight:
                                                                     FontWeight
                                                                         .w400,
+                                                                color: black,
                                                                 fontSize: MediaQuery.of(context)
                                                                             .orientation ==
                                                                         Orientation
@@ -347,6 +363,7 @@ class RegisterWeb extends HookConsumerWidget {
                                                                 fontWeight:
                                                                     FontWeight
                                                                         .w400,
+                                                                color: black,
                                                                 fontSize: MediaQuery.of(context)
                                                                             .orientation ==
                                                                         Orientation
@@ -432,6 +449,7 @@ class RegisterWeb extends HookConsumerWidget {
                                                                 fontWeight:
                                                                     FontWeight
                                                                         .w400,
+                                                                color: black,
                                                                 fontSize: MediaQuery.of(context)
                                                                             .orientation ==
                                                                         Orientation
@@ -510,6 +528,7 @@ class RegisterWeb extends HookConsumerWidget {
                                                                 fontWeight:
                                                                     FontWeight
                                                                         .w400,
+                                                                color: black,
                                                                 fontSize: MediaQuery.of(context)
                                                                             .orientation ==
                                                                         Orientation
@@ -595,6 +614,7 @@ class RegisterWeb extends HookConsumerWidget {
                                                                   fontWeight:
                                                                       FontWeight
                                                                           .w400,
+                                                                  color: black,
                                                                   fontSize: MediaQuery.of(context)
                                                                               .orientation ==
                                                                           Orientation
@@ -684,6 +704,7 @@ class RegisterWeb extends HookConsumerWidget {
                                                                 fontWeight:
                                                                     FontWeight
                                                                         .w400,
+                                                                color: black,
                                                                 fontSize: MediaQuery.of(context)
                                                                             .orientation ==
                                                                         Orientation
@@ -801,6 +822,7 @@ class RegisterWeb extends HookConsumerWidget {
                                                                 fontWeight:
                                                                     FontWeight
                                                                         .w400,
+                                                                color: black,
                                                                 fontSize: MediaQuery.of(context)
                                                                             .orientation ==
                                                                         Orientation

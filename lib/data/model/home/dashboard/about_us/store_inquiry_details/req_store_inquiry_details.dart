@@ -1,24 +1,24 @@
 class ReqStoreInquiryDetails {
 
 
-  String? firstName;
-  String? lastName;
-  String? mobile;
-  String? email;
-  String? state;
-  String? city;
-  String? message;
+  String firstName;
+  String lastName;
+  String mobile;
+  String email;
+  String state;
+  String city;
+  String message;
 
   ReqStoreInquiryDetails(
       {
 
-        this.firstName,
-        this.lastName,
-        this.mobile,
-        this.email,
-        this.state,
-        this.city,
-        this.message,
+     required   this.firstName,
+     required   this.lastName,
+     required   this.mobile,
+     required   this.email,
+     required   this.state,
+     required   this.city,
+     required   this.message,
 
       });
 
