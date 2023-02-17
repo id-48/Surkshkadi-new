@@ -21,3 +21,4 @@ const navSelectedPlanCB = "selectedPlanCB";
 const navVideoPictureRV = "videoPictureRV";
 const navVideoRecord = "videoRecord";
 const navVideoBase64 = "videoBase64";
+const navSecurityContent = "securityContent";

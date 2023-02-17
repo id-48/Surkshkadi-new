@@ -7,6 +7,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:responsive_grid/responsive_grid.dart';
 import 'package:surakshakadi/data/model/home/dashboard/state_and_city/city/req_city.dart';
 import 'package:surakshakadi/ui/Screens/dashboard/Components/components.dart';
+import 'package:surakshakadi/ui/Screens/dashboard/dashboard_view_modal.dart';
 import 'package:surakshakadi/ui/Screens/state_and_city_view_modal.dart';
 import 'package:surakshakadi/utils/color_utils.dart';
 import 'package:surakshakadi/utils/constants/app_constant.dart';
@@ -21,6 +22,7 @@ import 'package:surakshakadi/widgets/custom_textfeild.dart';
 import 'package:surakshakadi/widgets/custom_validation.dart';
 import 'package:surakshakadi/widgets/custom_web_bottombar.dart';
 import 'package:surakshakadi/widgets/custome_drawer_web.dart';
+import 'package:surakshakadi/widgets/loading.dart';
 
 class AboutUsWeb extends HookConsumerWidget {
   const AboutUsWeb({Key? key}) : super(key: key);
@@ -42,27 +44,18 @@ class AboutUsWeb extends HookConsumerWidget {
     final isSubmit = useState<bool>(false);
     final isSoon = useState<bool>(false);
 
-    // useEffect(() {
-    //   ref.read(stateProvider.notifier).getState(context: context).then((value) {
-    //     print("Yashu Patel");
-    //     if (value!.status == 1) {
-    //       print("Yashu Patel111111");
-    //       for (int i = 0; i < value.response.states.length; i++) {
-    //         print("Yashu Patel22222");
-    //         stateList.add(value.response.states[i].name);
-    //       }
-    //     } else {
-    //       displayToast("${value.message}");
-    //     }
-    //   });
-    // },[]);
+    useEffect(() {
+      ref.read(dashboardProvider.notifier).getDashboard(context: context);
+    },[]);
 
     final scaffoldKey = GlobalKey<ScaffoldState>();
     final viewAll = useState<bool>(false);
 
+    final faqController = ref.watch(dashboardProvider);
+
 
     return Scaffold(
-      key: scaffoldKey,
+      // key: scaffoldKey,
       drawer: Custome_drawer_web(index: 1, button: true),
       body: SingleChildScrollView(
         scrollDirection: Axis.vertical,
@@ -493,33 +486,44 @@ class AboutUsWeb extends HookConsumerWidget {
                       ),
                       Gap(50),
 
-                      Container(
-                        height: viewAll.value == false ? 340 : 720,
-                        child: ListView.builder(
-                          scrollDirection: Axis.vertical,
-                            // physics: ClampingScrollPhysics(),
-                          itemCount: viewAll.value == false ? 4 : assetsData.response.faqs.length,
-                         itemBuilder: ( context, index){
-                          return Column(
-                            children: [
-                              CustomChildExpandableCard(
-                                padding: EdgeInsets.only(
-                                    left: 16, right: 16, top: 16, bottom: 30),
-                                title: "${assetsData.response.faqs[index].question}",
-                                isExpanded: ValueNotifier(1),
-                                index: 0,
-                                expandedChild: Container(
-                                  padding: EdgeInsets.symmetric(horizontal: 20,vertical: 6),
-                                  // height: 50,
-                                  // color: Colors.lightBlueAccent,
-                                  child: Text("${assetsData.response.faqs[index].answer}",style: TextStyle(fontSize: 18,fontWeight: FontWeight.w400),),
-                                ),
-                              ),
-                              Gap(20),
-                            ],
+                      faqController.when(
+                        data: (data){
+                          return Container(
+                            height: viewAll.value == false ? 340 : 720,
+                            child: ListView.builder(
+                                scrollDirection: Axis.vertical,
+                                // physics: ClampingScrollPhysics(),
+                                itemCount: viewAll.value == false ? 4 : data.response.faqs.length,
+                                itemBuilder: ( context, index){
+                                  return Padding(
+                                    padding: EdgeInsets.symmetric(horizontal: Utils.getWidth(context) < 660 ? 16 : 60),
+                                    child: Column(
+                                      children: [
+                                        CustomChildExpandableCard(
+                                          padding: EdgeInsets.only(
+                                              left: 16, right: 16, top: 16, bottom: 30),
+                                          title: "${data.response.faqs[index].question}",
+                                          isExpanded: ValueNotifier(1),
+                                          index: 0,
+                                          expandedChild: Container(
+                                            padding: EdgeInsets.symmetric(horizontal: 20,vertical: 6),
+                                            // height: 50,
+                                            // color: Colors.lightBlueAccent,
+                                            child: Text("${data.response.faqs[index].answer}",style: TextStyle(fontSize: 18,fontWeight: FontWeight.w400),),
+                                          ),
+                                        ),
+                                        Gap(20),
+                                      ],
+                                    ),
+                                  );
+                                }),
                           );
-                        }),
+                        },
+                          error: (obj, trace) => ErrorWidget(obj),
+                          loading: () => const Loading(),
                       ),
+
+
 
                       /// Api without na data
                       // Padding(

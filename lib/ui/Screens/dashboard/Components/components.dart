@@ -8,6 +8,7 @@ import 'package:responsive_grid/responsive_grid.dart';
 import 'package:surakshakadi/di/locator.dart';
 import 'package:surakshakadi/utils/color_utils.dart';
 import 'package:surakshakadi/utils/constants/navigation_route_constants.dart';
+import 'package:surakshakadi/utils/constants/navigations_key_constant.dart';
 import 'package:surakshakadi/utils/extensions/size_extension.dart';
 import 'package:surakshakadi/utils/image_utils.dart';
 import 'package:surakshakadi/utils/strings.dart';
@@ -733,7 +734,7 @@ class Disclaimers extends HookWidget {
                                   letterSpacing: 0.2)),
                           InkWell(
                             onTap: (){
-
+                              navigationService.push(routeAboutUsWeb);
                             },
                             child: Text(
                               " " + faq + " ",
@@ -752,7 +753,10 @@ class Disclaimers extends HookWidget {
                                   fontSize: 18,
                                   letterSpacing: 0.2)),
                           InkWell(
-                            onTap: (){},
+                            onTap: (){
+                              navigationService.push(routeLegalAll,arguments: {navSecurityContent: "terms_conditions"});
+
+                            },
                             child: Text(
                                 termsAndConditions,
                                 style: TextStyle(

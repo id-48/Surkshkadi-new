@@ -31,16 +31,16 @@ class ResSecurityContent {
 
 class Response {
   Response({
-    required this.termsConditions,
+    required this.content,
   });
 
-  String termsConditions;
+  String content;
 
   factory Response.fromJson(Map<String, dynamic> json) => Response(
-    termsConditions: json["terms_conditions"],
+    content: json["content"],
   );
 
   Map<String, dynamic> toJson() => {
-    "terms_conditions": termsConditions,
+    "content": content,
   };
 }

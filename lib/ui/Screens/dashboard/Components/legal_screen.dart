@@ -5,9 +5,12 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:surakshakadi/data/model/home/dashboard/security_content/req_security_content.dart';
 import 'package:surakshakadi/data/model/home/dashboard/security_content/res_security_content.dart';
 import 'package:surakshakadi/ui/Screens/dashboard/security_content_view_model.dart';
+import 'package:surakshakadi/utils/color_utils.dart';
+import 'package:surakshakadi/utils/strings.dart';
 
 class LegalAll extends HookConsumerWidget {
-  const LegalAll({Key? key}) : super(key: key);
+  final String securityContent;
+  const LegalAll({Key? key,required this.securityContent}) : super(key: key);
 
   @override
   Widget build(BuildContext context,WidgetRef ref) {
@@ -17,23 +20,24 @@ class LegalAll extends HookConsumerWidget {
 
     useEffect(()   {
 
-      ReqSecurityContent data = ReqSecurityContent(contentType: 'terms_conditions');
+      ReqSecurityContent data = ReqSecurityContent(contentType: securityContent);
 
       ref.read(securityContentProvider.notifier).getSecurityContent(context: context, data: data ).then((value) {
           if(value?.status == 1){
             // print("datata --->>> ${value?.response.termsConditions}");
-            dataHTML.value = "${value?.response.termsConditions}" ;
+            dataHTML.value = "${value?.response.content}" ;
           }
       } );;
     },[]);
 
-    final securityContentController = ref.watch(securityContentProvider);
+    // final securityContentController = ref.watch(securityContentProvider);
 
 
     return Scaffold(
       appBar: AppBar(
-        title: Text('flutter_html Example',style: TextStyle(color: Colors.black),),
+        title: Text( securityContent == "terms_conditions" ? termsConditions : securityContent == "privacy_policies" ? privacyPolicy : disclaimers,style: TextStyle(color: white),),
         centerTitle: true,
+        backgroundColor: blue,
       ),
       body: SingleChildScrollView(
         // child: Html(

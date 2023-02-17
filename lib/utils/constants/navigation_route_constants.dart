@@ -50,6 +50,7 @@ const String routePersonal = "/routePersonal";
 const String routePersonalVehicle = "/routePersonalVehicle";
 const String routeUtilityElectricity = "/routeUtilityElectricity";
 const String routeUtility = "/routeUtility";
+const String routeLegalAll = "/routeLegalAll";
 
 
 

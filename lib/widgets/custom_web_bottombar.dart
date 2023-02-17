@@ -5,6 +5,7 @@ import 'package:responsive_grid/responsive_grid.dart';
 import 'package:surakshakadi/di/locator.dart';
 import 'package:surakshakadi/utils/color_utils.dart';
 import 'package:surakshakadi/utils/constants/navigation_route_constants.dart';
+import 'package:surakshakadi/utils/constants/navigations_key_constant.dart';
 import 'package:surakshakadi/utils/image_utils.dart';
 import 'package:surakshakadi/utils/strings.dart';
 import 'package:surakshakadi/utils/utils.dart';
@@ -303,8 +304,7 @@ class CustomWebBottomBar extends HookWidget {
 
                       GestureDetector(
                         onTap: (){
-
-                          // _launchURL("https://blog.logrocket.com");
+                          navigationService.push(routeLegalAll,arguments: {navSecurityContent: "terms_conditions"});
                         },
                         child: Text(
                           termsConditions,
@@ -315,6 +315,7 @@ class CustomWebBottomBar extends HookWidget {
                       Gap(7),
                       InkWell(
                         onTap: (){
+                          navigationService.push(routeLegalAll,arguments: {navSecurityContent: "privacy_policies"});
 
                         },
                         child: Text(
@@ -326,6 +327,7 @@ class CustomWebBottomBar extends HookWidget {
                       Gap(7),
                       InkWell(
                         onTap: (){
+                          navigationService.push(routeLegalAll,arguments: {navSecurityContent: "disclaimers"});
 
                         },
                         child: Text(

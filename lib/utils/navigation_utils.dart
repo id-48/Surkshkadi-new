@@ -45,6 +45,7 @@ import 'package:surakshakadi/ui/Screens/dashboard/Components/add_information_scr
 import 'package:surakshakadi/ui/Screens/dashboard/Components/add_information_web_screen.dart';
 import 'package:surakshakadi/ui/Screens/dashboard/Components/choose_assets_mobile_screen.dart';
 import 'package:surakshakadi/ui/Screens/dashboard/Components/choose_assets_web_screen.dart';
+import 'package:surakshakadi/ui/Screens/dashboard/Components/legal_screen.dart';
 import 'package:surakshakadi/ui/Screens/dashboard/dashboard_web_screen.dart';
 import 'package:surakshakadi/ui/Screens/record_video_screen/record_a_video_screen.dart';
 import 'package:surakshakadi/ui/Screens/will_review_screen/will_review_screen.dart';
@@ -343,10 +344,16 @@ class NavigationUtils {
         return CustomRoute(
             settings: const RouteSettings(name: routeAdminDashboard),
             builder: (_) => AdminDashboard());
+
       case routeAdminWebClient:
         return CustomRoute(
             settings: const RouteSettings(name: routeAdminWebClient),
             builder: (_) => AdminWebClients());
+
+      case routeLegalAll:
+        return CustomRoute(
+            settings: const RouteSettings(name: routeLegalAll),
+            builder: (_) => LegalAll(securityContent: args?[navSecurityContent]));
 
       default:
         return _errorRoute(" Unimplemented...");
