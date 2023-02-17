@@ -1030,8 +1030,7 @@ class RegisterWeb extends HookConsumerWidget {
 
 
                                               ReqStoreCPDetails StoreCPDetailsData = ReqStoreCPDetails(
-                                                userId: "3",
-                                                // userId: "${getString(prefUserID)}",
+                                                userId: "${getString(prefCPUserID)}",
                                                 partnerType: individualCheck.value? "Individual" : "Company",
                                                 companyName: individualCheck.value ? "" : companyNameController.text,
                                                 firstName: firstNameController.text,
@@ -1042,17 +1041,12 @@ class RegisterWeb extends HookConsumerWidget {
                                                 city: cityy.value,
                                               );
 
-                                              print('yashu patel------>>>>>> individual ');
-
                                               await ref.read(
                                                   storeCPDetailsProvider.notifier)
                                                   .storeCPDetails(context: context,
                                                   data: StoreCPDetailsData)
                                                   .then((value) {
-                                                print('yashu patel------>>>>>> individual 111111');
-                                                print('yashu patel------>>>>>> individual status 111111 ${value?.status} ');
-                                                if (value!.status == 1) {
-                                                  print("Yashu Patel");
+                                               if (value!.status == 1) {
                                                   displayToast(value.message);
                                                   navigationService.push(routeStartPartnerWithWeb);
                                                   eKYC.value = true;

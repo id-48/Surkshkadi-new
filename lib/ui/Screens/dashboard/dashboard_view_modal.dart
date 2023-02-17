@@ -37,6 +37,8 @@ class DashboardViewModel extends StateNotifier<AsyncValue<ResDashboard>> {
     final result = await repositery.getSingleUserAssets(data);
     return result.when(
         success: (result) async {
+          hideLoadingDialog(context: context);
+
           // displayToast(result.message.toString());
           //
           // navigationService.push(routeConfirmationSpecific);
@@ -44,6 +46,9 @@ class DashboardViewModel extends StateNotifier<AsyncValue<ResDashboard>> {
 
           return result;
         },
-        failure: (error) {});
+        failure: (error) {
+          hideLoadingDialog(context: context);
+
+        });
   }
 }

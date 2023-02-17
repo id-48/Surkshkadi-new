@@ -895,7 +895,7 @@ class AboutUsWeb extends HookConsumerWidget {
                                                   items: stateList,
                                                   // items: selectStateCity[0]
                                                   // ["dataList"],
-                                                  hint:  statee.value ?? '',
+                                                  hint:  statee.value,
                                                   borderCon: BorderSide(
                                                     width: 1.0,
                                                     color: Color(0xFF9FB9ED),
@@ -945,7 +945,7 @@ class AboutUsWeb extends HookConsumerWidget {
                                                   items: cityList.value,
                                                   // items: selectStateCity[1]
                                                   // ["dataList"],
-                                                  hint: cityy.value ?? '',
+                                                  hint: cityy.value,
                                                   borderCon: BorderSide(
                                                     width: 1.0,
                                                     color: Color(0xFF9FB9ED),

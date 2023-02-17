@@ -32,13 +32,12 @@ class SendAccountVerificationViewModel extends StateNotifier<AsyncValue<ResSendA
     return result.when(
         success: (result) async {
           hideLoadingDialog(context: context);
-          // displayToast(result.message.toString());
-          //
-          // navigationService.push(routeConfirmationSpecific);
-          // // navigationService.push(routeAddInformationScreen,arguments: {navAISpecificAssets: "SpecificAssets"});
 
           return result;
         },
-        failure: (error) {});
+        failure: (error) {
+          hideLoadingDialog(context: context);
+
+        });
   }
 }

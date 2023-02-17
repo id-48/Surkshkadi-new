@@ -325,7 +325,18 @@ class PartnerWithWeb extends HookConsumerWidget {
 
                               loginType.value == true
                             ?  navigationService.pushAndRemoveUntil(routeDashboardWeb)
+
                             :  navigationService.pushAndRemoveUntil(routeRegisterWeb);
+
+                              if(loginType.value == true){
+                                navigationService.pushAndRemoveUntil(routeDashboardWeb);
+                              }else{
+                                if(value?.response.isCompleted == "Completed"){
+                                  navigationService.push(routeStartPartnerWithWeb);
+                                }else{
+                                  navigationService.pushAndRemoveUntil(routeRegisterWeb);
+                                }
+                              }
 
                             }else{
                               displayToast("${value?.message}");
