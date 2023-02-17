@@ -13,6 +13,7 @@ import 'package:surakshakadi/repository/security_content_repository.dart';
 import 'package:surakshakadi/repository/share_application_links.dart';
 import 'package:surakshakadi/utils/constants/app_constant.dart';
 import 'package:surakshakadi/utils/constants/loading_dialog.dart';
+import 'package:surakshakadi/utils/dialog_utils.dart';
 
 
 final shareApplicationLinksProvider = StateNotifierProvider.autoDispose<ShareApplicationLinksViewModel,
@@ -39,6 +40,9 @@ class ShareApplicationLinksViewModel extends StateNotifier<AsyncValue<ResShareAp
 
           return result;
         },
-        failure: (error) {});
+        failure: (error) {
+          hideLoadingDialog(context: context);
+          displayToast(error.message);
+        });
   }
 }

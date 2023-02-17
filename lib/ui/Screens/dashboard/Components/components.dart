@@ -5,10 +5,13 @@ import 'package:gap/gap.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:responsive_grid/responsive_grid.dart';
+import 'package:surakshakadi/data/model/home/dashboard/share_application_links/req_share_application_links.dart';
 import 'package:surakshakadi/di/locator.dart';
+import 'package:surakshakadi/ui/Screens/dashboard/share_application_links_view_model.dart';
 import 'package:surakshakadi/utils/color_utils.dart';
 import 'package:surakshakadi/utils/constants/navigation_route_constants.dart';
 import 'package:surakshakadi/utils/constants/navigations_key_constant.dart';
+import 'package:surakshakadi/utils/dialog_utils.dart';
 import 'package:surakshakadi/utils/extensions/size_extension.dart';
 import 'package:surakshakadi/utils/image_utils.dart';
 import 'package:surakshakadi/utils/strings.dart';
@@ -191,7 +194,7 @@ class AppSurakshakadi extends HookConsumerWidget {
                     Row(
                       children: [
                         Container(
-                          padding: EdgeInsets.only(left: 6),
+                          // padding: EdgeInsets.only(left: 6),
                           margin: EdgeInsets.only(left: 6),
                           decoration: BoxDecoration(
                             color: white,
@@ -200,6 +203,7 @@ class AppSurakshakadi extends HookConsumerWidget {
                           ),
                           width: MediaQuery.of(context).size.width * 0.24,
                           child: CustomTextfeild(
+                            contentPadding: EdgeInsets.only(left: 6),
                             textCapitalization: TextCapitalization.none,
                             controller: email.value == true
                                 ? emailController
@@ -207,6 +211,7 @@ class AppSurakshakadi extends HookConsumerWidget {
                             blurRadius: 0,
                             offset: Offset(0.0, 0.0),
                             containercolor: white,
+                            maxLength: email.value == true ? 50 : 10,
                             borderRadius: BorderRadius.circular(6),
                             hinttext: email.value == true ? emaill : phonee,
                             textInputType: email.value != true
@@ -216,6 +221,68 @@ class AppSurakshakadi extends HookConsumerWidget {
                         ),
                         Gap(20),
                         InkWell(
+                          onTap: () async {
+                            if (email.value == true) {
+                              if (emailController.text.isNotEmpty) {
+                                ReqShareApplicationLinks shareAppData = ReqShareApplicationLinks(
+                                   email: emailController.text,
+                                   mobile: "",
+                                   sharingPlatform: "Email",
+                                );
+
+                                await ref.read(shareApplicationLinksProvider.notifier)
+                                    .getShareApplicationLinks(context: context,data: shareAppData)
+                                    .then((value) {
+                                      if(value?.status == 1){
+
+                                        emailController.clear();
+                                        phoneController.clear();
+                                        displayToast("${value?.message}");
+
+                                      }else{
+                                        displayToast("${value?.message}");
+
+                                      }
+                                });
+
+                              } else {
+                                displayToast("Please Enter Your Email");
+                              }
+                            } else {
+
+                              if (phoneController.text.isNotEmpty) {
+                                if(phoneController.text.length == 10){
+
+                                ReqShareApplicationLinks shareAppData = ReqShareApplicationLinks(
+                                  email: "",
+                                  mobile: phoneController.text,
+                                  sharingPlatform: "SMS",
+                                );
+
+                                await ref.read(shareApplicationLinksProvider.notifier)
+                                    .getShareApplicationLinks(context: context,data: shareAppData)
+                                    .then((value) {
+                                  if(value?.status == 1){
+
+                                    emailController.clear();
+                                    phoneController.clear();
+                                    displayToast("${value?.message}");
+
+                                  }else{
+                                    displayToast("${value?.message}");
+
+                                  }
+                                });
+
+                                } else {
+                                  displayToast("Please Enter 10 Digit No.");
+                                }
+                              } else {
+                                displayToast("Please Enter Your Mobile No.");
+                              }
+
+                            }
+                          },
                           child: Container(
                             padding: EdgeInsets.symmetric(
                                 vertical: 14, horizontal: 10),
@@ -548,7 +615,6 @@ class LinkingLoved extends HookWidget {
                             fontWeight: FontWeight.w400,
                             color: white),
                       ),
-
                     ],
                   )),
               ResponsiveGridCol(
@@ -605,10 +671,8 @@ class GiveBackTo extends HookWidget {
             // Gap(30),
             Container(
               height: Utils.getHeight(context) * 0.60,
-
               width: Utils.getWidth(context),
               color: indigo,
-
             ),
           ],
         ),
@@ -682,7 +746,7 @@ class GiveBackTo extends HookWidget {
 }
 
 class Disclaimers extends HookWidget {
-  const   Disclaimers({Key? key}) : super(key: key);
+  const Disclaimers({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -720,54 +784,49 @@ class Disclaimers extends HookWidget {
                           fontWeight: FontWeight.w300,
                           color: indigo),
                     ),
-
                     Gap(16),
-
                     Row(
-                        children:  [
-                          Text(
-                              forMoreInformation,
-                              style: TextStyle(
-                                  fontWeight: FontWeight.w300,
-                                  color: indigo,
-                                  fontSize: 18,
-                                  letterSpacing: 0.2)),
-                          InkWell(
-                            onTap: (){
-                              navigationService.push(routeAboutUsWeb);
-                            },
-                            child: Text(
-                              " " + faq + " ",
+                      children: [
+                        Text(forMoreInformation,
+                            style: TextStyle(
+                                fontWeight: FontWeight.w300,
+                                color: indigo,
+                                fontSize: 18,
+                                letterSpacing: 0.2)),
+                        InkWell(
+                          onTap: () {
+                            navigationService.push(routeAboutUsWeb);
+                          },
+                          child: Text(
+                            " " + faq + " ",
+                            style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                color: indigo,
+                                fontSize: 18,
+                                letterSpacing: 0.2),
+                          ),
+                        ),
+                        Text(and + " ",
+                            style: TextStyle(
+                                fontWeight: FontWeight.w300,
+                                color: indigo,
+                                fontSize: 18,
+                                letterSpacing: 0.2)),
+                        InkWell(
+                          onTap: () {
+                            navigationService.push(routeLegalAll, arguments: {
+                              navSecurityContent: "terms_conditions"
+                            });
+                          },
+                          child: Text(termsAndConditions,
                               style: TextStyle(
                                   fontWeight: FontWeight.bold,
                                   color: indigo,
                                   fontSize: 18,
-                                  letterSpacing: 0.2),
-                            ),
-                          ),
-                          Text(
-                               and + " ",
-                              style: TextStyle(
-                                  fontWeight: FontWeight.w300,
-                                  color: indigo,
-                                  fontSize: 18,
                                   letterSpacing: 0.2)),
-                          InkWell(
-                            onTap: (){
-                              navigationService.push(routeLegalAll,arguments: {navSecurityContent: "terms_conditions"});
-
-                            },
-                            child: Text(
-                                termsAndConditions,
-                                style: TextStyle(
-                                    fontWeight: FontWeight.bold,
-                                    color: indigo,
-                                    fontSize: 18,
-                                    letterSpacing: 0.2)),
-                          ),
-                        ],
-                      ),
-
+                        ),
+                      ],
+                    ),
                   ],
                 )),
           ],
@@ -827,8 +886,7 @@ class _YoutubeVideoPlayerState extends State<YoutubeVideoPlayer> {
   @override
   void initState() {
     super.initState();
-    _controller = VideoPlayerController.network(
-        "${widget.videoUrl}"
+    _controller = VideoPlayerController.network("${widget.videoUrl}"
         // 'https://youtu.be/MvtPLoxf8SY'
         // 'https://flutter.github.io/assets-for-api-docs/assets/videos/bee.mp4'
         // "https://pagalsong.in/uploads/systemuploads/video/Simmba/Tere%20Bin%20-%20Simmba.mp4"
@@ -848,7 +906,6 @@ class _YoutubeVideoPlayerState extends State<YoutubeVideoPlayer> {
 
   @override
   Widget build(BuildContext context) {
-
     return Scaffold(
       body: Container(
         child: Stack(
@@ -861,10 +918,10 @@ class _YoutubeVideoPlayerState extends State<YoutubeVideoPlayer> {
               },
               // child: AspectRatio(
               //   aspectRatio: _controller.value.aspectRatio,
-                child: Container(
+              child: Container(
                   height: double.infinity,
-                    width: double.infinity,
-                    child: VideoPlayer(_controller)),
+                  width: double.infinity,
+                  child: VideoPlayer(_controller)),
               // ),
             ),
             if (context.isWeb) ...[
@@ -951,7 +1008,9 @@ customWidget(
   return Container(
     height: 250,
     // height: MediaQuery.of(context).size.height * 0.45,
-    width:  boxChange == true ? MediaQuery.of(context).size.width * 0.120 : MediaQuery.of(context).size.width * 0.160,
+    width: boxChange == true
+        ? MediaQuery.of(context).size.width * 0.120
+        : MediaQuery.of(context).size.width * 0.160,
     decoration: BoxDecoration(
       color: white,
       borderRadius: BorderRadius.circular(10),
@@ -1010,8 +1069,8 @@ customWidget(
                       Gap(6),
                       Text(description,
                           style: TextStyle(
-                              fontSize: 15,
-                              fontWeight: FontWeight.w200,
+                            fontSize: 15,
+                            fontWeight: FontWeight.w200,
                           ),
                           textAlign: TextAlign.center),
                     ],
@@ -1041,16 +1100,14 @@ customWidget(
   );
 }
 
-
 /// video plaer controls
 class VideoControl extends StatefulWidget {
-  const VideoControl(
-      {Key? key,
-        this.iconSize = 20,
-        this.fontSize = 12,
-        this.progressBarSettings,
-      })
-      : super(key: key);
+  const VideoControl({
+    Key? key,
+    this.iconSize = 20,
+    this.fontSize = 12,
+    this.progressBarSettings,
+  }) : super(key: key);
 
   final double iconSize;
 
@@ -1058,15 +1115,12 @@ class VideoControl extends StatefulWidget {
 
   final FlickProgressBarSettings? progressBarSettings;
 
-
-
   @override
   State<VideoControl> createState() => _VideoControlState();
 }
 
 class _VideoControlState extends State<VideoControl> {
-
-   bool demo = false;
+  bool demo = false;
 
   @override
   Widget build(BuildContext context) {
@@ -1080,7 +1134,6 @@ class _VideoControlState extends State<VideoControl> {
             right: 0,
             top: 0,
             child: Container(
-
               alignment: Alignment.center,
               padding: EdgeInsets.only(
                 top: 20,
@@ -1179,7 +1232,8 @@ class _VideoControlState extends State<VideoControl> {
                                 child: Text(
                                   ' / ',
                                   style: TextStyle(
-                                      color: Colors.white, fontSize: widget.fontSize),
+                                      color: Colors.white,
+                                      fontSize: widget.fontSize),
                                 ),
                               ),
                               FlickTotalDuration(
@@ -1219,7 +1273,6 @@ class _VideoControlState extends State<VideoControl> {
                             //   setState((){});
                             //
                             // },
-
                           ),
                         ],
                       ),
