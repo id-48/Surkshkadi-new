@@ -1,3 +1,4 @@
+import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flick_video_player/flick_video_player.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
@@ -224,63 +225,60 @@ class AppSurakshakadi extends HookConsumerWidget {
                           onTap: () async {
                             if (email.value == true) {
                               if (emailController.text.isNotEmpty) {
-                                ReqShareApplicationLinks shareAppData = ReqShareApplicationLinks(
-                                   email: emailController.text,
-                                   mobile: "",
-                                   sharingPlatform: "Email",
+                                ReqShareApplicationLinks shareAppData =
+                                    ReqShareApplicationLinks(
+                                  email: emailController.text,
+                                  mobile: "",
+                                  sharingPlatform: "Email",
                                 );
 
-                                await ref.read(shareApplicationLinksProvider.notifier)
-                                    .getShareApplicationLinks(context: context,data: shareAppData)
+                                await ref
+                                    .read(
+                                        shareApplicationLinksProvider.notifier)
+                                    .getShareApplicationLinks(
+                                        context: context, data: shareAppData)
                                     .then((value) {
-                                      if(value?.status == 1){
-
-                                        emailController.clear();
-                                        phoneController.clear();
-                                        displayToast("${value?.message}");
-
-                                      }else{
-                                        displayToast("${value?.message}");
-
-                                      }
+                                  if (value?.status == 1) {
+                                    emailController.clear();
+                                    phoneController.clear();
+                                    displayToast("${value?.message}");
+                                  } else {
+                                    displayToast("${value?.message}");
+                                  }
                                 });
-
                               } else {
                                 displayToast("Please Enter Your Email");
                               }
                             } else {
-
                               if (phoneController.text.isNotEmpty) {
-                                if(phoneController.text.length == 10){
+                                if (phoneController.text.length == 10) {
+                                  ReqShareApplicationLinks shareAppData =
+                                      ReqShareApplicationLinks(
+                                    email: "",
+                                    mobile: phoneController.text,
+                                    sharingPlatform: "SMS",
+                                  );
 
-                                ReqShareApplicationLinks shareAppData = ReqShareApplicationLinks(
-                                  email: "",
-                                  mobile: phoneController.text,
-                                  sharingPlatform: "SMS",
-                                );
-
-                                await ref.read(shareApplicationLinksProvider.notifier)
-                                    .getShareApplicationLinks(context: context,data: shareAppData)
-                                    .then((value) {
-                                  if(value?.status == 1){
-
-                                    emailController.clear();
-                                    phoneController.clear();
-                                    displayToast("${value?.message}");
-
-                                  }else{
-                                    displayToast("${value?.message}");
-
-                                  }
-                                });
-
+                                  await ref
+                                      .read(shareApplicationLinksProvider
+                                          .notifier)
+                                      .getShareApplicationLinks(
+                                          context: context, data: shareAppData)
+                                      .then((value) {
+                                    if (value?.status == 1) {
+                                      emailController.clear();
+                                      phoneController.clear();
+                                      displayToast("${value?.message}");
+                                    } else {
+                                      displayToast("${value?.message}");
+                                    }
+                                  });
                                 } else {
                                   displayToast("Please Enter 10 Digit No.");
                                 }
                               } else {
                                 displayToast("Please Enter Your Mobile No.");
                               }
-
                             }
                           },
                           child: Container(
@@ -565,89 +563,141 @@ class LinkingLoved extends HookWidget {
 
   @override
   Widget build(BuildContext context) {
-    print("test    ----->${MediaQuery.of(context).size.width}");
 
-    return Stack(
+    List<Widget> indicators(Length, currentIndex) {
+      return List<Widget>.generate(Length, (index) {
+        return Container(
+          margin: EdgeInsets.only(left: 6,right: 6),
+          width: 10,
+          height: 10,
+          decoration: BoxDecoration(
+              color: currentIndex == index ? webPreparation : whiteindigo,
+              shape: BoxShape.circle),
+        );
+      });
+    }
+
+    CarouselController buttonCarouselController = CarouselController();
+
+    final dashTopData = useState<int>(0);
+
+    print("entre your --->>>>  ${Utils.getWidth(context)}");
+
+    return Column(
       children: [
-        Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
+        Stack(
           children: [
-            Gap(300),
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Gap(300),
 
-            // Gap(30),
-            Container(
-              height: Utils.getHeight(context) * 0.53,
-              // height: 400,
-              width: Utils.getWidth(context),
-              color: indigo,
-            ),
-          ],
-        ),
-        Positioned(
-          // bottom: 80,
-          // right: 50,
-          child: ResponsiveGridRow(
-            children: [
-              // Gap(100),
-              ResponsiveGridCol(lg: 1, md: 1, child: Container()),
-              ResponsiveGridCol(
-                  lg: Utils.getWidth(context) < 1250 ? 9 : 5,
-                  md: 10,
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Gap(60),
-                      Text(
-                        linkingYouAnd,
-                        style: GoogleFonts.bonaNova(
-                          textStyle: TextStyle(
-                              fontSize: 53,
-                              fontWeight: FontWeight.w700,
-                              letterSpacing: 3,
-                              wordSpacing: 1),
-                        ),
-                      ),
-                      Gap(180),
-                      Text(
-                        weAreHereToHelp,
-                        style: TextStyle(
-                            fontSize: 22,
-                            fontWeight: FontWeight.w400,
-                            color: white),
-                      ),
-                    ],
-                  )),
-              ResponsiveGridCol(
-                  lg: Utils.getWidth(context) < 1250 ? 2 : 0,
-                  md: 1,
-                  child: Gap(50)),
-              ResponsiveGridCol(
-                  lg: Utils.getWidth(context) < 1250 ? 1 : 0,
-                  md: 1,
-                  child: Container()),
-
-              ResponsiveGridCol(
-                lg: Utils.getWidth(context) < 1250 ? 10 : 6,
-                md: 11,
-                child: Container(
-                  margin: EdgeInsets.only(bottom: 40),
-
-                  height: Utils.getHeight(context) * 0.8,
-                  width: Utils.getWidth(context) * 0.54,
-                  // color: black,
-                  child: Image.asset(
-                    webDashBanner,
-                    scale: 4,
-                    fit: BoxFit.fill,
-                  ),
+                // Gap(30),
+                Container(
+                  height: Utils.getHeight(context) * 0.53,
+                  // height: 400,
+                  width: Utils.getWidth(context),
+                  color: indigo,
                 ),
+              ],
+            ),
+            Positioned(
+                // bottom: 80,
+                // right: 50,
+                child: Column(
+                  children: [
+                    CarouselSlider.builder(
+                      itemCount: 4,
+                      itemBuilder:
+                      (BuildContext context, int itemIndex, int pageViewIndex) {
+                    return ResponsiveGridRow(
+                      children: [
+                        // Gap(100),
+                        ResponsiveGridCol(lg: 1, md: 1, child: Container()),
+                        ResponsiveGridCol(
+                            lg: Utils.getWidth(context) < 1250 ? 9 : 5,
+                            md: 10,
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Gap(60),
+                                Text(
+                                  linkingYouAnd,
+                                  style: GoogleFonts.bonaNova(
+                                    textStyle: TextStyle(
+                                        fontSize: 53,
+                                        fontWeight: FontWeight.w700,
+                                        letterSpacing: 3,
+                                        wordSpacing: 1),
+                                  ),
+                                ),
+                                Gap(180),
+                                Text(
+                                  weAreHereToHelp,
+                                  style: TextStyle(
+                                      fontSize: 22,
+                                      fontWeight: FontWeight.w400,
+                                      color: white),
+                                ),
+                              ],
+                            )),
+                        ResponsiveGridCol(
+                            lg: Utils.getWidth(context) < 1250 ? 2 : 0,
+                            md: 1,
+                            child: Gap(50)),
+                        ResponsiveGridCol(
+                            lg: Utils.getWidth(context) < 1250 ? 1 : 0,
+                            md: 1,
+                            child: Container()),
+
+                        ResponsiveGridCol(
+                          lg: Utils.getWidth(context) < 1250 ? 10 : 6,
+                          md: 11,
+                          child: Container(
+                            margin: EdgeInsets.only(bottom: 40),
+
+                            height: Utils.getHeight(context) * 0.8,
+                            width: Utils.getWidth(context) * 0.54,
+                            // color: black,
+                            child: Image.asset(
+                              webDashBanner,
+                              scale: 4,
+                              fit: BoxFit.fill,
+                            ),
+                          ),
+                        ),
+
+                        ResponsiveGridCol(lg: 0, md: 0, child: Gap(50)),
+                        // Gap(40),
+                      ],
+                    );
+              },
+              options: CarouselOptions(
+                    autoPlay: true,
+                    autoPlayAnimationDuration: Duration(milliseconds: 1500),
+                    enlargeCenterPage: true,
+                    viewportFraction: 1,
+                    aspectRatio: Utils.getWidth(context) < 660 ?  0.42 : Utils.getWidth(context) < 930 ? 0.65 : Utils.getWidth(context) < 1250   ? 0.96 : Utils.getWidth(context) < 1530 ? 1.9 : Utils.getWidth(context) < 1650 ? 2.1 : Utils.getWidth(context) < 1800 ? 2.28 : 2.4,
+                    initialPage: 1,
+                    onPageChanged: (index, items) {
+                      dashTopData.value = index;
+                    },
               ),
 
-              ResponsiveGridCol(lg: 0, md: 0, child: Gap(50)),
-              // Gap(40),
-            ],
-          ),
+            ),
+
+                    // Gap(10),
+
+                    Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: indicators(4, dashTopData.value)),
+
+                  ],
+                )),
+          ],
         ),
+
+
       ],
     );
   }
@@ -873,6 +923,7 @@ class Disclaimers extends HookWidget {
 
 class YoutubeVideoPlayer extends StatefulWidget {
   final String videoUrl;
+
   const YoutubeVideoPlayer({Key? key, required this.videoUrl})
       : super(key: key);
 
