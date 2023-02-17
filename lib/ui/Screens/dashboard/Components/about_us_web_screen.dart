@@ -5,6 +5,7 @@ import 'package:gap/gap.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:responsive_grid/responsive_grid.dart';
+import 'package:surakshakadi/data/model/home/dashboard/about_us/store_inquiry_details/req_store_inquiry_details.dart';
 import 'package:surakshakadi/data/model/home/dashboard/state_and_city/city/req_city.dart';
 import 'package:surakshakadi/ui/Screens/dashboard/Components/components.dart';
 import 'package:surakshakadi/ui/Screens/dashboard/dashboard_view_modal.dart';
@@ -24,19 +25,22 @@ import 'package:surakshakadi/widgets/custom_web_bottombar.dart';
 import 'package:surakshakadi/widgets/custome_drawer_web.dart';
 import 'package:surakshakadi/widgets/loading.dart';
 
+import '../../../../repository/store_inquiry_details_repository.dart';
+import '../store_inquiry_details_view_model.dart';
+
 class AboutUsWeb extends HookConsumerWidget {
-  const AboutUsWeb({Key? key}) : super(key: key);
+   AboutUsWeb({Key? key}) : super(key: key);
+
+  final scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final formkey = GlobalKey<FormState>();
-    TextEditingController firstNameController = TextEditingController();
-    TextEditingController lastNameController = TextEditingController();
-    TextEditingController mobilenoController = TextEditingController();
-    TextEditingController emailController = TextEditingController();
-    // TextEditingController cityController = TextEditingController();
-    // TextEditingController stateController = TextEditingController();
-    TextEditingController addressController = TextEditingController();
+    final firstNameController = useTextEditingController();
+    final lastNameController = useTextEditingController();
+    final mobilenoController = useTextEditingController();
+    final emailController = useTextEditingController();
+    final shareDetailMsgController = useTextEditingController();
     final statee = useState<String>('');
     final cityy = useState<String>('');
     final cityList = useState<List<String>>([]);
@@ -46,16 +50,28 @@ class AboutUsWeb extends HookConsumerWidget {
 
     useEffect(() {
       ref.read(dashboardProvider.notifier).getDashboard(context: context);
+      ref.read(stateProvider.notifier).getState(context: context).then((value) {
+
+        if (value!.status == 1) {
+
+          for (int i = 0; i < value.response.states.length; i++) {
+
+            stateList.add(value.response.states[i].name);
+          }
+        } else {
+          displayToast("${value.message}");
+        }
+      });
     },[]);
 
-    final scaffoldKey = GlobalKey<ScaffoldState>();
+
     final viewAll = useState<bool>(false);
 
     final faqController = ref.watch(dashboardProvider);
 
 
     return Scaffold(
-      // key: scaffoldKey,
+      key: scaffoldKey,
       drawer: Custome_drawer_web(index: 1, button: true),
       body: SingleChildScrollView(
         scrollDirection: Axis.vertical,
@@ -708,261 +724,325 @@ class AboutUsWeb extends HookConsumerWidget {
                                   color: Color(0xFFEBF0FC),
                                 ),
                               ),
-                              child: Form(
-                                key: formkey,
-                                child: Padding(
-                                  padding: EdgeInsets.all(20),
-                                  child: Column(
-                                    children: [
+                              child: Padding(
+                                padding: EdgeInsets.all(20),
+                                child: Column(
+                                  children: [
 
-                                      Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceBetween,
-                                        children: [
-                                          Expanded(
-                                            flex: 1,
-                                            child: customeFormTextField(
-                                              context: context,
-                                              name: "First Name*",
-                                              maxLines: 1,
-                                              controller: firstNameController,
-                                              keyboardType: TextInputType.name,
-                                              validation: validateName,
-                                            ),
-                                          ),
-                                          Gap(10),
-                                          Expanded(
-                                            flex: 1,
-                                            child: customeFormTextField(
-                                              context: context,
-                                              name: "Last Name*",
-                                              maxLines: 1,
-                                              controller: lastNameController,
-                                              keyboardType: TextInputType.name,
-                                              validation: validateName,
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                      Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceBetween,
-                                        children: [
-                                          Expanded(
-                                            flex: 1,
-                                            child: customeFormTextField(
-                                              context: context,
-                                              name: "Mobile Number*",
-                                              maxLines: 1,
-                                              controller: mobilenoController,
-                                              keyboardType: TextInputType.number,
-                                              maxLength: 10,
-                                              validation: validateMobile,
-                                            ),
-                                          ),
-                                          Gap(10),
-                                          Expanded(
-                                            flex: 1,
-                                            child: customeFormTextField(
-                                              context: context,
-                                              name: "Email Id*",
-                                              maxLines: 1,
-                                              controller: emailController,
-                                              keyboardType:
-                                                  TextInputType.emailAddress,
-                                              validation: validateEmail,
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                      Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceBetween,
-                                        children: [
-                                          Expanded(
-                                            flex: 1,
-                                            child: Column(
-                                              crossAxisAlignment: CrossAxisAlignment.start,
-                                              children: [
-                                                Text("State*"),
-                                                Gap(10),
-                                                Padding(
-                                                  padding:
-                                                  const EdgeInsets.only(
-                                                      // right: 20.0,
-                                                      // top: 10,
-                                                      bottom: 10),
-                                                  child: CustomSelectWeb(
-                                                    boxShadow: [],
-                                                    iconColor: Color(0xFF9FB9ED),
-                                                    textStyle: TextStyle(
-                                                      fontSize: 16,
-                                                      color: black,
-                                                      fontWeight:
-                                                      FontWeight.w600,
-                                                    ),
-                                                    color: white,
-                                                    onChanged:
-                                                        (stateVal) async {
-                                                      cityList.value.clear();
-                                                      statee.value = stateVal;
+                                    Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        Expanded(
+                                          flex: 1,
+                                          child: customeFormTextField(
+                                            context: context,
+                                            name: "First Name*",
+                                            maxLines: 1,
+                                            controller: firstNameController,
+                                            keyboardType: TextInputType.name,
 
-                                                      ReqCity cityData = ReqCity(
-                                                          state:
-                                                          "${stateVal}");
-
-                                                      await ref
-                                                          .read(cityProvider
-                                                          .notifier)
-                                                          .getCity(
-                                                          context:
-                                                          context,
-                                                          data: cityData)
-                                                          .then((value) {
-                                                        if (value!.status ==
-                                                            1) {
-                                                          // displayToast("${value.message}");
-                                                          for (int j = 0;
-                                                          j <
-                                                              value
-                                                                  .response
-                                                                  .cities
-                                                                  .length;
-                                                          j++) {
-                                                            cityList.value
-                                                                .add(value
-                                                                .response
-                                                                .cities[j]
-                                                                .name);
-                                                          }
-                                                        } else {
-                                                          displayToast(
-                                                              "${value.message}");
-                                                        }
-                                                      });
-                                                    },
-                                                    items: stateList,
-                                                    // items: selectStateCity[0]
-                                                    // ["dataList"],
-                                                    hint: '',
-                                                    borderCon: BorderSide(
-                                                      width: 1.0,
-                                                      color: Color(0xFF9FB9ED),
-                                                    ),
-                                                  ),
-                                                ),
-                                              ],
-                                            ),
                                           ),
-                                          Gap(10),
-                                          Expanded(
-                                            flex: 1,
-                                            child: Column(
-                                              crossAxisAlignment: CrossAxisAlignment.start,
-                                              children: [
-                                                Text("City*"),
-                                                Gap(10),
-                                                Padding(
-                                                  padding:
-                                                  const EdgeInsets.only(
+                                        ),
+                                        Gap(10),
+                                        Expanded(
+                                          flex: 1,
+                                          child: customeFormTextField(
+                                            context: context,
+                                            name: "Last Name*",
+                                            maxLines: 1,
+                                            controller: lastNameController,
+                                            keyboardType: TextInputType.name,
+
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                    Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        Expanded(
+                                          flex: 1,
+                                          child: customeFormTextField(
+                                            context: context,
+                                            name: "Mobile Number*",
+                                            maxLines: 1,
+                                            controller: mobilenoController,
+                                            keyboardType: TextInputType.number,
+                                            maxLength: 10,
+                                          ),
+                                        ),
+                                        Gap(10),
+                                        Expanded(
+                                          flex: 1,
+                                          child: customeFormTextField(
+                                            context: context,
+                                            name: "Email Id*",
+                                            maxLines: 1,
+                                            controller: emailController,
+                                            keyboardType:
+                                                TextInputType.emailAddress,
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                    Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        Expanded(
+                                          flex: 1,
+                                          child: Column(
+                                            crossAxisAlignment: CrossAxisAlignment.start,
+                                            children: [
+                                              Text("State*"),
+                                              Gap(10),
+                                              Padding(
+                                                padding:
+                                                const EdgeInsets.only(
                                                     // right: 20.0,
                                                     // top: 10,
-                                                    bottom: 10,
+                                                    bottom: 10),
+                                                child: CustomSelectWeb(
+                                                  boxShadow: [],
+                                                  iconColor: Color(0xFF9FB9ED),
+                                                  textStyle: TextStyle(
+                                                    fontSize: 16,
+                                                    color: black,
+                                                    fontWeight:
+                                                    FontWeight.w600,
                                                   ),
-                                                  child: CustomSelectWeb(
-                                                    boxShadow: [
-                                                      // BoxShadow(
-                                                      //   color: Colors.black26,
-                                                      //   blurRadius: 4.0,
-                                                      //   offset: Offset(
-                                                      //     0.0,
-                                                      //     0.0,
-                                                      //   ),
-                                                      // ),
-                                                    ],
-                                                    iconColor: Color(0xFF9FB9ED),
-                                                    textStyle: TextStyle(
-                                                      fontSize: 16,
-                                                      color: black,
-                                                      fontWeight:
-                                                      FontWeight.w600,
-                                                    ),
-                                                    color: white,
-                                                    onChanged: (val) {
-                                                      // cityy.value = val;
-                                                    },
-                                                    items: cityList.value,
-                                                    // items: selectStateCity[1]
-                                                    // ["dataList"],
-                                                    hint: '',
-                                                    borderCon: BorderSide(
-                                                      width: 1.0,
-                                                      color: Color(0xFF9FB9ED),
-                                                    ),
+                                                  color: white,
+                                                  onChanged:
+                                                      (stateVal) async {
+                                                    cityList.value.clear();
+                                                    statee.value = stateVal;
+
+                                                    ReqCity cityData = ReqCity(
+                                                        state:
+                                                        "${stateVal}");
+
+                                                    await ref
+                                                        .read(cityProvider
+                                                        .notifier)
+                                                        .getCity(
+                                                        context:
+                                                        context,
+                                                        data: cityData)
+                                                        .then((value) {
+                                                      if (value!.status ==
+                                                          1) {
+                                                        // displayToast("${value.message}");
+                                                        for (int j = 0;
+                                                        j <
+                                                            value
+                                                                .response
+                                                                .cities
+                                                                .length;
+                                                        j++) {
+                                                          cityList.value
+                                                              .add(value
+                                                              .response
+                                                              .cities[j]
+                                                              .name);
+                                                        }
+                                                      } else {
+                                                        displayToast(
+                                                            "${value.message}");
+                                                      }
+                                                    });
+                                                  },
+
+                                                  //     (stateVal) async {
+                                                  //   cityList.value.clear();
+                                                  //   statee.value = stateVal;
+                                                  //
+                                                  //   ReqCity cityData = ReqCity(
+                                                  //       state:
+                                                  //       "${stateVal}");
+                                                  //
+                                                  //   await ref
+                                                  //       .read(cityProvider
+                                                  //       .notifier)
+                                                  //       .getCity(
+                                                  //       context:
+                                                  //       context,
+                                                  //       data: cityData)
+                                                  //       .then((value) {
+                                                  //     if (value!.status ==
+                                                  //         1) {
+                                                  //       // displayToast("${value.message}");
+                                                  //       for (int j = 0;
+                                                  //       j <
+                                                  //           value
+                                                  //               .response
+                                                  //               .cities
+                                                  //               .length;
+                                                  //       j++) {
+                                                  //         cityList.value
+                                                  //             .add(value
+                                                  //             .response
+                                                  //             .cities[j]
+                                                  //             .name);
+                                                  //       }
+                                                  //     } else {
+                                                  //       displayToast(
+                                                  //           "${value.message}");
+                                                  //     }
+                                                  //   });
+                                                  // },
+                                                  items: stateList,
+                                                  // items: selectStateCity[0]
+                                                  // ["dataList"],
+                                                  hint:  statee.value ?? '',
+                                                  borderCon: BorderSide(
+                                                    width: 1.0,
+                                                    color: Color(0xFF9FB9ED),
                                                   ),
                                                 ),
-                                              ],
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                      Row(
-                                        children: [
-                                          Expanded(
-                                            child: Container(
-                                              // height: 100,
-                                              child: customeFormTextField(
-                                                height: 100,
-                                                maxLines: 4,
-                                                context: context,
-                                                name: "Share More Details",
-                                                controller: addressController,
-                                                validation: validateName,
                                               ),
+                                            ],
+                                          ),
+                                        ),
+                                        Gap(10),
+                                        Expanded(
+                                          flex: 1,
+                                          child: Column(
+                                            crossAxisAlignment: CrossAxisAlignment.start,
+                                            children: [
+                                              Text("City*"),
+                                              Gap(10),
+                                              Padding(
+                                                padding:
+                                                const EdgeInsets.only(
+                                                  // right: 20.0,
+                                                  // top: 10,
+                                                  bottom: 10,
+                                                ),
+                                                child: CustomSelectWeb(
+                                                  boxShadow: [
+                                                    // BoxShadow(
+                                                    //   color: Colors.black26,
+                                                    //   blurRadius: 4.0,
+                                                    //   offset: Offset(
+                                                    //     0.0,
+                                                    //     0.0,
+                                                    //   ),
+                                                    // ),
+                                                  ],
+                                                  iconColor: Color(0xFF9FB9ED),
+                                                  textStyle: TextStyle(
+                                                    fontSize: 16,
+                                                    color: black,
+                                                    fontWeight:
+                                                    FontWeight.w600,
+                                                  ),
+                                                  color: white,
+                                                  onChanged: (val) {
+                                                    cityy.value = val;
+                                                  },
+                                                  items: cityList.value,
+                                                  // items: selectStateCity[1]
+                                                  // ["dataList"],
+                                                  hint: cityy.value ?? '',
+                                                  borderCon: BorderSide(
+                                                    width: 1.0,
+                                                    color: Color(0xFF9FB9ED),
+                                                  ),
+                                                ),
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                    Row(
+                                      children: [
+                                        Expanded(
+                                          child: Container(
+                                            // height: 100,
+                                            child: customeFormTextField(
+                                              height: 100,
+                                              maxLines: 4,
+                                              context: context,
+                                              name: "Share More Details",
+                                              controller: shareDetailMsgController,
                                             ),
                                           ),
-                                        ],
-                                      ),
-                                      Gap(10),
-                                      InkWell(
-                                        onTap: () {
+                                        ),
+                                      ],
+                                    ),
+                                    Gap(10),
+                                    InkWell(
+                                      onTap: () async{
 
-                                          // if(firstNameController.text.isNotEmpty
-                                          //     && lastNameController.text.isNotEmpty
-                                          // && mobilenoController.text.isNotEmpty
-                                          // && emailController.text.isNotEmpty
-                                          // && addressController.text.isNotEmpty
-                                          // && cityy.value.isNotEmpty
-                                          // && statee.value.isNotEmpty
-                                          //
-                                          // ) {
-                                          //
+
+                                        if(firstNameController.text.isNotEmpty && lastNameController.text.isNotEmpty && mobilenoController.text.isNotEmpty && emailController.text.isNotEmpty && shareDetailMsgController.text.isNotEmpty && statee.value.isNotEmpty && cityy.value.isNotEmpty) {
+                                          print("-----------first Name :${firstNameController.text}");
+                                          print("-----------last Name :${lastNameController.text}");
+                                          print("----------- mobile :${mobilenoController.text}");
+                                          print("----------- email :${emailController.text}");
+                                          print("----------- share Details :${shareDetailMsgController.text}");
+                                          print("----------- state :${statee.value}");
+                                          print("----------- city :${cityy.value}");
+                                        ReqStoreInquiryDetails storeDetail = ReqStoreInquiryDetails(
+                                            firstName: firstNameController.text,
+                                            lastName: lastNameController.text,
+                                            mobile: mobilenoController.text,
+                                            email: emailController.text,
+                                            state: statee.value,
+                                            city: cityy.value,
+                                            message:shareDetailMsgController.text
+                                        );
+                                        await ref.read(storeInquiryDetailsProvider.notifier)
+                                            .getStoreInquiryDetails(context: context, data: storeDetail)
+                                            .then((value) {
+                                          if (value?.status == 1) {
+
+                                            displayToast("${value?.message}");
 
                                             isSoon.value = true;
 
-                                          // }else{
-                                          //   displayToast("Please Complete Form Details");
-                                          // }
+                                          } else {
+                                            displayToast("${value?.message}");
+                                          }
+                                        });
 
-                                        },
-                                        child: Container(
-                                          padding: EdgeInsets.symmetric(
-                                              vertical: 8, horizontal: 40),
-                                          decoration: BoxDecoration(
-                                            color: oreng,
-                                            borderRadius: BorderRadius.circular(10),
-                                          ),
-                                          child: Text(
-                                            "Submit",
-                                            style: TextStyle(
-                                                fontWeight: FontWeight.w400,
-                                                fontSize: 16,
-                                                color: white),
-                                          ),
+
+                                        }else{
+
+                                          print("-----------first Name :${firstNameController.text}");
+                                          print("-----------last Name :${lastNameController.text}");
+                                          print("----------- mobile :${mobilenoController.text}");
+                                          print("----------- email :${emailController.text}");
+                                          print("----------- share Details :${shareDetailMsgController.text}");
+                                          print("----------- state :${statee.value}");
+                                          print("----------- city :${cityy.value}");
+
+
+
+                                          displayToast("Please Complete Form Details");
+                                        }
+
+                                      },
+                                      child: Container(
+                                        padding: EdgeInsets.symmetric(
+                                            vertical: 8, horizontal: 40),
+                                        decoration: BoxDecoration(
+                                          color: oreng,
+                                          borderRadius: BorderRadius.circular(10),
+                                        ),
+                                        child: Text(
+                                          "Submit",
+                                          style: TextStyle(
+                                              fontWeight: FontWeight.w400,
+                                              fontSize: 16,
+                                              color: white),
                                         ),
                                       ),
-                                    ],
-                                  ),
+                                    ),
+                                  ],
                                 ),
                               ),
                         ),

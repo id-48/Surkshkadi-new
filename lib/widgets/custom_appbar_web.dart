@@ -75,7 +75,10 @@ class CustomAppbarWeb extends HookConsumerWidget {
 
                   button == true
                               ? Center(
-                            child: SizedBox(
+                            child: GestureDetector(
+                              onTap: (){
+                                navigationService.push(routePartnerWithWeb);
+                              },
                               child: Container(
                                 margin: EdgeInsets.only(bottom: 9),
                                 padding: EdgeInsets.symmetric(

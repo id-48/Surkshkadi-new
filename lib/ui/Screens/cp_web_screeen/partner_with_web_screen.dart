@@ -23,8 +23,9 @@ import 'package:surakshakadi/widgets/custom_web_bottombar.dart';
 import 'package:surakshakadi/widgets/custome_drawer_web.dart';
 
 class PartnerWithWeb extends HookConsumerWidget {
-  const PartnerWithWeb({Key? key}) : super(key: key);
+   PartnerWithWeb({Key? key}) : super(key: key);
 
+  final scaffoldKey = GlobalKey<ScaffoldState>();
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final numberController = useTextEditingController();
@@ -33,7 +34,7 @@ class PartnerWithWeb extends HookConsumerWidget {
     final sendOTP = useState<bool>(false);
     final loginType = useState<bool>(false);
     final cpUserId = useState<String>("");
-    final scaffoldKey = GlobalKey<ScaffoldState>();
+
     final selectedindex = useState<int>(3);
     return Scaffold(
       key: scaffoldKey,

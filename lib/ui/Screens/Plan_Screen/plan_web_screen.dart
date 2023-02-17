@@ -19,7 +19,9 @@ import 'package:surakshakadi/widgets/custome_drawer_web.dart';
 import 'package:surakshakadi/widgets/loading.dart';
 
 class PlansWeb extends HookConsumerWidget {
-  const PlansWeb({Key? key}) : super(key: key);
+   PlansWeb({Key? key}) : super(key: key);
+
+  final scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -31,7 +33,7 @@ class PlansWeb extends HookConsumerWidget {
       ref.read(dashboardProvider.notifier).getDashboard(context: context);
     }, []);
 
-    final scaffoldKey = GlobalKey<ScaffoldState>();
+
 
     final selectedindex = useState<int>(2);
 

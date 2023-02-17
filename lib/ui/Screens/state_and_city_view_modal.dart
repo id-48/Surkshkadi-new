@@ -46,7 +46,7 @@ class CityViewModel extends StateNotifier<AsyncValue<ResCity>> {
     final result = await repositery.getCity(data);
     return result.when(
         success: (result) async {
-          state = AsyncValue.data(result);
+          // state = AsyncValue.data(result);
 
           return result;
         },
