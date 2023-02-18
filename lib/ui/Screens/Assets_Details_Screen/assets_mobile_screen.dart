@@ -57,7 +57,7 @@ class AssetsMobile extends HookConsumerWidget {
 
 
 
-
+      return null;
     }, []);
 
     final selectedAssetsController = ref.watch(getSelectedAssetsProvider);

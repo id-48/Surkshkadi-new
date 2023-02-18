@@ -94,7 +94,10 @@ const String backiosicon = 'assets/images/backiosicon.png';
 ///     Web  Images
 
 const String icLogoWeb = "assets/images/iclogosplash.png";
-const String webDashBanner = "assets/images/webdashbanner.png";
+const String webDashBannerOne = "assets/images/webdashbanner.png";
+const String webDashBannerTwo = "assets/images/webDashBannerTwo.png";
+const String webDashBannerThree = "assets/images/webDashBannerThree.png";
+const String webDashBannerFour = "assets/images/webDashBannerFour.png";
 const String webDashOne = "assets/images/dashone.png";
 const String webDashTwo = "assets/images/dashtwo.png";
 const String webDashThree = "assets/images/dashthree.png";

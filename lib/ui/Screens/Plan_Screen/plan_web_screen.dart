@@ -43,7 +43,7 @@ class PlansWeb extends HookConsumerWidget {
         data: (data) {
           return Scaffold(
             key: scaffoldKey,
-            drawer: Custome_drawer_web(index: selectedindex.value, button: true),
+            drawer: CustomDrawerWeb(index: selectedindex.value, button: true),
             body: SingleChildScrollView(
               scrollDirection: Axis.vertical,
               child: Column(

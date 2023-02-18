@@ -16,12 +16,12 @@ import 'package:surakshakadi/utils/dialog_utils.dart';
 import 'package:surakshakadi/utils/image_utils.dart';
 import 'package:surakshakadi/utils/preference_utils.dart';
 
-class OTP_Verification extends HookConsumerWidget {
+class OTPVerification extends HookConsumerWidget {
   var userId;
   final String userType;
   // final String referCode ;
 
-  OTP_Verification({Key? key, this.userId, required this.userType ,
+  OTPVerification({Key? key, this.userId, required this.userType ,
     // required this.referCode
   })
       : super(key: key);

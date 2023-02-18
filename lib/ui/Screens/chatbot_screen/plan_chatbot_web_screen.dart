@@ -16,7 +16,6 @@ import 'package:surakshakadi/utils/preference_utils.dart';
 import 'package:surakshakadi/utils/strings.dart';
 import 'package:surakshakadi/utils/utils.dart';
 import 'package:surakshakadi/widgets/custom_appbar_web.dart';
-import 'package:surakshakadi/widgets/custom_logo_backbutton.dart';
 import 'package:surakshakadi/widgets/custome_drawer_web.dart';
 
 class PlanChatBotWeb extends HookConsumerWidget {
@@ -37,7 +36,7 @@ class PlanChatBotWeb extends HookConsumerWidget {
       builder: (context,setState) {
         return Scaffold(
           key: scaffoldKey,
-          drawer: Custome_drawer_web(index: 2, button: true),
+          drawer: CustomDrawerWeb(index: 2, button: true),
           body: SingleChildScrollView(
             scrollDirection: Axis.vertical,
             child: Column(

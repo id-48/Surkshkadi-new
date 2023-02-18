@@ -6,12 +6,9 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:surakshakadi/data/model/home/dashboard/res_dashboard.dart';
 import 'package:surakshakadi/di/locator.dart';
-import 'package:surakshakadi/ui/Screens/confirmation_Screen/payment_confirmation_plan_web_screen.dart';
-import 'package:surakshakadi/ui/Screens/dashboard/Components/add_information_web_screen.dart';
 import 'package:surakshakadi/ui/Screens/dashboard/Components/choose_assets_mobile_screen.dart';
 import 'package:surakshakadi/utils/color_utils.dart';
 import 'package:surakshakadi/utils/constants/navigation_route_constants.dart';
-import 'package:surakshakadi/utils/constants/navigations_key_constant.dart';
 import 'package:surakshakadi/utils/strings.dart';
 import 'package:surakshakadi/utils/utils.dart';
 import 'package:surakshakadi/widgets/custom_logo_backbutton.dart';
@@ -38,7 +35,7 @@ class ChooseAssetsWeb extends HookConsumerWidget {
     // List<ResponseSpeciality> dashboardBody = [];
     // final totalLength = useState<int>(0);
 
-    final selectedindex = useState<int>(0);
+    final selectedIndex = useState<int>(0);
     final spacing = useState<double>(15);
     final runSpacing = useState<double>(15);
     var checkedIDsWeb = useState<List<String>>([]);
@@ -56,6 +53,7 @@ class ChooseAssetsWeb extends HookConsumerWidget {
           dashboardBodyWeb.value[h].specialities[i].checkValue = false;
         }
       }
+      return null;
     }, []);
 
     SystemChrome.setPreferredOrientations([
@@ -106,8 +104,8 @@ class ChooseAssetsWeb extends HookConsumerWidget {
                       List.generate(dashboardHeaderWeb.value.length, (index) {
                     return InkWell(
                       onTap: () {
-                        if (index != selectedindex.value) {
-                          selectedindex.value = index;
+                        if (index != selectedIndex.value) {
+                          selectedIndex.value = index;
                           dashboardBodyWeb.value.clear();
                           dashboardBodyWeb.value
                               .insert(0, dashboardResponseWeb[index]);
@@ -122,9 +120,9 @@ class ChooseAssetsWeb extends HookConsumerWidget {
                         width: Utils.getWidth(context) / 5,
                         decoration: BoxDecoration(
                           color:
-                              selectedindex.value == index ? lightoreng : white,
+                              selectedIndex.value == index ? lightoreng : white,
                           border: Border.all(
-                              color: selectedindex.value == index
+                              color: selectedIndex.value == index
                                   ? lightoreng
                                   : oreng,
                               width: 1.0),
@@ -133,7 +131,7 @@ class ChooseAssetsWeb extends HookConsumerWidget {
                         child: Text(dashboardResponseWeb[index].category,
                             style: TextStyle(
                                 fontSize: 16,
-                                color: selectedindex.value == index
+                                color: selectedIndex.value == index
                                     ? white
                                     : black),
                             textAlign: TextAlign.center),

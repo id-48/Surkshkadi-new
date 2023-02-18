@@ -4,10 +4,6 @@ import 'package:flutter/services.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:surakshakadi/di/locator.dart';
-import 'package:surakshakadi/ui/Screens/Demo_Screen/demo_plans_screen.dart';
-import 'package:surakshakadi/ui/Screens/chatbot_screen/plan_chatbot_web_screen.dart';
-import 'package:surakshakadi/ui/Screens/dashboard/Components/legal_screen.dart';
-import 'package:surakshakadi/ui/Screens/will_review_screen/will_review_screen.dart';
 import 'package:surakshakadi/utils/color_utils.dart';
 import 'package:surakshakadi/utils/constants/navigation_route_constants.dart';
 import 'package:surakshakadi/utils/constants/preference_key_constant.dart';
@@ -28,24 +24,6 @@ class SplashScreen extends HookConsumerWidget {
       () {
         final timer = Timer(const Duration(seconds: 2), () async {
 
-          // ref.read(stateProvider.notifier).getState(context: context).then((value) {
-          //   print("Yashu Patel");
-          //   if (value!.status == 1) {
-          //     print("Yashu Patel111111");
-          //     for (int i = 0; i < value.response.states.length; i++) {
-          //       print("Yashu Patel22222");
-          //       stateList.add(value.response.states[i].name);
-          //     }
-          //   } else {
-          //     displayToast("${value.message}");
-          //   }
-          // });
-
-          print('Enter ===>');
-          print(
-              'Enter width ===> ${MediaQuery.of(context).size.width}'); // my-1536 , ccit06-1920
-          print(
-              'Enter Height ===> ${MediaQuery.of(context).size.height}'); // my-745  , ccit06-969
 
           if (context.isMobile) {
             print("Aadhar token ${getString(prefUserID)}");

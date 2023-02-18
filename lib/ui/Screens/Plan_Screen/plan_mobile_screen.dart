@@ -36,6 +36,7 @@ class PlanScreen extends HookConsumerWidget {
 
     useEffect(() {
       ref.read(dashboardProvider.notifier).getDashboard(context: context);
+      return null;
     }, []);
 
     SystemChrome.setPreferredOrientations([

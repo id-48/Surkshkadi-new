@@ -55,6 +55,7 @@ class RegisterWeb extends HookConsumerWidget {
           displayToast("${value.message}");
         }
       });
+      return null;
     },[]);
 
 

@@ -531,8 +531,6 @@ class ChooseAssetMobile extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    // int selectedindex = 0;
-    int totalLength = 0;
     double spacing = 8;
     double runSpacing = 8;
     // List<Specialities> dashboardHeader = [];
@@ -543,9 +541,8 @@ class ChooseAssetMobile extends HookConsumerWidget {
     final dashboardHeader = useState<List<ResponseSpeciality>>([]);
     final dashboardBody = useState<List<ResponseSpeciality>>([]);
 
-    final selectedindex = useState<int>(0);
+    final selectedIndex = useState<int>(0);
     var checkedIDs = useState<List<String>>([]);
-    final amountTotal = useState<double>(0);
 
     Razorpay? _razorpay;
 
@@ -644,6 +641,8 @@ class ChooseAssetMobile extends HookConsumerWidget {
       _razorpay!.on(Razorpay.EVENT_PAYMENT_SUCCESS, _handlePaymentSuccess);
       _razorpay!.on(Razorpay.EVENT_PAYMENT_ERROR, _handlePaymentError);
       _razorpay!.on(Razorpay.EVENT_EXTERNAL_WALLET, _handleExternalWallet);
+
+      return null;
     }, []);
 
     SystemChrome.setPreferredOrientations([
@@ -700,12 +699,12 @@ class ChooseAssetMobile extends HookConsumerWidget {
                         // print("planModule---->>>>  ${dashSelectedPlan?[index].specialityStatus}");
                         return InkWell(
                           onTap: () {
-                            if (index != selectedindex.value) {
-                              selectedindex.value = index;
+                            if (index != selectedIndex.value) {
+                              selectedIndex.value = index;
 
                               setState(() {
                                 dashboardBody.value.clear();
-                                dashboardBody.value.insert(0,dashboardHeader.value[selectedindex.value]);
+                                dashboardBody.value.insert(0,dashboardHeader.value[selectedIndex.value]);
                                 dashboardBody.value.addAll(dashboardHeader.value);
                                 dashboardBody.value.removeAt(index + 1);
 
@@ -723,11 +722,11 @@ class ChooseAssetMobile extends HookConsumerWidget {
                             height: 45,
                             width: Utils.getWidth(context) / 5,
                             decoration: BoxDecoration(
-                              color: selectedindex.value == index
+                              color: selectedIndex.value == index
                                   ? lightoreng
                                   : white,
                               border: Border.all(
-                                  color: selectedindex.value == index
+                                  color: selectedIndex.value == index
                                       ? lightoreng
                                       : oreng,
                                   width: 1.0),
@@ -739,7 +738,7 @@ class ChooseAssetMobile extends HookConsumerWidget {
                                 style: TextStyle(
                                     fontSize: 11.5,
                                     // fontFamily: 'Nunito Sans',
-                                    color: selectedindex.value == index
+                                    color: selectedIndex.value == index
                                         ? white
                                         : black),
                                 textAlign: TextAlign.center),

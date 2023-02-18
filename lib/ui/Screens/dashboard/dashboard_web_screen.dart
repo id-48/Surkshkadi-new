@@ -1,4 +1,3 @@
-import 'package:flick_video_player/flick_video_player.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
@@ -22,7 +21,6 @@ import 'package:surakshakadi/widgets/custom_appbar_web.dart';
 import 'package:surakshakadi/widgets/custom_web_bottombar.dart';
 import 'package:surakshakadi/widgets/custome_drawer_web.dart';
 import 'package:surakshakadi/widgets/loading.dart';
-import 'package:video_player/video_player.dart';
 
 class DashBoardWeb extends HookConsumerWidget {
    DashBoardWeb({Key? key}) : super(key: key);
@@ -38,17 +36,18 @@ class DashBoardWeb extends HookConsumerWidget {
     final lifeTime = useState<bool>(false);
 
     ScrollController scrollController = ScrollController();
-    final showbtn = useState<bool>(false) ;
 
-    FlickManager? flickManager;
+    // FlickManager? flickManager;
 
     useEffect(() {
       ref.read(dashboardProvider.notifier).getDashboard(context: context);
 
-      flickManager = FlickManager(
-        videoPlayerController:
-        VideoPlayerController.network("https://player.vimeo.com/external/474244488.sd.mp4?s=19273845afa857f08a67830a2ea84c369996efc2&profile_id=164&oauth2_token_id=57447761"),
-      );
+      // flickManager = FlickManager(
+      //   videoPlayerController:
+      //   VideoPlayerController.network("https://player.vimeo.com/external/474244488.sd.mp4?s=19273845afa857f08a67830a2ea84c369996efc2&profile_id=164&oauth2_token_id=57447761"),
+      // );
+
+
       ref.read(stateProvider.notifier).getState(context: context).then((value) {
 
         if (value!.status == 1) {
@@ -61,11 +60,11 @@ class DashBoardWeb extends HookConsumerWidget {
           displayToast("${value.message}");
         }
       });
+      return null;
 
     }, []);
 
     final dashboardController = ref.watch(dashboardProvider);
-    final selectedindex = useState<int>(0);
 
     SystemChrome.setPreferredOrientations([
       DeviceOrientation.portraitUp,
@@ -75,10 +74,7 @@ class DashBoardWeb extends HookConsumerWidget {
         data: (data) {
           return Scaffold(
             key: scaffoldKey,
-            // drawer: Drawer(
-            //   backgroundColor: blue,
-            // ),
-            drawer: Custome_drawer_web(index: selectedindex.value, button: true),
+            drawer: CustomDrawerWeb(index: 0, button: true),
             body: SingleChildScrollView(
               controller: scrollController,
               scrollDirection: Axis.vertical,

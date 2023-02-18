@@ -3,6 +3,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:surakshakadi/data/model/home/dashboard/store_will_review_details/req_store_will_review_details.dart';
 import 'package:surakshakadi/data/model/home/dashboard/store_will_review_details/res_store_will_review_details.dart';
 import 'package:surakshakadi/repository/store_repository.dart';
+import 'package:surakshakadi/utils/constants/loading_dialog.dart';
 
 
 final storeWillReviewProvider = StateNotifierProvider<StoreWillReviewDetailsViewModel, AsyncValue<ResStoreWillReviewDetails>>(
@@ -18,13 +19,18 @@ class StoreWillReviewDetailsViewModel extends StateNotifier<AsyncValue<ResStoreW
 
   Future<ResStoreWillReviewDetails?> willReviewVideo(
       {required BuildContext context, required ReqStoreWillReviewDetails data}) async {
+
+    showLoadingDialog(context: context);
     final result = await repositery.willReviewVideo(data);
     return result.when(
         success: (result) async {
+          hideLoadingDialog(context: context);
           // state= AsyncValue.data(result);
           return result;
         },
-        failure: (error) {}
+        failure: (error) {
+          hideLoadingDialog(context: context);
+        }
     );
   }
 

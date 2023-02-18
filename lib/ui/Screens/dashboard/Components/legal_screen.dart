@@ -3,7 +3,6 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_html/flutter_html.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:surakshakadi/data/model/home/dashboard/security_content/req_security_content.dart';
-import 'package:surakshakadi/data/model/home/dashboard/security_content/res_security_content.dart';
 import 'package:surakshakadi/ui/Screens/dashboard/security_content_view_model.dart';
 import 'package:surakshakadi/utils/color_utils.dart';
 import 'package:surakshakadi/utils/strings.dart';
@@ -24,10 +23,11 @@ class LegalAll extends HookConsumerWidget {
 
       ref.read(securityContentProvider.notifier).getSecurityContent(context: context, data: data ).then((value) {
           if(value?.status == 1){
-            // print("datata --->>> ${value?.response.termsConditions}");
             dataHTML.value = "${value?.response.content}" ;
           }
-      } );;
+      } );
+
+      return null;
     },[]);
 
     // final securityContentController = ref.watch(securityContentProvider);
@@ -74,13 +74,7 @@ class LegalAll extends HookConsumerWidget {
               onImageError: (exception, stackTrace) {
                 print(exception);
               },
-              onCssParseError: (css, messages) {
-                print("css that errored: $css");
-                print("error messages:");
-                messages.forEach((element) {
-                  print(element);
-                });
-              },
+
             ),
 
 

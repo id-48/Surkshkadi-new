@@ -20,12 +20,9 @@ import 'package:surakshakadi/widgets/custom_appbar_web.dart';
 import 'package:surakshakadi/widgets/custom_expandable_card.dart';
 import 'package:surakshakadi/widgets/custom_select.dart';
 import 'package:surakshakadi/widgets/custom_textfeild.dart';
-import 'package:surakshakadi/widgets/custom_validation.dart';
 import 'package:surakshakadi/widgets/custom_web_bottombar.dart';
 import 'package:surakshakadi/widgets/custome_drawer_web.dart';
 import 'package:surakshakadi/widgets/loading.dart';
-
-import '../../../../repository/store_inquiry_details_repository.dart';
 import '../store_inquiry_details_view_model.dart';
 
 class AboutUsWeb extends HookConsumerWidget {
@@ -35,7 +32,6 @@ class AboutUsWeb extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final formkey = GlobalKey<FormState>();
     final firstNameController = useTextEditingController();
     final lastNameController = useTextEditingController();
     final mobilenoController = useTextEditingController();
@@ -62,6 +58,7 @@ class AboutUsWeb extends HookConsumerWidget {
           displayToast("${value.message}");
         }
       });
+      return null;
     },[]);
 
 
@@ -72,7 +69,7 @@ class AboutUsWeb extends HookConsumerWidget {
 
     return Scaffold(
       key: scaffoldKey,
-      drawer: Custome_drawer_web(index: 1, button: true),
+      drawer: CustomDrawerWeb(index: 1, button: true),
       body: SingleChildScrollView(
         scrollDirection: Axis.vertical,
         child: Column(

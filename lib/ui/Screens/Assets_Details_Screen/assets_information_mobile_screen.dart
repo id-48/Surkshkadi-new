@@ -1,6 +1,3 @@
-import 'dart:io';
-
-import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:gap/gap.dart';
@@ -30,16 +27,11 @@ class AssetsInformation extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    ImagePicker _picker = ImagePicker();
 
-    XFile? image;
-    final pickedImage = useState<File>(File(""));
-    final isPicked = useState<bool>(false);
 
     final boxController = useTextEditingController();
     final messageController = useTextEditingController();
     final imageFileList = useState<List<XFile>>([]);
-    List<MultipartFile> imageList = [];
 
 
     return Scaffold(

@@ -557,6 +557,9 @@ class AppSurakshakadi extends HookConsumerWidget {
 //   }
 // }
 
+
+
+
 /// Responsive   code LinkingLoved
 class LinkingLoved extends HookWidget {
   const LinkingLoved({Key? key}) : super(key: key);
@@ -577,11 +580,37 @@ class LinkingLoved extends HookWidget {
       });
     }
 
-    CarouselController buttonCarouselController = CarouselController();
-
     final dashTopData = useState<int>(0);
 
-    print("entre your --->>>>  ${Utils.getWidth(context)}");
+    List<Map<String,String>> sliderData = [
+
+      {
+        "boldName" : "LINKING YOU AND YOUR LOVED ONES",
+        "description" : "We are here to help your loved ones every step of the way",
+        "image" :webDashBannerOne
+      },
+
+      {
+        "boldName" : "SECURE LEGAL DOCUMENTATION",
+        "description" : "Faster inheritance with the master legal document built by Legal experts and you",
+        "image" : webDashBannerTwo
+      },
+
+      {
+        "boldName" : "SECURE WALLET OF ASSETS",
+        "description" : "One place to store assets in safe & secure wallet",
+        "image" : webDashBannerThree
+      },
+
+      {
+        "boldName" : "HASSLE-FREE ASSETS TRANSFER",
+        "description" : "Easy and affordable experience while transferring the assets from your name to their name",
+        "image" : webDashBannerFour
+      },
+
+
+    ];
+
 
     return Column(
       children: [
@@ -607,7 +636,7 @@ class LinkingLoved extends HookWidget {
                 child: Column(
                   children: [
                     CarouselSlider.builder(
-                      itemCount: 4,
+                      itemCount: sliderData.length,
                       itemBuilder:
                       (BuildContext context, int itemIndex, int pageViewIndex) {
                     return ResponsiveGridRow(
@@ -622,7 +651,7 @@ class LinkingLoved extends HookWidget {
                               children: [
                                 Gap(60),
                                 Text(
-                                  linkingYouAnd,
+                                  "${sliderData[itemIndex]["boldName"]}",
                                   style: GoogleFonts.bonaNova(
                                     textStyle: TextStyle(
                                         fontSize: 53,
@@ -633,7 +662,7 @@ class LinkingLoved extends HookWidget {
                                 ),
                                 Gap(180),
                                 Text(
-                                  weAreHereToHelp,
+                                    "${sliderData[itemIndex]["description"]}",
                                   style: TextStyle(
                                       fontSize: 22,
                                       fontWeight: FontWeight.w400,
@@ -660,7 +689,7 @@ class LinkingLoved extends HookWidget {
                             width: Utils.getWidth(context) * 0.54,
                             // color: black,
                             child: Image.asset(
-                              webDashBanner,
+                              "${sliderData[itemIndex]["image"]}",
                               scale: 4,
                               fit: BoxFit.fill,
                             ),
@@ -677,7 +706,7 @@ class LinkingLoved extends HookWidget {
                     autoPlayAnimationDuration: Duration(milliseconds: 1500),
                     enlargeCenterPage: true,
                     viewportFraction: 1,
-                    aspectRatio: Utils.getWidth(context) < 660 ?  0.42 : Utils.getWidth(context) < 930 ? 0.65 : Utils.getWidth(context) < 1250   ? 0.96 : Utils.getWidth(context) < 1530 ? 1.9 : Utils.getWidth(context) < 1650 ? 2.1 : Utils.getWidth(context) < 1800 ? 2.28 : 2.4,
+                    aspectRatio: Utils.getWidth(context) < 660 ?  0.42 : Utils.getWidth(context) < 930 ? 0.65 : Utils.getWidth(context) < 1250   ? 0.96 : Utils.getWidth(context) < 1540 ? 2.35 : Utils.getWidth(context) < 1650 ? 2.1 : Utils.getWidth(context) < 1800 ? 2.28 : 2.4,
                     initialPage: 1,
                     onPageChanged: (index, items) {
                       dashTopData.value = index;

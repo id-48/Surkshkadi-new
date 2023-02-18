@@ -10,6 +10,7 @@ import 'package:surakshakadi/di/locator.dart';
 import 'package:surakshakadi/ui/Screens/Signup_Screen/auth_view_model.dart';
 import 'package:surakshakadi/ui/Screens/dashboard/Components/components.dart';
 import 'package:surakshakadi/utils/color_utils.dart';
+import 'package:surakshakadi/utils/constants/app_constant.dart';
 import 'package:surakshakadi/utils/constants/navigation_route_constants.dart';
 import 'package:surakshakadi/utils/constants/preference_key_constant.dart';
 import 'package:surakshakadi/utils/dialog_utils.dart';
@@ -32,13 +33,13 @@ class PartnerWithWeb extends HookConsumerWidget {
     final otpController = useTextEditingController();
 
     final sendOTP = useState<bool>(false);
-    final loginType = useState<bool>(false);
+    final loginType = useState<bool>(webSignupLogin ?? false);
     final cpUserId = useState<String>("");
 
     final selectedindex = useState<int>(3);
     return Scaffold(
       key: scaffoldKey,
-      drawer: Custome_drawer_web(index: selectedindex.value, button: true),
+      drawer: CustomDrawerWeb(index: selectedindex.value, button: true),
       body: SingleChildScrollView(
         scrollDirection: Axis.vertical,
         child: Column(
