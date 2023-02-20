@@ -101,7 +101,6 @@ class PlanChatBotWeb extends HookConsumerWidget {
                       onTap: (){
 
                         selectedIndex.value = selectedIndex.value - 1;
-                        print("test ------->>>>> ${getString(prefChatBot)}");
                         setState((){});
 
                         },
@@ -118,9 +117,10 @@ class PlanChatBotWeb extends HookConsumerWidget {
                   ),
                 ],
 
-                Gap(100),
+
 
                 if(selectedIndex.value == 0)...[
+                  Gap(60),
                   longText(context, queText: "Hey Avinash, I am SurakshaKadi between you and your loved ones. I’ll get you options in no time for your loved ones to hassle-free transfer the assets in your absence."),
                   Gap(13),
                   longText(context, queText: "I appreciate you are taking proactive steps for the welfare of your family."),
@@ -200,6 +200,7 @@ class PlanChatBotWeb extends HookConsumerWidget {
 
 
                 if(selectedIndex.value == 1) ...[
+                  Gap(100),
                   longText(context, queText: "Which gender do you most associate with?"),
                   Gap(40),
                   Container(
@@ -275,7 +276,7 @@ class PlanChatBotWeb extends HookConsumerWidget {
                 ],
 
                 if(selectedIndex.value == 2) ...[
-
+                  Gap(100),
                   longText(context, queText: "Please share your birth date. (DD/MM/YYYY)"),
                   Gap(40),
                   Container(
@@ -338,6 +339,7 @@ class PlanChatBotWeb extends HookConsumerWidget {
                 ],
 
                 if(selectedIndex.value == 3) ...[
+                  Gap(100),
                   GestureDetector(
                     onTap: (){
                       navigationService.push(routeChooseAssetsWeb,arguments: {navRouteCA: "SpecificAssetsNot",navDashboardResponseWeb: assetsData.response.specialities});

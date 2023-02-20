@@ -5,7 +5,6 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:responsive_grid/responsive_grid.dart';
 import 'package:surakshakadi/data/model/home/dashboard/res_dashboard.dart';
 import 'package:surakshakadi/di/locator.dart';
-import 'package:surakshakadi/ui/Screens/chatbot_screen/plan_chatbot_web_screen.dart';
 import 'package:surakshakadi/ui/Screens/dashboard/dashboard_view_modal.dart';
 import 'package:surakshakadi/utils/color_utils.dart';
 import 'package:surakshakadi/utils/constants/app_constant.dart';
@@ -31,14 +30,12 @@ class PlansWeb extends HookConsumerWidget {
 
     useEffect(() {
       ref.read(dashboardProvider.notifier).getDashboard(context: context);
+      return null;
     }, []);
 
 
 
     final selectedindex = useState<int>(2);
-
-    print(
-        'Enter Height ===> ${MediaQuery.of(context).size.height}');
     return planWebController.when(
         data: (data) {
           return Scaffold(
@@ -62,25 +59,7 @@ class PlansWeb extends HookConsumerWidget {
                       SizedBox(
                         width: MediaQuery.of(context).size.width * 0.07,
                       ),
-                      // Column(
-                      //   crossAxisAlignment: CrossAxisAlignment.start,
-                      //   children: [
-                      //
-                      //     Gap(16),
-                      //     Text(
-                      //       weSimplyTheProcess,
-                      //       style: TextStyle(
-                      //           fontSize: 22,
-                      //           fontWeight: FontWeight.w400,
-                      //           color: navyblue),
-                      //     ),
-                      //     Text(
-                      //       getBestIn,
-                      //       style: TextStyle(
-                      //           fontSize: 16, fontWeight: FontWeight.w400),
-                      //     ),
-                      //   ],
-                      // ),
+
                       SizedBox(
                         width: MediaQuery.of(context).size.width * 0.04,
                       ),
@@ -408,7 +387,7 @@ class PlansWeb extends HookConsumerWidget {
                               ),
                             ),
                             Gap(18),
-                            GestureDetector(
+                            InkWell(
                               onTap: () {
                                 isSelected.value = 0;
                               },
@@ -555,7 +534,7 @@ class PlansWeb extends HookConsumerWidget {
                               ),
                             ),
                             Gap(18),
-                            GestureDetector(
+                            InkWell(
                               onTap: () {
                                 isSelected.value = 1;
 
@@ -706,11 +685,10 @@ class PlansWeb extends HookConsumerWidget {
                               ),
                             ),
                             Gap(18),
-                            GestureDetector(
+                            InkWell(
                               onTap: () {
                                 isSelected.value = 2;
 
-                                // print('hhhhh : ${isSelected.value}');
                               },
                               child: Container(
                                 width: MediaQuery.of(context).size.width < 630 ? 140 : 220,
@@ -742,8 +720,7 @@ class PlansWeb extends HookConsumerWidget {
                                 child: Column(
                                   children: [
                                     Text(
-                                      // isCheck.value == true ? "${data.plans![0].yearly![2].title}"   :  "${data.plans![0].lifetime![2].title}" ,
-                                      isCheck.value == true
+                                     isCheck.value == true
                                           ? "${data.response.plans[1].plans[2].planTitle}"
                                           : "${data.response.plans[0].plans[2].planTitle}",
 

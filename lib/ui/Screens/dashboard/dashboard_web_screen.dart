@@ -1,3 +1,4 @@
+import 'package:flick_video_player/flick_video_player.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
@@ -21,6 +22,7 @@ import 'package:surakshakadi/widgets/custom_appbar_web.dart';
 import 'package:surakshakadi/widgets/custom_web_bottombar.dart';
 import 'package:surakshakadi/widgets/custome_drawer_web.dart';
 import 'package:surakshakadi/widgets/loading.dart';
+import 'package:video_player/video_player.dart';
 
 class DashBoardWeb extends HookConsumerWidget {
    DashBoardWeb({Key? key}) : super(key: key);
@@ -92,83 +94,85 @@ class DashBoardWeb extends HookConsumerWidget {
                       smallNameColor: black),
                   Gap(40),
                   /// old video player
-                  Center(
-                    child: InkWell(
-                      onTap: () {
-                        video.value = true;
-                        print("------------ video ${data.response.video}");
-                      },
-                      child: Container(
-                        height: MediaQuery.of(context).size.height / 1.58,
-                        margin: EdgeInsets.only(left: 30,right: 30),
-                        child: video.value == true
-                            ? Container(
-                          // decoration: BoxDecoration(
-                          //   border: Border.all(color: black, width: 1.5),
-                          // ),
-                              child: YoutubeVideoPlayer(
-                                  videoUrl: data.response.video,
-                                ),
-                            )
-                            : Container(
-                          // height: MediaQuery.of(context).size.height / 1.58,
-                          width: MediaQuery.of(context).size.width / 1.84,
-                          alignment: Alignment.center,
-                          decoration: BoxDecoration(
-                            color: blue,
-                            border: Border.all(color: black, width: 1.5),
-                          ),
-                              child: Column(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    Text(
-                                      'Why Surakshakadi?',
-                                      style: TextStyle(fontSize: 26),
-                                    ),
-                                    Gap(20),
-                                    Icon(
-                                      Icons.play_circle_outlined,
-                                      size: 50,
-                                      color: black,
-                                    )
-                                  ],
-                                ),
-                            ),
-                      ),
-                    ),
-                  ),
-                  /// new video player
                   // Center(
-                  //   child: SizedBox(
-                  //     height: MediaQuery.of(context).size.height / 1.58,
-                  //     width: 924,
-                  //     child: FlickVideoPlayer(
-                  //       flickManager: flickManager ?? FlickManager(videoPlayerController:  VideoPlayerController.network("https://player.vimeo.com/external/474244488.sd.mp4?s=19273845afa857f08a67830a2ea84c369996efc2&profile_id=164&oauth2_token_id=57447761"),),
-                  //       wakelockEnabledFullscreen: true,
-                  //       wakelockEnabled: true,
-                  //       flickVideoWithControlsFullscreen: FlickVideoWithControls(
-                  //         controls: FlickLandscapeControls(),
-                  //       ),
-                  //
-                  //       flickVideoWithControls: FlickVideoWithControls(
-                  //         videoFit: BoxFit.fill,
-                  //         backgroundColor: Colors.black,
-                  //
-                  //         controls: VideoControl(
-                  //           // dataManager: dataManager!,
-                  //           iconSize: 30,
-                  //           fontSize: 14,
-                  //           progressBarSettings: FlickProgressBarSettings(
-                  //             height: 5,
-                  //             handleRadius: 5.5,
-                  //           ),
+                  //   child: InkWell(
+                  //     onTap: () {
+                  //       video.value = true;
+                  //       print("------------ video ${data.response.video}");
+                  //     },
+                  //     child: Container(
+                  //       height: MediaQuery.of(context).size.height / 1.58,
+                  //       margin: EdgeInsets.only(left: 30,right: 30),
+                  //       child: video.value == true
+                  //           ? Container(
+                  //         // decoration: BoxDecoration(
+                  //         //   border: Border.all(color: black, width: 1.5),
+                  //         // ),
+                  //             child: YoutubeVideoPlayer(
+                  //                 videoUrl: data.response.video,
+                  //               ),
+                  //           )
+                  //           : Container(
+                  //         // height: MediaQuery.of(context).size.height / 1.58,
+                  //         width: MediaQuery.of(context).size.width / 1.84,
+                  //         alignment: Alignment.center,
+                  //         decoration: BoxDecoration(
+                  //           color: blue,
+                  //           border: Border.all(color: black, width: 1.5),
                   //         ),
-                  //       ),
-                  //
-                  //
+                  //             child: Column(
+                  //                 mainAxisAlignment: MainAxisAlignment.center,
+                  //                 children: [
+                  //                   Text(
+                  //                     'Why Surakshakadi?',
+                  //                     style: TextStyle(fontSize: 26),
+                  //                   ),
+                  //                   Gap(20),
+                  //                   Icon(
+                  //                     Icons.play_circle_outlined,
+                  //                     size: 50,
+                  //                     color: black,
+                  //                   )
+                  //                 ],
+                  //               ),
+                  //           ),
                   //     ),
                   //   ),
                   // ),
+                  /// new video player
+                  Center(
+                    child: SizedBox(
+                      height: MediaQuery.of(context).size.height / 1.58,
+                      width: 924,
+                      child: FlickVideoPlayer(
+                        flickManager:
+                        // flickManager ??
+                            FlickManager(videoPlayerController:  VideoPlayerController.network("https://backends.surakshakadi.com/uploads/Surakshakadi.mp4"),),
+                        wakelockEnabledFullscreen: true,
+                        wakelockEnabled: true,
+                        flickVideoWithControlsFullscreen: FlickVideoWithControls(
+                          controls: FlickLandscapeControls(),
+                        ),
+
+                        flickVideoWithControls: FlickVideoWithControls(
+                          videoFit: BoxFit.fill,
+                          backgroundColor: Colors.black,
+
+                          controls: VideoControl(
+                            // dataManager: dataManager!,
+                            iconSize: 30,
+                            fontSize: 14,
+                            progressBarSettings: FlickProgressBarSettings(
+                              height: 5,
+                              handleRadius: 5.5,
+                            ),
+                          ),
+                        ),
+
+
+                      ),
+                    ),
+                  ),
                   Gap(50),
                   Center(
                       child: Text(
@@ -414,10 +418,21 @@ class DashBoardWeb extends HookConsumerWidget {
                             alignment: Alignment.center,
                             decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(3),
+                              gradient: LinearGradient(
+                                  colors: [
+
+                                    "${data.response.plans[lifeTime.value == true ? 0 : 1].plans[0].planType}" == "" ? white :  Color(0xffD33E3E),
+                                    "${data.response.plans[lifeTime.value == true ? 1 : 1].plans[0].planType}" == "" ? white :  Color(0xffFF9595),
+
+                                    // Color(0xffD33E3E),
+                                    // Color(0xffFF9595),
+                                  ],
+                                  begin: Alignment.topCenter,
+                                  end: Alignment.bottomCenter),
                             ),
                             child: Text(
-                              // data.plans![1].type ??
-                              'Top Seller',
+                                "${data.response.plans[lifeTime.value == true ? 0 : 1].plans[0].planType}",
+                              // 'Top Seller',
                               style: TextStyle(
                                   fontWeight: FontWeight.w700,
                                   fontSize:
@@ -445,8 +460,8 @@ class DashBoardWeb extends HookConsumerWidget {
                                   vertical: 20, horizontal: 30),
                               decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(7),
-                                // color: Color(int.parse(e.colour!)),
-                                color: teal,
+                                color: Color(int.parse("0xff${data.response.plans[lifeTime.value == true ? 0 :1].plans[0].bgColor}")),
+                                // color:  teal,
                               ),
                               child: Column(
                                 mainAxisAlignment: MainAxisAlignment.center,
@@ -542,14 +557,16 @@ class DashBoardWeb extends HookConsumerWidget {
                               borderRadius: BorderRadius.circular(3),
                               gradient: LinearGradient(
                                   colors: [
-                                    Color(0xffD33E3E),
-                                    Color(0xffFF9595),
+                                    "${data.response.plans[lifeTime.value == true ? 0 : 1].plans[1].planType}" == "" ? white :  Color(0xffD33E3E),
+                                    "${data.response.plans[lifeTime.value == true ? 1 : 1].plans[1].planType}" == "" ? white :  Color(0xffFF9595),
+
                                   ],
                                   begin: Alignment.topCenter,
                                   end: Alignment.bottomCenter),
                             ),
                             child: Text(
-                              'Top Seller',
+                              "${data.response.plans[lifeTime.value == true ? 0 : 1].plans[1].planType}",
+                              // 'Top Seller',
                               style: TextStyle(
                                   fontWeight: FontWeight.w700,
                                   fontSize:
@@ -578,9 +595,8 @@ class DashBoardWeb extends HookConsumerWidget {
                                   vertical: 20, horizontal: 30),
                               decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(7),
-
-                                // color: Color(int.parse(e.colour!)),
-                                color: Color(0xff597EC8),
+                                color: Color(int.parse("0xff${data.response.plans[lifeTime.value == true ? 0 :1].plans[1].bgColor}")),
+                                // color: Color(0xff597EC8),
                               ),
                               child: Column(
                                 mainAxisAlignment: MainAxisAlignment.center,
@@ -678,15 +694,16 @@ class DashBoardWeb extends HookConsumerWidget {
                               borderRadius: BorderRadius.circular(3),
                               gradient: LinearGradient(
                                   colors: [
-                                    Color(0xffD33E3E),
-                                    Color(0xffFF9595),
+                                    "${data.response.plans[lifeTime.value == true ? 0 : 1].plans[2].planType}" == "" ? white :  Color(0xffD33E3E),
+                                    "${data.response.plans[lifeTime.value == true ? 1 : 1].plans[2].planType}" == "" ? white :  Color(0xffFF9595),
+
                                   ],
                                   begin: Alignment.topCenter,
                                   end: Alignment.bottomCenter),
                             ),
                             child: Text(
-                              // data.plans![1].type ??
-                              'Value Pack',
+                              "${data.response.plans[lifeTime.value == true ? 0 : 1].plans[2].planType}",
+                              // 'Value Pack',
                               style: TextStyle(
                                   fontWeight: FontWeight.w700,
                                   fontSize:
@@ -719,9 +736,8 @@ class DashBoardWeb extends HookConsumerWidget {
                                   vertical: 20, horizontal: 30),
                               decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(7),
-
-                                // color: Color(int.parse(e.colour!)),
-                                color: lightyellow,
+                                color: Color(int.parse("0xff${data.response.plans[lifeTime.value == true ? 0 :1].plans[2].bgColor}")),
+                                 // color: lightyellow,
                               ),
                               child: Column(
                                 mainAxisAlignment: MainAxisAlignment.center,
@@ -1075,8 +1091,6 @@ class DashBoardWeb extends HookConsumerWidget {
                 ],
               ),
             ),
-
-
             floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
             floatingActionButton: Padding(
               padding: const EdgeInsets.all(8.0),

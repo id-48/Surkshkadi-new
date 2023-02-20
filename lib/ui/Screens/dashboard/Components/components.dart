@@ -1204,8 +1204,6 @@ class _VideoControlState extends State<VideoControl> {
 
   @override
   Widget build(BuildContext context) {
-    // FlickVideoManager flickVideoManager =
-    // Provider.of<FlickVideoManager>(context);
     return FlickShowControlsActionWeb(
       child: Stack(
         children: <Widget>[
@@ -1235,40 +1233,12 @@ class _VideoControlState extends State<VideoControl> {
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        // Padding(
-                        //   padding: const EdgeInsets.all(8.0),
-                        //   child: GestureDetector(
-                        //     onTap: () {
-                        //       dataManager!.skipToPreviousVideo();
-                        //     },
-                        //     child: Icon(
-                        //       Icons.skip_previous,
-                        //       color: dataManager!.hasPreviousVideo()
-                        //           ? Colors.white
-                        //           : Colors.white38,
-                        //       size: 35,
-                        //     ),
-                        //   ),
-                        // ),
+
                         Padding(
                           padding: const EdgeInsets.all(8.0),
                           child: FlickPlayToggle(size: 50),
                         ),
-                        // Padding(
-                        //   padding: const EdgeInsets.all(8.0),
-                        //   child: GestureDetector(
-                        //     onTap: () {
-                        //       dataManager!.skipToNextVideo();
-                        //     },
-                        //     child: Icon(
-                        //       Icons.skip_next,
-                        //       color: dataManager!.hasNextVideo()
-                        //           ? Colors.white
-                        //           : Colors.white38,
-                        //       size: 35,
-                        //     ),
-                        //   ),
-                        // )
+
                       ],
                     ),
                   ),
@@ -1324,36 +1294,27 @@ class _VideoControlState extends State<VideoControl> {
                           Expanded(
                             child: Container(),
                           ),
-                          FlickFullScreenToggle(
-                            size: widget.iconSize,
-                            // exitFullScreenChild: Container(
-                            //   height: 100,
-                            //   width: 400,
-                            //   color: redFroly,
-                            // ),
-                            // enterFullScreenChild: Container(
-                            //   height: 100,
-                            //   width: 400,
-                            //   color: blue,
-                            // ),
-                            // toggleFullscreen: (){
-                            //
-                            //   print("test Yashu  ${demo}");
-                            //
-                            //   if(demo == true){
-                            //     print("test Yashu  iff ${demo}");
-                            //
-                            //     Navigator.pop(context);
-                            //   }else {
-                            //     print("test Yashu  else  ${demo}");
-                            //
-                            //   demo = true ;
-                            //   }
-                            //
-                            //   setState((){});
-                            //
-                            // },
-                          ),
+                          // FlickFullScreenToggle(
+                          //   size: widget.iconSize,
+                          //
+                          //   // toggleFullscreen: (){
+                          //   //
+                          //   //   print("test Yashu  ${demo}");
+                          //   //
+                          //   //   if(demo == true){
+                          //   //     print("test Yashu  iff ${demo}");
+                          //   //
+                          //   //     Navigator.pop(context);
+                          //   //   }else {
+                          //   //     print("test Yashu  else  ${demo}");
+                          //   //
+                          //   //   demo = true ;
+                          //   //   }
+                          //   //
+                          //   //   setState((){});
+                          //   //
+                          //   // },
+                          // ),
                         ],
                       ),
                     ),
