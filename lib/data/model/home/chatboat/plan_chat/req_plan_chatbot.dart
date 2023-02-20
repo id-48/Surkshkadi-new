@@ -1,7 +1,7 @@
 class ReqPlanChatBot {
   String userId;
   String planId;
-  String processStatus;
+  // String processStatus;
   String name;
   String email;
   String wpNo;
@@ -14,6 +14,7 @@ class ReqPlanChatBot {
   String annualIncome;
   String occupation;
   String fatherName;
+  String isFatherAlive;
   String nominee;
   String nomineeRelation;
   String covidDose;
@@ -25,7 +26,7 @@ class ReqPlanChatBot {
       {
         required this.userId,
         required this.planId,
-        required this.processStatus,
+        // required this.processStatus,
         required this.name,
         required this.email,
         required this.wpNo,
@@ -38,6 +39,7 @@ class ReqPlanChatBot {
         required this.annualIncome,
         required this.occupation,
         required this.fatherName,
+        required this.isFatherAlive,
         required this.nominee,
         required this.nomineeRelation,
         required this.covidDose,
@@ -49,7 +51,7 @@ class ReqPlanChatBot {
       {
         'user_id': userId,
         'plan_id': planId,
-        'process_status': processStatus,
+        // 'process_status': processStatus,
         'name': name,
         'email': email,
         'wp_no': wpNo,
@@ -62,6 +64,7 @@ class ReqPlanChatBot {
         'annual_income': annualIncome,
         'occupation': occupation,
         'father_name': fatherName,
+        'is_father_alive': isFatherAlive,
         'nominee': nominee,
         'nominee_relation': nomineeRelation,
         'covid_dose': covidDose,

@@ -38,7 +38,7 @@ class CheckYourInformation extends HookConsumerWidget {
       ReqPlanChatSubPayment PlanChatSubPayment = ReqPlanChatSubPayment(
           paymentAmount: "${getString(prefPlanPrice)}",
           subscriptionId: "${getString(prefSubscriptionId)}",
-          transactionId: "testpatel",
+          transactionId: "testId",
           // transactionId: getString(prefPaymentId),
           transactionStatus: "Success"
       );
@@ -148,7 +148,6 @@ class CheckYourInformation extends HookConsumerWidget {
 
                         Expanded(flex: 7,
                           child: Text(popFamilyNewData.value.isEmpty ? '${data.response.dob.year}''-${data.response.dob.month}-''${data.response.dob.day}' : "${popFamilyNewData.value["dob"]}",style: TextStyle(fontWeight: FontWeight.w400,fontSize: 12.5),),
-                          // child: Text('22/04/1975',style: TextStyle(fontWeight: FontWeight.w400,fontSize: 12.5),),
                         ),
                       ],
                     ),
@@ -391,6 +390,7 @@ class CheckYourInformation extends HookConsumerWidget {
                               annualIncome: popProfessionalNewData.value.isEmpty ? '${data.response.annualIncome}' : "${popProfessionalNewData.value["inCome"]}",
                               occupation:  popProfessionalNewData.value.isEmpty ? '${data.response.occupation}' : "${popProfessionalNewData.value["occupation"]}",
                               fatherName: '${data.response.fatherName}',
+                              isFatherAlive: "yes",
                               nominee: '${data.response.nominee}',
                               nomineeRelation: '${data.response.nomineeRelation}',
                               covidDose: '${data.response.covidDose}',

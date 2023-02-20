@@ -14,6 +14,7 @@ import 'package:surakshakadi/ui/Screens/chatbot_screen/plan_chatbot_screen.dart'
 import 'package:surakshakadi/ui/Screens/dashboard/Components/payment_view_modal.dart';
 import 'package:surakshakadi/utils/color_utils.dart';
 import 'package:surakshakadi/utils/constants/app_constant.dart';
+import 'package:surakshakadi/utils/constants/loading_dialog.dart';
 import 'package:surakshakadi/utils/constants/navigation_route_constants.dart';
 import 'package:surakshakadi/utils/constants/navigations_key_constant.dart';
 import 'package:surakshakadi/utils/constants/preference_key_constant.dart';
@@ -916,33 +917,23 @@ class ChooseAssetMobile extends HookConsumerWidget {
                             ReqPlanChatBot dataPlanChatBot = ReqPlanChatBot(
                               userId: getString(prefUserID),
                               planId: getString(prefPlanIdMobile),
-                              processStatus:
-                                  "${messagesList![1].messageContent[0]}",
                               wpNo: wpNumber,
-                              // wpNo:  messagesList![3].messageContent[1].isNotEmpty ?   "${messagesList![3].messageContent[1]}" : "1234567890",
-                              gender: "${messagesList![5].messageContent[0]}",
-                              dob: "${messagesList![7].messageContent[0]}",
-                              annualIncome:
-                                  "${messagesList![9].messageContent[0]}",
-                              occupation:
-                                  "${messagesList![9].messageContent[1]}",
-                              name: "${messagesList![11].messageContent[0]}",
-                              fatherName:
-                                  "${messagesList![13].messageContent[0]}",
+                              gender: "${messagesList![3].messageContent[0]}",
+                              dob: "${messagesList![5].messageContent[0]}",
+                              annualIncome:"${messagesList![7].messageContent[0]}",
+                              occupation: "${messagesList![7].messageContent[1]}",
+                              name: "${messagesList![9].messageContent[0]}",
+                              email: "${messagesList![11].messageContent[0]}",
+                              fatherName:"${messagesList![13].messageContent[0]}",
+                              isFatherAlive: 'Yes',
                               nominee: "${messagesList![15].messageContent[0]}",
-                              nomineeRelation:
-                                  "${messagesList![15].messageContent[1]}",
-                              postCode:
-                                  "${messagesList![17].messageContent[0]}",
-                              address:
-                                  "${messagesList![19].messageContent[0]},${messagesList![19].messageContent[1]}",
+                              nomineeRelation: "${messagesList![15].messageContent[1]}",
+                              postCode:"${messagesList![17].messageContent[0]}",
+                              address:"${messagesList![19].messageContent[0]},${messagesList![19].messageContent[1]}",
                               state: "${messagesList![19].messageContent[2]}",
                               city: "${messagesList![19].messageContent[3]}",
-                              covidDose:
-                                  "${messagesList![21].messageContent[0]}",
-                              nicotineProducts:
-                                  "${messagesList![23].messageContent[0]}",
-                              email: "Static Email",
+                              covidDose:"${messagesList![21].messageContent[0]}",
+                              nicotineProducts: "${messagesList![23].messageContent[0]}",
                               planAssets: "${checkedIDs.value}"
                                   .replaceAll("[", "")
                                   .replaceAll("]", ""),
@@ -967,6 +958,10 @@ class ChooseAssetMobile extends HookConsumerWidget {
 
                                 // openCheckout('22000');
                                 // openCheckout('${amountTotal.value.toString()}');
+
+                              }else {
+                                displayToast(value.message.toString());
+                                hideLoadingDialog(context: context);
 
                               }
                             });

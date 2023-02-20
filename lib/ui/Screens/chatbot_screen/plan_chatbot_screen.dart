@@ -39,6 +39,7 @@ class _PlanChatBotMobileState extends State<PlanChatBotMobile> {
   bool whNo = false;
   bool nomineeReName = false;
   bool address = false;
+  bool otherRel = false;
 
   String statee = "";
   String cityy = "";
@@ -56,29 +57,31 @@ class _PlanChatBotMobileState extends State<PlanChatBotMobile> {
     ChatMessage(messageContent: [
       "Hi, I am SURAKSHA BOT.",
       "Thanks for choosing the\nsubscription plan",
-      "I appreciate that you are taking\nproactive steps for the\nwelfare of your family."
+      "I appreciate that you are taking\nproactive steps for the\nwelfare of your family.",
+      "Is it your WhatsApp number?"
     ], messageType: "receiver"),
   ];
   ScrollController controller = ScrollController();
   List<ChatMessage> messagesQustion = [
-       ChatMessage(messageContent: ["Is it your WhatsApp number?"], messageType: "receiver"), //  14 ----> 14
-       ChatMessage(messageContent: ["Which gender do you most\nassociate with?"], messageType: "receiver"), //  2
-       ChatMessage(messageContent: ["Please share your birth date"], messageType: "receiver"), //  6  ----> 6
-       ChatMessage(messageContent: ["Please share your “Annual\nIncome”and“Occupation”."], messageType: "receiver"), //  18
-       ChatMessage(messageContent: ["Please share your Name"], messageType: "receiver"), //  4  ----> 4
-       ChatMessage(messageContent: ["Please share the name\nof your Father"], messageType: "receiver"), //  20 ----> 20
-       ChatMessage(messageContent: ["Please share the name\nof the Nominee and your\nRelationship"], messageType: "receiver"), //  22 ----> 22
-       ChatMessage(messageContent: ["We would like to know\nthe Pincode of the address\nyou reside at"], messageType: "receiver"), //  12 ----> 12
-       ChatMessage(messageContent: ["We would like to know\nyour address"], messageType: "receiver"), //  8  ---->   8
-       ChatMessage(messageContent: ["How many doses of the\nCoronavirus vaccine have\nyou taken?"], messageType: "receiver"), //  26
-       ChatMessage(messageContent: ["Do you use nicotine\nproducts"], messageType: "receiver"), //  28
+       // ChatMessage(messageContent: ["Is it your WhatsApp number?."], messageType: "receiver"), //  14 ----> 14
+       ChatMessage(messageContent: ["Which Gender do you most\nassociate with?."], messageType: "receiver"), //  2
+       ChatMessage(messageContent: ["Please share your Birth Date."], messageType: "receiver"), //  6  ----> 6
+       ChatMessage(messageContent: ["Please share your Annual\nIncome and Occupation."], messageType: "receiver"), //  18
+       ChatMessage(messageContent: ["Please share your Full Name."], messageType: "receiver"), //  4  ----> 4
+       ChatMessage(messageContent: ["Please share your Email."], messageType: "receiver"), //  4  ----> 4
+       ChatMessage(messageContent: ["Please share the Full Name\nof your Father."], messageType: "receiver"), //  20 ----> 20
+       ChatMessage(messageContent: ["Please share the Full Name\nof the Nominee."], messageType: "receiver"), //  22 ----> 22
+       ChatMessage(messageContent: ["We would like to know the\nPincode of the Address\nyou reside at."], messageType: "receiver"), //  12 ----> 12
+       ChatMessage(messageContent: ["We would like to know your Address."], messageType: "receiver"), //  8  ---->   8
+       ChatMessage(messageContent: ["How many Doses of the\nCoronavirus Vaccine have\nyou taken?"], messageType: "receiver"), //  26
+       ChatMessage(messageContent: ["Do you use Nicotine\nProducts"], messageType: "receiver"), //  28
        ChatMessage(messageContent: ["Thank You"], messageType: "receiver"), //  30
    ];
 
   List vaccines = [
-    {"title": "Dose 1", "isSelect": false},
-    {"title": "Dose 2", "isSelect": false},
-    {"title": "All three Doses", "isSelect": false},
+    {"title": "One Dose", "isSelect": false},
+    {"title": "both the doses", "isSelect": false},
+    {"title": "all three doses", "isSelect": false},
     {"title": "None", "isSelect": false}
   ];
 
@@ -114,19 +117,14 @@ class _PlanChatBotMobileState extends State<PlanChatBotMobile> {
               // physics: NeverScrollableScrollPhysics(),
               scrollDirection: Axis.vertical,
               itemBuilder: (context, index) {
-                // print("index check -->>>>   ${index}");
-                // print("message check -->>>>   ${messages.length}");
-                indexStore = index;
-                // listIndex.add(index);
-                // print("Store index ------>>>>>  ${indexStore}");
 
-                // if(index == 4){
-                //   setState((){});
-                // }
+                indexStore = index;
 
                 return Column(
                   children: [
                     ...messages[index].messageContent.map((e) {
+                      print("index test --->> ${messages[index].messageContent.indexOf(e)}");
+
                       return Container(
                         padding: EdgeInsets.only(
                             left: 8, right: 8, top: 5, bottom: 5),
@@ -202,8 +200,7 @@ class _PlanChatBotMobileState extends State<PlanChatBotMobile> {
                                 ),
                               ),
 
-                              messages[index].messageContent.indexOf(e) == 0 &&
-                                      messages[index].messageType == "sender"
+                              messages[index].messageContent.indexOf(e) == 0 && messages[index].messageType == "sender"
                                   ? Container(
                                       child: Image.asset(
                                         youBotIcon,
@@ -222,75 +219,76 @@ class _PlanChatBotMobileState extends State<PlanChatBotMobile> {
                     }).toList(),
 
 
+                    // if (index == 0) ...[
+                    //   Container(
+                    //     padding: EdgeInsets.symmetric(horizontal: 16),
+                    //     margin: EdgeInsets.only(top: 8),
+                    //     height: 36,
+                    //     child: Row(
+                    //       children: [
+                    //         Expanded(
+                    //           child: InkWell(
+                    //             onTap: messages.length == 1
+                    //                 ? () {
+                    //                     messages.add(ChatMessage(
+                    //                         messageContent: ["Yes"],
+                    //                         messageType: 'sender'));
+                    //                     messages.add(messagesQustion[0]);
+                    //                     setState(() {});
+                    //                   }
+                    //                 // : messages.length == 1
+                    //                 // ? (){messages.add(ChatMessage(messageContent: ["Male"], messageType: 'sender'));}
+                    //                 : () {},
+                    //             child: Container(
+                    //               alignment: Alignment.center,
+                    //               decoration: BoxDecoration(
+                    //                   color: blue,
+                    //                   borderRadius: BorderRadius.circular(5)),
+                    //               child: Text(
+                    //                 "Yes",
+                    //                 style: TextStyle(
+                    //                     fontSize: 13,
+                    //                     fontWeight: FontWeight.w500,
+                    //                     color: white),
+                    //               ),
+                    //             ),
+                    //           ),
+                    //         ),
+                    //         Gap(10),
+                    //         Expanded(
+                    //           child: InkWell(
+                    //             onTap: messages.length == 1
+                    //                 ? () {
+                    //                     messages.add(ChatMessage(
+                    //                         messageContent: ["Not Yes"],
+                    //                         messageType: 'sender'));
+                    //                     setState(() {
+                    //                       navigationService.pop();
+                    //                     });
+                    //                   }
+                    //                 : () {},
+                    //             child: Container(
+                    //               alignment: Alignment.center,
+                    //               decoration: BoxDecoration(
+                    //                   color: blue,
+                    //                   borderRadius: BorderRadius.circular(5)),
+                    //               child: Text(
+                    //                 "Not Yes",
+                    //                 style: TextStyle(
+                    //                     fontSize: 13,
+                    //                     fontWeight: FontWeight.w500,
+                    //                     color: white),
+                    //               ),
+                    //             ),
+                    //           ),
+                    //         ),
+                    //       ],
+                    //     ),
+                    //   )
+                    // ],
+
                     if (index == 0) ...[
-                      Container(
-                        padding: EdgeInsets.symmetric(horizontal: 16),
-                        margin: EdgeInsets.only(top: 8),
-                        height: 36,
-                        child: Row(
-                          children: [
-                            Expanded(
-                              child: InkWell(
-                                onTap: messages.length == 1
-                                    ? () {
-                                        messages.add(ChatMessage(
-                                            messageContent: ["Yes"],
-                                            messageType: 'sender'));
-                                        messages.add(messagesQustion[0]);
-                                        setState(() {});
-                                      }
-                                    // : messages.length == 3
-                                    // ? (){messages.add(ChatMessage(messageContent: ["Male"], messageType: 'sender'));}
-                                    : () {},
-                                child: Container(
-                                  alignment: Alignment.center,
-                                  decoration: BoxDecoration(
-                                      color: blue,
-                                      borderRadius: BorderRadius.circular(5)),
-                                  child: Text(
-                                    "Yes",
-                                    style: TextStyle(
-                                        fontSize: 13,
-                                        fontWeight: FontWeight.w500,
-                                        color: white),
-                                  ),
-                                ),
-                              ),
-                            ),
-                            Gap(10),
-                            Expanded(
-                              child: InkWell(
-                                onTap: messages.length == 1
-                                    ? () {
-                                        messages.add(ChatMessage(
-                                            messageContent: ["Not Yes"],
-                                            messageType: 'sender'));
-                                        setState(() {
-                                          navigationService.pop();
-                                        });
-                                      }
-                                    : () {},
-                                child: Container(
-                                  alignment: Alignment.center,
-                                  decoration: BoxDecoration(
-                                      color: blue,
-                                      borderRadius: BorderRadius.circular(5)),
-                                  child: Text(
-                                    "Not Yes",
-                                    style: TextStyle(
-                                        fontSize: 13,
-                                        fontWeight: FontWeight.w500,
-                                        color: white),
-                                  ),
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
-                      )
-                    ],
-                    if (index == 2) ...[
-                      messages.length == 3
+                      messages.length == 1
                           ? Container(
                         padding: EdgeInsets.symmetric(horizontal: 16),
                         margin: EdgeInsets.only(top: 8),
@@ -299,16 +297,16 @@ class _PlanChatBotMobileState extends State<PlanChatBotMobile> {
                           children: [
                             Expanded(
                               child: InkWell(
-                                onTap: messages.length == 3
+                                onTap: messages.length == 1
                                     ? () {
 
                                   messages.add(ChatMessage(
                                       messageContent: ["Yes"],
                                       messageType: 'sender'));
-                                  messages.add(messagesQustion[1]);
+                                  messages.add(messagesQustion[0]);
                                   setState(() {});
                                 }
-                                // : messages.length == 3
+                                // : messages.length == 1
                                 // ? (){messages.add(ChatMessage(messageContent: ["Male"], messageType: 'sender'));}
                                     : () {},
                                 child: Container(
@@ -329,7 +327,7 @@ class _PlanChatBotMobileState extends State<PlanChatBotMobile> {
                             Gap(10),
                             Expanded(
                               child: InkWell(
-                                onTap: messages.length == 3
+                                onTap: messages.length == 1
                                     ? () {
                                   whNo = true;
                                   setState(() {});
@@ -390,7 +388,7 @@ class _PlanChatBotMobileState extends State<PlanChatBotMobile> {
                 ],
                 ) : Container(),
                       whNo == true ? Gap(10) : Gap(0),
-                      messages.length == 3 && whNo == true
+                      messages.length == 1 && whNo == true
                           ? Align(
                         alignment: Alignment.bottomLeft,
                         child: Container(
@@ -436,10 +434,10 @@ class _PlanChatBotMobileState extends State<PlanChatBotMobile> {
                                       messages.add(ChatMessage(
                                           messageContent: ["No",chatController.text],
                                           messageType: 'sender'));
-                                      messages.add(messagesQustion[1]);
-                                      setState(() {});
+                                      messages.add(messagesQustion[0]);
                                       chatController.clear();
                                       setState(() {});
+                                      // setState(() {});
                                     } else {
                                       displayToast(
                                           "Please Question the Ans.of(10 Digit)");
@@ -462,10 +460,9 @@ class _PlanChatBotMobileState extends State<PlanChatBotMobile> {
                       )
                           : Container(),
 
-
                     ],
-                    if (index == 4) ...[
-                      messages.length == 5
+                    if (index == 2) ...[
+                      messages.length == 3
                           ? Container(
                         padding: EdgeInsets.symmetric(horizontal: 16),
                         margin: EdgeInsets.only(top: 8),
@@ -474,18 +471,16 @@ class _PlanChatBotMobileState extends State<PlanChatBotMobile> {
                           children: [
                             Expanded(
                               child: InkWell(
-                                onTap: messages.length == 5
+                                onTap: messages.length == 3
                                     ? () {
 
                                   messages.add(ChatMessage(
                                       messageContent: ["Male"],
                                       messageType: 'sender'));
-                                  messages.add(messagesQustion[2]);
+                                  messages.add(messagesQustion[1]);
                                   setState(() {});
                                 }
-                                // : messages.length == 3
-                                // ? (){messages.add(ChatMessage(messageContent: ["Male"], messageType: 'sender'));}
-                                    : () {},
+                                : () {},
                                 child: Container(
                                   alignment: Alignment.center,
                                   decoration: BoxDecoration(
@@ -504,12 +499,12 @@ class _PlanChatBotMobileState extends State<PlanChatBotMobile> {
                             Gap(10),
                             Expanded(
                               child: InkWell(
-                                onTap: messages.length == 5
+                                onTap: messages.length == 3
                                     ? () {
                                   messages.add(ChatMessage(
                                       messageContent: ["Female"],
                                       messageType: 'sender'));
-                                  messages.add(messagesQustion[2]);
+                                  messages.add(messagesQustion[1]);
                                   setState(() {});
                                 }
                                     : () {},
@@ -533,10 +528,10 @@ class _PlanChatBotMobileState extends State<PlanChatBotMobile> {
                       )
                           : Container(),
                     ],
-                    if (index == 6) ...[
-                      messages.length == 7  ?  Center(
+                    if (index == 4) ...[
+                      messages.length == 5  ?  Center(
                         child: InkWell(
-                          onTap: messages.length == 7 ?() async {
+                          onTap: messages.length == 5 ?() async {
                             DateTime? pickedDate = await showDatePicker(
                               context: context,
                               initialDate: DateTime.now(),
@@ -566,7 +561,7 @@ class _PlanChatBotMobileState extends State<PlanChatBotMobile> {
                               formattedDate = DateFormat('yyyy-MM-dd').format(pickedDate);
                               print("Date   ----->>>>${formattedDate}");
                               messages.add(ChatMessage(messageContent: [formattedDate], messageType: 'sender'));
-                              messages.add(messagesQustion[3]);
+                              messages.add(messagesQustion[2]);
                               setState((){});
                             } else {
                               displayToast("Please Select Your Birth Date.");
@@ -591,7 +586,7 @@ class _PlanChatBotMobileState extends State<PlanChatBotMobile> {
                         ),
                       ) : Container(),
                     ],
-                    if (index == 8) ...[
+                    if (index == 6) ...[
 
                       Gap(10),
                       Row(
@@ -601,7 +596,7 @@ class _PlanChatBotMobileState extends State<PlanChatBotMobile> {
                             flex: 1,
                             child: CustomSelect(
                               isColorBox: true,
-                              onChanged: messages.length == 9
+                              onChanged: messages.length == 7
                                   ? (val) {
                                 inCome = val;
                                 displayToast("Please Select Occupation");
@@ -624,7 +619,7 @@ class _PlanChatBotMobileState extends State<PlanChatBotMobile> {
                           Expanded(
                             flex: 1,
                             child: CustomSelect(
-                              onChanged: messages.length == 9
+                              onChanged: messages.length == 7
                                   ? (val) {
                                 occupation = val;
                                 print("yashu  ----->>>>${occupation}");
@@ -637,7 +632,7 @@ class _PlanChatBotMobileState extends State<PlanChatBotMobile> {
                                         occupation
                                       ],
                                       messageType: 'sender'));
-                                  messages.add(messagesQustion[4]);
+                                  messages.add(messagesQustion[3]);
                                   setState(() {});
                                 } else {
                                   displayToast("Please select State");
@@ -648,7 +643,8 @@ class _PlanChatBotMobileState extends State<PlanChatBotMobile> {
                               items: [
                                 'Salaried',
                                 'Self-employed',
-                                'Professional'
+                                'Professional',
+                                'Retired'
                               ],
                               hint: 'Occupation',
                             ),
@@ -656,12 +652,12 @@ class _PlanChatBotMobileState extends State<PlanChatBotMobile> {
                           Gap(16),
                         ],
                       ),
-                      messages.length == 9 ? Gap(200) : Gap(0),
+                      messages.length == 7 ? Gap(200) : Gap(0),
 
                     ],
-                    if (index == 10) ...[
+                    if (index == 8) ...[
 
-                      messages.length == 11
+                      messages.length == 9
                           ? Align(
                         alignment: Alignment.bottomLeft,
                         child: Container(
@@ -707,13 +703,13 @@ class _PlanChatBotMobileState extends State<PlanChatBotMobile> {
                                       messages.add(ChatMessage(
                                           messageContent: [chatController.text],
                                           messageType: 'sender'));
-                                      messages.add(messagesQustion[5]);
+                                      messages.add(messagesQustion[4]);
                                       setState(() {});
                                       chatController.clear();
                                       setState(() {});
                                     } else {
                                       displayToast(
-                                          "Please Question the Ans.of(10 Digit)");
+                                          "Please Question the Ans.");
                                     }
 
                                     setState(() {});
@@ -732,8 +728,87 @@ class _PlanChatBotMobileState extends State<PlanChatBotMobile> {
                         ),
                       )
                           : Container(),
-
                     ],
+
+                    if (index == 10) ...[
+
+                      messages.length == 11
+                          ? Align(
+                        alignment: Alignment.bottomLeft,
+                        child: Container(
+                          padding: EdgeInsets.only(
+                            left: 5,
+                          ),
+                          // margin: EdgeInsets.only(left: 10, right: 10, bottom: 10),
+                          height: 60,
+                          width: double.infinity,
+                          // color: Colors.white,
+                          child: Row(
+                            children: <Widget>[
+                              Expanded(
+                                child: Container(
+                                  decoration: BoxDecoration(
+                                    color: Colors.white,
+                                    border: Border.all(color: blue),
+                                    borderRadius:
+                                    BorderRadius.circular(20),
+                                  ),
+                                  child: TextFormField(
+                                    autofillHints: [
+                                      AutofillHints.email,
+                                    ],
+                                    controller: chatController,
+                                    // keyboardType: TextInputType.number,
+                                    // maxLength: 10,
+                                    keyboardType: TextInputType.text,
+                                    decoration: InputDecoration(
+                                      contentPadding: EdgeInsets.only(
+                                          left: 10, bottom: 0, top: 0),
+                                      hintText: "Enter Your Email...",
+                                      counterText: "",
+                                      hintStyle: TextStyle(
+                                          color: Colors.black54),
+                                      border: InputBorder.none,
+                                    ),
+                                  ),
+                                ),
+                              ),
+                              Padding(
+                                padding: const EdgeInsets.all(6.0),
+                                child: FloatingActionButton(
+                                  onPressed: () {
+                                    if (chatController.text.isNotEmpty) {
+                                      messages.add(ChatMessage(
+                                          messageContent: [chatController.text],
+                                          messageType: 'sender'));
+                                      messages.add(messagesQustion[5]);
+                                      setState(() {});
+                                      chatController.clear();
+                                      setState(() {});
+                                    } else {
+                                      displayToast(
+                                          "Please Question the Ans.");
+                                    }
+
+                                    setState(() {});
+                                  },
+                                  child: Icon(
+                                    Icons.send,
+                                    color: Colors.white,
+                                    size: 22,
+                                  ),
+                                  backgroundColor: Colors.blue,
+                                  elevation: 0,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      )
+                          : Container(),
+                    ],
+
+
                     if (index == 12) ...[
 
                       messages.length == 13
@@ -885,6 +960,47 @@ class _PlanChatBotMobileState extends State<PlanChatBotMobile> {
                       )
                           : Container(),
                       Gap(messages.length == 15 ? 10 :0),
+                      messages.length == 15 && nomineeReName == true ? Row(
+                        children: [
+                          // Image.asset(
+                          //   roundChatBot,
+                          //   scale: 3.5,
+                          // ),
+
+                          SizedBox(
+                            width: Utils.getWidth(context) * 0.18,
+                          ),
+
+                          Container(
+                            margin: EdgeInsets.only(
+
+                                right:15),
+                            padding: EdgeInsets.only(
+                                left: 10, right: 10, top: 12, bottom: 12),
+                            decoration: BoxDecoration(
+                              borderRadius:
+                              BorderRadius.only(
+                                topLeft: Radius.circular(8),
+                                bottomRight: Radius.circular(14),
+                                topRight: Radius.circular(14),
+                              ),
+
+
+                              border: Border.all(
+                                  color:  bordercolor, width: 1.5),
+
+                              color: white,
+                            ),
+                            child: Text(
+                              "What is your relationship\nwith the Nominee?",
+                              style: TextStyle(fontSize: 15),
+                            ),
+                          ),
+
+                        ],
+                      ) : Container(),
+
+                      Gap(messages.length == 15 ? 10 :0),
                       messages.length == 15 &&   nomineeReName == true
                           ? Row(
                         children: [
@@ -893,17 +1009,21 @@ class _PlanChatBotMobileState extends State<PlanChatBotMobile> {
                             flex: 4,
                             child: CustomSelect(
                               isColorBox: true,
-                              onChanged: messages.length == 15
+                              onChanged: messages.length == 15 && otherRel == false
                                   ? (val) {
                                 nomineeRe = val;
-                                print("yashu Patel ----");
-                                print("yashu Patel222 ---- ${chatController.text}");
-                                messages.add(ChatMessage(
-                                    messageContent: [chatController.text,"${val}"],
-                                    messageType: 'sender'));
-                                chatController.clear();
-                                messages.add(messagesQustion[7]);
+                                // print("yashu Patel ----");
+                                // print("yashu Patel222 ---- ${chatController.text}");
 
+                                if(val == "Other"){
+                                  otherRel = true;
+                                }else {
+                                  messages.add(ChatMessage(
+                                      messageContent: [chatController.text, "${val}"],
+                                      messageType: 'sender'));
+                                  chatController.clear();
+                                  messages.add(messagesQustion[7]);
+                                }
 
                                 setState((){});
                               }
@@ -916,7 +1036,83 @@ class _PlanChatBotMobileState extends State<PlanChatBotMobile> {
 
                         ],
                       )  : Container(),
-                      messages.length == 15 &&   nomineeReName == true ? Gap(200) : Gap(0),
+                      messages.length == 15 &&   nomineeReName == true && otherRel == false ? Gap(200) : Gap(0),
+
+                      Gap(messages.length == 15 && otherRel == true ? 10 :0),
+
+
+                      messages.length == 15 && otherRel == true
+                          ? Align(
+                        alignment: Alignment.bottomLeft,
+                        child: Container(
+                          padding: EdgeInsets.only(
+                            left: 5,
+                          ),
+                          // margin: EdgeInsets.only(left: 10, right: 10, bottom: 10),
+                          height: 60,
+                          width: double.infinity,
+                          // color: Colors.white,
+                          child: Row(
+                            children: <Widget>[
+                              Expanded(
+                                child: Container(
+                                  decoration: BoxDecoration(
+                                    color: Colors.white,
+                                    border: Border.all(color: blue),
+                                    borderRadius:
+                                    BorderRadius.circular(20),
+                                  ),
+                                  child: TextFormField(
+                                    enabled:  true,
+                                    controller: buildNoController,
+                                    // keyboardType:TextInputType.number,
+                                    keyboardType: TextInputType.text,
+                                    decoration: InputDecoration(
+                                      contentPadding: EdgeInsets.only(
+                                          left: 10, bottom: 0, top: 0),
+                                      hintText: "Nominee Relationship...",
+                                      hintStyle: TextStyle(
+                                          color: Colors.black54),
+                                      border: InputBorder.none,
+                                    ),
+                                  ),
+                                ),
+                              ),
+                              Padding(
+                                padding: const EdgeInsets.all(6.0),
+                                child: FloatingActionButton(
+                                  onPressed:() {
+                                    if (chatController.text.isNotEmpty) {
+                                      // nomineeReName = true;
+                                      messages.add(ChatMessage(
+                                          messageContent: [chatController.text,buildNoController.text],
+                                          messageType: 'sender'));
+                                      messages.add(messagesQustion[7]);
+                                      chatController.clear();
+                                      buildNoController.clear();
+                                      setState(() {});
+                                    } else {
+                                      displayToast(
+                                          "Please Question the Ans.");
+                                    }
+
+                                    setState(() {});
+                                  },
+                                  child: Icon(
+                                    Icons.send,
+                                    color: Colors.white,
+                                    size: 22,
+                                  ),
+                                  backgroundColor: Colors.blue,
+                                  elevation: 0,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      )
+                          : Container(),
+
 
                     ],
                     if (index == 16) ...[
