@@ -174,16 +174,11 @@ class _RecordAVideoState extends State<RecordAVideo> {
                           // print("video--->> ${videoData}");
 
 
-                          print("enter your imageFile 111---->>>>> ${widget.videoPictureRV!.path.toString()}");
                           File imageFile =  File(widget.videoPictureRV!.path.toString());
-                          print("enter your imageFile ---->>>>> ${imageFile}");
                           List<int> imageBytes = imageFile.readAsBytesSync();
                           String base64Image = await base64Encode(imageBytes);
 
                           String video = "${videoType + base64Image}";
-
-                          print("enter your ---->>>>> $base64Image -----");
-                          print("enter your leg- ---->>>>> ${video} -----");
 
 
 
@@ -195,7 +190,6 @@ class _RecordAVideoState extends State<RecordAVideo> {
                                 // videoFile: "${imageFile}",
                               );
 
-                              print("--------${willReviewData.videoFile}");
 
                          // Future.delayed(Duration(seconds: 5),() async{
                          await ref.read(storeWillReviewProvider.notifier)

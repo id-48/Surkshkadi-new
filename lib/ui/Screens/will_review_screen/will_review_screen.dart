@@ -47,18 +47,87 @@ class WillReview extends HookConsumerWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                // Gap(20),
-                Container(
-                  width: Utils.getWidth(context),
-                  child: Text(loremIpsumDolorSit,
-                  style: TextStyle(fontWeight: FontWeight.w500,fontSize: 13),)
-                ),
-                Gap(15),
-                Container(
-                    width: Utils.getWidth(context),
-                    child: Text(loremIpsumDolorSitLongName,
-                      style: TextStyle(fontWeight: FontWeight.w500,fontSize: 13),)
-                ),
+
+                // Text(loremIpsumDolorSit,
+                // style: TextStyle(fontWeight: FontWeight.w500,fontSize: 13),),
+                //
+                // Gap(15),
+                //
+                // Text(loremIpsumDolorSitLongName,
+                //   style: TextStyle(fontWeight: FontWeight.w500,fontSize: 13),),
+
+                Text("I ${getString(prefUserName)}, s/o Shri ${getString(prefFatherName)}, residing at ${getString(prefAddress)}, aged about <AGE> years, occupation ${getString(prefOccupation)}, declare this deed to be my last will and testament.",
+                  style: TextStyle(fontWeight: FontWeight.w500,fontSize: 13),),
+
+                Gap(10),
+
+                Text(iMaintainGood,
+                  style: TextStyle(fontWeight: FontWeight.w500,fontSize: 13),),
+
+
+
+                Gap(10),
+
+                Text(iHaveNotMadeAny,
+                style: TextStyle(fontWeight: FontWeight.w500,fontSize: 13),),
+
+                Gap(10),
+
+                Text(iAppointSurakshakadiDigital,
+                  style: TextStyle(fontWeight: FontWeight.w500,fontSize: 13),),
+
+
+                Gap(10),
+
+                Text(iHaveTheFollowing,
+                  style: TextStyle(fontWeight: FontWeight.w500,fontSize: 13),),
+
+                Gap(8),
+
+                Text("1.   I am married to ${getString(prefMarriedSpouseName)}.",
+                  style: TextStyle(fontWeight: FontWeight.w500,fontSize: 13),),
+
+                // Gap(10),
+
+                Text("2.   My father's name is ${getString(prefFatherName)}.",
+                  style: TextStyle(fontWeight: FontWeight.w500,fontSize: 13),),
+
+                // Gap(10),
+
+                Text("3.   My mother's name is ${getString(prefMotherName)}.",
+                  style: TextStyle(fontWeight: FontWeight.w500,fontSize: 13),),
+
+
+                Gap(10),
+
+                Text(iHerebyDeclareThatAfter,
+                  style: TextStyle(fontWeight: FontWeight.w500,fontSize: 13),),
+
+                Gap(10),
+
+                Text(allUtilities,
+                  style: TextStyle(fontWeight: FontWeight.w500,fontSize: 13),),
+
+                Gap(10),
+
+                Text(iHerebyDeclareThatIHave,
+                  style: TextStyle(fontWeight: FontWeight.w500,fontSize: 13),),
+
+                Gap(10),
+
+                Text(InCasesWhereAnyClose,
+                  style: TextStyle(fontWeight: FontWeight.w500,fontSize: 13,color: redFroly),),
+
+                Gap(10),
+
+                Text(ifABeneficiaryIsAMinor,
+                  style: TextStyle(fontWeight: FontWeight.w500,fontSize: 13,color: Color(0xff8D5AB3)),),
+
+                Gap(10),
+
+                Text("IN WITNESS WHEREOF, I have signed my name on ${getString(prefDOB)} at ${getString(prefCity)}, ${getString(prefState)}, declaring and publishing this instrument as my Last Will, in the presence of the undersigned witnesses, who witnessed this Last Will at my request, and in my presence.",
+                  style: TextStyle(fontWeight: FontWeight.w500,fontSize: 13),),
+
                 Gap(30),
 
                 Row(

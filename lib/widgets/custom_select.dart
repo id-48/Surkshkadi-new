@@ -63,81 +63,64 @@ class CustomSelect extends StatelessWidget {
       controller.value = selectedValue;
     }
 
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        if (title != null) ...[
-          Text(isRequired ? title! : title!,
-            style:  TextStyle(
-              // color: darkPrimaryColor,
-              fontSize: 16,color:  isColorBox == true ? white : greenjerry,
-              fontWeight: FontWeight.w600,
+    return Container(
+      height: height,
+      decoration: BoxDecoration(
+        color: isColorBox == true ? blue : colors ,
+        borderRadius: BorderRadius.circular(isColorBox == true ? 7 : 0),
+      ),
+
+      child: TextDropdownFormField(
+        controller: controller,
+
+        validator: validator,
+        // onChanged: (str) {
+        //   // onChanged!(str, items.indexOf(str));
+        // },
+        onChanged: onChanged,
+        dropdownHeight: dropdownHeight,
+        options: items,
+        decoration: InputDecoration(iconColor: white,
+          labelStyle: TextStyle(fontSize: 13,color: isColorBox == true ? white : greenjerry,),
+          prefixStyle: TextStyle(fontSize: 13,color: isColorBox == true ? white : greenjerry,),
+          suffixStyle: TextStyle(fontSize: 13,color:  white,),
+          helperStyle: TextStyle(fontSize: 13,color:  white,),
+          errorStyle: TextStyle(fontSize: 13,color:  white,),
+          floatingLabelStyle: TextStyle(fontSize: 13,color:  white,),
+          counterStyle: TextStyle(fontSize: 13,color:  white,),
+          focusColor: Colors.white,
+          fillColor: Colors.white,
+          hoverColor: Colors.white,
+          contentPadding: EdgeInsets.only(left: 11,right: 11,top: 10,bottom: 10),
+          prefix:prefix,
+          // Padding(padding: EdgeInsets.only(top: 0,right: 15,),
+          //   child: Image.asset(cityicon,scale: 3.8,),
+          // ),
+
+          suffix: Padding(padding: EdgeInsets.only(top: 10),
+            child: Image.asset(downarrow,scale: 3.5,color: isColorBox == true ? white : blue,),
+          ),
+
+          enabledBorder: border,
+          focusedBorder: border,
+          errorBorder: const OutlineInputBorder(
+            borderRadius: borderRadius,
+            borderSide: BorderSide(
+              color: Colors.red,
+              width: 1.0,
             ),
           ),
-          const Gap(6),
-        ],
-        Container(
-          height: height,
-          decoration: BoxDecoration(
-            color: isColorBox == true ? blue : colors ,
-            borderRadius: BorderRadius.circular(isColorBox == true ? 7 : 0),
-          ),
-
-          child: TextDropdownFormField(
-            controller: controller,
-
-            validator: validator,
-            // onChanged: (str) {
-            //   // onChanged!(str, items.indexOf(str));
-            // },
-            onChanged: onChanged,
-            dropdownHeight: dropdownHeight,
-            options: items,
-
-            decoration: InputDecoration(iconColor: white,
-
-              labelStyle: TextStyle(fontSize: 13,color: isColorBox == true ? white : greenjerry,),
-              prefixStyle: TextStyle(fontSize: 13,color: isColorBox == true ? white : greenjerry,),
-              suffixStyle: TextStyle(fontSize: 13,color:  white,),
-              helperStyle: TextStyle(fontSize: 13,color:  white,),
-              errorStyle: TextStyle(fontSize: 13,color:  white,),
-              floatingLabelStyle: TextStyle(fontSize: 13,color:  white,),
-              counterStyle: TextStyle(fontSize: 13,color:  white,),
-              focusColor: Colors.white,
-              fillColor: Colors.white,
-              hoverColor: Colors.white,
-              contentPadding: EdgeInsets.only(left: 11,right: 11,top: 10,bottom: 10),
-              prefix:prefix,
-              // Padding(padding: EdgeInsets.only(top: 0,right: 15,),
-              //   child: Image.asset(cityicon,scale: 3.8,),
-              // ),
-
-              suffix: Padding(padding: EdgeInsets.only(top: 10),
-                child: Image.asset(downarrow,scale: 3.5,color: isColorBox == true ? white : blue,),
-              ),
-
-              enabledBorder: border,
-              focusedBorder: border,
-              errorBorder: const OutlineInputBorder(
-                borderRadius: borderRadius,
-                borderSide: BorderSide(
-                  color: Colors.red,
-                  width: 1.0,
-                ),
-              ),
-             isDense: true,
+         isDense: true,
 
 
-              border: border,
-              hintText: hint,
-              hintStyle: TextStyle(
-                fontSize: 13,color:Colors.white,fontWeight: FontWeight.w400,
-                decorationColor: Colors.white,
-              ),
-            ),
+          border: border,
+          hintText: hint,
+          hintStyle: TextStyle(
+            fontSize: 13,color:Colors.white,fontWeight: FontWeight.w400,
+            decorationColor: Colors.white,
           ),
         ),
-      ],
+      ),
     );
   }
 }

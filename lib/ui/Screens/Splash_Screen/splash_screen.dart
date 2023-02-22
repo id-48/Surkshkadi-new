@@ -5,6 +5,8 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:surakshakadi/di/locator.dart';
 import 'package:surakshakadi/ui/Screens/chatbot_screen/plan_chatbot_web_screen.dart';
+import 'package:surakshakadi/ui/Screens/record_video_screen/record_a_video_screen.dart';
+import 'package:surakshakadi/ui/Screens/will_review_screen/will_review_screen.dart';
 import 'package:surakshakadi/utils/color_utils.dart';
 import 'package:surakshakadi/utils/constants/navigation_route_constants.dart';
 import 'package:surakshakadi/utils/constants/preference_key_constant.dart';
@@ -29,20 +31,22 @@ class SplashScreen extends HookConsumerWidget {
             // print("Aadhar token ${getString(prefUserID)}");
             if (getString(prefLoginToken).isNotEmpty) {
               // Navigator.push(context,
-              //     MaterialPageRoute(builder: (context) => WillReview() ));
-
+              //     MaterialPageRoute(builder: (context) => RecordAVideo(videoRecord: false ) ));
+              //
               navigationService.pushAndRemoveUntil(routeCustomBottomNavigationBar);
             } else {
               // Navigator.push(context,
               //     MaterialPageRoute(builder: (context) => WillReview() ));
 
               navigationService.pushAndRemoveUntil(routeCommonepagee);
+
             }
           } else {
             // Navigator.push(context, MaterialPageRoute(builder: (context) => PlanChatBotWeb(),));
             // navigationService.pushAndRemoveUntil(routePlanChatBotWeb);
 
             navigationService.pushAndRemoveUntil(routeDashboardWeb);
+
           }
         });
         return timer.cancel;

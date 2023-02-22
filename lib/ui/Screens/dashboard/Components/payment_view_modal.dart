@@ -57,17 +57,17 @@ class PlanChatSubPaymentViewModel extends StateNotifier<AsyncValue<ResPlanChatSu
 
   Future<ResPlanChatSubPayment?> planChatSubPayment(
       {required BuildContext context, required ReqPlanChatSubPayment data}) async {
-    showLoadingDialog(context: context);
+    // showLoadingDialog(context: context);
     final result = await repositery.planChatSubPayment(data);
     return result.when(
         success: (result) async {
           state= AsyncValue.data(result);
-          hideLoadingDialog(context: context);
+          // hideLoadingDialog(context: context);
           // displayToast(result.message);
           return result;
         },
         failure: (error) {
-          hideLoadingDialog(context: context);
+          // hideLoadingDialog(context: context);
         }
     );
   }

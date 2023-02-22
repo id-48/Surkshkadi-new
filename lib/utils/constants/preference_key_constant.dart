@@ -25,9 +25,18 @@ const String prefSubChatBotCompletedMobile = 'prefSubChatBotCompleted';
 const String prefPlanTitle = 'prefPlanTitle';
 const String prefIssueDetail = 'prefIssueDetail';
 const String prefSubscriptionAssetId = 'prefSubscriptionAssetId';
+
+
 const String prefUserName = 'prefUserName';
-
-
+const String prefFatherName = "prefFatherName";
+const String prefAddress = "prefAddress";
+const String prefAge = "prefAge";
+const String prefOccupation = "prefOccupation";
+const String prefMarriedSpouseName = "prefMarriedSpouseName";
+const String prefMotherName = "prefMotherName";
+const String prefDOB = "prefDOB";
+const String prefState = "prefState";
+const String prefCity = "prefCity";
 
 
 

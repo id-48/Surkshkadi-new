@@ -29,31 +29,6 @@ class _KYCChatBotMobileState extends State<KYCChatBotMobile> {
   TextEditingController addressController = TextEditingController();
 
 
-
-  // TextEditingController oneAgeController = TextEditingController();
-  // TextEditingController twoAgeController = TextEditingController();
-  // TextEditingController threeAgeController = TextEditingController();
-  // TextEditingController fourAgeController = TextEditingController();
-  // TextEditingController fiveAgeController = TextEditingController();
-  // TextEditingController sixAgeController = TextEditingController();
-  // TextEditingController sevenAgeController = TextEditingController();
-  // TextEditingController eightAgeController = TextEditingController();
-  // TextEditingController nineAgeController = TextEditingController();
-  // TextEditingController tenAgeController = TextEditingController();
-  //
-  // TextEditingController oneNameController = TextEditingController();
-  // TextEditingController twoNameController = TextEditingController();
-  // TextEditingController threeNameController = TextEditingController();
-  // TextEditingController fourNameController = TextEditingController();
-  // TextEditingController fiveNameController = TextEditingController();
-  // TextEditingController sixNameController = TextEditingController();
-  // TextEditingController sevenNameController = TextEditingController();
-  // TextEditingController eightNameController = TextEditingController();
-  // TextEditingController nineNameController = TextEditingController();
-  // TextEditingController tenNameController = TextEditingController();
-
-
-
   int indexStore = 0;
   int indexValue = -1;
   bool button = false;
@@ -89,18 +64,18 @@ class _KYCChatBotMobileState extends State<KYCChatBotMobile> {
     ChatMessage(messageContent: [
       "Hey ${getString(prefUserName)},\nI am SURAKSHA BOT.",
       "Thanks for providing your e-KYC\ndetails",
-      "I appreciate that you are taking\nprotective steps for the\nwelfare of your family."
+      "I appreciate that you are taking\nprotective steps for the\nwelfare of your family.",
+      "Please confirm if you have\nregistered any will(s) previously\nwith the Sub-Registrar."
     ], messageType: "receiver"),
   ];
 
-  List<ChildMessage> childMes = [];
 
   ScrollController controller = ScrollController();
   List<ChatMessage> messagesQustion = [
-/*0*/    ChatMessage(messageContent: ["Please share the name of\nyour mother."], messageType: "receiver"), //  2
+/*0*/    ChatMessage(messageContent: ["Please share the name of\nyour Mother."], messageType: "receiver"), //  2
 /*1*/    ChatMessage(messageContent: ["What is your marital status?"], messageType: "receiver"), //  4  ----> 4
 /*2*/    ChatMessage(messageContent: ["Please share the name\nof the spouse?",], messageType: "receiver"), //  6
-/*3*/    ChatMessage(messageContent: ["Please confirm the below\mpointers."], messageType: "receiver"),      // 8
+/*3*/    ChatMessage(messageContent: ["Please confirm the below\npointers."], messageType: "receiver"),      // 8
 /*4*/    ChatMessage(messageContent: ["Please share how many\nchildren you have."], messageType: "receiver"), //  10 ----> 10
 /*5*/    ChatMessage(messageContent: ["Can you share the Name, Age and\nGender of your child/children?"], messageType: "receiver"), //  12 ----> 12
 /*6*/    ChatMessage(messageContent: ["Who is to be appointed as Trustee/\nGuardian of the trust set up\nfor minor beneficiaries?"], messageType: "receiver"), //  14 ----> 14
@@ -1248,10 +1223,12 @@ class _KYCChatBotMobileState extends State<KYCChatBotMobile> {
 
                                             child: CustomSelect(
                                               isColorBox: false,
+                                              dropdownHeight: 110,
+                                              // isRequired: ,
                                               onChanged: isChildTextField == false
                                                   ? (val) {
                                                 if(ageCon[index].text.isNotEmpty) {
-                                                  if (nameCon[index].text.isNotEmpty) {
+                                                  if(nameCon[index].text.isNotEmpty) {
 
                                                     if(index <= childrenCount ) {
                                                       // childMes.add(
@@ -1879,6 +1856,7 @@ class _KYCChatBotMobileState extends State<KYCChatBotMobile> {
                             userId:  getString(prefUserID),
                             subRegisterStatus: "${messages[1].messageContent[0]}",
                             motherName: "${messages[3].messageContent[0]}",
+                            isMotherAlive: "Yes",
                             maritalStatus: "${messages[5].messageContent[0]}",
                             spouseName: messages[5].messageContent[0] == "Unmarried" ?  "" : "${messages[7].messageContent[0]}",
                             divorceStatus: messages[5].messageContent[0] == "Unmarried" ? "" : messages[5].messageContent[0] == "Married" ? ""  : messages[7].messageContent[1] ,
@@ -1892,17 +1870,17 @@ class _KYCChatBotMobileState extends State<KYCChatBotMobile> {
                             appointSurakshakadiStatus: "Accepted",
                             authorizeSurakshakadiStatus: "Accepted",
                             termsConditionStatus: "Accepted",
-
-
                           );
 
-                          print("Yahsu 111");
+                          setString(prefMarriedSpouseName, messages[5].messageContent[0] == "Unmarried" ?  "" : "${messages[7].messageContent[0]}" );
+                          setString(prefMotherName,"${messages[3].messageContent[0]}" );
+
+
+                          print("total data --->>>  ${kycChatBotData.toJson()}");
                           await ref.read(kycChatBotProvider.notifier)
                               .kycChatBot(context: context, data: kycChatBotData)
                               .then((value) async {
-                            print("Yahsu 22222");
                             if (value!.status == 1) {
-                              print("Yahsu Patel");
                               displayToast(value.message.toString());
                               navigationService.push(routeWillReview);
                              }else {
@@ -1933,10 +1911,4 @@ class _KYCChatBotMobileState extends State<KYCChatBotMobile> {
 }
 
 
-class ChildMessage {
-  String name;
-  int age;
-  String gender;
 
-  ChildMessage({required this.name, required this.age,required this.gender});
-}

@@ -731,31 +731,36 @@ class PlanScreen extends HookConsumerWidget {
                         padding:
                             EdgeInsets.symmetric(horizontal: 30, vertical: 10),
                         onTap: () {
-                          var planId = isCheck.value == true
-                              ? "${data.response.plans[1].plans[isSelected.value].planId}"
-                              : "${data.response.plans[0].plans[isSelected.value].planId}";
 
-                          var planPrice = isCheck.value == true
-                              ? "${data.response.plans[1].plans[isSelected.value].offerPrice}"
-                              : "${data.response.plans[0].plans[isSelected.value].offerPrice}";
 
-                          var planTitle = isCheck.value == true
-                              ? "${data.response.plans[1].plans[isSelected.value].planTitle}"
-                              : "${data.response.plans[0].plans[isSelected.value].planTitle}";
+                          if (getBool(prefSubChatBotCompletedMobile) == true){
 
-                          List<PlanModule> planSelected = isCheck.value == true
-                              ? data.response.plans[1].plans[isSelected.value].planModules
-                              : data.response.plans[0].plans[isSelected.value].planModules;
+                              navigationService.push(routeCheckYourInformation);
 
-                          setString(prefPlanIdMobile, planId);
-                          setString(prefPlanPrice, planPrice);
-                          setString(prefPlanTitle, planTitle);
-                          getBool(prefSubChatBotCompletedMobile) == true
-                                                ?
-                              navigationService.push(routeCheckYourInformation)
-                                                :
-                              navigationService.push(routePlanChatBotMobile, arguments: {navSelectedPlanCB: planSelected});
+                          }else {
 
+                            var planId = isCheck.value == true
+                                ? "${data.response.plans[1].plans[isSelected.value].planId}"
+                                : "${data.response.plans[0].plans[isSelected.value].planId}";
+
+                            var planPrice = isCheck.value == true
+                                ? "${data.response.plans[1].plans[isSelected.value].offerPrice}"
+                                : "${data.response.plans[0].plans[isSelected.value].offerPrice}";
+
+                            var planTitle = isCheck.value == true
+                                ? "${data.response.plans[1].plans[isSelected.value].planTitle}"
+                                : "${data.response.plans[0].plans[isSelected.value].planTitle}";
+
+                            List<PlanModule> planSelected = isCheck.value == true
+                                ? data.response.plans[1].plans[isSelected.value].planModules
+                                : data.response.plans[0].plans[isSelected.value].planModules;
+
+                            setString(prefPlanIdMobile, planId);
+                            setString(prefPlanPrice, planPrice);
+                            setString(prefPlanTitle, planTitle);
+
+                          navigationService.push(routePlanChatBotMobile, arguments: {navSelectedPlanCB: planSelected});
+                        }
                         },
                       ),
                     ),

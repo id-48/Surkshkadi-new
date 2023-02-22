@@ -374,7 +374,6 @@ class CheckYourInformation extends HookConsumerWidget {
                         padding: EdgeInsets.symmetric(horizontal: 34, vertical: 10),
                         onTap: () async{
 
-                          setString(prefUserName, popFamilyNewData.value.isEmpty ?  '${data.response.name}' : "${popFamilyNewData.value["fullName"]}");
 
                           ReqPlanChatUpdate chatBotUpdate = ReqPlanChatUpdate(
                               userId: getString(prefUserID),
@@ -396,6 +395,16 @@ class CheckYourInformation extends HookConsumerWidget {
                               covidDose: '${data.response.covidDose}',
                               nicotineProducts: '${data.response.nicotineProducts}'
                           );
+
+                          setString(prefUserName, popFamilyNewData.value.isEmpty ?  '${data.response.name}' : "${popFamilyNewData.value["fullName"]}");
+                          setString(prefFatherName, '${data.response.fatherName}');
+                          setString(prefAddress, popContactNewData.value.isEmpty ? '${data.response.address}' : "${popContactNewData.value["address"]}",);
+                          setString(prefOccupation, popProfessionalNewData.value.isEmpty ? '${data.response.occupation}' : "${popProfessionalNewData.value["occupation"]}");
+                          setString(prefDOB, popFamilyNewData.value.isEmpty ? '${data.response.dob.day}''/${data.response.dob.month}/''${data.response.dob.year}' : "${popFamilyNewData.value["dob"]}",);
+                          setString(prefState, popFamilyNewData.value.isEmpty ? '${data.response.state}' : "${popFamilyNewData.value["state"]}");
+                          setString(prefCity, popFamilyNewData.value.isEmpty ? '${data.response.city}' : "${popFamilyNewData.value["city"]}");
+
+
                           await ref.read(planChatUpdateProvider.notifier)
                               .getPlanChatUpdate(context: context, data: chatBotUpdate)
                               .then((value) {

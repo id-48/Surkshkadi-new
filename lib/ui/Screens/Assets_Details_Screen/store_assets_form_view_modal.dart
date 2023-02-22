@@ -50,10 +50,11 @@ class GetSelectedAssetsViewModel
   Future<ResGetSelectedAssets?> getSelectedAssets(
       {required BuildContext context,
       required ReqGetSelectedAssets data}) async {
+    // showLoadingDialog(context: context);
     final result = await repositery.getSelectedAssets(data);
     return result.when(
         success: (result) async {
-          hideLoadingDialog(context: context);
+          // hideLoadingDialog(context: context);
           state = AsyncValue.data(result);
           return result;
         },
