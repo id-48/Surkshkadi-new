@@ -236,6 +236,10 @@ const String myProfile = "My Profile";
 const String howToUse = "How To Use";
 
 
+///      ----------    Beneficiary  ----------
+
+const String  iHerebyDeclareThatMy = "I hereby declare that my assets and properties be bequeathed to my legal heirs following the allocation below in my absence in the world";
+
 
 
 

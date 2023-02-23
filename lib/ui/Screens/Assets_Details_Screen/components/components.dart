@@ -189,16 +189,13 @@ final pickedImage = useState<File>(File(""));
                                 GestureDetector(
                                   onTap: () async {
 
-                                    print('------------->>>>>>>>>>>>>>>>>.image ');
                                     cameraImage = await _picker.pickImage(source: ImageSource.camera);
-                                    print('image path 216${cameraImage}');
+
                                     if (cameraImage != null) {
                                       cameraPickedImage.value = File(cameraImage!.path);
-                                      imageFileList.add(cameraImage!);
-                                      print(' image path 200 ---->>>>>>${cameraPickedImage}');
+
                                       isCameraPicked.value = true;
-                                      displayToast("Image Successful Upload");
-                                      setState((){});
+
                                     }
                                   },
                                   child: Container(

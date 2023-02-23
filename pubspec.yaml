@@ -74,6 +74,8 @@ dependencies:
   path:
   camera: ^0.9.4+19
   url_launcher: ^6.1.9
+  fdottedline_nullsafety: ^2.0.1
+
 
 #  syncfusion_flutter_charts:
 

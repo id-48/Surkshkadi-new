@@ -33,9 +33,11 @@ class CustomTextfeild extends HookWidget {
     // this.gradienttwo,
     required this.blurRadius,
     required this.offset,
+    this.suffixText,
     bool? isObscure,
   }) : super(key: key);
   final String? hinttext;
+  final String? suffixText;
   final TextStyle? textStyle;
   final TextStyle? hintStyle;
   final String? Function(String?)? validator;
@@ -96,6 +98,7 @@ class CustomTextfeild extends HookWidget {
             hintText: hinttext,
             border: InputBorder.none,
             prefixIcon: prefix,
+            suffixText: suffixText,
             labelStyle: TextStyle(
                 color: Color(0xFF898989),
                 fontSize: 13,
