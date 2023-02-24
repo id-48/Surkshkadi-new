@@ -32,11 +32,12 @@ class SplashScreen extends HookConsumerWidget {
           if (context.isMobile) {
             // print("Aadhar token ${getString(prefUserID)}");
             if (getString(prefLoginToken).isNotEmpty) {
-              Navigator.push(context,
-                  MaterialPageRoute(builder: (context) => Beneficiary() ));
+              // Navigator.push(context,
+              //     MaterialPageRoute(builder: (context) => Beneficiary() ));
                   // MaterialPageRoute(builder: (context) => RecordAVideo(videoRecord: false ) ));
 
-              // navigationService.pushAndRemoveUntil(routeCustomBottomNavigationBar);
+              navigationService.pushAndRemoveUntil(routeCustomBottomNavigationBar);
+              // navigationService.pushAndRemoveUntil(routeBeneficiary);
             } else {
               // Navigator.push(context,
               //     MaterialPageRoute(builder: (context) => WillReview() ));

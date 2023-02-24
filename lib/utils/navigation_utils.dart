@@ -48,6 +48,7 @@ import 'package:surakshakadi/ui/Screens/dashboard/Components/choose_assets_web_s
 import 'package:surakshakadi/ui/Screens/dashboard/Components/legal_screen.dart';
 import 'package:surakshakadi/ui/Screens/dashboard/dashboard_web_screen.dart';
 import 'package:surakshakadi/ui/Screens/record_video_screen/record_a_video_screen.dart';
+import 'package:surakshakadi/ui/Screens/will_review_screen/beneficiary_screen.dart';
 import 'package:surakshakadi/ui/Screens/will_review_screen/will_review_screen.dart';
 import 'package:surakshakadi/widgets/custom_bottomnavigationbar.dart';
 
@@ -354,6 +355,10 @@ class NavigationUtils {
         return CustomRoute(
             settings: const RouteSettings(name: routeLegalAll),
             builder: (_) => LegalAll(securityContent: args?[navSecurityContent]));
+      case routeBeneficiary:
+        return CustomRoute(
+            settings: const RouteSettings(name: routeBeneficiary),
+            builder: (_) => Beneficiary());
 
       default:
         return _errorRoute(" Unimplemented...");

@@ -12,8 +12,10 @@ import 'package:surakshakadi/utils/color_utils.dart';
 import 'package:surakshakadi/utils/constants/app_constant.dart';
 import 'package:surakshakadi/utils/constants/navigation_route_constants.dart';
 import 'package:surakshakadi/utils/constants/navigations_key_constant.dart';
+import 'package:surakshakadi/utils/constants/preference_key_constant.dart';
 import 'package:surakshakadi/utils/dialog_utils.dart';
 import 'package:surakshakadi/utils/image_utils.dart';
+import 'package:surakshakadi/utils/preference_utils.dart';
 import 'package:surakshakadi/utils/strings.dart';
 import 'package:surakshakadi/utils/utils.dart';
 import 'package:surakshakadi/widgets/custom_button.dart';
@@ -50,6 +52,7 @@ class _PlanChatBotMobileState extends State<PlanChatBotMobile> {
   List<int> listIndex = [];
 
   List<String> CityList = [];
+  String age = '0';
 
 
 
@@ -84,6 +87,23 @@ class _PlanChatBotMobileState extends State<PlanChatBotMobile> {
     {"title": "all three doses", "isSelect": false},
     {"title": "None", "isSelect": false}
   ];
+
+  String calculateAge(DateTime birthDate) {
+    DateTime currentDate = DateTime.now();
+    int agee = currentDate.year - birthDate.year;
+    int month1 = currentDate.month;
+    int month2 = birthDate.month;
+    if (month2 > month1) {
+      agee--;
+    } else if (month1 == month2) {
+      int day1 = currentDate.day;
+      int day2 = birthDate.day;
+      if (day2 > day1) {
+        agee--;
+      }
+    }
+    return agee.toString();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -559,9 +579,16 @@ class _PlanChatBotMobileState extends State<PlanChatBotMobile> {
                             if (pickedDate != null) {
                               // print(pickedDate);
                               formattedDate = DateFormat('yyyy-MM-dd').format(pickedDate);
+                              age = calculateAge(pickedDate);
+                              print("---->1111 age   $age");
                               print("Date   ----->>>>${formattedDate}");
                               messages.add(ChatMessage(messageContent: [formattedDate], messageType: 'sender'));
                               messages.add(messagesQustion[2]);
+
+
+
+                              setString(prefAge , age) ;
+                              print("----,.age   ${getString(prefAge)}");
                               setState((){});
                             } else {
                               displayToast("Please Select Your Birth Date.");

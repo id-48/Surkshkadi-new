@@ -61,7 +61,7 @@ class WillReview extends HookConsumerWidget {
                 //   style: TextStyle(fontWeight: FontWeight.w500,fontSize: 13),),
 
 
-                Text("I ${getString(prefUserName)}, s/o Shri ${getString(prefFatherName)}, residing at ${getString(prefAddress)}, aged about <AGE> years, occupation ${getString(prefOccupation)}, declare this deed to be my last will and testament.",
+                Text("I ${getString(prefUserName)}, s/o Shri ${getString(prefFatherName)}, residing at ${getString(prefAddress)}, aged about ${getString(prefAge)} years, occupation ${getString(prefOccupation)}, declare this deed to be my last will and testament.",
                   style: GoogleFonts.inter(fontWeight: FontWeight.w500,fontSize: 12),),
 
                 Gap(10),
@@ -251,9 +251,9 @@ class WillReview extends HookConsumerWidget {
                     onTap: (){
                       // setString(prefIssueDetail, issueController.text);
 
-                      Navigator.push(context, MaterialPageRoute(builder: (context) => Beneficiary() ));
+                      // Navigator.push(context, MaterialPageRoute(builder: (context) => Beneficiary() ));
 
-                      // navigationService.push(routeRecordAVideo,arguments: {navVideoRecord: false,});
+                      navigationService.push(routeRecordAVideo,arguments: {navVideoRecord: false,});
                     },
                   ),
                 ),

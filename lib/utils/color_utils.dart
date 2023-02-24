@@ -55,6 +55,7 @@ const Color lowwhite = Color(0xffF5F5F5);
 const Color deepindigo = Color(0xff155DB4);
 const Color navyblue = Color(0xff002E9E);
 const Color fullgray = Color(0xff777474);
+
 const Color blueee = Color(0xff1970DA);
 const Color bordercolor = Color(0xffd3d3d3);
 const Color lightindigotwo = Color(0xffA4C3FF);

@@ -28,6 +28,7 @@ class CustomTextfeild extends HookWidget {
     this.contentPadding,
     this.height,
     this.enabled,
+    this.onChange,
     required this.textCapitalization,
     // this.gradientone,
     // this.gradienttwo,
@@ -58,6 +59,7 @@ class CustomTextfeild extends HookWidget {
   final Offset offset;
   final Gradient? gradient;
   final double? height;
+  final void Function(String)? onChange;
   final EdgeInsetsGeometry? contentPadding;
   final BorderRadiusGeometry? borderRadius;
   final bool? enabled;
@@ -80,6 +82,7 @@ class CustomTextfeild extends HookWidget {
         gradient: gradient,
       ),
       child: TextFormField(
+        onChanged: onChange,
         textCapitalization: textCapitalization,
         enabled: enabled,
         style: textStyle,

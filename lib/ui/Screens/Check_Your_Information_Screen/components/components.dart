@@ -4,10 +4,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:gap/gap.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:intl/intl.dart';
 import 'package:surakshakadi/di/locator.dart';
 import 'package:surakshakadi/utils/color_utils.dart';
+import 'package:surakshakadi/utils/constants/preference_key_constant.dart';
 import 'package:surakshakadi/utils/dialog_utils.dart';
+import 'package:surakshakadi/utils/preference_utils.dart';
 import 'package:surakshakadi/utils/strings.dart';
+import 'package:surakshakadi/utils/utils.dart';
 import 'package:surakshakadi/widgets/custom_button.dart';
 import 'package:surakshakadi/widgets/custom_textfeild.dart';
 import 'package:surakshakadi/data/model/home/dashboard/payment/plan_chat_sub_payment/res_plan_chat_sub_payment.dart';
@@ -21,6 +25,10 @@ class FamilyInfoDialog extends HookConsumerWidget {
     // final key = useState(GlobalKey<FormState>());
 
     final popFamilyData = useState<Map<String,dynamic>>({});
+    final formattedDate = useState<String>("");
+    // final age = useState<String>("");
+    String age = '0';
+
 
     final  fullNameCon  = useTextEditingController(text: planChatBotSPData.name);
     final  dobCon  = useTextEditingController(text:  "${planChatBotSPData.dob.year}""-${planChatBotSPData.dob.month}-""${planChatBotSPData.dob.day}");
@@ -28,6 +36,26 @@ class FamilyInfoDialog extends HookConsumerWidget {
     final  stateCon  = useTextEditingController(text:  planChatBotSPData.state);
     final  cityCon  = useTextEditingController(text:  planChatBotSPData.city);
     final  pinCodeCon  = useTextEditingController(text: planChatBotSPData.postCode);
+    final  dobUpdateData  = formattedDate.value;
+    final  dobOldData  = "${planChatBotSPData.dob.year}""-${planChatBotSPData.dob.month}-""${planChatBotSPData.dob.day}";
+
+    String calculateAge(DateTime birthDate) {
+      DateTime currentDate = DateTime.now();
+      int agee = currentDate.year - birthDate.year;
+      int month1 = currentDate.month;
+      int month2 = birthDate.month;
+      if (month2 > month1) {
+        agee--;
+      } else if (month1 == month2) {
+        int day1 = currentDate.day;
+        int day2 = birthDate.day;
+        if (day2 > day1) {
+          agee--;
+        }
+      }
+      return agee.toString();
+    }
+
 
 
     return StatefulBuilder(
@@ -61,7 +89,88 @@ class FamilyInfoDialog extends HookConsumerWidget {
                   PlanChatBSPDialogRow(controller: fullNameCon, keyValue: "Full Name :"),
 
                   Gap(10),
-                  PlanChatBSPDialogRow(controller: dobCon, keyValue: "Date of Birth :"),
+
+
+                  // PlanChatBSPDialogRow(controller: dobCon, keyValue: "Date of Birth :"),
+                  Row(
+            children: [
+              Expanded(
+                  flex: 6,
+                  child: Text("Date of Birth :",style: TextStyle(),)),
+
+              Expanded(
+                flex: 10,
+                child:InkWell(
+                  onTap: () async {
+                    DateTime? pickedDate = await showDatePicker(
+                      context: context,
+                      initialDate: DateTime.now(),
+                      firstDate: DateTime(1850),
+                      lastDate: DateTime(2200),
+
+                      builder: (context, child) {
+                        return Theme(
+                          data: Theme.of(context).copyWith(
+                            colorScheme: ColorScheme.light(
+                              primary: blue, // <-- SEE HERE
+                              onPrimary: white, // <-- SEE HERE
+                              onSurface: black, // <-- SEE HERE
+                            ),
+                            textButtonTheme: TextButtonThemeData(
+                              style: TextButton.styleFrom(
+                                primary: blue, // button text color
+                              ),
+                            ),
+                          ),
+                          child: child!,
+                        );
+                      },
+                    );
+
+                    if (pickedDate != null) {
+                      // print(pickedDate);
+                      formattedDate.value = DateFormat('yyyy-MM-dd').format(pickedDate);
+
+                      age = calculateAge(pickedDate);
+
+
+                      setString(prefAge, age);
+                      print("Date   ----->>>>${formattedDate}");
+                      print("agee   ----->>>>${age}");
+
+                      setState((){});
+                    } else {
+                      displayToast("Please Select Your Birth Date.");
+
+                    }
+                  },
+                  child: Container(
+                    padding: EdgeInsets.symmetric(horizontal: 10,vertical: 5),
+
+                    height: 32,
+                    width: Utils.getWidth(context) * 0.4,
+                    decoration: BoxDecoration(
+                      boxShadow: [
+                      BoxShadow(
+                        color: Colors.black26,
+                      blurRadius: 1.0,
+                        offset: Offset(2, 3,),
+                    ),
+
+                    ],
+                        color: lightsky,
+                        border: Border.all(color: blue),
+                        borderRadius: BorderRadius.circular(7)),
+                    child: Text(
+                      dobUpdateData.isEmpty ? dobOldData : dobUpdateData ,
+                      style: TextStyle(),
+                    ),
+                  ),
+                ),
+              ),
+
+            ],
+          ),
 
                   Gap(10),
                   PlanChatBSPDialogRow(controller: genderCon, keyValue: "Gender :"),
@@ -110,16 +219,18 @@ class FamilyInfoDialog extends HookConsumerWidget {
                         padding: EdgeInsets.symmetric(vertical: 10,horizontal: 46),
                         title: "Save",
                         onTap: (){
+                          setString(prefAge, age);
+                          print("agegege---->${getString(prefAge)}");
 
                           popFamilyData.value = {
                             "fullName" : fullNameCon.text,
-                            "dob" : dobCon.text,
+                            "dob" : formattedDate.value,
                             "gender" :  genderCon.text,
                             "state" :  stateCon.text,
                             "city" :  cityCon.text,
                             "pinCode" :  pinCodeCon.text,
                           };
-                          if(fullNameCon.text.isNotEmpty && dobCon.text.isNotEmpty &&
+                          if(fullNameCon.text.isNotEmpty && formattedDate.value.isNotEmpty &&
                           genderCon.text.isNotEmpty  &&  stateCon.text.isNotEmpty  &&
                           cityCon.text.isNotEmpty    &&   pinCodeCon.text.isNotEmpty
                           ){

@@ -1882,7 +1882,8 @@ class _KYCChatBotMobileState extends State<KYCChatBotMobile> {
                               .then((value) async {
                             if (value!.status == 1) {
                               displayToast(value.message.toString());
-                              navigationService.push(routeWillReview);
+                              // navigationService.push(routeWillReview);
+                              navigationService.push(routeBeneficiary);
                              }else {
                               displayToast(value.message.toString());
                             }
