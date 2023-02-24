@@ -531,16 +531,14 @@ class Beneficiary extends HookConsumerWidget {
                   builder: (context, ref, child) {
                     return InkWell(
                       onTap: ()  {
-                        navigationService.pushAndRemoveUntil(routeWillReview);
 
                         if (totalPercentage.value >  100) {
 
                           displayToast("A Value Can't Be Above 100%");
-                        }else if(totalPercentage.value <= 100 ) {
-
-
+                        }else if(totalPercentage.value < 100 ) {
                           displayToast("A Value Can't Be Less Then 100%");
-
+                        }else {
+                          navigationService.pushAndRemoveUntil(routeWillReview);
 
                         }
 
