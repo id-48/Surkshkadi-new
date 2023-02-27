@@ -146,6 +146,7 @@ const String informationCorrect = "Is all your information correct?";
 const String beforeWeProceeds =
     "Before we proceed please take a moment to review your information.";
 const String famliyInformation = "Family Information";
+const String minorInformation = "Minor Information";
 const String edit = "Edit";
 const String contactInformation = "Contact Information";
 const String professionalInformation = "Professional Information";

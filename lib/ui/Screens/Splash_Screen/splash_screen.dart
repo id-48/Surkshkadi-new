@@ -11,6 +11,7 @@ import 'package:surakshakadi/ui/Screens/will_review_screen/beneficiary_screen.da
 import 'package:surakshakadi/ui/Screens/will_review_screen/will_review_screen.dart';
 import 'package:surakshakadi/utils/color_utils.dart';
 import 'package:surakshakadi/utils/constants/navigation_route_constants.dart';
+import 'package:surakshakadi/utils/constants/navigations_key_constant.dart';
 import 'package:surakshakadi/utils/constants/preference_key_constant.dart';
 import 'package:surakshakadi/utils/extensions/size_extension.dart';
 import 'package:surakshakadi/utils/image_utils.dart';
@@ -37,8 +38,11 @@ class SplashScreen extends HookConsumerWidget {
                   // MaterialPageRoute(builder: (context) => RecordAVideo(videoRecord: false ) ));
 
               navigationService.pushAndRemoveUntil(routeCustomBottomNavigationBar);
-              // navigationService.pushAndRemoveUntil(routeBeneficiary);
-            } else {
+              // navigationService.pushAndRemoveUntil(routeSecondChatBotInformationEdit);
+              // navigationService.push(routeBeneficiary,arguments: {navChildName :["data , daya"],navChildCount : 5});
+
+
+               } else {
               // Navigator.push(context,
               //     MaterialPageRoute(builder: (context) => WillReview() ));
 
@@ -50,6 +54,7 @@ class SplashScreen extends HookConsumerWidget {
             // navigationService.pushAndRemoveUntil(routePlanChatBotWeb);
 
             navigationService.pushAndRemoveUntil(routeDashboardWeb);
+
 
           }
         });

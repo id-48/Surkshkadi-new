@@ -3,8 +3,10 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:gap/gap.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:surakshakadi/data/model/home/dashboard/will_document/req_will_documnet.dart';
 import 'package:surakshakadi/di/locator.dart';
 import 'package:surakshakadi/ui/Screens/will_review_screen/beneficiary_screen.dart';
+import 'package:surakshakadi/ui/Screens/will_review_screen/will_document_view_modal.dart';
 import 'package:surakshakadi/utils/color_utils.dart';
 import 'package:surakshakadi/utils/constants/navigation_route_constants.dart';
 import 'package:surakshakadi/utils/constants/navigations_key_constant.dart';
@@ -241,6 +243,38 @@ class WillReview extends HookConsumerWidget {
                     ],
                   ),
                 ),
+                Gap(30),
+                Row(
+                  children: [
+                    InkWell(
+                      onTap: (){
+                        check.value = true;
+                      },
+                      child: Container(
+                        height: 19,
+                        width: 20,
+                        // padding: EdgeInsets.only(right: 3,bottom: 3),
+                        decoration: BoxDecoration(
+                          color: check.value == true ? blue : blue,
+                          borderRadius: BorderRadius.circular(3),
+                          border: Border.all(color: blue),
+                          // boxShadow: [ BoxShadow(
+                          //     color: Colors.black54, //New
+                          //     blurRadius: 2.0,
+                          //     offset: Offset(0,3))],
+                        ),
+                        child: Icon(Icons.check,color: white,size: 18,),
+                      ),
+                    ),
+
+
+                    Gap(10),
+
+                    Text(iAgreeTo,
+                      style: TextStyle(fontWeight: FontWeight.w500,fontSize: 13),)
+
+                  ],
+                ),
 
                 Gap(30),
 
@@ -248,12 +282,15 @@ class WillReview extends HookConsumerWidget {
                   child: CustomButton(
                     title: submit,
                     padding: EdgeInsets.symmetric(vertical: 10,horizontal: 40),
-                    onTap: (){
-                      // setString(prefIssueDetail, issueController.text);
+                    onTap: () async {
 
-                      // Navigator.push(context, MaterialPageRoute(builder: (context) => Beneficiary() ));
+                      ReqWillDocument willData =  ReqWillDocument(userId: getString(prefUserID), documentStatus: "1");
 
-                      navigationService.push(routeRecordAVideo,arguments: {navVideoRecord: false,});
+
+                      await  ref.read(willDocumentProvider.notifier).postWillDocument(context: context, data: willData);
+
+
+
                     },
                   ),
                 ),

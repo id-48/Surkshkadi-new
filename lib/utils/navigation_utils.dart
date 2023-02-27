@@ -20,6 +20,7 @@ import 'package:surakshakadi/ui/Screens/Assets_Details_Screen/components/utility
 import 'package:surakshakadi/ui/Screens/Assets_Details_Screen/components/utility_screen.dart';
 import 'package:surakshakadi/ui/Screens/Check_Your_Information_Screen/check_your_information_mobile_screen.dart';
 import 'package:surakshakadi/ui/Screens/Check_Your_Information_Screen/check_your_information_web_screen.dart';
+import 'package:surakshakadi/ui/Screens/Check_Your_Information_Screen/second_chat_bot_information_edit_screen.dart';
 import 'package:surakshakadi/ui/Screens/Kyc_Screen/components/components.dart';
 import 'package:surakshakadi/ui/Screens/Kyc_Screen/kyc_identity_screen.dart';
 import 'package:surakshakadi/ui/Screens/Kyc_Screen/kyc_screen.dart';
@@ -49,6 +50,7 @@ import 'package:surakshakadi/ui/Screens/dashboard/Components/legal_screen.dart';
 import 'package:surakshakadi/ui/Screens/dashboard/dashboard_web_screen.dart';
 import 'package:surakshakadi/ui/Screens/record_video_screen/record_a_video_screen.dart';
 import 'package:surakshakadi/ui/Screens/will_review_screen/beneficiary_screen.dart';
+import 'package:surakshakadi/ui/Screens/will_review_screen/will_review_issue_detail_screen.dart';
 import 'package:surakshakadi/ui/Screens/will_review_screen/will_review_screen.dart';
 import 'package:surakshakadi/widgets/custom_bottomnavigationbar.dart';
 
@@ -263,11 +265,30 @@ class NavigationUtils {
             settings: const RouteSettings(name: routeUtility),
             builder: (_) => Utility());
 
+      case routeBeneficiary:
+        return CustomRoute(
+            settings: const RouteSettings(name: routeBeneficiary),
+            builder: (_) => Beneficiary(childCount: args?[navChildCount] ,childName: args?[navChildName],));
+
+      case routeWillReviewIssueDetail:
+        return CustomRoute(
+            settings: const RouteSettings(name: routeWillReviewIssueDetail),
+            builder: (_) => WillReviewIssueDetailScreen());
+
+      case routeSecondChatBotInformationEdit:
+        return CustomRoute(
+            settings: const RouteSettings(name: routeSecondChatBotInformationEdit),
+            builder: (_) => SecondChatBotInformationEditScreen(
+              messagesInfo: args?[navMassageInfo],
+              childCountInfo: args?[navChildCountInfo],
+              childNameInfo: args?[navChildNameInfo],));
 
 
 
 
-        ///                               Web   Route
+
+
+    ///                               Web   Route
 
       case routeDashboardWeb:
         return CustomRoute(
@@ -355,10 +376,7 @@ class NavigationUtils {
         return CustomRoute(
             settings: const RouteSettings(name: routeLegalAll),
             builder: (_) => LegalAll(securityContent: args?[navSecurityContent]));
-      case routeBeneficiary:
-        return CustomRoute(
-            settings: const RouteSettings(name: routeBeneficiary),
-            builder: (_) => Beneficiary());
+
 
       default:
         return _errorRoute(" Unimplemented...");

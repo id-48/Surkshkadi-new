@@ -6,6 +6,7 @@ import 'package:gap/gap.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:intl/intl.dart';
 import 'package:surakshakadi/di/locator.dart';
+import 'package:surakshakadi/ui/Screens/chatbot_screen/plan_chatbot_screen.dart';
 import 'package:surakshakadi/utils/color_utils.dart';
 import 'package:surakshakadi/utils/constants/preference_key_constant.dart';
 import 'package:surakshakadi/utils/dialog_utils.dart';
@@ -532,6 +533,280 @@ class KeyValue extends HookWidget {
           ),
         ],
       ),
+    );
+  }
+}
+
+
+
+class FamilyDialogSecond extends HookConsumerWidget {
+
+   final List<ChatMessage> messagesInfoDialog ;
+   FamilyDialogSecond({ Key? key ,
+    required this.messagesInfoDialog
+
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+
+    final popFamilyInfoData = useState<Map<String,dynamic>>({});
+
+    final  MotherNameCon  = useTextEditingController(text: "${messagesInfoDialog[3].messageContent[0]}");
+    final  MaritalStaCon = useTextEditingController(text: "${messagesInfoDialog[5].messageContent[0]}");
+    final  SpouseNameCon  = useTextEditingController(text: "${messagesInfoDialog[5].messageContent[0] == "Unmarried" ?  "" : "${messagesInfoDialog[7].messageContent[0]}"}");
+    final  SeparatedCon  = useTextEditingController(text: "");
+
+    return StatefulBuilder(
+      builder: (context, setState) {
+        return Container(
+          width: double.infinity,
+          height: 320,
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(20),
+            // color: primaryColor,
+          ),
+          child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 20),
+              child: Column(
+                children: [
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children:  [
+                      const Text(famliyInformation,style: TextStyle(color: blue,fontWeight: FontWeight.w800,fontSize: 20),),
+                      GestureDetector(
+                        onTap: (){
+                          navigationService.pop();
+                        },
+                        child: const Icon(Icons.cancel,color: blue,size: 30,),),
+                    ],
+                  ),
+
+                  Gap(20),
+
+
+                  PlanChatBSPDialogRow(controller: MotherNameCon, keyValue: "Mother Name :"),
+
+                  Gap(10),
+
+
+                  PlanChatBSPDialogRow(controller: MaritalStaCon, keyValue: "Marital Status :"),
+
+
+                  Gap(10),
+                  PlanChatBSPDialogRow(controller: SpouseNameCon, keyValue: "Spouse Name :"),
+
+                  Gap(10),
+                  PlanChatBSPDialogRow(controller: SeparatedCon, keyValue: "Separated :"),
+
+
+
+                  Spacer(),
+
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      GestureDetector(
+                        onTap: (){
+                          navigationService.pop();
+                        },
+                        child: Container(
+                          padding: EdgeInsets.symmetric(vertical: 9,horizontal: 40),
+                          child:
+                          Text("Close", style: TextStyle(color: Colors.blue)),
+                          decoration: BoxDecoration(
+                            color: white,
+                            border: Border.all(color: blue),
+                            boxShadow: [
+                              BoxShadow(
+                                color: Colors.grey,
+                                // spreadRadius: 1,
+                                blurRadius: 1,
+                                offset: const Offset(0, 1),
+                              )
+                            ],
+
+                            borderRadius: BorderRadius.circular(15),
+                          ),
+                        ),
+                      ),
+
+                      Gap(16),
+                      CustomButton(
+                        padding: EdgeInsets.symmetric(vertical: 10,horizontal: 46),
+                        title: "Save",
+                        onTap: (){
+
+
+
+                          popFamilyInfoData.value = {
+                            "MotherName" : MotherNameCon.text,
+                            "MaritalSta" : MaritalStaCon.value,
+                            "SpouseName" :  SpouseNameCon.text,
+                            "Separated" :  SeparatedCon.text,
+                          };
+
+                          if(MotherNameCon.text.isNotEmpty && MaritalStaCon.text.isNotEmpty &&
+                              SpouseNameCon.text.isNotEmpty  &&  SeparatedCon.text.isNotEmpty
+
+                          ){
+                            navigationService.pop(args: popFamilyInfoData.value);
+                          }else{
+                            displayToast("Please Check Your Information");
+                          }
+
+
+                        },
+                      ),
+                    ],
+                  ),
+                ],
+              )
+          ),
+        );
+      },
+    );
+  }
+}
+
+
+
+class MinorDialogSecond extends HookConsumerWidget {
+  List<ChatMessage> messagesInfoDialog = [];
+  int childCountInfoDialog;
+  MinorDialogSecond({ Key? key ,
+    required this.messagesInfoDialog,
+    required this.childCountInfoDialog
+
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    // final key = useState(GlobalKey<FormState>());
+
+    final popMinorData = useState<Map<String,dynamic>>({});
+
+
+
+
+
+
+    final  GuardianNameCon  = useTextEditingController(text: " ${messagesInfoDialog[5].messageContent[0] == "Unmarried" ? "${messagesInfoDialog[7].messageContent[0]}" : childCountInfoDialog == 0 ? "${messagesInfoDialog[11].messageContent[0]}" : "${messagesInfoDialog[13].messageContent[0]}"}");
+    final  GuardianRelationCon  = useTextEditingController(text: " ${messagesInfoDialog[5].messageContent[0] == "Unmarried" ? "${messagesInfoDialog[7].messageContent[1]}" : childCountInfoDialog == 0 ? "${messagesInfoDialog[11].messageContent[1]}" : "${messagesInfoDialog[13].messageContent[1]}"}");
+    final  GuardianAddressCon  = useTextEditingController(text: " ${messagesInfoDialog[5].messageContent[0] == "Unmarried" ? "${messagesInfoDialog[7].messageContent[2]}" : childCountInfoDialog == 0 ? "${messagesInfoDialog[11].messageContent[2]}" : "${messagesInfoDialog[13].messageContent[2]}"}") ;
+
+
+
+
+
+
+
+
+    return StatefulBuilder(
+      builder: (context, setState) {
+        return Container(
+          width: double.infinity,
+          height: 280,
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(20),
+            // color: primaryColor,
+          ),
+          child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 20),
+              child: Column(
+                children: [
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children:  [
+                      const Text(minorInformation,style: TextStyle(color: blue,fontWeight: FontWeight.w800,fontSize: 20),),
+                      GestureDetector(
+                        onTap: (){
+                          navigationService.pop();
+                        },
+                        child: const Icon(Icons.cancel,color: blue,size: 30,),),
+                    ],
+                  ),
+
+                  Gap(20),
+
+
+                  PlanChatBSPDialogRow(controller: GuardianNameCon, keyValue: "Guardian Name :"),
+
+                  Gap(10),
+
+
+                  PlanChatBSPDialogRow(controller: GuardianRelationCon, keyValue: "Guardian Relation :"),
+
+
+                  Gap(10),
+                  PlanChatBSPDialogRow(controller: GuardianAddressCon, keyValue: "Guardian Address:"),
+
+
+
+
+
+                  Spacer(),
+
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      GestureDetector(
+                        onTap: (){
+                          navigationService.pop();
+                        },
+                        child: Container(
+                          padding: EdgeInsets.symmetric(vertical: 9,horizontal: 40),
+                          child:
+                          Text("Close", style: TextStyle(color: Colors.blue)),
+                          decoration: BoxDecoration(
+                            color: white,
+                            border: Border.all(color: blue),
+                            boxShadow: [
+                              BoxShadow(
+                                color: Colors.grey,
+                                // spreadRadius: 1,
+                                blurRadius: 1,
+                                offset: const Offset(0, 1),
+                              )
+                            ],
+
+                            borderRadius: BorderRadius.circular(15),
+                          ),
+                        ),
+                      ),
+
+                      Gap(16),
+                      CustomButton(
+                        padding: EdgeInsets.symmetric(vertical: 10,horizontal: 46),
+                        title: "Save",
+                        onTap: (){
+
+
+
+                          popMinorData.value = {
+                            "fullName" : GuardianNameCon.text,
+                            "dob" : GuardianRelationCon.value,
+                            "gender" :  GuardianAddressCon.text,
+
+                          };
+                          if(GuardianNameCon.text.isNotEmpty && GuardianRelationCon.text.isNotEmpty &&
+                              GuardianAddressCon.text.isNotEmpty
+                          ){
+                            navigationService.pop(args: popMinorData.value);
+                          }else{
+                            displayToast("Please Check Your Information");
+                          }
+
+
+                        },
+                      ),
+                    ],
+                  ),
+                ],
+              )
+          ),
+        );
+      },
     );
   }
 }

@@ -38,6 +38,9 @@ const String apiSecurityContent = "security-contents";
 const String apiShareApplicationLinks = "share-application-links";
 const String apiSendAccountVerification = "send-account-verification-link";
 const String apiStoreInquiryDetails = "store-enquiry-details";
+const String apiBeneficiaryDetails = "store-beneficiary-details";
+const String apiWillDocument = "accept-will-document";
+const String apiUpdateSecondChatBoat = "update-second-chatboard-data";
 
 
 

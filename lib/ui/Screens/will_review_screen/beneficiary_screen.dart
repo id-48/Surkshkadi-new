@@ -6,11 +6,11 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:surakshakadi/data/model/home/dashboard/beneficiary/req_beneficiary.dart';
 import 'package:surakshakadi/di/locator.dart';
+import 'package:surakshakadi/ui/Screens/will_review_screen/beneficiary_view_modal.dart';
 import 'package:surakshakadi/utils/color_utils.dart';
 import 'package:surakshakadi/utils/constants/navigation_route_constants.dart';
-import 'package:surakshakadi/utils/constants/navigations_key_constant.dart';
-import 'package:surakshakadi/utils/constants/preference_key_constant.dart';
 import 'package:surakshakadi/utils/dialog_utils.dart';
 import 'package:surakshakadi/utils/image_utils.dart';
 import 'package:surakshakadi/utils/preference_utils.dart';
@@ -20,8 +20,12 @@ import 'package:surakshakadi/widgets/custom_appbar.dart';
 import 'package:surakshakadi/widgets/custom_button.dart';
 import 'package:surakshakadi/widgets/custom_textfeild.dart';
 
+import '../../../utils/constants/preference_key_constant.dart';
+
 class Beneficiary extends HookConsumerWidget {
-  const Beneficiary({Key? key}) : super(key: key);
+  final  int childCount;
+  final  List<String> childName;
+  const Beneficiary({Key? key,required this.childCount,required this.childName}) : super(key: key);
 
 
 
@@ -530,17 +534,42 @@ class Beneficiary extends HookConsumerWidget {
                 child: HookConsumer(
                   builder: (context, ref, child) {
                     return InkWell(
-                      onTap: ()  {
+                      onTap: ()  async{
 
-                        if (totalPercentage.value >  100) {
+                        if (fatherController.text.isEmpty) {
+
+                          displayToast( "Parentage Field  Can't Be Empty Enter Reason");
+                        }else if (motherController.text.isEmpty) {
+
+                          displayToast( "Parentage Field  Can't Be Empty Enter Reason");
+                        }else if (spouseController.text.isEmpty){
+                          displayToast( "Parentage Field  Can't Be Empty Enter Reason");
+                        }else if (childController.length.toString().isEmpty){
+                          displayToast( "Parentage Field  Can't Be Empty Enter Reason");
+                        }else  if (totalPercentage.value >  100) {
 
                           displayToast("A Value Can't Be Above 100%");
                         }else if(totalPercentage.value < 100 ) {
                           displayToast("A Value Can't Be Less Then 100%");
                         }else {
+
+                          ReqBeneficiary   beneficiaryData= ReqBeneficiary(
+                              userId: getString(prefUserID),
+                              relation: ["son " ,"father"],
+                              name: [getString(prefFatherName),getString(prefMotherName),prefMarriedSpouseName,],
+                              percentage: [fatherController.text ,motherController.text ,spouseController.text ,childController.length.toString()],
+                              exclusionReason: [fatherReasonController.text ,motherReasonController.text ,spouseReasonController.text ,reasonChildController.length.toString()]
+                          );
+
+
+                          await  ref.read(beneficiaryProvider.notifier).postBeneficiary(context: context, data: beneficiaryData) ;
                           navigationService.pushAndRemoveUntil(routeWillReview);
 
                         }
+
+
+
+
 
                       },
                       child: Container(
