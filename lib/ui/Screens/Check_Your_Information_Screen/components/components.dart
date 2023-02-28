@@ -682,7 +682,7 @@ class FamilyDialogSecond extends HookConsumerWidget {
                         onTap: () {
                           popFamilyInfoData.value = {
                             "MotherName": MotherNameCon.text,
-                            "MaritalSta": MaritalStaCon.value,
+                            "MaritalStatus": MaritalStaCon.value,
                             "SpouseName": SpouseNameCon.text,
                             "Separated": SeparatedCon.text,
                           };

@@ -154,7 +154,7 @@ class SecondChatBotInformationEditScreen extends HookConsumerWidget {
 
                   Expanded(flex: 7,
                     child: Text(
-                      " : ${messagesInfo[5].messageContent[0]}",
+                      " : ${popFamilyNewDataSecond.value.isEmpty ?  messagesInfo[5].messageContent[0] : popFamilyNewDataSecond.value["MaritalStatus"]}",
                       style: TextStyle(fontWeight: FontWeight.w400,fontSize: 12.5),),
                     // child: Text('Pune',style: TextStyle(fontWeight: FontWeight.w400,fontSize: 12.5),),
                   ),
