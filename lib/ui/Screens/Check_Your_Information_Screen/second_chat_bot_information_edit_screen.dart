@@ -5,12 +5,16 @@ import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:gap/gap.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:surakshakadi/data/model/home/chatboat/kyc_chatbot_update/req_update_second_chatbot.dart';
 import 'package:surakshakadi/di/locator.dart';
 import 'package:surakshakadi/ui/Screens/Check_Your_Information_Screen/components/components.dart';
+import 'package:surakshakadi/ui/Screens/Check_Your_Information_Screen/upadate_second_chatbot_view_modal.dart';
 import 'package:surakshakadi/ui/Screens/chatbot_screen/plan_chatbot_screen.dart';
 import 'package:surakshakadi/utils/color_utils.dart';
 import 'package:surakshakadi/utils/constants/navigation_route_constants.dart';
 import 'package:surakshakadi/utils/constants/navigations_key_constant.dart';
+import 'package:surakshakadi/utils/constants/preference_key_constant.dart';
+import 'package:surakshakadi/utils/preference_utils.dart';
 import 'package:surakshakadi/utils/strings.dart';
 import 'package:surakshakadi/utils/utils.dart';
 import 'package:surakshakadi/widgets/custom_appbar.dart';
@@ -134,7 +138,7 @@ class SecondChatBotInformationEditScreen extends HookConsumerWidget {
 
                   Expanded(flex: 7,
                     child: Text(
-                      " : ${messagesInfo[3].messageContent[0]}",
+                      " : ${popFamilyNewDataSecond.value.isEmpty ? messagesInfo[3].messageContent[0] : popFamilyNewDataSecond.value["MotherName"]}",
                       style: TextStyle(fontWeight: FontWeight.w400,fontSize: 12.5),),
                     // child: Text('Pune',style: TextStyle(fontWeight: FontWeight.w400,fontSize: 12.5),),
                   ),
@@ -325,7 +329,26 @@ class SecondChatBotInformationEditScreen extends HookConsumerWidget {
                 child: CustomButton(
                   title: submit,
                   padding: EdgeInsets.symmetric(horizontal: 34, vertical: 10),
-                  onTap: () {
+
+                  onTap: () async {
+
+                    // ReqUpdateSecondChatBot  kycUpdateData = ReqUpdateSecondChatBot(
+                    //     userId: getString(prefUserID),
+                    //     subRegisterStatus: subRegisterStatus,
+                    //     motherName: motherName,
+                    //     isMotherAlive: isMotherAlive,
+                    //     maritalStatus: maritalStatus,
+                    //     spouseName: spouseName,
+                    //     divorceStatus: divorceStatus,
+                    //     noOfChildren: noOfChildren,
+                    //     childName: childName,
+                    //     childAge: childAge,
+                    //     childGender: childGender,
+                    //     minorBeneficiaryName: minorBeneficiaryName,
+                    //     minorBeneficiaryRelation: minorBeneficiaryRelation,
+                    //     minorBeneficiaryAddress: minorBeneficiaryAddress)
+
+                    // await  ref.read(UpdateSecondChatBoatProvider.notifier).postUpdateSecondChatBot(context: context, data: kycUpdateData)
 
 
                     navigationService.push(routeBeneficiary ,arguments: {navChildCount:   childCountInfo  ,navChildName: childNameInfo});
