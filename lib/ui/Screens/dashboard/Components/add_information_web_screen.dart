@@ -12,7 +12,6 @@ import 'package:surakshakadi/utils/constants/navigation_route_constants.dart';
 import 'package:surakshakadi/utils/image_utils.dart';
 import 'package:surakshakadi/utils/strings.dart';
 import 'package:surakshakadi/utils/utils.dart';
-import 'package:surakshakadi/widgets/custom_appbar_web.dart';
 import 'package:surakshakadi/widgets/custom_dottedborder.dart';
 import 'package:surakshakadi/widgets/custom_logo_backbutton.dart';
 import 'package:surakshakadi/widgets/custom_select.dart';

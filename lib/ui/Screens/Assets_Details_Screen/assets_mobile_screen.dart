@@ -40,13 +40,11 @@ class AssetsMobile extends HookConsumerWidget {
               for(int i = 0; i< value.response.length; i++){
                   length.value += value.response[i].selectedAssets.length;
                 for(int j = 0; j< value.response[i].selectedAssets.length; j++) {
-                  print("length useEffect --->>> ${length.value}");
-                  print("assets length Status $i $j --->>>${value.response[i].selectedAssets[j].formStatus}");
-
+                  // print("length useEffect --->>> ${length.value}");
+                  // print("assets length Status $i $j --->>>${value.response[i].selectedAssets[j].formStatus}");
                   if (value.response[i].selectedAssets[j].formStatus == "Completed") {
                     assetsList.value.add(value.response[i].selectedAssets[j].formStatus);
-                    print("assets length useEffect --->>> ${assetsList.value.length} ");
-
+                    // print("assets length useEffect --->>> ${assetsList.value.length} ");
                   }
                 }
               }
@@ -54,10 +52,7 @@ class AssetsMobile extends HookConsumerWidget {
               displayToast("No Data Found");
             }
       });
-
-
-
-
+      return null;
     }, []);
 
     final selectedAssetsController = ref.watch(getSelectedAssetsProvider);

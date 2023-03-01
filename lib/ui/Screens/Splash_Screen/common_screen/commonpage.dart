@@ -59,8 +59,6 @@ class Commonpagee extends HookConsumerWidget {
       _timer.cancel();
     },[]);
 
-    var h = MediaQuery.of(context).size.height;
-    var w = MediaQuery.of(context).size.width;
 
     return Scaffold(
       body: Container(
@@ -106,8 +104,8 @@ class Commonpagee extends HookConsumerWidget {
                               SizedBox(height: Utils.getHeight(context) *0.004,),
 
                               Container(
-                                height: h*0.0046,
-                                width: w*0.18,
+                                height: Utils.getHeight(context)*0.0046,
+                                width: Utils.getWidth(context)*0.18,
                                 decoration: BoxDecoration(
                                   color: Color(0xfffA9836),
                                   borderRadius: BorderRadius.circular(10),

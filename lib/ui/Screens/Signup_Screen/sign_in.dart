@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:surakshakadi/data/model/auth/otp/req_otp.dart';
@@ -18,22 +17,20 @@ import 'package:surakshakadi/utils/utils.dart';
 import 'package:surakshakadi/widgets/custom_button.dart';
 import 'package:surakshakadi/widgets/custom_textfeild.dart';
 
-class Sign_in extends HookConsumerWidget {
-  const Sign_in({Key? key}) : super(key: key);
+class SignIn extends HookConsumerWidget {
+  const SignIn({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final check = useState<bool>(false);
-    final mobilenocontroller = useTextEditingController();
+    final mobilenoController = useTextEditingController();
 
     final referController = useTextEditingController();
 
-    var h = MediaQuery.of(context).size.height;
-    var w = MediaQuery.of(context).size.width;
     return Scaffold(
       body: Container(
-        height: h,
-        width: w,
+        height: Utils.getHeight(context),
+        width: Utils.getWidth(context),
         decoration: BoxDecoration(
           image: DecorationImage(
               image: AssetImage(bgfullcolor), scale: 4, fit: BoxFit.cover),
@@ -53,7 +50,7 @@ class Sign_in extends HookConsumerWidget {
               )),
 
               SizedBox(
-                height: h * 0.03,
+                height: Utils.getHeight(context) * 0.03,
               ),
               Container(
                   alignment: Alignment.center,
@@ -97,7 +94,7 @@ class Sign_in extends HookConsumerWidget {
                     blurRadius: 5.0,
                     offset: Offset(-3, 4),
                     maxLength: 10,
-                    controller: mobilenocontroller,
+                    controller: mobilenoController,
                     border: InputBorder.none,
                     textInputType: TextInputType.number,
                     hinttext: '8756XXXX78',
@@ -194,9 +191,9 @@ class Sign_in extends HookConsumerWidget {
                   //     :null;
                   print("refercode------>${referController.text}");
 
-                  if (mobilenocontroller.text.length == 10) {
+                  if (mobilenoController.text.length == 10) {
                     if (check.value == true) {
-                      ReqOtp data = ReqOtp(mobileNo: mobilenocontroller.text,userType: "Customer",referCode: referController.text);
+                      ReqOtp data = ReqOtp(mobileNo: mobilenoController.text,userType: "Customer",referCode: referController.text);
                       ref
                           .read(authProvider.notifier)
                           .logIn(context: context, data: data).then((value)

@@ -7,6 +7,7 @@ import 'package:surakshakadi/ui/Screens/chatbot_screen/kyc_chatbot_view_modal.da
 import 'package:surakshakadi/ui/Screens/chatbot_screen/plan_chatbot_screen.dart';
 import 'package:surakshakadi/utils/color_utils.dart';
 import 'package:surakshakadi/utils/constants/navigation_route_constants.dart';
+import 'package:surakshakadi/utils/constants/navigations_key_constant.dart';
 import 'package:surakshakadi/utils/constants/preference_key_constant.dart';
 import 'package:surakshakadi/utils/dialog_utils.dart';
 import 'package:surakshakadi/utils/image_utils.dart';
@@ -14,7 +15,10 @@ import 'package:surakshakadi/utils/preference_utils.dart';
 import 'package:surakshakadi/utils/strings.dart';
 import 'package:surakshakadi/utils/utils.dart';
 import 'package:surakshakadi/widgets/custom_button.dart';
+import 'package:surakshakadi/widgets/custom_expandable_card.dart';
 import 'package:surakshakadi/widgets/custom_select.dart';
+
+import '../../../data/model/home/chatboat/kyc_chatbot/res_kyc_chatbot.dart';
 
 class KYCChatBotMobile extends StatefulWidget {
   const KYCChatBotMobile({Key? key}) : super(key: key);
@@ -27,31 +31,6 @@ class _KYCChatBotMobileState extends State<KYCChatBotMobile> {
   TextEditingController chatController = TextEditingController();
   TextEditingController relationController = TextEditingController();
   TextEditingController addressController = TextEditingController();
-
-
-
-  // TextEditingController oneAgeController = TextEditingController();
-  // TextEditingController twoAgeController = TextEditingController();
-  // TextEditingController threeAgeController = TextEditingController();
-  // TextEditingController fourAgeController = TextEditingController();
-  // TextEditingController fiveAgeController = TextEditingController();
-  // TextEditingController sixAgeController = TextEditingController();
-  // TextEditingController sevenAgeController = TextEditingController();
-  // TextEditingController eightAgeController = TextEditingController();
-  // TextEditingController nineAgeController = TextEditingController();
-  // TextEditingController tenAgeController = TextEditingController();
-  //
-  // TextEditingController oneNameController = TextEditingController();
-  // TextEditingController twoNameController = TextEditingController();
-  // TextEditingController threeNameController = TextEditingController();
-  // TextEditingController fourNameController = TextEditingController();
-  // TextEditingController fiveNameController = TextEditingController();
-  // TextEditingController sixNameController = TextEditingController();
-  // TextEditingController sevenNameController = TextEditingController();
-  // TextEditingController eightNameController = TextEditingController();
-  // TextEditingController nineNameController = TextEditingController();
-  // TextEditingController tenNameController = TextEditingController();
-
 
 
   int indexStore = 0;
@@ -84,23 +63,26 @@ class _KYCChatBotMobileState extends State<KYCChatBotMobile> {
   List<String> age = [];
   List<String> gender = [];
 
+  List<String> childrenList = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10",];
+  int childrenIndex = -1;
+
 
   List<ChatMessage> messages = [
     ChatMessage(messageContent: [
       "Hey ${getString(prefUserName)},\nI am SURAKSHA BOT.",
       "Thanks for providing your e-KYC\ndetails",
-      "I appreciate that you are taking\nprotective steps for the\nwelfare of your family."
+      "I appreciate that you are taking\nprotective steps for the\nwelfare of your family.",
+      "Please confirm if you have\nregistered any will(s) previously\nwith the Sub-Registrar."
     ], messageType: "receiver"),
   ];
 
-  List<ChildMessage> childMes = [];
 
   ScrollController controller = ScrollController();
   List<ChatMessage> messagesQustion = [
-/*0*/    ChatMessage(messageContent: ["Please share the name of\nyour mother."], messageType: "receiver"), //  2
+/*0*/    ChatMessage(messageContent: ["Please share the name of\nyour Mother."], messageType: "receiver"), //  2
 /*1*/    ChatMessage(messageContent: ["What is your marital status?"], messageType: "receiver"), //  4  ----> 4
 /*2*/    ChatMessage(messageContent: ["Please share the name\nof the spouse?",], messageType: "receiver"), //  6
-/*3*/    ChatMessage(messageContent: ["Please confirm the below\mpointers."], messageType: "receiver"),      // 8
+/*3*/    ChatMessage(messageContent: ["Please confirm the below\npointers."], messageType: "receiver"),      // 8
 /*4*/    ChatMessage(messageContent: ["Please share how many\nchildren you have."], messageType: "receiver"), //  10 ----> 10
 /*5*/    ChatMessage(messageContent: ["Can you share the Name, Age and\nGender of your child/children?"], messageType: "receiver"), //  12 ----> 12
 /*6*/    ChatMessage(messageContent: ["Who is to be appointed as Trustee/\nGuardian of the trust set up\nfor minor beneficiaries?"], messageType: "receiver"), //  14 ----> 14
@@ -369,6 +351,12 @@ class _KYCChatBotMobileState extends State<KYCChatBotMobile> {
                                         messages.add(ChatMessage(
                                             messageContent: [chatController.text],
                                             messageType: 'sender'));
+
+                                        controller.jumpTo(
+                                            Utils.getHeight(context)
+                                                 +
+                                                200);
+
                                         messages.add(messagesQustion[1]);
 
                                         chatController.clear();
@@ -407,6 +395,9 @@ class _KYCChatBotMobileState extends State<KYCChatBotMobile> {
                                 InkWell(
                                     onTap: messages.length == 5
                                         ? () {
+                                      controller.jumpTo(
+                                        Utils.getHeight(context)  +
+                                            100);
 
                                       // controller.jumpTo(Utils.getHeight(context) * 3 + 10);
 
@@ -556,6 +547,10 @@ class _KYCChatBotMobileState extends State<KYCChatBotMobile> {
 
                                                   ],
                                                   messageType: 'sender'));
+                                              controller.jumpTo(
+                                                  Utils.getHeight(context) *
+                                                      2 +
+                                                      50);
                                               messages.add(messagesQustion[4]);
                                               chatController.clear();
                                               setState(() {});
@@ -630,7 +625,12 @@ class _KYCChatBotMobileState extends State<KYCChatBotMobile> {
                                               chatController.text
                                             ],
                                             messageType: 'sender'));
+                                        controller.jumpTo(
+                                            Utils.getHeight(context) *
+                                                2 +
+                                                50);
                                         messages.add(messagesQustion[4]);
+
                                         chatController.clear();
                                         setState(() {});
                                       } else {
@@ -785,6 +785,10 @@ class _KYCChatBotMobileState extends State<KYCChatBotMobile> {
                                                       chatController.text,relationController.text,addressController.text
                                                     ],
                                                     messageType: 'sender'));
+                                                controller.jumpTo(
+                                                    Utils.getHeight(context) *
+                                                        2 +
+                                                        50);
                                                 messages.add(messagesQustion[7]);
                                                 chatController.clear();
                                                 relationController.clear();
@@ -918,7 +922,10 @@ class _KYCChatBotMobileState extends State<KYCChatBotMobile> {
 
                                   if(oneCheck == true && twoCheck == true){
                                     check = true;
-
+                                    controller.jumpTo(
+                                        Utils.getHeight(context) *
+                                            3 +
+                                            50);
                                     messages.add(messagesQustion[8]);
                                     button = true;
                                   }else{
@@ -979,32 +986,102 @@ class _KYCChatBotMobileState extends State<KYCChatBotMobile> {
                           Gap(20),
                         ]else if(messages.length == 9 ) ...[
                           Gap(10),
+                          // Row(
+                          //   children: [
+                          //     Expanded(flex: 2,child: Container()),
+                          //     Expanded(
+                          //       flex: 4,
+                          //       child: CustomSelect(
+                          //         isColorBox: true,
+                          //         onChanged: messages.length == 9
+                          //             ? (val) {
+                          //           childrenCount = int.parse(val);
+                          //           print("yashu  ----->>>>${childrenCount.runtimeType}");
+                          //           messages.add(ChatMessage(
+                          //               messageContent: ["${val}"],
+                          //               messageType: 'sender'));
+                          //
+                          //           messages.add(val == 0 ? messagesQustion[6] : messagesQustion[5]);
+                          //
+                          //           nameCon = List.generate(childrenCount, (index) => TextEditingController());
+                          //           ageCon = List.generate(childrenCount, (index) => TextEditingController());
+                          //
+                          //           setState((){});
+                          //         }
+                          //             : (st) {},
+                          //         items: ['0', '1', '2','3','4','5','6','7','8','9','10'],
+                          //         hint: 'No. of Children',
+                          //       ),
+                          //     ),
+                          //     Expanded(flex: 2,child: Container()),
+                          //
+                          //   ],
+                          // ),
                           Row(
                             children: [
                               Expanded(flex: 2,child: Container()),
                               Expanded(
                                 flex: 4,
-                                child: CustomSelect(
-                                  isColorBox: true,
-                                  onChanged: messages.length == 9
-                                      ? (val) {
-                                    childrenCount = int.parse(val);
-                                    print("yashu  ----->>>>${childrenCount.runtimeType}");
-                                    messages.add(ChatMessage(
-                                        messageContent: ["${val}"],
-                                        messageType: 'sender'));
+                                child: CustomExpandTextCard(
+                                  index: 0,
+                                  isExpanded: ValueNotifier(1),
+                                  boxcolor: blue,
+                                  title: 'No. of Children',
+                                  expandedChild: Card(
+                                    elevation: 3,
+                                    child: Container(
+                                      height: 150,
+                                      color: Colors.white.withOpacity(0.2),
+                                      child: ListView.builder(
+                                        shrinkWrap: true,
+                                        itemCount: childrenList.length,
+                                        itemBuilder:
+                                            (BuildContext context, int index) {
+                                          return InkWell(
+                                            onTap:  messages.length == 9
+                                                ? () {
+                                              controller.jumpTo(
+                                                  Utils.getHeight(context) *
+                                                      2 +
+                                                      50);
 
-                                    messages.add(val == 0 ? messagesQustion[6] : messagesQustion[5]);
+                                              childrenCount = index;
 
-                                    nameCon = List.generate(childrenCount, (index) => TextEditingController());
-                                    ageCon = List.generate(childrenCount, (index) => TextEditingController());
+                                              childrenCount = int.parse(childrenList[index]);
+                                              // print("yashu  ----->>>>${childrenCount.runtimeType}");
+                                              messages.add(ChatMessage(
+                                                  messageContent: ["${childrenList[index]}"],
+                                                  messageType: 'sender'));
 
-                                    setState((){});
-                                  }
-                                      : (st) {},
-                                  items: ['0', '1', '2','3','4','5','6','7','8','9','10'],
-                                  hint: 'No. of Children',
-                                ),
+                                              messages.add(childrenList[index] == 0 ? messagesQustion[6] : messagesQustion[5]);
+
+                                              nameCon = List.generate(childrenCount, (index) => TextEditingController());
+                                              ageCon = List.generate(childrenCount, (index) => TextEditingController());
+
+
+
+
+                                              setState(() {});
+                                            }
+                                                : () {},
+                                            child: Container(
+                                              padding: EdgeInsets.symmetric(
+                                                  horizontal: 10, vertical: 15),
+                                              child: Text(
+                                                childrenList[index],
+                                                style: TextStyle(
+                                                    fontSize: 16,
+                                                    color: childrenIndex == index
+                                                        ? Colors.blue
+                                                        : black),
+                                              ),
+                                            ),
+                                          );
+                                        },
+                                      ),
+                                    ),
+                                  ),
+                                )
                               ),
                               Expanded(flex: 2,child: Container()),
 
@@ -1141,6 +1218,10 @@ class _KYCChatBotMobileState extends State<KYCChatBotMobile> {
                                        padding: const EdgeInsets.all(6.0),
                                        child: FloatingActionButton(
                                          onPressed: () {
+                                           controller.jumpTo(
+                                               Utils.getHeight(context) *
+                                                   2 +
+                                                   50);
                                            if (chatController.text.isNotEmpty) {
                                              if(relationController.text.isNotEmpty) {
                                                if(addressController.text.isNotEmpty) {
@@ -1149,6 +1230,10 @@ class _KYCChatBotMobileState extends State<KYCChatBotMobile> {
                                                        chatController.text,relationController.text,addressController.text
                                                      ],
                                                      messageType: 'sender'));
+                                                 controller.jumpTo(
+                                                     Utils.getHeight(context) *
+                                                         2 +
+                                                         50);
                                                  messages.add(messagesQustion[7]);
                                                  chatController.clear();
                                                  relationController.clear();
@@ -1248,10 +1333,12 @@ class _KYCChatBotMobileState extends State<KYCChatBotMobile> {
 
                                             child: CustomSelect(
                                               isColorBox: false,
+                                              dropdownHeight: 110,
+                                              // isRequired: ,
                                               onChanged: isChildTextField == false
                                                   ? (val) {
                                                 if(ageCon[index].text.isNotEmpty) {
-                                                  if (nameCon[index].text.isNotEmpty) {
+                                                  if(nameCon[index].text.isNotEmpty) {
 
                                                     if(index <= childrenCount ) {
                                                       // childMes.add(
@@ -1277,10 +1364,15 @@ class _KYCChatBotMobileState extends State<KYCChatBotMobile> {
                                                       if (gender.length == childrenCount) {
                                                       // if (childMes[index].gender.isNotEmpty) {
                                                         print("gender lenth 22--${gender.length}");
-                                                        if(index == childrenCount-1) {
+                                                        // if(index == childrenCount - 1 ) {
+
                                                           messages.add(ChatMessage(
                                                               messageContent: ["Thanks"],
                                                               messageType: 'receiver'));
+                                                          controller.jumpTo(
+                                                              Utils.getHeight(context) *
+                                                                  (childrenCount >= 5 ? 3 : 2) +
+                                                                  50);
                                                           messages.add(messagesQustion[6]);
 
                                                           print("name child ----->>>> ${name}".replaceAll('[', '').replaceAll(']', ''));
@@ -1288,10 +1380,10 @@ class _KYCChatBotMobileState extends State<KYCChatBotMobile> {
                                                           print("gender child ----->>>> ${gender}".replaceAll('[', '').replaceAll(']', ''));
 
                                                           isChildTextField = true;
-                                                        } else {
-                                                          displayToast(
-                                                              "Enter your child Gender");
-                                                        }
+                                                        // } else {
+                                                        //   displayToast(
+                                                        //       "Enter your child Gender");
+                                                        // }
                                                       }else{
                                                         print("nulllllllll");
                                                       }
@@ -1432,7 +1524,10 @@ class _KYCChatBotMobileState extends State<KYCChatBotMobile> {
 
                                   if(oneCheck == true && twoCheck == true){
                                     check = true;
-
+                                    controller.jumpTo(
+                                        Utils.getHeight(context) *
+                                            3 +
+                                            50);
                                     messages.add(messagesQustion[8]);
                                     button = true;
                                   }else{
@@ -1755,7 +1850,10 @@ class _KYCChatBotMobileState extends State<KYCChatBotMobile> {
 
                                 if(oneCheck == true && twoCheck == true){
                                   check = true;
-
+                                  controller.jumpTo(
+                                      Utils.getHeight(context) *
+                                          3 +
+                                          200);
                                   messages.add(messagesQustion[8]);
                                   button = true;
                                 }else{
@@ -1879,6 +1977,7 @@ class _KYCChatBotMobileState extends State<KYCChatBotMobile> {
                             userId:  getString(prefUserID),
                             subRegisterStatus: "${messages[1].messageContent[0]}",
                             motherName: "${messages[3].messageContent[0]}",
+                            isMotherAlive: "Yes",
                             maritalStatus: "${messages[5].messageContent[0]}",
                             spouseName: messages[5].messageContent[0] == "Unmarried" ?  "" : "${messages[7].messageContent[0]}",
                             divorceStatus: messages[5].messageContent[0] == "Unmarried" ? "" : messages[5].messageContent[0] == "Married" ? ""  : messages[7].messageContent[1] ,
@@ -1892,19 +1991,21 @@ class _KYCChatBotMobileState extends State<KYCChatBotMobile> {
                             appointSurakshakadiStatus: "Accepted",
                             authorizeSurakshakadiStatus: "Accepted",
                             termsConditionStatus: "Accepted",
-
-
                           );
 
-                          print("Yahsu 111");
+                          setString(prefMarriedSpouseName, messages[5].messageContent[0] == "Unmarried" ?  "" : "${messages[7].messageContent[0]}" );
+                          setString(prefMotherName,"${messages[3].messageContent[0]}" );
+
+
+                          print("total data --->>>  ${kycChatBotData.toJson()}");
                           await ref.read(kycChatBotProvider.notifier)
                               .kycChatBot(context: context, data: kycChatBotData)
                               .then((value) async {
-                            print("Yahsu 22222");
                             if (value!.status == 1) {
-                              print("Yahsu Patel");
+
                               displayToast(value.message.toString());
-                              navigationService.push(routeWillReview);
+                              navigationService.push(routeSecondChatBotInformationEdit,arguments: {navMassageInfo : value.response ,navChildNameInfo :  name ,navChildCountInfo: childrenCount});
+
                              }else {
                               displayToast(value.message.toString());
                             }
@@ -1933,10 +2034,4 @@ class _KYCChatBotMobileState extends State<KYCChatBotMobile> {
 }
 
 
-class ChildMessage {
-  String name;
-  int age;
-  String gender;
 
-  ChildMessage({required this.name, required this.age,required this.gender});
-}

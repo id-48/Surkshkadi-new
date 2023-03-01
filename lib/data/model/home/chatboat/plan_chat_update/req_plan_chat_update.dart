@@ -11,8 +11,8 @@ class ReqPlanChatUpdate {
   String postCode;
   String annualIncome;
   String occupation;
-
   String fatherName;
+  String isFatherAlive;
   String nominee;
   String nomineeRelation;
   String covidDose;
@@ -35,6 +35,7 @@ class ReqPlanChatUpdate {
         required this.occupation,
 
         required this.fatherName,
+        required this.isFatherAlive,
         required this.nominee,
         required this.nomineeRelation,
         required this.covidDose,
@@ -57,6 +58,7 @@ class ReqPlanChatUpdate {
         'annual_income': annualIncome,
         'occupation': occupation,
         'father_name': fatherName,
+        'is_father_alive': isFatherAlive,
         'nominee': nominee,
         'nominee_relation': nomineeRelation,
         'covid_dose': covidDose,

@@ -1,9 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:surakshakadi/data/model/home/channelPartner/start_partners/req_send_account_verification.dart';
 import 'package:surakshakadi/di/locator.dart';
+import 'package:surakshakadi/ui/Screens/cp_web_screeen/start_partners/send_account_verification_view_model.dart';
 import 'package:surakshakadi/utils/color_utils.dart';
 import 'package:surakshakadi/utils/constants/navigation_route_constants.dart';
+import 'package:surakshakadi/utils/constants/preference_key_constant.dart';
+import 'package:surakshakadi/utils/dialog_utils.dart';
 import 'package:surakshakadi/utils/image_utils.dart';
+import 'package:surakshakadi/utils/preference_utils.dart';
 import 'package:surakshakadi/utils/strings.dart';
 import 'package:surakshakadi/widgets/custom_appbar_web.dart';
 import 'package:surakshakadi/widgets/custom_web_bottombar.dart';
@@ -57,8 +62,27 @@ class StartPartnerWithWeb extends HookConsumerWidget {
                       textAlign: TextAlign.center,
                     ),
                     GestureDetector(
-                      onTap: () {
-                        navigationService.push(routeAdminDashboard);
+                      onTap: () async{
+
+                        ReqSendAccountVerification sendVerification = ReqSendAccountVerification(
+                          userId: "${getString(prefCPUserID)}"
+                        );
+
+
+                        await ref.read(sendAccountVerificationProvider.notifier)
+                            .getSendAccountVerification(context: context, data: sendVerification)
+                            .then((value){
+                              if(value?.status == 1){
+                                displayToast("${value?.message}");
+                                navigationService.push(routeAdminDashboard);
+                              }else{
+                                displayToast("${value?.message}");
+                              }
+                        } );
+
+
+
+
 
                         // Navigator.push(
                         //     context,

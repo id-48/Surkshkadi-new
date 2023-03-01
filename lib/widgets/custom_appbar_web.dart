@@ -1,21 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:gap/gap.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:responsive_grid/responsive_grid.dart';
 import 'package:surakshakadi/di/locator.dart';
-import 'package:surakshakadi/ui/Screens/Plan_Screen/plan_web_screen.dart';
-import 'package:surakshakadi/ui/Screens/cp_web_screeen/partner_with_web_screen.dart';
-import 'package:surakshakadi/ui/Screens/cp_web_screeen/start_partner_with_web_screen.dart';
-import 'package:surakshakadi/ui/Screens/dashboard/Components/about_us_web_screen.dart';
-import 'package:surakshakadi/ui/Screens/dashboard/dashboard_web_screen.dart';
 import 'package:surakshakadi/utils/color_utils.dart';
+import 'package:surakshakadi/utils/constants/app_constant.dart';
 import 'package:surakshakadi/utils/constants/navigation_route_constants.dart';
 import 'package:surakshakadi/utils/image_utils.dart';
 import 'package:surakshakadi/utils/strings.dart';
 import 'package:surakshakadi/utils/utils.dart';
-import 'package:surakshakadi/widgets/custome_drawer_web.dart';
 
 class CustomAppbarWeb extends HookConsumerWidget {
   final bool boxShadow;
@@ -32,8 +24,7 @@ class CustomAppbarWeb extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final selectedindex = useState<int>(index);
-
+    final selectedIndex = useState<int>(index);
 
 
     return Container(
@@ -56,7 +47,6 @@ class CustomAppbarWeb extends HookConsumerWidget {
               : BoxShadow(),
         ],
       ),
-      // color: Colors.lightBlueAccent,
       child: MediaQuery.of(context).size.width <= 1220
           ? Padding(
             padding: const EdgeInsets.only(left: 20,right: 20),
@@ -75,7 +65,11 @@ class CustomAppbarWeb extends HookConsumerWidget {
 
                   button == true
                               ? Center(
-                            child: SizedBox(
+                            child: GestureDetector(
+                              onTap: (){
+                                webSignupLogin = true;
+                                navigationService.push(routePartnerWithWeb);
+                              },
                               child: Container(
                                 margin: EdgeInsets.only(bottom: 9),
                                 padding: EdgeInsets.symmetric(
@@ -105,112 +99,104 @@ class CustomAppbarWeb extends HookConsumerWidget {
               ),
               InkWell(
                     onTap: () {
-                      selectedindex.value = 0;
+                      selectedIndex.value = 0;
                       navigationService.push(routeDashboardWeb);
-
-                      // Navigator.push(
-                      //     context,
-                      //     MaterialPageRoute(
-                      //         builder: (context) => DashBoardWeb()));
                     },
-                    child: Center(
-                        child: Text(
-                          'Home',
-                          style: TextStyle(
-                              fontSize: 17,
-                              color: selectedindex.value == 0
-                                  ? buttonColor
-                                  : textColor),
-                        ))),
+                    child: Text(
+                      'Home',
+                      style: TextStyle(
+                          fontSize: 17,
+                          color: selectedIndex.value == 0
+                              ? buttonColor
+                              : textColor),
+                    )),
 
             InkWell(
                     onTap: () {
-                      selectedindex.value = 1;
+                      selectedIndex.value = 1;
                       navigationService.push(routeAboutUsWeb);
-
-                      // Navigator.push(
-                      //     context,
-                      //     MaterialPageRoute(
-                      //         builder: (context) => AboutUsWeb()));
                     },
-                    child: Center(
-                        child: Text(
-                          'About Us',
-                          style: TextStyle(
-                              fontSize: 17,
-                              color: selectedindex.value == 1
-                                  ? buttonColor
-                                  : textColor),
-                        ))),
+                    child: Text(
+                      'About Us',
+                      style: TextStyle(
+                          fontSize: 17,
+                          color: selectedIndex.value == 1
+                              ? buttonColor
+                              : textColor),
+                    )),
               InkWell(
                     onTap: () {
-                      selectedindex.value = 2;
+                      selectedIndex.value = 2;
                       navigationService.push(routePlansWeb);
-
-                      // Navigator.push(
-                      //     context,
-                      //     MaterialPageRoute(
-                      //         builder: (context) => PlansWeb()));
                     },
-                    child: Center(
-                        child: Text(
-                          'Plan',
-                          style: TextStyle(
-                              fontSize: 17,
-                              color: selectedindex.value == 2
-                                  ? buttonColor
-                                  : textColor),
-                        ))),
+                    child: Text(
+                      'Plan',
+                      style: TextStyle(
+                          fontSize: 17,
+                          color: selectedIndex.value == 2
+                              ? buttonColor
+                              : textColor),
+                    )),
 
              InkWell(
                     onTap: () {
-                      selectedindex.value = 3;
+                      selectedIndex.value = 3;
                       navigationService.push(routePartnerWithWeb);
                     },
-                    child: Center(
-                        child: Text(
-                          partnerWithUs,
-                          style: TextStyle(
-                              fontSize: 17,
-                              color: selectedindex.value == 3
-                                  ? buttonColor
-                                  : textColor),
-                        ))),
+                    child: Text(
+                      partnerWithUs,
+                      style: TextStyle(
+                          fontSize: 17,
+                          color: selectedIndex.value == 3
+                              ? buttonColor
+                              : textColor),
+                    )),
 
-             Center(
-                    child: Text(
-                      faq,
-                      style: TextStyle(fontSize: 17, color: textColor),
-                    )),
-          Center(
-                    child: Text(
-                      'My Account',
-                      style: TextStyle(fontSize: 17, color: textColor),
-                    )),
+             InkWell(
+               onTap: (){
+                 navigationService.push(routeAboutUsWeb);
+               },
+               child: Text(
+                 faq,
+                 style: TextStyle(fontSize: 17, color: textColor),
+               ),
+             ),
+
+
+          InkWell(
+            onTap: (){
+
+            },
+            child: Text(
+              'My Account',
+              style: TextStyle(fontSize: 17, color: textColor),
+            ),
+          ),
 
              button == true
-                    ? Center(
-                        child: SizedBox(
-                          child: Container(
-                            margin: EdgeInsets.only(bottom: 9),
-                            padding: EdgeInsets.symmetric(
-                                vertical: 8, horizontal: 16),
-                            decoration: BoxDecoration(
-                              color: buttonColor,
-                              borderRadius: BorderRadius.circular(25),
-                            ),
-                            child: Text(
-                              'Signup / Login',
-                              style: TextStyle(
-                                  fontSize: 17, color: white),
-                            ),
-                          ),
+                    ? InkWell(
+                      onTap: (){
+                        webSignupLogin = true;
+                        navigationService.push(routePartnerWithWeb);
+                      },
+                      child: Container(
+                        margin: EdgeInsets.only(bottom: 9),
+                        padding: EdgeInsets.symmetric(
+                            vertical: 8, horizontal: 16),
+                        decoration: BoxDecoration(
+                          color: buttonColor,
+                          borderRadius: BorderRadius.circular(25),
                         ),
-                      )
+                        child: Text(
+                          'Signup / Login',
+                          style: TextStyle(
+                              fontSize: 17, color: white),
+                        ),
+                      ),
+                    )
                     : Container(),
 
             Container(
-                    // color: Colors.redAccent,
                         height: 50 ,
                         width:  160 ,
                         child: Image.asset(startupIndia)),

@@ -10,6 +10,7 @@ import 'package:surakshakadi/di/locator.dart';
 import 'package:surakshakadi/ui/Screens/Signup_Screen/auth_view_model.dart';
 import 'package:surakshakadi/ui/Screens/dashboard/Components/components.dart';
 import 'package:surakshakadi/utils/color_utils.dart';
+import 'package:surakshakadi/utils/constants/app_constant.dart';
 import 'package:surakshakadi/utils/constants/navigation_route_constants.dart';
 import 'package:surakshakadi/utils/constants/preference_key_constant.dart';
 import 'package:surakshakadi/utils/dialog_utils.dart';
@@ -23,20 +24,22 @@ import 'package:surakshakadi/widgets/custom_web_bottombar.dart';
 import 'package:surakshakadi/widgets/custome_drawer_web.dart';
 
 class PartnerWithWeb extends HookConsumerWidget {
-  const PartnerWithWeb({Key? key}) : super(key: key);
+   PartnerWithWeb({Key? key}) : super(key: key);
 
+  final scaffoldKey = GlobalKey<ScaffoldState>();
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final numberController = useTextEditingController();
     final otpController = useTextEditingController();
 
     final sendOTP = useState<bool>(false);
+    final loginType = useState<bool>(webSignupLogin ?? false);
     final cpUserId = useState<String>("");
-    final scaffoldKey = GlobalKey<ScaffoldState>();
+
     final selectedindex = useState<int>(3);
     return Scaffold(
       key: scaffoldKey,
-      drawer: Custome_drawer_web(index: selectedindex.value, button: true),
+      drawer: CustomDrawerWeb(index: selectedindex.value, button: true),
       body: SingleChildScrollView(
         scrollDirection: Axis.vertical,
         child: Column(
@@ -131,10 +134,12 @@ class PartnerWithWeb extends HookConsumerWidget {
               ),
             ),
             Gap(40),
+
+
             Padding(
               padding:  EdgeInsets.only(left: Utils.getWidth(context) < 550 ? 16 :60 ),
               child: Text(
-                partnerWithUs,
+                loginType.value == true ? partnerLogin : partnerWithUs,
                 style: GoogleFonts.bonaNova(
                   textStyle: TextStyle(
                       fontSize: 53,
@@ -153,7 +158,7 @@ class PartnerWithWeb extends HookConsumerWidget {
               color: oreng,
             ),
             Gap(34),
-            Container(
+            Container (
 
               padding:  EdgeInsets.only(left: Utils.getWidth(context) < 550 ? 16 : 70),
               child: Column(
@@ -161,7 +166,7 @@ class PartnerWithWeb extends HookConsumerWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    kindlyStartYour,
+                    loginType.value == true ? kindlyLogInto : kindlyStartYour,
                     style: TextStyle(
                         fontSize: 23,
                         fontWeight: FontWeight.w100,
@@ -201,7 +206,7 @@ class PartnerWithWeb extends HookConsumerWidget {
                             if(numberController.text.length == 10) {
                               ReqOtp data = ReqOtp(
                                   mobileNo: numberController.text,
-                                  userType: cp, );
+                                  userType: cp);
                            await   ref
                                   .read(authProvider.notifier)
                                   .logIn(context: context, data: data).then((
@@ -318,7 +323,22 @@ class PartnerWithWeb extends HookConsumerWidget {
                               print('Result :  ${value?.response}');
                               setString(prefLoginTokenWeb, "LoginSuccessWeb");
                               setString(prefLoginNumber, "${value?.response.mobile}");
-                              navigationService.pushAndRemoveUntil(routeRegisterWeb);
+
+                              loginType.value == true
+                            ?  navigationService.pushAndRemoveUntil(routeDashboardWeb)
+
+                            :  navigationService.pushAndRemoveUntil(routeRegisterWeb);
+
+                              if(loginType.value == true){
+                                navigationService.pushAndRemoveUntil(routeDashboardWeb);
+                              }else{
+                                if(value?.response.isCompleted == "Completed"){
+                                  navigationService.push(routeStartPartnerWithWeb);
+                                }else{
+                                  navigationService.pushAndRemoveUntil(routeRegisterWeb);
+                                }
+                              }
+
                             }else{
                               displayToast("${value?.message}");
                             }
@@ -360,30 +380,36 @@ class PartnerWithWeb extends HookConsumerWidget {
                         color: black),
                   ),
                   Gap(40),
-                  RichText(
-                    text: TextSpan(
-                      children: const <TextSpan>[
-                        TextSpan(
-                            text: alreadyHave,
+                   Row(
+                      children: [
+                        Text(
+                            loginType.value == true ?  newToSur : alreadyHave,
                             style: TextStyle(
                                 fontWeight: FontWeight.w100, color: black)),
-                        TextSpan(
-                          text: login,
-                          style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              color: oreng,
-                              fontSize: 16),
+                        InkWell(
+                          onTap: (){
+                            loginType.value =  !loginType.value ;
+                          },
+                          child: Text(
+                            loginType.value == true ? register : login ,
+                            style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                color: oreng,
+                                fontSize: 16),
+                          ),
                         ),
-                        TextSpan(
-                            text: asPartner,
+                        Text(
+                             asPartner,
                             style: TextStyle(
                                 fontWeight: FontWeight.w100, color: black)),
                       ],
-                    ),
-                  ),
+                   ),
                 ],
               ),
             ),
+
+
+
             Gap(50),
             Container(
               padding: EdgeInsets.only(top: 28,bottom: 28),

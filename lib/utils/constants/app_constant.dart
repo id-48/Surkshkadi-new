@@ -12,6 +12,8 @@ void getScreenSize(BuildContext context) {
   screenSize = MediaQuery.of(context).size;
 }
 
+bool? webSignupLogin;
+
 int? planIndex;
 bool? planType;
 

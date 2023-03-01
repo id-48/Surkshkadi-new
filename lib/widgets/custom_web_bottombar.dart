@@ -5,9 +5,11 @@ import 'package:responsive_grid/responsive_grid.dart';
 import 'package:surakshakadi/di/locator.dart';
 import 'package:surakshakadi/utils/color_utils.dart';
 import 'package:surakshakadi/utils/constants/navigation_route_constants.dart';
+import 'package:surakshakadi/utils/constants/navigations_key_constant.dart';
 import 'package:surakshakadi/utils/image_utils.dart';
 import 'package:surakshakadi/utils/strings.dart';
 import 'package:surakshakadi/utils/utils.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class CustomWebBottomBar extends HookWidget {
   final bool bgColor;
@@ -18,6 +20,16 @@ class CustomWebBottomBar extends HookWidget {
 
   @override
   Widget build(BuildContext context) {
+
+    _launchURL(String url) async {
+
+      if (!await launchUrl(
+        Uri.parse(url),
+        mode: LaunchMode.externalApplication,
+      )) {
+        throw 'Could not launch $url';
+      }
+    }
     print("test    ----->${MediaQuery.of(context).size.width}");
     return Container(
       // height: 330,
@@ -245,10 +257,15 @@ class CustomWebBottomBar extends HookWidget {
                         ),
                       ),
                       Gap(7),
-                      Text(
-                        faqs,
-                        style: TextStyle(
-                            fontWeight: FontWeight.w500, fontSize: 16),
+                      InkWell(
+                        onTap: (){
+                          navigationService.push(routeAboutUsWeb);
+                        },
+                        child: Text(
+                          faqs,
+                          style: TextStyle(
+                              fontWeight: FontWeight.w500, fontSize: 16),
+                        ),
                       ),
                       Gap(7),
                       Text(
@@ -284,34 +301,57 @@ class CustomWebBottomBar extends HookWidget {
                             color: Color(0xFF002E9E)),
                       ),
                       Gap(16),
+
+                      GestureDetector(
+                        onTap: (){
+                          navigationService.push(routeLegalAll,arguments: {navSecurityContent: "terms_conditions"});
+                        },
+                        child: Text(
+                          termsConditions,
+                          style: TextStyle(
+                              fontWeight: FontWeight.w500, fontSize: 16),
+                        ),
+                      ),
+                      Gap(7),
+                      InkWell(
+                        onTap: (){
+                          navigationService.push(routeLegalAll,arguments: {navSecurityContent: "privacy_policies"});
+
+                        },
+                        child: Text(
+                          privacyPolicy,
+                          style: TextStyle(
+                              fontWeight: FontWeight.w500, fontSize: 16),
+                        ),
+                      ),
+                      Gap(7),
+                      InkWell(
+                        onTap: (){
+                          navigationService.push(routeLegalAll,arguments: {navSecurityContent: "disclaimers"});
+
+                        },
+                        child: Text(
+                          disclaimer,
+                          style: TextStyle(
+                              fontWeight: FontWeight.w500, fontSize: 16),
+                        ),
+                      ),
+                      // Gap(7),
                       // Text(
                       //   referAndEarn,
                       //   style: TextStyle(
                       //       fontWeight: FontWeight.w500, fontSize: 16),
                       // ),
-                      // Gap(7),
-                      Text(
-                        termsConditions,
-                        style: TextStyle(
-                            fontWeight: FontWeight.w500, fontSize: 16),
-                      ),
                       Gap(7),
-                      Text(
-                        privacyPolicy,
-                        style: TextStyle(
-                            fontWeight: FontWeight.w500, fontSize: 16),
-                      ),
-                      Gap(7),
-                      Text(
-                        disclaimer,
-                        style: TextStyle(
-                            fontWeight: FontWeight.w500, fontSize: 16),
-                      ),
-                      Gap(7),
-                      Text(
-                        contactUs,
-                        style: TextStyle(
-                            fontWeight: FontWeight.w500, fontSize: 16),
+                      InkWell(
+                        onTap: (){
+                          navigationService.push(routeAboutUsWeb);
+                        },
+                        child: Text(
+                          contactUs,
+                          style: TextStyle(
+                              fontWeight: FontWeight.w500, fontSize: 16),
+                        ),
                       ),
                     ],
                   ),

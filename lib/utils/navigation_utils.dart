@@ -20,6 +20,7 @@ import 'package:surakshakadi/ui/Screens/Assets_Details_Screen/components/utility
 import 'package:surakshakadi/ui/Screens/Assets_Details_Screen/components/utility_screen.dart';
 import 'package:surakshakadi/ui/Screens/Check_Your_Information_Screen/check_your_information_mobile_screen.dart';
 import 'package:surakshakadi/ui/Screens/Check_Your_Information_Screen/check_your_information_web_screen.dart';
+import 'package:surakshakadi/ui/Screens/Check_Your_Information_Screen/second_chat_bot_information_edit_screen.dart';
 import 'package:surakshakadi/ui/Screens/Kyc_Screen/components/components.dart';
 import 'package:surakshakadi/ui/Screens/Kyc_Screen/kyc_identity_screen.dart';
 import 'package:surakshakadi/ui/Screens/Kyc_Screen/kyc_screen.dart';
@@ -30,6 +31,7 @@ import 'package:surakshakadi/ui/Screens/Splash_Screen/common_screen/commonpage.d
 import 'package:surakshakadi/ui/Screens/Splash_Screen/splash_screen.dart';
 import 'package:surakshakadi/ui/Screens/chatbot_screen/kyc_chatbot_mobile_screen.dart';
 import 'package:surakshakadi/ui/Screens/chatbot_screen/plan_chatbot_screen.dart';
+import 'package:surakshakadi/ui/Screens/chatbot_screen/plan_chatbot_web_screen.dart';
 import 'package:surakshakadi/ui/Screens/confirmation_Screen/confirmation_plan_screen.dart';
 import 'package:surakshakadi/ui/Screens/confirmation_Screen/confirmation_specific_screen.dart';
 import 'package:surakshakadi/ui/Screens/confirmation_Screen/payment_confirmation_plan_web_screen.dart';
@@ -38,14 +40,17 @@ import 'package:surakshakadi/ui/Screens/cp_web_screeen/admin_panel_web/admin_pan
 import 'package:surakshakadi/ui/Screens/cp_web_screeen/admin_panel_web/admin_panel_web/dashboard_screen.dart';
 import 'package:surakshakadi/ui/Screens/cp_web_screeen/partner_with_web_screen.dart';
 import 'package:surakshakadi/ui/Screens/cp_web_screeen/register_web_screen.dart';
-import 'package:surakshakadi/ui/Screens/cp_web_screeen/start_partner_with_web_screen.dart';
+import 'package:surakshakadi/ui/Screens/cp_web_screeen/start_partners/start_partner_with_web_screen.dart';
 import 'package:surakshakadi/ui/Screens/dashboard/Components/about_us_web_screen.dart';
 import 'package:surakshakadi/ui/Screens/dashboard/Components/add_information_screen.dart';
 import 'package:surakshakadi/ui/Screens/dashboard/Components/add_information_web_screen.dart';
 import 'package:surakshakadi/ui/Screens/dashboard/Components/choose_assets_mobile_screen.dart';
 import 'package:surakshakadi/ui/Screens/dashboard/Components/choose_assets_web_screen.dart';
+import 'package:surakshakadi/ui/Screens/dashboard/Components/legal_screen.dart';
 import 'package:surakshakadi/ui/Screens/dashboard/dashboard_web_screen.dart';
 import 'package:surakshakadi/ui/Screens/record_video_screen/record_a_video_screen.dart';
+import 'package:surakshakadi/ui/Screens/will_review_screen/beneficiary_screen.dart';
+import 'package:surakshakadi/ui/Screens/will_review_screen/will_review_issue_detail_screen.dart';
 import 'package:surakshakadi/ui/Screens/will_review_screen/will_review_screen.dart';
 import 'package:surakshakadi/widgets/custom_bottomnavigationbar.dart';
 
@@ -95,11 +100,11 @@ class NavigationUtils {
       case routeSignin:
         return CustomRoute(
             settings: const RouteSettings(name: routeSignin),
-            builder: (_) => Sign_in());
+            builder: (_) => SignIn());
       case routeOtpVerification:
         return CustomRoute(
             settings: const RouteSettings(name: routeOtpVerification),
-            builder: (_) => OTP_Verification(userId: args![navUserId],userType: args[navUserType],
+            builder: (_) => OTPVerification(userId: args![navUserId],userType: args[navUserType],
               // referCode: args[navReferCode],
             ));
 
@@ -260,11 +265,30 @@ class NavigationUtils {
             settings: const RouteSettings(name: routeUtility),
             builder: (_) => Utility());
 
+      case routeBeneficiary:
+        return CustomRoute(
+            settings: const RouteSettings(name: routeBeneficiary),
+            builder: (_) => Beneficiary(childCount: args?[navChildCount] ,childName: args?[navChildName],));
+
+      case routeWillReviewIssueDetail:
+        return CustomRoute(
+            settings: const RouteSettings(name: routeWillReviewIssueDetail),
+            builder: (_) => WillReviewIssueDetailScreen());
+
+      case routeSecondChatBotInformationEdit:
+        return CustomRoute(
+            settings: const RouteSettings(name: routeSecondChatBotInformationEdit),
+            builder: (_) => SecondChatBotInformationEditScreen(
+              messagesInfo: args?[navMassageInfo],
+              childCountInfo: args?[navChildCountInfo],
+              childNameInfo: args?[navChildNameInfo],));
 
 
 
 
-        ///                               Web   Route
+
+
+    ///                               Web   Route
 
       case routeDashboardWeb:
         return CustomRoute(
@@ -318,6 +342,11 @@ class NavigationUtils {
             settings: const RouteSettings(name: routeRegisterWeb),
             builder: (_) => RegisterWeb());
 
+      case routePlanChatBotWeb:
+        return CustomRoute(
+            settings: const RouteSettings(name: routePlanChatBotWeb),
+            builder: (_) => PlanChatBotWeb());
+
       case routeAddInfoWeb:
         return CustomRoute(
             settings: const RouteSettings(name: routeAddInfoWeb),
@@ -337,10 +366,17 @@ class NavigationUtils {
         return CustomRoute(
             settings: const RouteSettings(name: routeAdminDashboard),
             builder: (_) => AdminDashboard());
+
       case routeAdminWebClient:
         return CustomRoute(
             settings: const RouteSettings(name: routeAdminWebClient),
             builder: (_) => AdminWebClients());
+
+      case routeLegalAll:
+        return CustomRoute(
+            settings: const RouteSettings(name: routeLegalAll),
+            builder: (_) => LegalAll(securityContent: args?[navSecurityContent]));
+
 
       default:
         return _errorRoute(" Unimplemented...");

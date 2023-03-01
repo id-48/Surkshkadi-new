@@ -27,7 +27,9 @@ class PlanChatViewModel extends StateNotifier<AsyncValue<ResPlanChatBot>> {
           hideLoadingDialog(context: context);
           return result;
         },
-        failure: (error) {});
+        failure: (error) {
+          hideLoadingDialog(context: context);
+        });
   }
 
 

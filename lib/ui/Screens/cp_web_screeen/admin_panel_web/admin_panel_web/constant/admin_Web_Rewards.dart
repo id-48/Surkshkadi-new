@@ -145,8 +145,8 @@ class AdminWebRewards extends HookConsumerWidget {
     final searchController =
         useState<TextEditingController>(TextEditingController());
 
-    final horizontalScrollController =
-        useState<ScrollController>(ScrollController());
+    // final horizontalScrollController =
+    //     useState<ScrollController>(ScrollController());
 
     totalBookings.value = clientData.length;
     String s =

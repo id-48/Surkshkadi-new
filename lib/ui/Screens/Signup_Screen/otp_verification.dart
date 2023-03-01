@@ -16,12 +16,12 @@ import 'package:surakshakadi/utils/dialog_utils.dart';
 import 'package:surakshakadi/utils/image_utils.dart';
 import 'package:surakshakadi/utils/preference_utils.dart';
 
-class OTP_Verification extends HookConsumerWidget {
+class OTPVerification extends HookConsumerWidget {
   var userId;
   final String userType;
   // final String referCode ;
 
-  OTP_Verification({Key? key, this.userId, required this.userType ,
+  OTPVerification({Key? key, this.userId, required this.userType ,
     // required this.referCode
   })
       : super(key: key);
@@ -140,18 +140,12 @@ class OTP_Verification extends HookConsumerWidget {
                         .read(authProvider.notifier)
                         .verifyOtp(context: context, data: data)
                         .then((value) {
-                          print("enter>>>>>>>>");
                       if (value!.status == 1) {
-                        print("enter>>>>>>>>111111");
-
-                        // displayToast("${value.message}");
-                        print('Result :  ${value.response}');
+                        displayToast("${value.message}");
                         setString(prefLoginToken, "LoginSuccess");
                         setString(prefLoginNumber, "${value.response.mobile}");
                         navigationService.pushAndRemoveUntil(routeCustomBottomNavigationBar, arguments: {navIndex: 0});
                       } else {
-                        print("enter>>>>>>>> 22222");
-
                         displayToast("${value.message}");
                       }
                     });

@@ -26,10 +26,13 @@ class StoreAssetsFormDetailsViewModel
     final result = await repositery.assetsFormDetails(data);
     return result.when(
         success: (result) async {
+          hideLoadingDialog(context: context);
           state= AsyncValue.data(result);
           return result;
         },
-        failure: (error) {});
+        failure: (error) {
+          hideLoadingDialog(context: context);
+        });
   }
 }
 
@@ -47,12 +50,16 @@ class GetSelectedAssetsViewModel
   Future<ResGetSelectedAssets?> getSelectedAssets(
       {required BuildContext context,
       required ReqGetSelectedAssets data}) async {
+    // showLoadingDialog(context: context);
     final result = await repositery.getSelectedAssets(data);
     return result.when(
         success: (result) async {
+          // hideLoadingDialog(context: context);
           state = AsyncValue.data(result);
           return result;
         },
-        failure: (error) {});
+        failure: (error) {
+          hideLoadingDialog(context: context);
+        });
   }
 }

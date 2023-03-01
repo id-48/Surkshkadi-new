@@ -10,7 +10,6 @@ import 'package:gap/gap.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:razorpay_flutter/razorpay_flutter.dart';
 import 'package:surakshakadi/data/model/home/dashboard/components/single_user_assets/req_single_user_assets.dart';
 import 'package:surakshakadi/data/model/home/dashboard/payment/single_user_assets_payment/req_single_user_assets_payment.dart';
 import 'package:surakshakadi/data/model/home/dashboard/state_and_city/city/req_city.dart';
@@ -25,13 +24,11 @@ import 'package:surakshakadi/utils/constants/navigation_route_constants.dart';
 import 'package:surakshakadi/utils/constants/preference_key_constant.dart';
 import 'package:surakshakadi/utils/dialog_utils.dart';
 import 'package:surakshakadi/utils/preference_utils.dart';
-import 'package:surakshakadi/utils/selectedImageViewer.dart';
 import 'package:surakshakadi/utils/strings.dart';
 import 'package:surakshakadi/utils/utils.dart';
 import 'package:surakshakadi/widgets/custom_appbar.dart';
 import 'package:surakshakadi/widgets/custom_select.dart';
 import 'package:surakshakadi/widgets/custom_textfeild.dart';
-import 'package:surakshakadi/widgets/custom_toast.dart';
 import '../../../../utils/image_utils.dart';
 import '../../../../widgets/custom_dottedborder.dart';
 import 'package:http/http.dart' as http;
@@ -56,20 +53,6 @@ class AddInformationScreen extends HookConsumerWidget {
     final imageListDemo = useState<List>([]);
 
      final cityList = useState<List<String>>([]);
-
-
-
-    Future getImage(res) async {
-      try {
-        res.value = (await _picker.pickMultiImage());
-      } catch (e) {
-        Error();
-      }
-    }
-
-    final isPicked = useState<bool>(false);
-
-
 
     //
     // Razorpay? _razorpay;
@@ -143,7 +126,9 @@ class AddInformationScreen extends HookConsumerWidget {
       // _razorpay!.on(Razorpay.EVENT_PAYMENT_SUCCESS, _handlePaymentSuccess);
       // _razorpay!.on(Razorpay.EVENT_PAYMENT_ERROR, _handlePaymentError);
       // _razorpay!.on(Razorpay.EVENT_EXTERNAL_WALLET, _handleExternalWallet);
-    }  );
+
+      return null;
+    },[] );
 
 
     Future<void> initPlatformState() async {

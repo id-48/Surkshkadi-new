@@ -14,6 +14,7 @@ import 'package:surakshakadi/ui/Screens/chatbot_screen/plan_chatbot_screen.dart'
 import 'package:surakshakadi/ui/Screens/dashboard/Components/payment_view_modal.dart';
 import 'package:surakshakadi/utils/color_utils.dart';
 import 'package:surakshakadi/utils/constants/app_constant.dart';
+import 'package:surakshakadi/utils/constants/loading_dialog.dart';
 import 'package:surakshakadi/utils/constants/navigation_route_constants.dart';
 import 'package:surakshakadi/utils/constants/navigations_key_constant.dart';
 import 'package:surakshakadi/utils/constants/preference_key_constant.dart';
@@ -531,8 +532,6 @@ class ChooseAssetMobile extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    // int selectedindex = 0;
-    int totalLength = 0;
     double spacing = 8;
     double runSpacing = 8;
     // List<Specialities> dashboardHeader = [];
@@ -543,56 +542,87 @@ class ChooseAssetMobile extends HookConsumerWidget {
     final dashboardHeader = useState<List<ResponseSpeciality>>([]);
     final dashboardBody = useState<List<ResponseSpeciality>>([]);
 
-    final selectedindex = useState<int>(0);
+    final selectedIndex = useState<int>(0);
     var checkedIDs = useState<List<String>>([]);
-    final amountTotal = useState<double>(0);
 
     Razorpay? _razorpay;
 
     void _handlePaymentSuccess(PaymentSuccessResponse response) async {
       print("yashtotal333333 ___>>>>");
-      setString(prefPaymentId, response.paymentId.toString());
+      print("transaction id --->> ${response.paymentId}");
+      print("transaction id --->> ${response.orderId}");
+      print("mobile number ----->>> ${getString(prefLoginNumber)}");
 
-      print("getString ");
+      String wpNumber = messagesList![3].messageContent[0] == "No"
+          ? messagesList![3].messageContent[1]
+          : "${getString((prefLoginNumber))}";
+      print("mobile WatsApp number ----->>> ${wpNumber}");
+      print("fatherName: ${messagesList![21].messageContent[0]}");
+      ReqPlanChatBot dataPlanChatBot = ReqPlanChatBot(
+        userId: getString(prefUserID),
+        planId: getString(prefPlanIdMobile),
+        wpNo: wpNumber,
+        gender: "${messagesList![3].messageContent[0]}",
+        dob: "${messagesList![5].messageContent[0]}",
+        annualIncome: "${messagesList![7].messageContent[0]}",
+        occupation: "${messagesList![7].messageContent[1]}",
+        name: "${messagesList![9].messageContent[0]}",
+        email: "${messagesList![11].messageContent[0]}",
+        fatherName: "${messagesList![13].messageContent[0]}",
+        isFatherAlive: 'Yes',
+        nominee: "${messagesList![15].messageContent[0]}",
+        nomineeRelation: "${messagesList![15].messageContent[1]}",
+        postCode: "${messagesList![17].messageContent[0]}",
+        address:
+            "${messagesList![19].messageContent[0]},${messagesList![19].messageContent[1]}",
+        state: "${messagesList![19].messageContent[2]}",
+        city: "${messagesList![19].messageContent[3]}",
+        covidDose: "${messagesList![21].messageContent[0]}",
+        nicotineProducts: "${messagesList![23].messageContent[0]}",
+        planAssets:
+            "${checkedIDs.value}".replaceAll("[", "").replaceAll("]", ""),
+        paymentAmount: '${getString(prefPlanPrice)}',
+        transactionId: 'jhgytyjhgy',
+        transactionStatus: 'Success',
+      );
 
-      ReqPlanChatSubPayment PlanChatSubPayment = ReqPlanChatSubPayment(
-          paymentAmount: "${getString(prefPlanPrice)}",
-          subscriptionId: "${getString(prefSubscriptionId)}",
-          transactionId: response.paymentId,
-          transactionStatus: "Success");
-
-      print("data plan Payment --${PlanChatSubPayment.toJson()}");
-
-      ref
-          .read(planChatSubPaymentProvider.notifier)
-          .planChatSubPayment(context: context, data: PlanChatSubPayment)
-          .then((value) {
+      print("Hello yash  --->> ${dataPlanChatBot.toJson()}");
+      await ref
+          .read(planChatProvider.notifier)
+          .planChatBotSub(context: context, data: dataPlanChatBot)
+          .then((value) async {
+        print("tatastd---->> ${value?.status}");
         if (value!.status == 1) {
-          planChatBotSP = value.response;
-          displayToast(value.message);
+          displayToast(value.message.toString());
+          // setString(prefSubscriptionId,
+          //     "${value.response.subscriptionId}");
+          // setBool(prefSubChatBotCompletedMobile, true);
+
           navigationService.push(routeConfirmationPlan);
+        } else {
+          displayToast(value.message.toString());
         }
       });
+
+      displayToast("${response.orderId}");
     }
 
     void _handlePaymentError(PaymentFailureResponse response) {
-      ToastUtils.showCustomToast(
-          context, 'ERROR' + response.message!, 'warning');
+      displayToast("${response.message}");
     }
 
     void _handleExternalWallet(ExternalWalletResponse response) {
-      ToastUtils.showCustomToast(
-          context, 'SUCCESS' + response.walletName!, 'SUCCES');
+      displayToast("${response.walletName}");
     }
 
     void openCheckout(String amount) async {
       print("yashtotal11111 ___>>>>");
       // String razorpayKey = await getString(prefRazorpayId);
       // print('razorPay 95 ${razorpayKey}');
-      print('razorPay 95  --${amount}');
+      print('razorPay 95  --${int.parse(amount) * 100}');
       var options = {
         'key': 'rzp_test_3FbPA4Jan9QLit',
-        'amount': "60000",
+        'amount': (int.parse(amount) * 100).toString(),
         'name': 'Surakshakadi',
         'description': 'Payment',
         'prefill': {
@@ -606,7 +636,7 @@ class ChooseAssetMobile extends HookConsumerWidget {
 
       try {
         print("yashtotal2222 ___>>>>");
-        _razorpay!.open(options);
+        _razorpay?.open(options);
       } catch (e) {
         debugPrint("$e");
       }
@@ -616,20 +646,18 @@ class ChooseAssetMobile extends HookConsumerWidget {
       print("yashupatel ___>>>>");
 
       if (selectedPlan.isNotEmpty) {
-           selectedPlan.forEach((element) {
-             if (element.specialityStatus == "Y") {
-               var ind = dashboardResponse.indexWhere(
-                 (ele) => ele.category == element.specialityName);
-               dashboardHeader.value.add(dashboardResponse.elementAt(ind));
-               dashboardBody.value.add(dashboardResponse.elementAt(ind));
-            }
+        selectedPlan.forEach((element) {
+          if (element.specialityStatus == "Y") {
+            var ind = dashboardResponse
+                .indexWhere((ele) => ele.category == element.specialityName);
+            dashboardHeader.value.add(dashboardResponse.elementAt(ind));
+            dashboardBody.value.add(dashboardResponse.elementAt(ind));
           }
-        );
-      }else {
+        });
+      } else {
         dashboardHeader.value.addAll(dashboardResponse);
         dashboardBody.value.addAll(dashboardResponse);
       }
-
 
       for (int h = 0; h < dashboardBody.value.length; h++) {
         // dashboardBody.value[h].specialities = [];
@@ -644,6 +672,8 @@ class ChooseAssetMobile extends HookConsumerWidget {
       _razorpay!.on(Razorpay.EVENT_PAYMENT_SUCCESS, _handlePaymentSuccess);
       _razorpay!.on(Razorpay.EVENT_PAYMENT_ERROR, _handlePaymentError);
       _razorpay!.on(Razorpay.EVENT_EXTERNAL_WALLET, _handleExternalWallet);
+
+      return null;
     }, []);
 
     SystemChrome.setPreferredOrientations([
@@ -700,21 +730,21 @@ class ChooseAssetMobile extends HookConsumerWidget {
                         // print("planModule---->>>>  ${dashSelectedPlan?[index].specialityStatus}");
                         return InkWell(
                           onTap: () {
-                            if (index != selectedindex.value) {
-                              selectedindex.value = index;
+                            if (index != selectedIndex.value) {
+                              selectedIndex.value = index;
 
                               setState(() {
                                 dashboardBody.value.clear();
-                                dashboardBody.value.insert(0,dashboardHeader.value[selectedindex.value]);
-                                dashboardBody.value.addAll(dashboardHeader.value);
+                                dashboardBody.value.insert(0,
+                                    dashboardHeader.value[selectedIndex.value]);
+                                dashboardBody.value
+                                    .addAll(dashboardHeader.value);
                                 dashboardBody.value.removeAt(index + 1);
-
 
                                 // dashboardBody.value.clear();
                                 // dashboardBody.value.insert(0,dashboardResponse[selectedindex.value]);
                                 // dashboardBody.value.addAll(dashboardResponse);
                                 // dashboardBody.value.removeAt(index + 1);
-
                               });
                             }
                           },
@@ -723,11 +753,11 @@ class ChooseAssetMobile extends HookConsumerWidget {
                             height: 45,
                             width: Utils.getWidth(context) / 5,
                             decoration: BoxDecoration(
-                              color: selectedindex.value == index
+                              color: selectedIndex.value == index
                                   ? lightoreng
                                   : white,
                               border: Border.all(
-                                  color: selectedindex.value == index
+                                  color: selectedIndex.value == index
                                       ? lightoreng
                                       : oreng,
                                   width: 1.0),
@@ -739,7 +769,7 @@ class ChooseAssetMobile extends HookConsumerWidget {
                                 style: TextStyle(
                                     fontSize: 11.5,
                                     // fontFamily: 'Nunito Sans',
-                                    color: selectedindex.value == index
+                                    color: selectedIndex.value == index
                                         ? white
                                         : black),
                                 textAlign: TextAlign.center),
@@ -900,77 +930,74 @@ class ChooseAssetMobile extends HookConsumerWidget {
                   flex: 1,
                   child: InkWell(
                     onTap: () async {
-
-
                       if (checkedIDs.value.isNotEmpty) {
                         if (specificAssets == "SpecificAssets") {
                           displayDialogCA(
                               context, ref, checkedIDs.value, false);
                         } else {
                           if (getBool(prefSubChatBotCompletedMobile) == false) {
-                            print("mobile number ----->>> ${getString(prefLoginNumber)}");
+                            // print("mobile number ----->>> ${getString(prefLoginNumber)}");
+                            //
+                            // String  wpNumber = messagesList![3].messageContent[0] == "No" ? messagesList![3].messageContent[1] : "${getString((prefLoginNumber))}";
+                            // print("mobile WatsApp number ----->>> ${wpNumber}");
+                            // print(
+                            //     "fatherName: ${messagesList![21].messageContent[0]}");
+                            // ReqPlanChatBot dataPlanChatBot = ReqPlanChatBot(
+                            //   userId: getString(prefUserID),
+                            //   planId: getString(prefPlanIdMobile),
+                            //   wpNo: wpNumber,
+                            //   gender: "${messagesList![3].messageContent[0]}",
+                            //   dob: "${messagesList![5].messageContent[0]}",
+                            //   annualIncome:"${messagesList![7].messageContent[0]}",
+                            //   occupation: "${messagesList![7].messageContent[1]}",
+                            //   name: "${messagesList![9].messageContent[0]}",
+                            //   email: "${messagesList![11].messageContent[0]}",
+                            //   fatherName:"${messagesList![13].messageContent[0]}",
+                            //   isFatherAlive: 'Yes',
+                            //   nominee: "${messagesList![15].messageContent[0]}",
+                            //   nomineeRelation: "${messagesList![15].messageContent[1]}",
+                            //   postCode:"${messagesList![17].messageContent[0]}",
+                            //   address:"${messagesList![19].messageContent[0]},${messagesList![19].messageContent[1]}",
+                            //   state: "${messagesList![19].messageContent[2]}",
+                            //   city: "${messagesList![19].messageContent[3]}",
+                            //   covidDose:"${messagesList![21].messageContent[0]}",
+                            //   nicotineProducts: "${messagesList![23].messageContent[0]}",
+                            //   planAssets: "${checkedIDs.value}"
+                            //       .replaceAll("[", "")
+                            //       .replaceAll("]", ""),
+                            //   paymentAmount: '',
+                            //   transactionId: '',
+                            //   transactionStatus: '',
+                            // );
+                            //
+                            // print(
+                            //     "Hello yash  --->> ${dataPlanChatBot.toJson()}");
+                            // await ref.read(planChatProvider.notifier)
+                            //     .planChatBotSub(context: context, data: dataPlanChatBot)
+                            //     .then((value) async {
+                            //
+                            //   if (value!.status == 1) {
+                            //     displayToast(value.message.toString());
+                            //     setString(prefSubscriptionId,
+                            //         "${value.response.subscriptionId}");
+                            //     setBool(prefSubChatBotCompletedMobile, true);
+                            //     // amountTotal.value = double.parse(
+                            //     //     getString(prefPlanPrice).toString()) *
+                            //     //     100;
+                            //
+                            //     navigationService.push(routeConfirmationPlan);
+                            //
+                            //     // openCheckout('22000');
+                            //     // openCheckout('${amountTotal.value.toString()}');
+                            //
+                            //   }else {
+                            //     displayToast(value.message.toString());
+                            //     hideLoadingDialog(context: context);
+                            //
+                            //   }
+                            // });
 
-                            String  wpNumber = messagesList![3].messageContent[0] == "No" ? messagesList![3].messageContent[1] : "${getString((prefLoginNumber))}";
-                            print("mobile WatsApp number ----->>> ${wpNumber}");
-                            print(
-                                "fatherName: ${messagesList![21].messageContent[0]}");
-                            ReqPlanChatBot dataPlanChatBot = ReqPlanChatBot(
-                              userId: getString(prefUserID),
-                              planId: getString(prefPlanIdMobile),
-                              processStatus:
-                                  "${messagesList![1].messageContent[0]}",
-                              wpNo: wpNumber,
-                              // wpNo:  messagesList![3].messageContent[1].isNotEmpty ?   "${messagesList![3].messageContent[1]}" : "1234567890",
-                              gender: "${messagesList![5].messageContent[0]}",
-                              dob: "${messagesList![7].messageContent[0]}",
-                              annualIncome:
-                                  "${messagesList![9].messageContent[0]}",
-                              occupation:
-                                  "${messagesList![9].messageContent[1]}",
-                              name: "${messagesList![11].messageContent[0]}",
-                              fatherName:
-                                  "${messagesList![13].messageContent[0]}",
-                              nominee: "${messagesList![15].messageContent[0]}",
-                              nomineeRelation:
-                                  "${messagesList![15].messageContent[1]}",
-                              postCode:
-                                  "${messagesList![17].messageContent[0]}",
-                              address:
-                                  "${messagesList![19].messageContent[0]},${messagesList![19].messageContent[1]}",
-                              state: "${messagesList![19].messageContent[2]}",
-                              city: "${messagesList![19].messageContent[3]}",
-                              covidDose:
-                                  "${messagesList![21].messageContent[0]}",
-                              nicotineProducts:
-                                  "${messagesList![23].messageContent[0]}",
-                              email: "Static Email",
-                              planAssets: "${checkedIDs.value}"
-                                  .replaceAll("[", "")
-                                  .replaceAll("]", ""),
-                            );
-
-                            print(
-                                "Hello yash  --->> ${dataPlanChatBot.toJson()}");
-                            await ref.read(planChatProvider.notifier)
-                                .planChatBotSub(context: context, data: dataPlanChatBot)
-                                .then((value) async {
-
-                              if (value!.status == 1) {
-                                displayToast(value.message.toString());
-                                setString(prefSubscriptionId,
-                                    "${value.response.subscriptionId}");
-                                setBool(prefSubChatBotCompletedMobile, true);
-                                // amountTotal.value = double.parse(
-                                //     getString(prefPlanPrice).toString()) *
-                                //     100;
-
-                                navigationService.push(routeConfirmationPlan);
-
-                                // openCheckout('22000');
-                                // openCheckout('${amountTotal.value.toString()}');
-
-                              }
-                            });
+                            openCheckout('22000');
                           } else {
                             navigationService.push(routeConfirmationPlan);
                           }

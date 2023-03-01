@@ -20,8 +20,6 @@ class AdminDashboard extends HookConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final currentIndex = useState<int>(0);
 
-    print('Test Width --->${Utils.getWidth(context)}');
-
     return Scaffold(
       body: SingleChildScrollView(
         scrollDirection: Axis.vertical,

@@ -14,6 +14,7 @@ const String callicon = 'assets/images/callicon.png';
 const String mailicon = 'assets/images/mailcon.png';
 const String roundChatBot = 'assets/images/chatbot.png';
 const String chatboticon = 'assets/images/chatboticon.png';
+const String bigChatBotIcon = 'assets/images/bigChatBotIcon.png';
 const String homeicon = 'assets/images/homeicon.svg';
 const String homecoloricon = 'assets/images/homecoloricon.svg';
 const String plansicon = 'assets/images/plansicon.svg';
@@ -56,6 +57,7 @@ const String iconRight = 'assets/images/iconright.png';
 const String youBotIcon = 'assets/images/youboticon.png';
 const String testimonialsBG = 'assets/images/testimonials.png';
 const String verifiedIcon = 'assets/images/verifiedIcon.png';
+const String plusIcon = 'assets/images/plusIcon.png';
 
 const String bank = 'assets/images/bank.png';
 const String utility = 'assets/images/utility.png';
@@ -93,7 +95,10 @@ const String backiosicon = 'assets/images/backiosicon.png';
 ///     Web  Images
 
 const String icLogoWeb = "assets/images/iclogosplash.png";
-const String webDashBanner = "assets/images/webdashbanner.png";
+const String webDashBannerOne = "assets/images/webdashbanner.png";
+const String webDashBannerTwo = "assets/images/webDashBannerTwo.png";
+const String webDashBannerThree = "assets/images/webDashBannerThree.png";
+const String webDashBannerFour = "assets/images/webDashBannerFour.png";
 const String webDashOne = "assets/images/dashone.png";
 const String webDashTwo = "assets/images/dashtwo.png";
 const String webDashThree = "assets/images/dashthree.png";

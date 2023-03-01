@@ -24,14 +24,18 @@ class SingleUAPaymentViewModel extends StateNotifier<AsyncValue<ResSingleUaPayme
 
   Future<ResSingleUaPayment?> singleUAPayment(
       {required BuildContext context, required ReqSingleUAPayment data}) async {
+
+    showLoadingDialog(context: context);
     final result = await repositery.singleUAPayment(data);
     return result.when(
         success: (result) async {
-          // hideLoadingDialog(context: context);
+          hideLoadingDialog(context: context);
           // displayToast(result.message);
           return result;
         },
-        failure: (error) {}
+        failure: (error) {
+          hideLoadingDialog(context: context);
+        }
     );
   }
 
@@ -53,15 +57,18 @@ class PlanChatSubPaymentViewModel extends StateNotifier<AsyncValue<ResPlanChatSu
 
   Future<ResPlanChatSubPayment?> planChatSubPayment(
       {required BuildContext context, required ReqPlanChatSubPayment data}) async {
+    // showLoadingDialog(context: context);
     final result = await repositery.planChatSubPayment(data);
     return result.when(
         success: (result) async {
           state= AsyncValue.data(result);
-
+          // hideLoadingDialog(context: context);
           // displayToast(result.message);
           return result;
         },
-        failure: (error) {}
+        failure: (error) {
+          // hideLoadingDialog(context: context);
+        }
     );
   }
 

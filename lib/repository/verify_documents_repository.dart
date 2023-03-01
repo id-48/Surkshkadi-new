@@ -15,25 +15,25 @@ import 'package:surakshakadi/data/model/home/dashboard/verify_documents/verify_p
 import 'package:surakshakadi/data/model/home/dashboard/verify_documents/verify_pancard_no/res_pancard_no.dart';
 import 'package:surakshakadi/data/model/home/dashboard/verify_documents/verify_vehicle_no/req_vehicle_no.dart';
 import 'package:surakshakadi/data/model/home/dashboard/verify_documents/verify_vehicle_no/res_vehicle_no.dart';
-import 'package:surakshakadi/data/model/result.dart' as yc;
+import 'package:surakshakadi/data/model/result.dart' as verify ;
 import 'package:surakshakadi/utils/constants/api_end_points.dart';
 import 'package:surakshakadi/utils/constants/preference_key_constant.dart';
 import 'package:surakshakadi/utils/preference_utils.dart';
 
 abstract class VerifyDocumentsRepository {
-  Future<yc.Result<ResPancardNo>> getPanCard(ReqPancardNo data);
+  Future<verify.Result<ResPancardNo>> getPanCard(ReqPancardNo data);
 
-  Future<yc.Result<ResAadharNo>> getAadharNo(ReqAadharNo data);
+  Future<verify.Result<ResAadharNo>> getAadharNo(ReqAadharNo data);
 
-  Future<yc.Result<ResAadharOtp>> getAadharOtp(ReqAadharOtp data);
+  Future<verify.Result<ResAadharOtp>> getAadharOtp(ReqAadharOtp data);
 
-  Future<yc.Result<ResBankAc>> getBankAC(ReqBankAc data);
+  Future<verify.Result<ResBankAc>> getBankAC(ReqBankAc data);
 
-  Future<yc.Result<ResVehicleNo>> getVehicleNo(ReqVehicleNo data);
+  Future<verify.Result<ResVehicleNo>> getVehicleNo(ReqVehicleNo data);
 
-  Future<yc.Result<ResGstNo>> getGSTNo(ReqGstNo data);
+  Future<verify.Result<ResGstNo>> getGSTNo(ReqGstNo data);
 
-  Future<yc.Result<ResDigilockerAadharNo>> digilockerAadhar();
+  Future<verify.Result<ResDigilockerAadharNo>> digilockerAadhar();
 }
 
 final verifyDocumentsRepositoryProvider =
@@ -47,8 +47,8 @@ class VerifyDocumentsRepositoryImpl implements VerifyDocumentsRepository {
   late final Dio dio = _reader(dioProvider);
 
   @override
-  Future<yc.Result<ResPancardNo>> getPanCard(ReqPancardNo data) {
-    return yc.Result.guardFuture(() async {
+  Future<verify.Result<ResPancardNo>> getPanCard(ReqPancardNo data) {
+    return verify.Result.guardFuture(() async {
       return AppDio()
           .post(apiPanCard,
               data: data.toJson(),
@@ -64,8 +64,8 @@ class VerifyDocumentsRepositoryImpl implements VerifyDocumentsRepository {
   }
 
   @override
-  Future<yc.Result<ResAadharNo>> getAadharNo(ReqAadharNo data) {
-    return yc.Result.guardFuture(() async {
+  Future<verify.Result<ResAadharNo>> getAadharNo(ReqAadharNo data) {
+    return verify.Result.guardFuture(() async {
       return AppDio()
           .post(apiAadharNoVerify,
               data: data.toJson(),
@@ -81,8 +81,8 @@ class VerifyDocumentsRepositoryImpl implements VerifyDocumentsRepository {
   }
 
   @override
-  Future<yc.Result<ResAadharOtp>> getAadharOtp(ReqAadharOtp data) {
-    return yc.Result.guardFuture(() async {
+  Future<verify.Result<ResAadharOtp>> getAadharOtp(ReqAadharOtp data) {
+    return verify.Result.guardFuture(() async {
       return AppDio()
           .post(apiAadharOtpVerify,
               data: data.toJson(),
@@ -98,8 +98,8 @@ class VerifyDocumentsRepositoryImpl implements VerifyDocumentsRepository {
   }
 
   @override
-  Future<yc.Result<ResBankAc>> getBankAC(ReqBankAc data) {
-    return yc.Result.guardFuture(() async {
+  Future<verify.Result<ResBankAc>> getBankAC(ReqBankAc data) {
+    return verify.Result.guardFuture(() async {
       return AppDio()
           .post(apiBankAC,
               data: data.toJson(),
@@ -115,8 +115,8 @@ class VerifyDocumentsRepositoryImpl implements VerifyDocumentsRepository {
   }
 
   @override
-  Future<yc.Result<ResVehicleNo>> getVehicleNo(ReqVehicleNo data) {
-    return yc.Result.guardFuture(() async {
+  Future<verify.Result<ResVehicleNo>> getVehicleNo(ReqVehicleNo data) {
+    return verify.Result.guardFuture(() async {
       return AppDio()
           .post(apiVehicleNo,
               data: data.toJson(),
@@ -132,8 +132,8 @@ class VerifyDocumentsRepositoryImpl implements VerifyDocumentsRepository {
   }
 
   @override
-  Future<yc.Result<ResGstNo>> getGSTNo(ReqGstNo data) {
-    return yc.Result.guardFuture(() async {
+  Future<verify.Result<ResGstNo>> getGSTNo(ReqGstNo data) {
+    return verify.Result.guardFuture(() async {
       return AppDio()
           .post(apiGSTNo,
               data: data.toJson(),
@@ -149,8 +149,8 @@ class VerifyDocumentsRepositoryImpl implements VerifyDocumentsRepository {
   }
 
   @override
-  Future<yc.Result<ResDigilockerAadharNo>> digilockerAadhar() {
-    return yc.Result.guardFuture(() async {
+  Future<verify.Result<ResDigilockerAadharNo>> digilockerAadhar() {
+    return verify.Result.guardFuture(() async {
       print(
           "Aadhar Token  digilockerAadhar repository ${getString(prefAadharToken)}");
 

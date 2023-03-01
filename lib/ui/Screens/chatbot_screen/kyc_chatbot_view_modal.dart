@@ -26,9 +26,12 @@ class KycChatBotViewModel extends StateNotifier<AsyncValue<ResKycChatBot>> {
 
     return result.when(
         success: (result) async {
+          hideLoadingDialog(context: context);
           return result;
         },
-        failure: (error) {});
+        failure: (error) {
+          hideLoadingDialog(context: context);
+        });
   }
 
 

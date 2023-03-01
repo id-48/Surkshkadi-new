@@ -8,15 +8,15 @@ import '../utils/constants/navigation_route_constants.dart';
 import '../utils/image_utils.dart';
 import '../utils/strings.dart';
 
-class Custome_drawer_web extends HookConsumerWidget {
+class CustomDrawerWeb extends HookConsumerWidget {
   final int index;
   final bool button;
-  const Custome_drawer_web({Key? key,required this.index,required this.button}) : super(key: key);
+  const CustomDrawerWeb({Key? key,required this.index,required this.button}) : super(key: key);
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
 
-    final selectedindex = useState<int>(index);
+    final selectedIndex = useState<int>(index);
 
     return Drawer(
       // width: 300,
@@ -51,7 +51,7 @@ class Custome_drawer_web extends HookConsumerWidget {
 
             InkWell(
                 onTap: () {
-                  selectedindex.value == 0;
+                  selectedIndex.value == 0;
                   navigationService.push(routeDashboardWeb);
                 },
                 child: Padding(
@@ -60,7 +60,7 @@ class Custome_drawer_web extends HookConsumerWidget {
                     'Home',
                     style: TextStyle(
                         fontSize: 17,
-                        color: selectedindex.value == 0
+                        color: selectedIndex.value == 0
                             ? buttonColor
                             : textColor),
                   ),
@@ -69,7 +69,7 @@ class Custome_drawer_web extends HookConsumerWidget {
 
             InkWell(
                 onTap: () {
-                  selectedindex.value == 1;
+                  selectedIndex.value == 1;
                   navigationService.push(routeAboutUsWeb);
                 },
                 child: Padding(
@@ -78,7 +78,7 @@ class Custome_drawer_web extends HookConsumerWidget {
                     'About Us',
                     style: TextStyle(
                         fontSize: 17,
-                        color: selectedindex.value == 1
+                        color: selectedIndex.value == 1
                             ? buttonColor
                             : textColor),
                   ),
@@ -86,7 +86,7 @@ class Custome_drawer_web extends HookConsumerWidget {
 
             InkWell(
                 onTap: () {
-                  selectedindex.value == 2;
+                  selectedIndex.value == 2;
                   navigationService.push(routePlansWeb);
                 },
 
@@ -96,7 +96,7 @@ class Custome_drawer_web extends HookConsumerWidget {
                     'Plan',
                     style: TextStyle(
                         fontSize: 17,
-                        color: selectedindex.value == 2
+                        color: selectedIndex.value == 2
                             ? buttonColor
                             : textColor),
                   ),
@@ -104,7 +104,7 @@ class Custome_drawer_web extends HookConsumerWidget {
 
             InkWell(
                 onTap: () {
-                  selectedindex.value == 3;
+                  selectedIndex.value == 3;
                   navigationService.push(routePartnerWithWeb);
                 },
                 child: Padding(
@@ -113,25 +113,35 @@ class Custome_drawer_web extends HookConsumerWidget {
                     partnerWithUs,
                     style: TextStyle(
                         fontSize: 17,
-                        color: selectedindex.value == 3
+                        color: selectedIndex.value == 3
                             ? buttonColor
                             : textColor),
                   ),
                 )),
 
-            Padding(
-              padding: EdgeInsets.all(12),
-              child: Text(
-                faq,
-                style: TextStyle(fontSize: 17, color: textColor),
+            InkWell(
+              onTap: (){
+                navigationService.push(routeAboutUsWeb);
+              },
+              child: Padding(
+                padding: EdgeInsets.all(12),
+                child: Text(
+                  faq,
+                  style: TextStyle(fontSize: 17, color: textColor),
+                ),
               ),
             ),
 
-            Padding(
-              padding: EdgeInsets.all(12),
-              child: Text(
-                'My Account',
-                style: TextStyle(fontSize: 17, color: textColor),
+            InkWell(
+              onTap: (){
+
+              },
+              child: Padding(
+                padding: EdgeInsets.all(12),
+                child: Text(
+                  'My Account',
+                  style: TextStyle(fontSize: 17, color: textColor),
+                ),
               ),
             ),
 

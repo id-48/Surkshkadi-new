@@ -346,3 +346,134 @@ class CustomChildExpandableCard extends HookWidget {
     );
   }
 }
+
+
+
+class CustomExpandTextCard extends HookWidget {
+  const CustomExpandTextCard({
+    Key? key,
+    required  this.title,
+
+    required this.boxcolor,
+    this.onTap,
+    required this.isExpanded,
+    this.collapsedChild,
+    required this.index,
+    this.expandedChild,
+    this.openchild,
+    this.height,
+    this.color,
+    this.iconcolor,
+    this.border,
+    this.boxShadow,
+    this.arrowColor
+
+    // this.onCall,
+  }) : super(key: key);
+
+  final Function(bool isExpanded, int index)? onTap;
+  // final Function? onCall;
+  final int animationTime = 0;
+  final int index;
+  final double? height;
+  final  Color? color;
+  final  Color? iconcolor;
+  final Widget? collapsedChild;
+  final Widget? expandedChild;
+  final Widget? openchild;
+  final String title;
+  final BoxBorder? border;
+  final Color? arrowColor;
+
+  final Color boxcolor;
+  final  List<BoxShadow>? boxShadow;
+
+  // final Color? color;
+  final ValueNotifier<int> isExpanded;
+
+  @override
+  Widget build(BuildContext context) {
+    final _controller = useAnimationController(
+      duration: const Duration(milliseconds: 600),
+    );
+    final update = useValueListenable(isExpanded);
+    useEffect(() {
+      if (isExpanded.value == index) {
+        _controller.forward();
+      } else {
+        _controller.reverse();
+      }
+    }, [update]);
+    final appColors = Theme.of(context).appColors;
+    return Container(
+      // margin: EdgeInsets.only(bottom: 16),
+      clipBehavior: Clip.antiAlias,
+      decoration:  BoxDecoration(
+
+        borderRadius: BorderRadius.all(Radius.circular(8)),
+
+      ),
+      child: Column(
+        children: [
+          InkWell(
+              onTap: () {
+                // onCall!();
+                // print("is Expanded == ${isExpanded.value}");
+                if (onTap != null) {
+                  onTap!(isExpanded.value == index, index);
+                } else {
+                  if (isExpanded.value == index) {
+                    isExpanded.value = -1;
+                  } else {
+                    isExpanded.value = index;
+                  }
+                }
+              },
+              child:
+              Container(
+                // margin: EdgeInsets.symmetric(horizontal: MediaQuery.of(context).orientation == Orientation.landscape ? MediaQuery.of(context).size.width * 0.2 : 16),
+                padding: EdgeInsets.symmetric(horizontal: 10),
+                height: height ?? 45,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(8),
+                  color: boxcolor,
+                  border: border,
+                  boxShadow: boxShadow,
+                ),
+                child: Row(
+                  //mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+
+                      // Expanded(flex: 3,
+                      //     child: Image.network(assetimage,scale: 6,)),
+
+                      Text(title,
+                        style: TextStyle(color: black,fontSize: 16,fontWeight: FontWeight.w400),),
+                      Spacer(),
+
+                      RotationTransition(
+                          turns: Tween(begin: 0.0, end: 0.5)
+                              .animate(_controller),
+                          child: Image.asset(
+                            downarrow,scale: 4,color: arrowColor ?? white,
+
+                          ))
+                    ]),
+              )
+          ),
+
+
+          AnimatedSize(
+            duration: Duration(milliseconds: animationTime),
+            child: SizedBox(
+                child: (isExpanded.value != index && collapsedChild != null)
+                    ? collapsedChild!
+                    : (isExpanded.value == index && expandedChild != null)
+                    ? expandedChild!
+                    : const SizedBox()),
+          )
+        ],
+      ),
+    );
+  }
+}

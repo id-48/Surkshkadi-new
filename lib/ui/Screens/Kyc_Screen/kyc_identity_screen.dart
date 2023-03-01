@@ -1280,20 +1280,6 @@ class KYCIdentity extends HookConsumerWidget {
 
                                     if(isSelfiePicked.value) {
 
-                                      print("image in aadharFront ---->>>");
-                                      print(aadharFrontType.value +
-                                          aadharFrontBase64Image);
-                                      print("image in aadharBack ---->>> ");
-                                      print(aadharBackType.value +
-                                          aadharBackBase64Image);
-                                      print("image in panCard ---->>> ");
-                                      print(
-                                          panFrontType.value + panBase64Image);
-                                      print("image in panCard ---->>> ");
-                                      print(
-                                          selfieType.value + selfieBase64Image);
-
-                                      print("image in userId ---->>> ");
 
 
                                       ReqSubmitKyc submitKycData = ReqSubmitKyc(

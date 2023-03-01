@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:gap/gap.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:surakshakadi/ui/Screens/cp_web_screeen/admin_panel_web/admin_panel_web/dashboard_screen.dart';
@@ -9,8 +8,6 @@ import 'package:surakshakadi/utils/utils.dart';
 class AdminWebDashBoard extends HookConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final singleChildScrollController =
-        useState<ScrollController>(ScrollController());
     return Container(
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,

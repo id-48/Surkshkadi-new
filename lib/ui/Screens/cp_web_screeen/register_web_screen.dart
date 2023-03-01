@@ -13,6 +13,7 @@ import 'package:surakshakadi/ui/Screens/state_and_city_view_modal.dart';
 import 'package:surakshakadi/utils/color_utils.dart';
 import 'package:surakshakadi/utils/constants/app_constant.dart';
 import 'package:surakshakadi/utils/constants/navigation_route_constants.dart';
+import 'package:surakshakadi/utils/constants/navigations_key_constant.dart';
 import 'package:surakshakadi/utils/constants/preference_key_constant.dart';
 import 'package:surakshakadi/utils/dialog_utils.dart';
 import 'package:surakshakadi/utils/preference_utils.dart';
@@ -40,6 +41,22 @@ class RegisterWeb extends HookConsumerWidget {
     final mobileController = useTextEditingController();
 
     final cityList = useState<List<String>>([]);
+
+    useEffect(() {
+      ref.read(stateProvider.notifier).getState(context: context).then((value) {
+
+        if (value!.status == 1) {
+
+          for (int i = 0; i < value.response.states.length; i++) {
+
+            stateList.add(value.response.states[i].name);
+          }
+        } else {
+          displayToast("${value.message}");
+        }
+      });
+      return null;
+    },[]);
 
 
 
@@ -268,6 +285,7 @@ class RegisterWeb extends HookConsumerWidget {
                                                                 fontWeight:
                                                                     FontWeight
                                                                         .w400,
+                                                                color: black,
                                                                 fontSize: MediaQuery.of(context)
                                                                             .orientation ==
                                                                         Orientation
@@ -346,6 +364,7 @@ class RegisterWeb extends HookConsumerWidget {
                                                                 fontWeight:
                                                                     FontWeight
                                                                         .w400,
+                                                                color: black,
                                                                 fontSize: MediaQuery.of(context)
                                                                             .orientation ==
                                                                         Orientation
@@ -431,6 +450,7 @@ class RegisterWeb extends HookConsumerWidget {
                                                                 fontWeight:
                                                                     FontWeight
                                                                         .w400,
+                                                                color: black,
                                                                 fontSize: MediaQuery.of(context)
                                                                             .orientation ==
                                                                         Orientation
@@ -509,6 +529,7 @@ class RegisterWeb extends HookConsumerWidget {
                                                                 fontWeight:
                                                                     FontWeight
                                                                         .w400,
+                                                                color: black,
                                                                 fontSize: MediaQuery.of(context)
                                                                             .orientation ==
                                                                         Orientation
@@ -594,6 +615,7 @@ class RegisterWeb extends HookConsumerWidget {
                                                                   fontWeight:
                                                                       FontWeight
                                                                           .w400,
+                                                                  color: black,
                                                                   fontSize: MediaQuery.of(context)
                                                                               .orientation ==
                                                                           Orientation
@@ -683,6 +705,7 @@ class RegisterWeb extends HookConsumerWidget {
                                                                 fontWeight:
                                                                     FontWeight
                                                                         .w400,
+                                                                color: black,
                                                                 fontSize: MediaQuery.of(context)
                                                                             .orientation ==
                                                                         Orientation
@@ -800,6 +823,7 @@ class RegisterWeb extends HookConsumerWidget {
                                                                 fontWeight:
                                                                     FontWeight
                                                                         .w400,
+                                                                color: black,
                                                                 fontSize: MediaQuery.of(context)
                                                                             .orientation ==
                                                                         Orientation
@@ -1007,8 +1031,7 @@ class RegisterWeb extends HookConsumerWidget {
 
 
                                               ReqStoreCPDetails StoreCPDetailsData = ReqStoreCPDetails(
-                                                userId: "3",
-                                                // userId: "${getString(prefUserID)}",
+                                                userId: "${getString(prefCPUserID)}",
                                                 partnerType: individualCheck.value? "Individual" : "Company",
                                                 companyName: individualCheck.value ? "" : companyNameController.text,
                                                 firstName: firstNameController.text,
@@ -1019,17 +1042,12 @@ class RegisterWeb extends HookConsumerWidget {
                                                 city: cityy.value,
                                               );
 
-                                              print('yashu patel------>>>>>> individual ');
-
                                               await ref.read(
                                                   storeCPDetailsProvider.notifier)
                                                   .storeCPDetails(context: context,
                                                   data: StoreCPDetailsData)
                                                   .then((value) {
-                                                print('yashu patel------>>>>>> individual 111111');
-                                                print('yashu patel------>>>>>> individual status 111111 ${value?.status} ');
-                                                if (value!.status == 1) {
-                                                  print("Yashu Patel");
+                                               if (value!.status == 1) {
                                                   displayToast(value.message);
                                                   navigationService.push(routeStartPartnerWithWeb);
                                                   eKYC.value = true;
@@ -1071,11 +1089,10 @@ class RegisterWeb extends HookConsumerWidget {
                                         ),
                                       ),
                                       Gap(20),
-                                      RichText(
-                                        text: TextSpan(
-                                          children: <TextSpan>[
-                                            TextSpan(
-                                                text: iAgreeToAbide,
+                                      Row(
+                                          children: [
+                                            Text(
+                                                 iAgreeToAbide,
                                                 style: TextStyle(
                                                     fontWeight: FontWeight.w400,
                                                     fontSize: MediaQuery.of(
@@ -1085,15 +1102,20 @@ class RegisterWeb extends HookConsumerWidget {
                                                                 .landscape
                                                         ? 20
                                                         : 17)),
-                                            TextSpan(
-                                              text: privacyPolicy,
-                                              style: TextStyle(
-                                                  fontWeight: FontWeight.bold,
-                                                  color: cinnabarRed,
-                                                  fontSize: 20),
+                                            InkWell(
+                                              onTap:  (){
+                                                navigationService.push(routeLegalAll,arguments: {navSecurityContent: "privacy_policies"});
+                                              },
+                                              child: Text(
+                                                 privacyPolicy,
+                                                style: TextStyle(
+                                                    fontWeight: FontWeight.bold,
+                                                    color: cinnabarRed,
+                                                    fontSize: 20),
+                                              ),
                                             ),
                                           ],
-                                        ),
+
                                       ),
                                       Gap(40),
                                     ],

@@ -28,6 +28,7 @@ const String routePartnerWithWeb = "/routePartnerWithWeb";
 const String routeAssetsWeb = "/routeAssetsWeb";
 const String routeAssetsInformationWeb = "/routeAssetsInformationWeb";
 const String routeRegisterWeb = "/routeRegisterWeb";
+const String routePlanChatBotWeb = "/routePlanChatBotWeb";
 const String routePaymentConfoSpeciWeb = "/routePaymentConfoSpeciWeb";
 const String routeAddInfoWeb = "/routeAddInfoWeb";
 const String routeStartPartnerWithWeb = "/routeStartPartnerWithWeb";
@@ -49,6 +50,10 @@ const String routePersonal = "/routePersonal";
 const String routePersonalVehicle = "/routePersonalVehicle";
 const String routeUtilityElectricity = "/routeUtilityElectricity";
 const String routeUtility = "/routeUtility";
+const String routeLegalAll = "/routeLegalAll";
+const String routeBeneficiary= "/routeBeneficiary";
+const String routeWillReviewIssueDetail= "/routeWillReviewIssueDetail";
+const String routeSecondChatBotInformationEdit= "/routeSecondChatBotInformationEdit";
 
 
 

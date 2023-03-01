@@ -34,6 +34,14 @@ const String apiGetClient = "get-channel-partner-clients";
 const String apiAddClient = "add-channel-partner-client";
 const String apiSubscribedClient = "get-channel-partner-subscribed-clients";
 const String apiRewards = "get-channel-partner-rewards";
+const String apiSecurityContent = "security-contents";
+const String apiShareApplicationLinks = "share-application-links";
+const String apiSendAccountVerification = "send-account-verification-link";
+const String apiStoreInquiryDetails = "store-enquiry-details";
+const String apiBeneficiaryDetails = "store-beneficiary-details";
+const String apiWillDocument = "accept-will-document";
+const String apiUpdateSecondChatBoat = "update-second-chatboard-data";
+
 
 
 const String apiPanCard = "https://api.emptra.com/fetchPanDetails";

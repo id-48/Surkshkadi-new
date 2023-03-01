@@ -26,20 +26,13 @@ class DashBoard extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    // final videoUrl = useState<String>("");
-    // final index = useState<int>(0);
-    // final StateList = useState<List<String>>([]);
-
     final dashboardController = ref.watch(dashboardProvider);
-    // final planDashboardController = ref.watch(plansProvider);
 
     useEffect(() {
       ref.read(stateProvider.notifier).getState(context: context).then((value) {
-        print("Yashu Patel");
+
         if (value!.status == 1) {
-          print("Yashu Patel111111");
           for (int i = 0; i < value.response.states.length; i++) {
-            print("Yashu Patel22222");
             stateList.add(value.response.states[i].name);
           }
         } else {
@@ -73,8 +66,6 @@ class DashBoard extends HookConsumerWidget {
     SystemChrome.setPreferredOrientations([
       DeviceOrientation.portraitUp,
     ]);
-    // var h = MediaQuery.of(context).size.height;
-    var w = MediaQuery.of(context).size.width;
 
     return WillPopScope(
       onWillPop: () async {
@@ -677,7 +668,7 @@ class DashBoard extends HookConsumerWidget {
                               bottom: 0,
                               child: Container(
                                 height: 110,
-                                width: w,
+                                width: Utils.getWidth(context),
                                 padding: EdgeInsets.only(
                                   left: 10,
                                 ),
@@ -867,7 +858,7 @@ class DashBoard extends HookConsumerWidget {
                             scale: 3.5,
                           ),
                           SizedBox(
-                            width: w * 0.03,
+                            width: Utils.getWidth(context) * 0.03,
                           ),
                           Expanded(
                             child: Container(

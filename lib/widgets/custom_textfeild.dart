@@ -28,14 +28,17 @@ class CustomTextfeild extends HookWidget {
     this.contentPadding,
     this.height,
     this.enabled,
+    this.onChange,
     required this.textCapitalization,
     // this.gradientone,
     // this.gradienttwo,
     required this.blurRadius,
     required this.offset,
+    this.suffixText,
     bool? isObscure,
   }) : super(key: key);
   final String? hinttext;
+  final String? suffixText;
   final TextStyle? textStyle;
   final TextStyle? hintStyle;
   final String? Function(String?)? validator;
@@ -56,6 +59,7 @@ class CustomTextfeild extends HookWidget {
   final Offset offset;
   final Gradient? gradient;
   final double? height;
+  final void Function(String)? onChange;
   final EdgeInsetsGeometry? contentPadding;
   final BorderRadiusGeometry? borderRadius;
   final bool? enabled;
@@ -78,6 +82,7 @@ class CustomTextfeild extends HookWidget {
         gradient: gradient,
       ),
       child: TextFormField(
+        onChanged: onChange,
         textCapitalization: textCapitalization,
         enabled: enabled,
         style: textStyle,
@@ -96,6 +101,7 @@ class CustomTextfeild extends HookWidget {
             hintText: hinttext,
             border: InputBorder.none,
             prefixIcon: prefix,
+            suffixText: suffixText,
             labelStyle: TextStyle(
                 color: Color(0xFF898989),
                 fontSize: 13,

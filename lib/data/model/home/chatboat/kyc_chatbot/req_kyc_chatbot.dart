@@ -1,11 +1,10 @@
 
-import 'package:dio/dio.dart';
-
 
 class ReqKycChatBot {
   String? userId;
   String? subRegisterStatus;
   String? motherName;
+  String? isMotherAlive;
   String? maritalStatus;
   String? spouseName;
   String? divorceStatus;
@@ -25,6 +24,7 @@ class ReqKycChatBot {
         this.userId,
         this.subRegisterStatus,
         this.motherName,
+        this.isMotherAlive,
         this.maritalStatus,
         this.spouseName,
         this.divorceStatus,
@@ -44,6 +44,7 @@ class ReqKycChatBot {
         "user_id": userId,
         "sub_register_status": subRegisterStatus,
         "mother_name": motherName,
+        "is_mother_alive": isMotherAlive,
         "marital_status": maritalStatus,
         "spouse_name": spouseName,
         "divorce_status": divorceStatus,

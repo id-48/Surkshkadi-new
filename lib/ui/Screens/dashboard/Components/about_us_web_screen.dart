@@ -5,8 +5,10 @@ import 'package:gap/gap.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:responsive_grid/responsive_grid.dart';
+import 'package:surakshakadi/data/model/home/dashboard/about_us/store_inquiry_details/req_store_inquiry_details.dart';
 import 'package:surakshakadi/data/model/home/dashboard/state_and_city/city/req_city.dart';
 import 'package:surakshakadi/ui/Screens/dashboard/Components/components.dart';
+import 'package:surakshakadi/ui/Screens/dashboard/dashboard_view_modal.dart';
 import 'package:surakshakadi/ui/Screens/state_and_city_view_modal.dart';
 import 'package:surakshakadi/utils/color_utils.dart';
 import 'package:surakshakadi/utils/constants/app_constant.dart';
@@ -18,23 +20,23 @@ import 'package:surakshakadi/widgets/custom_appbar_web.dart';
 import 'package:surakshakadi/widgets/custom_expandable_card.dart';
 import 'package:surakshakadi/widgets/custom_select.dart';
 import 'package:surakshakadi/widgets/custom_textfeild.dart';
-import 'package:surakshakadi/widgets/custom_validation.dart';
 import 'package:surakshakadi/widgets/custom_web_bottombar.dart';
 import 'package:surakshakadi/widgets/custome_drawer_web.dart';
+import 'package:surakshakadi/widgets/loading.dart';
+import '../store_inquiry_details_view_model.dart';
 
 class AboutUsWeb extends HookConsumerWidget {
-  const AboutUsWeb({Key? key}) : super(key: key);
+   AboutUsWeb({Key? key}) : super(key: key);
+
+  final scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final formkey = GlobalKey<FormState>();
-    TextEditingController firstNameController = TextEditingController();
-    TextEditingController lastNameController = TextEditingController();
-    TextEditingController mobilenoController = TextEditingController();
-    TextEditingController emailController = TextEditingController();
-    // TextEditingController cityController = TextEditingController();
-    // TextEditingController stateController = TextEditingController();
-    TextEditingController addressController = TextEditingController();
+    final firstNameController = useTextEditingController();
+    final lastNameController = useTextEditingController();
+    final mobilenoController = useTextEditingController();
+    final emailController = useTextEditingController();
+    final shareDetailMsgController = useTextEditingController();
     final statee = useState<String>('');
     final cityy = useState<String>('');
     final cityList = useState<List<String>>([]);
@@ -42,26 +44,32 @@ class AboutUsWeb extends HookConsumerWidget {
     final isSubmit = useState<bool>(false);
     final isSoon = useState<bool>(false);
 
-    // useEffect(() {
-    //   ref.read(stateProvider.notifier).getState(context: context).then((value) {
-    //     print("Yashu Patel");
-    //     if (value!.status == 1) {
-    //       print("Yashu Patel111111");
-    //       for (int i = 0; i < value.response.states.length; i++) {
-    //         print("Yashu Patel22222");
-    //         stateList.add(value.response.states[i].name);
-    //       }
-    //     } else {
-    //       displayToast("${value.message}");
-    //     }
-    //   });
-    // },[]);
+    useEffect(() {
+      ref.read(dashboardProvider.notifier).getDashboard(context: context);
+      ref.read(stateProvider.notifier).getState(context: context).then((value) {
 
-    final scaffoldKey = GlobalKey<ScaffoldState>();
-    final selectedindex = useState<int>(1);
+        if (value!.status == 1) {
+
+          for (int i = 0; i < value.response.states.length; i++) {
+
+            stateList.add(value.response.states[i].name);
+          }
+        } else {
+          displayToast("${value.message}");
+        }
+      });
+      return null;
+    },[]);
+
+
+    final viewAll = useState<bool>(false);
+
+    final faqController = ref.watch(dashboardProvider);
+
+
     return Scaffold(
       key: scaffoldKey,
-      drawer: Custome_drawer_web(index: selectedindex.value, button: true),
+      drawer: CustomDrawerWeb(index: 1, button: true),
       body: SingleChildScrollView(
         scrollDirection: Axis.vertical,
         child: Column(
@@ -491,103 +499,128 @@ class AboutUsWeb extends HookConsumerWidget {
                       ),
                       Gap(50),
 
-                      /// Api calling data FAQs  22/12/22
-                      // ...assetsData.response!.faqs!.map((e) {
-                      //   return Column(
-                      //     children: [
-                      //       CustomChildExpandableCard(
-                      //         padding: EdgeInsets.only(
-                      //             left: 16, right: 16, top: 16, bottom: 30),
-                      //         title: "${e.question}",
-                      //         isExpanded: ValueNotifier(1),
-                      //         index: 0,
-                      //         expandedChild: Container(
-                      //           padding: EdgeInsets.symmetric(horizontal: 20,vertical: 6),
-                      //           // height: 50,
-                      //           // color: Colors.lightBlueAccent,
-                      //           child: Text("${e.answer}",style: TextStyle(fontSize: 18,fontWeight: FontWeight.w400),),
-                      //         ),
-                      //       ),
-                      //       Gap(20),
-                      //     ],
-                      //   );
-                      // } ),
+                      faqController.when(
+                        data: (data){
+                          return Container(
+                            height: viewAll.value == false ? 340 : 720,
+                            child: ListView.builder(
+                                scrollDirection: Axis.vertical,
+                                // physics: ClampingScrollPhysics(),
+                                itemCount: viewAll.value == false ? 4 : data.response.faqs.length,
+                                itemBuilder: ( context, index){
+                                  return Padding(
+                                    padding: EdgeInsets.symmetric(horizontal: Utils.getWidth(context) < 660 ? 16 : 60),
+                                    child: Column(
+                                      children: [
+                                        CustomChildExpandableCard(
+                                          padding: EdgeInsets.only(
+                                              left: 16, right: 16, top: 16, bottom: 30),
+                                          title: "${data.response.faqs[index].question}",
+                                          isExpanded: ValueNotifier(1),
+                                          index: 0,
+                                          expandedChild: Container(
+                                            padding: EdgeInsets.symmetric(horizontal: 20,vertical: 6),
+                                            // height: 50,
+                                            // color: Colors.lightBlueAccent,
+                                            child: Text("${data.response.faqs[index].answer}",style: TextStyle(fontSize: 18,fontWeight: FontWeight.w400),),
+                                          ),
+                                        ),
+                                        Gap(20),
+                                      ],
+                                    ),
+                                  );
+                                }),
+                          );
+                        },
+                          error: (obj, trace) => ErrorWidget(obj),
+                          loading: () => const Loading(),
+                      ),
+
+
 
                       /// Api without na data
-                      Padding(
-                        padding: EdgeInsets.symmetric(horizontal: Utils.getWidth(context) < 660 ? 16 : 60),
-                        child: CustomChildExpandableCard(
-                          padding: EdgeInsets.only(
-                              left: 16, right: 16, top: 16, bottom: 30),
-                          title: howDoYouKeepMy,
-                          isExpanded: ValueNotifier(1),
-                          index: 0,
-                          expandedChild: Container(
-                            height: 50,
-                            color: Colors.lightBlueAccent,
-                          ),
-                        ),
-                      ),
-                      Gap(20),
-                      Padding(
-                        padding: EdgeInsets.symmetric(horizontal: Utils.getWidth(context) < 660 ? 16 : 60),
-                        child: CustomChildExpandableCard(
-                          padding: EdgeInsets.only(
-                              left: 16, right: 16, top: 16, bottom: 30),
-                          title: howDoYouSign,
-                          isExpanded: ValueNotifier(2),
-                          index: 1,
-                          expandedChild: Container(
-                            height: 50,
-                            color: Colors.lightBlueAccent,
-                          ),
-                        ),
-                      ),
-                      Gap(20),
-                      Padding(
-                        padding: EdgeInsets.symmetric(horizontal: Utils.getWidth(context) < 660 ? 16 : 60),
-                        child: CustomChildExpandableCard(
-                          padding: EdgeInsets.only(
-                              left: 16, right: 16, top: 16, bottom: 30),
-                          title: whoCreatesTheLegal,
-                          isExpanded: ValueNotifier(3),
-                          index: 2,
-                          expandedChild: Container(
-                            height: 50,
-                            color: Colors.lightBlueAccent,
-                          ),
-                        ),
-                      ),
-                      Gap(20),
-                      Padding(
-                        padding: EdgeInsets.symmetric(horizontal: Utils.getWidth(context) < 660 ? 16 : 60),
-                        child: CustomChildExpandableCard(
-                          padding: EdgeInsets.only(
-                              left: 16, right: 16, top: 16, bottom: 30),
-                          title: whoReviewsMy,
-                          isExpanded: ValueNotifier(4),
-                          index: 3,
-                          expandedChild: Container(
-                            height: 50,
-                            color: Colors.lightBlueAccent,
-                          ),
-                        ),
-                      ),
+                      // Padding(
+                      //   padding: EdgeInsets.symmetric(horizontal: Utils.getWidth(context) < 660 ? 16 : 60),
+                      //   child: CustomChildExpandableCard(
+                      //     padding: EdgeInsets.only(
+                      //         left: 16, right: 16, top: 16, bottom: 30),
+                      //     title: howDoYouKeepMy,
+                      //     isExpanded: ValueNotifier(1),
+                      //     index: 0,
+                      //     expandedChild: Container(
+                      //       height: 50,
+                      //       color: Colors.lightBlueAccent,
+                      //     ),
+                      //   ),
+                      // ),
+                      // Gap(20),
+                      // Padding(
+                      //   padding: EdgeInsets.symmetric(horizontal: Utils.getWidth(context) < 660 ? 16 : 60),
+                      //   child: CustomChildExpandableCard(
+                      //     padding: EdgeInsets.only(
+                      //         left: 16, right: 16, top: 16, bottom: 30),
+                      //     title: howDoYouSign,
+                      //     isExpanded: ValueNotifier(2),
+                      //     index: 1,
+                      //     expandedChild: Container(
+                      //       height: 50,
+                      //       color: Colors.lightBlueAccent,
+                      //     ),
+                      //   ),
+                      // ),
+                      // Gap(20),
+                      // Padding(
+                      //   padding: EdgeInsets.symmetric(horizontal: Utils.getWidth(context) < 660 ? 16 : 60),
+                      //   child: CustomChildExpandableCard(
+                      //     padding: EdgeInsets.only(
+                      //         left: 16, right: 16, top: 16, bottom: 30),
+                      //     title: whoCreatesTheLegal,
+                      //     isExpanded: ValueNotifier(3),
+                      //     index: 2,
+                      //     expandedChild: Container(
+                      //       height: 50,
+                      //       color: Colors.lightBlueAccent,
+                      //     ),
+                      //   ),
+                      // ),
+                      // Gap(20),
+                      // Padding(
+                      //   padding: EdgeInsets.symmetric(horizontal: Utils.getWidth(context) < 660 ? 16 : 60),
+                      //   child: CustomChildExpandableCard(
+                      //     padding: EdgeInsets.only(
+                      //         left: 16, right: 16, top: 16, bottom: 30),
+                      //     title: whoReviewsMy,
+                      //     isExpanded: ValueNotifier(4),
+                      //     index: 3,
+                      //     expandedChild: Container(
+                      //       height: 50,
+                      //       color: Colors.lightBlueAccent,
+                      //     ),
+                      //   ),
+                      // ),
+
+                      if(viewAll.value == false)...[
                       Gap(70),
                       Center(
-                        child: Container(
-                          padding: EdgeInsets.symmetric(
-                              vertical: 14, horizontal: 50),
-                          decoration: BoxDecoration(
-                            border: Border.all(color: blue, width: 1.5),
-                            borderRadius: BorderRadius.circular(10),
-                          ),
-                          child: Text(
-                            viewMore,
-                            style: TextStyle(fontSize: 18, color: blue),
+                        child: InkWell(
+                          onTap: (){
+                            viewAll.value = true;
+                          },
+                          child: Container(
+                            padding: EdgeInsets.symmetric(
+                                vertical: 14, horizontal: 50),
+                            decoration: BoxDecoration(
+                              border: Border.all(color: blue, width: 1.5),
+                              borderRadius: BorderRadius.circular(10),
+                            ),
+                            child: Text(
+                              viewMore,
+                              style: TextStyle(fontSize: 18, color: blue),
+                            ),
                           ),
                         ),
                       ),
+                      ],
                     ],
                   ),
                 ),
@@ -636,12 +669,9 @@ class AboutUsWeb extends HookConsumerWidget {
                               ),
                               Gap(30),
                               GestureDetector(
-
                                 onTap: (){
-                                  isSubmit.value  = true ;
-
-
-                                },
+                                  isSubmit.value  = true;
+                                  },
                                 child: Container(
                                   padding: EdgeInsets.symmetric(vertical: 14),
                                   width: 450,
@@ -662,7 +692,7 @@ class AboutUsWeb extends HookConsumerWidget {
                             ],
                           ),
                         ),
-                        if(isSoon.value ==  true )
+                        if(isSoon.value ==  true)
                         Text(
                           ourLegalExpert,
                           style: TextStyle(color: fullgray,fontSize: 18,fontFamily: fontFamily),
@@ -691,257 +721,325 @@ class AboutUsWeb extends HookConsumerWidget {
                                   color: Color(0xFFEBF0FC),
                                 ),
                               ),
-                              child: Form(
-                                key: formkey,
-                                child: Padding(
-                                  padding: EdgeInsets.all(20),
-                                  child: Column(
-                                    children: [
+                              child: Padding(
+                                padding: EdgeInsets.all(20),
+                                child: Column(
+                                  children: [
 
-                                      Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceBetween,
-                                        children: [
-                                          Expanded(
-                                            flex: 1,
-                                            child: customeFormTextField(
-                                              context: context,
-                                              name: "First Name*",
-                                              maxLines: 1,
-                                              controller: firstNameController,
-                                              keyboardType: TextInputType.name,
-                                              validation: validateName,
-                                            ),
-                                          ),
-                                          Gap(10),
-                                          Expanded(
-                                            flex: 1,
-                                            child: customeFormTextField(
-                                              context: context,
-                                              name: "Last Name*",
-                                              maxLines: 1,
-                                              controller: lastNameController,
-                                              keyboardType: TextInputType.name,
-                                              validation: validateName,
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                      Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceBetween,
-                                        children: [
-                                          Expanded(
-                                            flex: 1,
-                                            child: customeFormTextField(
-                                              context: context,
-                                              name: "Mobile Number*",
-                                              maxLines: 1,
-                                              controller: mobilenoController,
-                                              keyboardType: TextInputType.number,
-                                              maxLength: 10,
-                                              validation: validateMobile,
-                                            ),
-                                          ),
-                                          Gap(10),
-                                          Expanded(
-                                            flex: 1,
-                                            child: customeFormTextField(
-                                              context: context,
-                                              name: "Email Id*",
-                                              maxLines: 1,
-                                              controller: emailController,
-                                              keyboardType:
-                                                  TextInputType.emailAddress,
-                                              validation: validateEmail,
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                      Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceBetween,
-                                        children: [
-                                          Expanded(
-                                            flex: 1,
-                                            child: Column(
-                                              crossAxisAlignment: CrossAxisAlignment.start,
-                                              children: [
-                                                Text("State*"),
-                                                Gap(10),
-                                                Padding(
-                                                  padding:
-                                                  const EdgeInsets.only(
-                                                      // right: 20.0,
-                                                      // top: 10,
-                                                      bottom: 10),
-                                                  child: CustomSelectWeb(
-                                                    boxShadow: [],
-                                                    iconColor: Color(0xFF9FB9ED),
-                                                    textStyle: TextStyle(
-                                                      fontSize: 16,
-                                                      color: black,
-                                                      fontWeight:
-                                                      FontWeight.w600,
-                                                    ),
-                                                    color: white,
-                                                    onChanged:
-                                                        (stateVal) async {
-                                                      cityList.value.clear();
-                                                      statee.value = stateVal;
+                                    Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        Expanded(
+                                          flex: 1,
+                                          child: customeFormTextField(
+                                            context: context,
+                                            name: "First Name*",
+                                            maxLines: 1,
+                                            controller: firstNameController,
+                                            keyboardType: TextInputType.name,
 
-                                                      ReqCity cityData = ReqCity(
-                                                          state:
-                                                          "${stateVal}");
-
-                                                      await ref
-                                                          .read(cityProvider
-                                                          .notifier)
-                                                          .getCity(
-                                                          context:
-                                                          context,
-                                                          data: cityData)
-                                                          .then((value) {
-                                                        if (value!.status ==
-                                                            1) {
-                                                          // displayToast("${value.message}");
-                                                          for (int j = 0;
-                                                          j <
-                                                              value
-                                                                  .response
-                                                                  .cities
-                                                                  .length;
-                                                          j++) {
-                                                            cityList.value
-                                                                .add(value
-                                                                .response
-                                                                .cities[j]
-                                                                .name);
-                                                          }
-                                                        } else {
-                                                          displayToast(
-                                                              "${value.message}");
-                                                        }
-                                                      });
-                                                    },
-                                                    items: stateList,
-                                                    // items: selectStateCity[0]
-                                                    // ["dataList"],
-                                                    hint: '',
-                                                    borderCon: BorderSide(
-                                                      width: 1.0,
-                                                      color: Color(0xFF9FB9ED),
-                                                    ),
-                                                  ),
-                                                ),
-                                              ],
-                                            ),
-                                          ),
-                                          Gap(10),
-                                          Expanded(
-                                            flex: 1,
-                                            child: Column(
-                                              crossAxisAlignment: CrossAxisAlignment.start,
-                                              children: [
-                                                Text("City*"),
-                                                Gap(10),
-                                                Padding(
-                                                  padding:
-                                                  const EdgeInsets.only(
-                                                    // right: 20.0,
-                                                    // top: 10,
-                                                    bottom: 10,
-                                                  ),
-                                                  child: CustomSelectWeb(
-                                                    boxShadow: [
-                                                      // BoxShadow(
-                                                      //   color: Colors.black26,
-                                                      //   blurRadius: 4.0,
-                                                      //   offset: Offset(
-                                                      //     0.0,
-                                                      //     0.0,
-                                                      //   ),
-                                                      // ),
-                                                    ],
-                                                    iconColor: Color(0xFF9FB9ED),
-                                                    textStyle: TextStyle(
-                                                      fontSize: 16,
-                                                      color: black,
-                                                      fontWeight:
-                                                      FontWeight.w600,
-                                                    ),
-                                                    color: white,
-                                                    onChanged: (val) {
-                                                      // cityy.value = val;
-                                                    },
-                                                    items: cityList.value,
-                                                    // items: selectStateCity[1]
-                                                    // ["dataList"],
-                                                    hint: '',
-                                                    borderCon: BorderSide(
-                                                      width: 1.0,
-                                                      color: Color(0xFF9FB9ED),
-                                                    ),
-                                                  ),
-                                                ),
-                                              ],
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                      Row(
-                                        children: [
-                                          Expanded(
-                                            child: Container(
-                                              // height: 100,
-                                              child: customeFormTextField(
-                                                height: 100,
-                                                maxLines: 4,
-                                                context: context,
-                                                name: "Share More Details",
-                                                controller: addressController,
-                                                validation: validateName,
-                                              ),
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                      Gap(10),
-                                      InkWell(
-                                        onTap: () {
-                                          // if(firstNameController.text.isNotEmpty
-                                          //     && lastNameController.text.isNotEmpty
-                                          // && mobilenoController.text.isNotEmpty
-                                          // && emailController.text.isNotEmpty
-                                          // && addressController.text.isNotEmpty
-                                          // && cityy.value.isNotEmpty
-                                          // && statee.value.isNotEmpty
-                                          //
-                                          // ) {
-                                          //
-                                            isSoon.value = true;
-                                          // }else{
-                                          //   displayToast("Please Complete Form Details");
-                                          // }
-                                        },
-                                        child: Container(
-                                          padding: EdgeInsets.symmetric(
-                                              vertical: 8, horizontal: 40),
-                                          decoration: BoxDecoration(
-                                            color: oreng,
-                                            borderRadius: BorderRadius.circular(10),
-                                          ),
-                                          child: Text(
-                                            "Submit",
-                                            style: TextStyle(
-                                                fontWeight: FontWeight.w400,
-                                                fontSize: 16,
-                                                color: white),
                                           ),
                                         ),
+                                        Gap(10),
+                                        Expanded(
+                                          flex: 1,
+                                          child: customeFormTextField(
+                                            context: context,
+                                            name: "Last Name*",
+                                            maxLines: 1,
+                                            controller: lastNameController,
+                                            keyboardType: TextInputType.name,
+
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                    Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        Expanded(
+                                          flex: 1,
+                                          child: customeFormTextField(
+                                            context: context,
+                                            name: "Mobile Number*",
+                                            maxLines: 1,
+                                            controller: mobilenoController,
+                                            keyboardType: TextInputType.number,
+                                            maxLength: 10,
+                                          ),
+                                        ),
+                                        Gap(10),
+                                        Expanded(
+                                          flex: 1,
+                                          child: customeFormTextField(
+                                            context: context,
+                                            name: "Email Id*",
+                                            maxLines: 1,
+                                            controller: emailController,
+                                            keyboardType:
+                                                TextInputType.emailAddress,
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                    Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        Expanded(
+                                          flex: 1,
+                                          child: Column(
+                                            crossAxisAlignment: CrossAxisAlignment.start,
+                                            children: [
+                                              Text("State*"),
+                                              Gap(10),
+                                              Padding(
+                                                padding:
+                                                const EdgeInsets.only(
+                                                    // right: 20.0,
+                                                    // top: 10,
+                                                    bottom: 10),
+                                                child: CustomSelectWeb(
+                                                  boxShadow: [],
+                                                  iconColor: Color(0xFF9FB9ED),
+                                                  textStyle: TextStyle(
+                                                    fontSize: 16,
+                                                    color: black,
+                                                    fontWeight:
+                                                    FontWeight.w600,
+                                                  ),
+                                                  color: white,
+                                                  onChanged:
+                                                      (stateVal) async {
+                                                    cityList.value.clear();
+                                                    statee.value = stateVal;
+
+                                                    ReqCity cityData = ReqCity(
+                                                        state:
+                                                        "${stateVal}");
+
+                                                    await ref
+                                                        .read(cityProvider
+                                                        .notifier)
+                                                        .getCity(
+                                                        context:
+                                                        context,
+                                                        data: cityData)
+                                                        .then((value) {
+                                                      if (value!.status ==
+                                                          1) {
+                                                        // displayToast("${value.message}");
+                                                        for (int j = 0;
+                                                        j <
+                                                            value
+                                                                .response
+                                                                .cities
+                                                                .length;
+                                                        j++) {
+                                                          cityList.value
+                                                              .add(value
+                                                              .response
+                                                              .cities[j]
+                                                              .name);
+                                                        }
+                                                      } else {
+                                                        displayToast(
+                                                            "${value.message}");
+                                                      }
+                                                    });
+                                                  },
+
+                                                  //     (stateVal) async {
+                                                  //   cityList.value.clear();
+                                                  //   statee.value = stateVal;
+                                                  //
+                                                  //   ReqCity cityData = ReqCity(
+                                                  //       state:
+                                                  //       "${stateVal}");
+                                                  //
+                                                  //   await ref
+                                                  //       .read(cityProvider
+                                                  //       .notifier)
+                                                  //       .getCity(
+                                                  //       context:
+                                                  //       context,
+                                                  //       data: cityData)
+                                                  //       .then((value) {
+                                                  //     if (value!.status ==
+                                                  //         1) {
+                                                  //       // displayToast("${value.message}");
+                                                  //       for (int j = 0;
+                                                  //       j <
+                                                  //           value
+                                                  //               .response
+                                                  //               .cities
+                                                  //               .length;
+                                                  //       j++) {
+                                                  //         cityList.value
+                                                  //             .add(value
+                                                  //             .response
+                                                  //             .cities[j]
+                                                  //             .name);
+                                                  //       }
+                                                  //     } else {
+                                                  //       displayToast(
+                                                  //           "${value.message}");
+                                                  //     }
+                                                  //   });
+                                                  // },
+                                                  items: stateList,
+                                                  // items: selectStateCity[0]
+                                                  // ["dataList"],
+                                                  hint:  statee.value,
+                                                  borderCon: BorderSide(
+                                                    width: 1.0,
+                                                    color: Color(0xFF9FB9ED),
+                                                  ),
+                                                ),
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                        Gap(10),
+                                        Expanded(
+                                          flex: 1,
+                                          child: Column(
+                                            crossAxisAlignment: CrossAxisAlignment.start,
+                                            children: [
+                                              Text("City*"),
+                                              Gap(10),
+                                              Padding(
+                                                padding:
+                                                const EdgeInsets.only(
+                                                  // right: 20.0,
+                                                  // top: 10,
+                                                  bottom: 10,
+                                                ),
+                                                child: CustomSelectWeb(
+                                                  boxShadow: [
+                                                    // BoxShadow(
+                                                    //   color: Colors.black26,
+                                                    //   blurRadius: 4.0,
+                                                    //   offset: Offset(
+                                                    //     0.0,
+                                                    //     0.0,
+                                                    //   ),
+                                                    // ),
+                                                  ],
+                                                  iconColor: Color(0xFF9FB9ED),
+                                                  textStyle: TextStyle(
+                                                    fontSize: 16,
+                                                    color: black,
+                                                    fontWeight:
+                                                    FontWeight.w600,
+                                                  ),
+                                                  color: white,
+                                                  onChanged: (val) {
+                                                    cityy.value = val;
+                                                  },
+                                                  items: cityList.value,
+                                                  // items: selectStateCity[1]
+                                                  // ["dataList"],
+                                                  hint: cityy.value,
+                                                  borderCon: BorderSide(
+                                                    width: 1.0,
+                                                    color: Color(0xFF9FB9ED),
+                                                  ),
+                                                ),
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                    Row(
+                                      children: [
+                                        Expanded(
+                                          child: Container(
+                                            // height: 100,
+                                            child: customeFormTextField(
+                                              height: 100,
+                                              maxLines: 4,
+                                              context: context,
+                                              name: "Share More Details",
+                                              controller: shareDetailMsgController,
+                                            ),
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                    Gap(10),
+                                    InkWell(
+                                      onTap: () async{
+
+
+                                        if(firstNameController.text.isNotEmpty && lastNameController.text.isNotEmpty && mobilenoController.text.isNotEmpty && emailController.text.isNotEmpty && shareDetailMsgController.text.isNotEmpty && statee.value.isNotEmpty && cityy.value.isNotEmpty) {
+                                          print("-----------first Name :${firstNameController.text}");
+                                          print("-----------last Name :${lastNameController.text}");
+                                          print("----------- mobile :${mobilenoController.text}");
+                                          print("----------- email :${emailController.text}");
+                                          print("----------- share Details :${shareDetailMsgController.text}");
+                                          print("----------- state :${statee.value}");
+                                          print("----------- city :${cityy.value}");
+                                        ReqStoreInquiryDetails storeDetail = ReqStoreInquiryDetails(
+                                            firstName: firstNameController.text,
+                                            lastName: lastNameController.text,
+                                            mobile: mobilenoController.text,
+                                            email: emailController.text,
+                                            state: statee.value,
+                                            city: cityy.value,
+                                            message:shareDetailMsgController.text
+                                        );
+                                        await ref.read(storeInquiryDetailsProvider.notifier)
+                                            .getStoreInquiryDetails(context: context, data: storeDetail)
+                                            .then((value) {
+                                          if (value?.status == 1) {
+
+                                            displayToast("${value?.message}");
+
+                                            isSoon.value = true;
+
+                                          } else {
+                                            displayToast("${value?.message}");
+                                          }
+                                        });
+
+
+                                        }else{
+
+                                          print("-----------first Name :${firstNameController.text}");
+                                          print("-----------last Name :${lastNameController.text}");
+                                          print("----------- mobile :${mobilenoController.text}");
+                                          print("----------- email :${emailController.text}");
+                                          print("----------- share Details :${shareDetailMsgController.text}");
+                                          print("----------- state :${statee.value}");
+                                          print("----------- city :${cityy.value}");
+
+
+
+                                          displayToast("Please Complete Form Details");
+                                        }
+
+                                      },
+                                      child: Container(
+                                        padding: EdgeInsets.symmetric(
+                                            vertical: 8, horizontal: 40),
+                                        decoration: BoxDecoration(
+                                          color: oreng,
+                                          borderRadius: BorderRadius.circular(10),
+                                        ),
+                                        child: Text(
+                                          "Submit",
+                                          style: TextStyle(
+                                              fontWeight: FontWeight.w400,
+                                              fontSize: 16,
+                                              color: white),
+                                        ),
                                       ),
-                                    ],
-                                  ),
+                                    ),
+                                  ],
                                 ),
                               ),
                         ),
@@ -953,7 +1051,9 @@ class AboutUsWeb extends HookConsumerWidget {
                 ),
               ],
             ),
+
             Gap(50),
+
             AppSurakshakadi(),
             Disclaimers(),
             CustomWebBottomBar(),
