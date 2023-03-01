@@ -361,8 +361,12 @@ class CustomExpandTextCard extends HookWidget {
     required this.index,
     this.expandedChild,
     this.openchild,
+    this.height,
     this.color,
     this.iconcolor,
+    this.border,
+    this.boxShadow,
+    this.arrowColor
 
     // this.onCall,
   }) : super(key: key);
@@ -371,14 +375,18 @@ class CustomExpandTextCard extends HookWidget {
   // final Function? onCall;
   final int animationTime = 0;
   final int index;
+  final double? height;
   final  Color? color;
   final  Color? iconcolor;
   final Widget? collapsedChild;
   final Widget? expandedChild;
   final Widget? openchild;
   final String title;
+  final BoxBorder? border;
+  final Color? arrowColor;
 
   final Color boxcolor;
+  final  List<BoxShadow>? boxShadow;
 
   // final Color? color;
   final ValueNotifier<int> isExpanded;
@@ -425,10 +433,12 @@ class CustomExpandTextCard extends HookWidget {
               Container(
                 // margin: EdgeInsets.symmetric(horizontal: MediaQuery.of(context).orientation == Orientation.landscape ? MediaQuery.of(context).size.width * 0.2 : 16),
                 padding: EdgeInsets.symmetric(horizontal: 10),
-                height: 45,
+                height: height ?? 45,
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(8),
                   color: boxcolor,
+                  border: border,
+                  boxShadow: boxShadow,
                 ),
                 child: Row(
                   //mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -445,7 +455,7 @@ class CustomExpandTextCard extends HookWidget {
                           turns: Tween(begin: 0.0, end: 0.5)
                               .animate(_controller),
                           child: Image.asset(
-                            downarrow,scale: 4,color: white,
+                            downarrow,scale: 4,color: arrowColor ?? white,
 
                           ))
                     ]),

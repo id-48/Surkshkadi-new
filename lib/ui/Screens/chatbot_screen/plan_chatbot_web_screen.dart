@@ -9,13 +9,12 @@ import 'package:surakshakadi/utils/color_utils.dart';
 import 'package:surakshakadi/utils/constants/app_constant.dart';
 import 'package:surakshakadi/utils/constants/navigation_route_constants.dart';
 import 'package:surakshakadi/utils/constants/navigations_key_constant.dart';
-import 'package:surakshakadi/utils/constants/preference_key_constant.dart';
 import 'package:surakshakadi/utils/dialog_utils.dart';
 import 'package:surakshakadi/utils/image_utils.dart';
-import 'package:surakshakadi/utils/preference_utils.dart';
 import 'package:surakshakadi/utils/strings.dart';
 import 'package:surakshakadi/utils/utils.dart';
 import 'package:surakshakadi/widgets/custom_appbar_web.dart';
+import 'package:surakshakadi/widgets/custom_expandable_card.dart';
 import 'package:surakshakadi/widgets/custome_drawer_web.dart';
 
 class PlanChatBotWeb extends HookConsumerWidget {
@@ -28,9 +27,35 @@ class PlanChatBotWeb extends HookConsumerWidget {
     final scaffoldKey = GlobalKey<ScaffoldState>();
 
     final selectedIndex = useState<int>(0);
+    // final incomeIndex = useState<int>(-1);
+    // final occupationIndex = useState<int>(-1);
     final formattedDate = useState<String>("");
-    print("width --->>>> ${Utils.getWidth(context)}");
-    print("height --->>>> ${Utils.getHeight(context)}");
+    final inCome = useState<String>("");
+    final occupation = useState<String>("");
+    // String inCome = "";
+    // String occupation = "";
+    int incomeIndex = -1;
+    int occupationIndex = -1;
+
+    final nameController = useTextEditingController();
+    final emailController = useTextEditingController();
+    final fatherController = useTextEditingController();
+
+    List<String> incomeList = [
+      'Up to 2.9L',
+      '3L - 4.9L',
+      '5L - 7.9L',
+      '8L - 9.9L',
+      '10L - 19.9L',
+      "20L & Above"
+    ];
+    List<String> occupationList = [
+      'Salaried',
+      'Self-employed',
+      'Professional',
+      'Retired'
+    ];
+
 
     return StatefulBuilder(
       builder: (context,setState) {
@@ -125,7 +150,7 @@ class PlanChatBotWeb extends HookConsumerWidget {
                   Gap(13),
                   longText(context, queText: "I appreciate you are taking proactive steps for the welfare of your family."),
                   Gap(13),
-                  shortText(context,boxWidth: 300 ,queText: "Should we proceed?"),
+                  shortText(context,boxWidth: 300 ,queText: "Is it your WhatsApp number?"),
                   Gap(40),
                   Container(
                     width: 600,
@@ -166,7 +191,7 @@ class PlanChatBotWeb extends HookConsumerWidget {
 
                         InkWell(
                           onTap: (){
-                            navigationService.push(routePlansWeb);
+                            selectedIndex.value = selectedIndex.value + 1 ;
                           },
                           child: Container(
                             width: 180,
@@ -338,7 +363,341 @@ class PlanChatBotWeb extends HookConsumerWidget {
                   ),
                 ],
 
+
                 if(selectedIndex.value == 3) ...[
+                  Gap(100),
+                  longText(context, queText: "Please share your Annual Income and Occupation."),
+                  Gap(40),
+                  Container(
+                    margin: EdgeInsets.symmetric(horizontal: 20),
+
+                    width: 600,
+                    alignment: Alignment.center,
+                    child:  Row(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Gap(16),
+                        Container(
+                          width: 200,
+                            child: CustomExpandTextCard(
+                              index: 0,
+                              isExpanded: ValueNotifier(1),
+                              boxcolor: blue,
+                              title: incomeIndex == -1
+                                  ? 'Income'
+                                  : incomeList[incomeIndex],
+                              expandedChild: Card(
+                                elevation: 3,
+                                child: Container(
+                                  height: 150,
+                                  color: Colors.white.withOpacity(0.2),
+                                  child: ListView.builder(
+                                    shrinkWrap: true,
+                                    itemCount: incomeList.length,
+                                    itemBuilder:
+                                        (BuildContext context, int index) {
+                                      return InkWell(
+                                        onTap:() {
+                                          incomeIndex = index;
+
+                                          inCome.value = incomeList[incomeIndex];
+                                          displayToast(
+                                              "Please Select Occupation");
+                                          // print(
+                                          //     "yashu  ----->>>>${inCome.value}");
+
+                                          setState(() {});
+                                        },
+                                        child: Container(
+                                          padding: EdgeInsets.symmetric(
+                                              horizontal: 10, vertical: 15),
+                                          child: Text(
+                                            incomeList[index],
+                                            style: TextStyle(
+                                                fontSize: 16,
+                                                color: incomeIndex == index
+                                                    ? Colors.blue
+                                                    : black),
+                                          ),
+                                        ),
+                                      );
+                                    },
+                                  ),
+                                ),
+                              ),
+                            )),
+                        Gap(10),
+                        Container(
+                          width: 200,
+                          child: CustomExpandTextCard(
+                            index: 0,
+                            isExpanded: ValueNotifier(1),
+                            boxcolor: blue,
+                            title: occupationIndex == -1
+                                ? 'Occupation'
+                                : occupationList[occupationIndex],
+                            expandedChild: Card(
+                              elevation: 3,
+                              child: Container(
+                                height: 150,
+                                color: Colors.white.withOpacity(0.2),
+                                child: ListView.builder(
+                                  shrinkWrap: true,
+                                  itemCount: occupationList.length,
+                                  itemBuilder:
+                                      (BuildContext context, int index) {
+                                    return InkWell(
+                                      onTap: () {
+                                        occupationIndex = index;
+
+                                        if (inCome.value.isNotEmpty) {
+                                          occupation.value = occupationList[index] ;
+                                          selectedIndex.value = selectedIndex.value + 1;
+                                          setState(() {});
+                                        } else {
+                                          displayToast(
+                                              "Please select Income");
+                                        }
+
+                                        setState(() {});
+                                      },
+                                      child: Container(
+                                        padding: EdgeInsets.symmetric(
+                                            horizontal: 10, vertical: 15),
+                                        child: Text(
+                                          occupationList[index],
+                                          style: TextStyle(
+                                              fontSize: 16,
+                                              color: occupationIndex == index
+                                                  ? Colors.blue
+                                                  : black),
+                                        ),
+                                      ),
+                                    );
+                                  },
+                                ),
+                              ),
+                            ),
+                          ),
+                        ),
+                        Gap(16),
+                      ],
+                    ),
+                  ),
+                ],
+
+
+                if(selectedIndex.value == 4) ...[
+                  Gap(100),
+                  longText(context, queText: "Please share your Full Name."),
+                  Gap(40),
+                  Container(
+                    margin: EdgeInsets.symmetric(horizontal: 20),
+
+                    // color: redFroly,
+                    width: 600,
+                    // alignment: Alignment.center,
+                    child:  Container(
+                      // margin: EdgeInsets.only(left: 10, right: 10, bottom: 10),
+                      height: 60,
+                      width: double.infinity,
+                      // color: Colors.white,
+                      child: Row(
+                        children: <Widget>[
+                          Expanded(
+                            child: Container(
+                              decoration: BoxDecoration(
+                                color: Colors.white,
+                                border: Border.all(color: blue),
+                                borderRadius:
+                                BorderRadius.circular(20),
+                              ),
+                              child: TextFormField(
+                                controller: nameController,
+                                // keyboardType:TextInputType.number,
+                                keyboardType: TextInputType.text,
+                                decoration: InputDecoration(
+                                  contentPadding: EdgeInsets.only(
+                                      left: 10, bottom: 0, top: 0),
+                                  hintText: "Enter Your Name...",
+                                  hintStyle: TextStyle(
+                                      color: Colors.black54),
+                                  border: InputBorder.none,
+                                ),
+                              ),
+                            ),
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.all(6.0),
+                            child: FloatingActionButton(
+                              onPressed: () {
+                                if (nameController.text.isNotEmpty) {
+                                  selectedIndex.value = selectedIndex.value + 1;
+                                  setState(() {});
+                                } else {
+                                  displayToast(
+                                      "Please Question the Ans.");
+                                }
+
+                                setState(() {});
+                              },
+                              child: Icon(
+                                Icons.send,
+                                color: Colors.white,
+                                size: 22,
+                              ),
+                              backgroundColor: Colors.blue,
+                              elevation: 0,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                ],
+
+                if(selectedIndex.value == 5) ...[
+                  Gap(100),
+                  longText(context, queText: "Please share your Email."),
+                  Gap(40),
+                  Container(
+                    margin: EdgeInsets.symmetric(horizontal: 20),
+
+                    // color: redFroly,
+                    width: 600,
+                    // alignment: Alignment.center,
+                    child:  Container(
+                      // margin: EdgeInsets.only(left: 10, right: 10, bottom: 10),
+                      height: 60,
+                      width: double.infinity,
+                      // color: Colors.white,
+                      child: Row(
+                        children: <Widget>[
+                          Expanded(
+                            child: Container(
+                              decoration: BoxDecoration(
+                                color: Colors.white,
+                                border: Border.all(color: blue),
+                                borderRadius:
+                                BorderRadius.circular(20),
+                              ),
+                              child: TextFormField(
+                                controller: emailController,
+                                // keyboardType:TextInputType.number,
+                                keyboardType: TextInputType.text,
+                                decoration: InputDecoration(
+                                  contentPadding: EdgeInsets.only(
+                                      left: 10, bottom: 0, top: 0),
+                                  hintText: "Enter Your Email...",
+                                  hintStyle: TextStyle(
+                                      color: Colors.black54),
+                                  border: InputBorder.none,
+                                ),
+                              ),
+                            ),
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.all(6.0),
+                            child: FloatingActionButton(
+                              onPressed: () {
+                                if (emailController.text.isNotEmpty) {
+                                  selectedIndex.value = selectedIndex.value + 1;
+                                  setState(() {});
+                                } else {
+                                  displayToast(
+                                      "Please Question the Ans.");
+                                }
+
+                                setState(() {});
+                              },
+                              child: Icon(
+                                Icons.send,
+                                color: Colors.white,
+                                size: 22,
+                              ),
+                              backgroundColor: Colors.blue,
+                              elevation: 0,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                ],
+
+
+                if(selectedIndex.value == 6) ...[
+                  Gap(100),
+                  longText(context, queText: "Please share the Full Name of your Father."),
+                  Gap(40),
+                  Container(
+                    margin: EdgeInsets.symmetric(horizontal: 20),
+
+                    // color: redFroly,
+                    width: 600,
+                    // alignment: Alignment.center,
+                    child:  Container(
+                      // margin: EdgeInsets.only(left: 10, right: 10, bottom: 10),
+                      height: 60,
+                      width: double.infinity,
+                      // color: Colors.white,
+                      child: Row(
+                        children: <Widget>[
+                          Expanded(
+                            child: Container(
+                              decoration: BoxDecoration(
+                                color: Colors.white,
+                                border: Border.all(color: blue),
+                                borderRadius:
+                                BorderRadius.circular(20),
+                              ),
+                              child: TextFormField(
+                                controller: fatherController,
+                                // keyboardType:TextInputType.number,
+                                keyboardType: TextInputType.text,
+                                decoration: InputDecoration(
+                                  contentPadding: EdgeInsets.only(
+                                      left: 10, bottom: 0, top: 0),
+                                  hintText: "Your Father Name...",
+                                  hintStyle: TextStyle(
+                                      color: Colors.black54),
+                                  border: InputBorder.none,
+                                ),
+                              ),
+                            ),
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.all(6.0),
+                            child: FloatingActionButton(
+                              onPressed: () {
+                                if (fatherController.text.isNotEmpty) {
+                                  selectedIndex.value = selectedIndex.value + 1;
+                                  setState(() {});
+                                } else {
+                                  displayToast(
+                                      "Please Question the Ans.");
+                                }
+
+                                setState(() {});
+                              },
+                              child: Icon(
+                                Icons.send,
+                                color: Colors.white,
+                                size: 22,
+                              ),
+                              backgroundColor: Colors.blue,
+                              elevation: 0,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                ],
+
+
+                if(selectedIndex.value == 7) ...[
                   Gap(100),
                   GestureDetector(
                     onTap: (){
@@ -371,6 +730,7 @@ class PlanChatBotWeb extends HookConsumerWidget {
                     ),
                   ),
                 ],
+
 
                 Gap(80),
 

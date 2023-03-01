@@ -37,10 +37,10 @@ class SplashScreen extends HookConsumerWidget {
               //     MaterialPageRoute(builder: (context) => Beneficiary() ));
                   // MaterialPageRoute(builder: (context) => RecordAVideo(videoRecord: false ) ));
 
-              navigationService.pushAndRemoveUntil(routeKYCChatBotMobile);
+              // navigationService.pushAndRemoveUntil(routeKYCChatBotMobile);
               // navigationService.push(routeBeneficiary,arguments: {navChildName :["data , daya"],navChildCount : 5});
 
-              // navigationService.pushAndRemoveUntil(routeCustomBottomNavigationBar);
+              navigationService.pushAndRemoveUntil(routeCustomBottomNavigationBar);
 
                } else {
               // Navigator.push(context,
@@ -51,6 +51,8 @@ class SplashScreen extends HookConsumerWidget {
             }
           } else {
             // Navigator.push(context, MaterialPageRoute(builder: (context) => PlanChatBotWeb(),));
+            // navigationService.pushAndRemoveUntil(routePlanChatBotWeb);
+
             // navigationService.pushAndRemoveUntil(routePlanChatBotWeb);
 
             navigationService.pushAndRemoveUntil(routeDashboardWeb);

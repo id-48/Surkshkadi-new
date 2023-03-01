@@ -18,6 +18,8 @@ import 'package:surakshakadi/widgets/custom_button.dart';
 import 'package:surakshakadi/widgets/custom_expandable_card.dart';
 import 'package:surakshakadi/widgets/custom_select.dart';
 
+import '../../../data/model/home/chatboat/kyc_chatbot/res_kyc_chatbot.dart';
+
 class KYCChatBotMobile extends StatefulWidget {
   const KYCChatBotMobile({Key? key}) : super(key: key);
 
@@ -2000,9 +2002,14 @@ class _KYCChatBotMobileState extends State<KYCChatBotMobile> {
                               .kycChatBot(context: context, data: kycChatBotData)
                               .then((value) async {
                             if (value!.status == 1) {
+
+                              // ResponseSCB sChatBot = value.response;
+
+                              // setString( prefSecondChatBot,"${sChatBot}" );
+                              setStringList(prefSecondChatBot, ["${value.response}"]);
                               displayToast(value.message.toString());
                               // navigationService.push(routeWillReview);
-                              navigationService.push(routeSecondChatBotInformationEdit,arguments: {navMassageInfo : messages ,navChildNameInfo :  name ,navChildCountInfo: childrenCount});
+                              navigationService.push(routeSecondChatBotInformationEdit,arguments: {navMassageInfo : value.response ,navChildNameInfo :  name ,navChildCountInfo: childrenCount});
 
                              }else {
                               displayToast(value.message.toString());

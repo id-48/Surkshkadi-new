@@ -54,13 +54,13 @@ class Beneficiary extends HookConsumerWidget {
     ];
 
     List<TextEditingController> childController =
-    List.generate(childrenList.length, (i) => useTextEditingController(text: "00"));
+    List.generate(childCount, (i) => useTextEditingController(text: "00"));
 
     List<TextEditingController> reasonChildController =
-    List.generate(childrenList.length, (i) => useTextEditingController());
+    List.generate(childCount, (i) => useTextEditingController());
 
     List<bool> isReason =
-    List.generate(childrenList.length, (i) => false);
+    List.generate(childCount, (i) => false);
 
 
     // onChange: (val){
@@ -179,15 +179,25 @@ class Beneficiary extends HookConsumerWidget {
       );
     }
 
-    // final totalCount = useState<double>(
+    int childPer = 0;
+    print("child data start -->>>> ${childPer}");
+
+
+    for(int i = 0; i< childController.length; i++){
+      childPer += int.parse(childController[i].text.isEmpty ? "00" : childController[i].text );
+    }
+
+    print("child data end -->>>> ${childPer}");
+    final totalCount = useState<int>(
       // "${
-      //         double.parse(fatherController.text.isNotEmpty ? fatherController.text : '00.00')
-      //       + double.parse(motherController.text.isNotEmpty ? motherController.text  : '00.00')
-      //       + double.parse(spouseController.text.isNotEmpty ? spouseController.text  : '00.00')
-      //       + double.parse(child1Controller.text.isNotEmpty ? child1Controller.text  : '00.00')
-      //       + double.parse(child2Controller.text.isNotEmpty ? child2Controller.text  : '00.00')
+              int.parse(fatherController.text.isNotEmpty ? fatherController.text : '00')
+            + int.parse(motherController.text.isNotEmpty ? motherController.text  : '00')
+            + int.parse(spouseController.text.isNotEmpty ? spouseController.text  : '00')
+            // + int.parse(childController[].text.isNotEmpty ? childController.text  : '00')
+            // + int.parse("${                    }")
+
       // }"
-    // );
+    );
 
     return Scaffold(
       appBar: CustomAppBar(
@@ -227,9 +237,7 @@ class Beneficiary extends HookConsumerWidget {
 
                   rowValue(context,
                       keyText: "Father",
-                      valueText: '',
-
-                      // valueText: getString(prefFatherName),
+                      valueText: getString(prefFatherName),
                       controller: fatherController,
                       onTap: (){
                         if(fatherController.text == "00"){
@@ -266,8 +274,7 @@ class Beneficiary extends HookConsumerWidget {
 
                   rowValue(context,
                     keyText: "Mother",
-                    valueText: '',
-                    // valueText: getString(prefMotherName),
+                    valueText: getString(prefMotherName),
                     controller: motherController,
                     onTap: (){
 
@@ -307,8 +314,7 @@ class Beneficiary extends HookConsumerWidget {
 
                   rowValue(context,
                     keyText: "Spouse",
-                    valueText: '',
-                    // valueText: getString(prefMarriedSpouseName),
+                    valueText: getString(prefMarriedSpouseName),
                     controller: spouseController,
                     onTap: (){
 
@@ -349,14 +355,14 @@ class Beneficiary extends HookConsumerWidget {
                     shrinkWrap: true,
                     padding: const EdgeInsets.symmetric(vertical: 10),
                     physics: NeverScrollableScrollPhysics(),
-                    itemCount: childrenList.length,
+                    itemCount: childCount,
                     itemBuilder: (BuildContext context, int index) {
 
                       return  Column(
                         children: [
                           rowValue(context,
-                            keyText: childrenList[index],
-                            valueText: '',
+                            keyText: "Child ${index + 1}",
+                            valueText: '${childName[index]}',
 
                             controller: childController[index],
                             onTap: (){

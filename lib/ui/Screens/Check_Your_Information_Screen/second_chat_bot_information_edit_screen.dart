@@ -14,22 +14,26 @@ import 'package:surakshakadi/utils/color_utils.dart';
 import 'package:surakshakadi/utils/constants/navigation_route_constants.dart';
 import 'package:surakshakadi/utils/constants/navigations_key_constant.dart';
 import 'package:surakshakadi/utils/constants/preference_key_constant.dart';
+import 'package:surakshakadi/utils/dialog_utils.dart';
 import 'package:surakshakadi/utils/preference_utils.dart';
 import 'package:surakshakadi/utils/strings.dart';
 import 'package:surakshakadi/utils/utils.dart';
 import 'package:surakshakadi/widgets/custom_appbar.dart';
 import 'package:surakshakadi/widgets/custom_button.dart';
 
+import '../../../data/model/home/chatboat/kyc_chatbot/res_kyc_chatbot.dart';
+
 class SecondChatBotInformationEditScreen extends HookConsumerWidget {
 
-  List<ChatMessage> messagesInfo = [];
-    int childCountInfo;
-    List<String> childNameInfo;
+ final  ResponseSCB messagesInfo;
+ final int childCountInfo;
+ final List<String> childNameInfo;
    SecondChatBotInformationEditScreen({Key? key ,required this.messagesInfo ,required this.childCountInfo ,required this.childNameInfo}) : super(key: key);
 
   @override
   Widget build(BuildContext context,WidgetRef ref) {
 
+    print("test datt-----");
 
     final popFamilyNewDataSecond = useState<Map<String,dynamic>>({});
     final popMinorNewDataSecond = useState<Map<String,dynamic>>({});
@@ -69,32 +73,7 @@ class SecondChatBotInformationEditScreen extends HookConsumerWidget {
                   GestureDetector(
                     onTap:
 
-
-
-                    // popFamilyNewData.value.isEmpty ?  (){
-                    //   showDialog(
-                    //     barrierDismissible: false,
-                    //     context: context,
-                    //     builder: (BuildContext context) {
-                    //       return  Dialog(
-                    //         insetPadding: EdgeInsets.all(10),
-                    //         shape: RoundedRectangleBorder(
-                    //           borderRadius: BorderRadius.all(
-                    //             Radius.circular(20),
-                    //           ),
-                    //         ),
-                    //         child:
-                    //         FamilyInfoDialog(planChatBotSPData: data.response),
-                    //       );
-                    //     },
-                    //   ).then((value) {
-                    //     popFamilyNewData.value = value;
-                    //
-                    //   });
-                    // } :
-
-
-                    popFamilyNewDataSecond.value.isEmpty ?
+                    // popFamilyNewDataSecond.value.isEmpty ?
                         (){
                           showDialog(
                             barrierDismissible: false,
@@ -113,10 +92,14 @@ class SecondChatBotInformationEditScreen extends HookConsumerWidget {
                             },
                           ).then((value) {
                             popFamilyNewDataSecond.value =  value;
+
+                            print("data mother ----->>>   ${popFamilyNewDataSecond.value["MotherName"]}");
+                            print("data  marital ----->>>   ${popFamilyNewDataSecond.value["MaritalStatus"]}");
+
                           });
 
-                        }
-                        : (){},
+                        },
+                        // : (){},
 
                     child: Row(
                       children: [
@@ -138,7 +121,7 @@ class SecondChatBotInformationEditScreen extends HookConsumerWidget {
 
                   Expanded(flex: 7,
                     child: Text(
-                      " : ${popFamilyNewDataSecond.value.isEmpty ? messagesInfo[3].messageContent[0] : popFamilyNewDataSecond.value["MotherName"]}",
+                      " : ${popFamilyNewDataSecond.value.isEmpty ? messagesInfo.motherName : popFamilyNewDataSecond.value["MotherName"]}",
                       style: TextStyle(fontWeight: FontWeight.w400,fontSize: 12.5),),
                     // child: Text('Pune',style: TextStyle(fontWeight: FontWeight.w400,fontSize: 12.5),),
                   ),
@@ -154,7 +137,7 @@ class SecondChatBotInformationEditScreen extends HookConsumerWidget {
 
                   Expanded(flex: 7,
                     child: Text(
-                      " : ${popFamilyNewDataSecond.value.isEmpty ?  messagesInfo[5].messageContent[0] : popFamilyNewDataSecond.value["MaritalStatus"]}",
+                      " : ${popFamilyNewDataSecond.value.isEmpty ?  messagesInfo.maritalStatus  : popFamilyNewDataSecond.value["MaritalStatus"]}",
                       style: TextStyle(fontWeight: FontWeight.w400,fontSize: 12.5),),
                     // child: Text('Pune',style: TextStyle(fontWeight: FontWeight.w400,fontSize: 12.5),),
                   ),
@@ -163,7 +146,7 @@ class SecondChatBotInformationEditScreen extends HookConsumerWidget {
 
 
 
-              if( "${messagesInfo[5].messageContent[0] == "Unmarried" ?  "" : "${messagesInfo[7].messageContent[0]}"}" != '') ...[
+              // if( "${messagesInfo[5].messageContent[0] == "Unmarried" ?  "" : "${messagesInfo[7].messageContent[0]}"}" != '') ...[
               Gap(5),
               Row(mainAxisAlignment: MainAxisAlignment.start,
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -174,13 +157,13 @@ class SecondChatBotInformationEditScreen extends HookConsumerWidget {
 
                   Expanded(flex: 7,
                     child: Text(
-                      " : ${messagesInfo[5].messageContent[0] == "Unmarried" ?  "" : "${messagesInfo[7].messageContent[0]}"}",
+                      " : ${ popFamilyNewDataSecond.value.isEmpty ?  messagesInfo.spouseName  : popFamilyNewDataSecond.value["SpouseName"]}",
                       style: TextStyle(fontWeight: FontWeight.w400,fontSize: 12.5),),
                     // child: Text('Pune',style: TextStyle(fontWeight: FontWeight.w400,fontSize: 12.5),),
                   ),
                 ],
               ),
-              ],
+              // ],
 
               Gap(5),
               Row(mainAxisAlignment: MainAxisAlignment.start,
@@ -192,7 +175,7 @@ class SecondChatBotInformationEditScreen extends HookConsumerWidget {
 
                   Expanded(flex: 7,
                     child: Text(
-                      " :",
+                      " : ${popFamilyNewDataSecond.value.isEmpty ? messagesInfo.divorceStatus : popFamilyNewDataSecond.value["Separated"]}",
                       style: TextStyle(fontWeight: FontWeight.w400,fontSize: 12.5),),
                     // child: Text('Pune',style: TextStyle(fontWeight: FontWeight.w400,fontSize: 12.5),),
                   ),
@@ -210,31 +193,7 @@ class SecondChatBotInformationEditScreen extends HookConsumerWidget {
                     onTap:
 
 
-
-                    // popFamilyNewData.value.isEmpty ?  (){
-                    //   showDialog(
-                    //     barrierDismissible: false,
-                    //     context: context,
-                    //     builder: (BuildContext context) {
-                    //       return  Dialog(
-                    //         insetPadding: EdgeInsets.all(10),
-                    //         shape: RoundedRectangleBorder(
-                    //           borderRadius: BorderRadius.all(
-                    //             Radius.circular(20),
-                    //           ),
-                    //         ),
-                    //         child:
-                    //         FamilyInfoDialog(planChatBotSPData: data.response),
-                    //       );
-                    //     },
-                    //   ).then((value) {
-                    //     popFamilyNewData.value = value;
-                    //
-                    //   });
-                    // } :
-
-
-                     popMinorNewDataSecond.value.isEmpty ?
+                     // popMinorNewDataSecond.value.isEmpty ?
                          (){
                       print("object");
                       showDialog(
@@ -249,17 +208,20 @@ class SecondChatBotInformationEditScreen extends HookConsumerWidget {
                               ),
                             ),
                             child:
-                            MinorDialogSecond(messagesInfoDialog: messagesInfo ,childCountInfoDialog:  childCountInfo),
+                            MinorDialogSecond(messagesInfoDialog: messagesInfo,),
                           );
                         },
                       ).then((value) {
                         popMinorNewDataSecond.value = value ;
+                        print("data minor mother ----->>>   ${popMinorNewDataSecond.value["GuardianName"]}");
+                        print("data minor  marital ----->>>   ${popMinorNewDataSecond.value["GuardianReal"]}");
+
                       });
 
 
 
-                    }
-                    : (){},
+                    },
+                    // : (){},
 
                     child: Row(
                       children: [
@@ -281,7 +243,7 @@ class SecondChatBotInformationEditScreen extends HookConsumerWidget {
 
                   Expanded(flex: 7,
                     child: Text(
-                      " : ${messagesInfo[5].messageContent[0] == "Unmarried" ? "${messagesInfo[7].messageContent[0]}" : childCountInfo == 0 ? "${messagesInfo[11].messageContent[0]}" : "${messagesInfo[13].messageContent[0]}"}",
+                      " : ${popMinorNewDataSecond.value.isEmpty ?  messagesInfo.minorBeneficiaryName : popMinorNewDataSecond.value["GuardianName"]}",
                       style: TextStyle(fontWeight: FontWeight.w400,fontSize: 12.5),),
                     // child: Text('Pune',style: TextStyle(fontWeight: FontWeight.w400,fontSize: 12.5),),
                   ),
@@ -297,7 +259,7 @@ class SecondChatBotInformationEditScreen extends HookConsumerWidget {
 
                   Expanded(flex: 7,
                     child: Text(
-                      " : ${messagesInfo[5].messageContent[0] == "Unmarried" ? "${messagesInfo[7].messageContent[1]}" : childCountInfo == 0 ? "${messagesInfo[11].messageContent[1]}" : "${messagesInfo[13].messageContent[1]}"}",
+                      " : ${popMinorNewDataSecond.value.isEmpty ? messagesInfo.minorBeneficiaryRelation : popMinorNewDataSecond.value["GuardianReal"]}",
                       style: TextStyle(fontWeight: FontWeight.w400,fontSize: 12.5),),
                     // child: Text('Pune',style: TextStyle(fontWeight: FontWeight.w400,fontSize: 12.5),),
                   ),
@@ -313,7 +275,7 @@ class SecondChatBotInformationEditScreen extends HookConsumerWidget {
 
                   Expanded(flex: 7,
                     child: Text(
-                      " : ${messagesInfo[5].messageContent[0] == "Unmarried" ? "${messagesInfo[7].messageContent[2]}" : childCountInfo == 0 ? "${messagesInfo[11].messageContent[2]}" : "${messagesInfo[13].messageContent[2]}"}",
+                      " : ${popMinorNewDataSecond.value.isEmpty ? messagesInfo.minorBeneficiaryAddress : popMinorNewDataSecond.value["GuardianAdd"]}",
                       style: TextStyle(fontWeight: FontWeight.w400,fontSize: 12.5),),
                     // child: Text('Pune',style: TextStyle(fontWeight: FontWeight.w400,fontSize: 12.5),),
                   ),
@@ -332,26 +294,37 @@ class SecondChatBotInformationEditScreen extends HookConsumerWidget {
 
                   onTap: () async {
 
-                    // ReqUpdateSecondChatBot  kycUpdateData = ReqUpdateSecondChatBot(
-                    //     userId: getString(prefUserID),
-                    //     subRegisterStatus: subRegisterStatus,
-                    //     motherName: motherName,
-                    //     isMotherAlive: isMotherAlive,
-                    //     maritalStatus: maritalStatus,
-                    //     spouseName: spouseName,
-                    //     divorceStatus: divorceStatus,
-                    //     noOfChildren: noOfChildren,
-                    //     childName: childName,
-                    //     childAge: childAge,
-                    //     childGender: childGender,
-                    //     minorBeneficiaryName: minorBeneficiaryName,
-                    //     minorBeneficiaryRelation: minorBeneficiaryRelation,
-                    //     minorBeneficiaryAddress: minorBeneficiaryAddress)
+                    ReqUpdateSecondChatBot  kycUpdateData = ReqUpdateSecondChatBot(
+                        userId: getString(prefUserID),
+                        subRegisterStatus: messagesInfo.subRegisterStatus,
+                        motherName: "${popFamilyNewDataSecond.value.isEmpty ? messagesInfo.motherName : popFamilyNewDataSecond.value["MotherName"]}",
+                        isMotherAlive: messagesInfo.isMotherAlive,
+                        maritalStatus: "${popFamilyNewDataSecond.value.isEmpty ? messagesInfo.maritalStatus : popFamilyNewDataSecond.value["MaritalStatus"]}",
+                        spouseName: "${popFamilyNewDataSecond.value.isEmpty ? messagesInfo.spouseName : popFamilyNewDataSecond.value["SpouseName"]}",
+                        divorceStatus: "${popFamilyNewDataSecond.value.isEmpty ? messagesInfo.divorceStatus : popFamilyNewDataSecond.value["Separated"]}",
+                        noOfChildren: messagesInfo.noOfChildren,
+                        childName: messagesInfo.childName,
+                        childAge: messagesInfo.childAge,
+                        childGender: messagesInfo.childGender,
+                        minorBeneficiaryName:  "${popMinorNewDataSecond.value.isEmpty ? messagesInfo.minorBeneficiaryName : popMinorNewDataSecond.value["GuardianName"]}",
+                        minorBeneficiaryRelation: "${popMinorNewDataSecond.value.isEmpty ? messagesInfo.minorBeneficiaryRelation : popMinorNewDataSecond.value["GuardianReal"]}",
+                        minorBeneficiaryAddress: "${popMinorNewDataSecond.value.isEmpty ? messagesInfo.minorBeneficiaryAddress : popMinorNewDataSecond.value["GuardianAdd"]}",
 
-                    // await  ref.read(UpdateSecondChatBoatProvider.notifier).postUpdateSecondChatBot(context: context, data: kycUpdateData)
+                    );
+
+                    await  ref.read(updateSecondChatBoatProvider.notifier)
+                           .postUpdateSecondChatBot(context: context, data: kycUpdateData)
+                        .then((value) {
+                             if(value?.status == 1){
+                               displayToast("${value?.message}");
+                               navigationService.push(routeBeneficiary ,arguments: {navChildCount:   childCountInfo  ,navChildName: childNameInfo});
+
+                             }else {
+                               displayToast("${value?.message}");
+                             }
+                    });
 
 
-                    navigationService.push(routeBeneficiary ,arguments: {navChildCount:   childCountInfo  ,navChildName: childNameInfo});
 
 
 

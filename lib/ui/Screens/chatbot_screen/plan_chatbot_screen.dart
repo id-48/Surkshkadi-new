@@ -189,8 +189,6 @@ class _PlanChatBotMobileState extends State<PlanChatBotMobile> {
                 return Column(
                   children: [
                     ...messages[index].messageContent.map((e) {
-                      print(
-                          "index test --->> ${messages[index].messageContent.indexOf(e)}");
 
                       return Container(
                         padding: EdgeInsets.only(
