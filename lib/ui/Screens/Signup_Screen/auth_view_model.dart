@@ -6,7 +6,9 @@ import 'package:surakshakadi/data/model/auth/verify_otp/req_verify_otp.dart';
 import 'package:surakshakadi/data/model/auth/verify_otp/res_verify_otp.dart';
 import 'package:surakshakadi/repository/auth_respository.dart';
 import 'package:surakshakadi/utils/constants/loading_dialog.dart';
+import 'package:surakshakadi/utils/constants/preference_key_constant.dart';
 import 'package:surakshakadi/utils/dialog_utils.dart';
+import 'package:surakshakadi/utils/preference_utils.dart';
 
 final authProvider = StateNotifierProvider<AuthViewModel, AsyncValue<ResOtp>>(
     (ref) => AuthViewModel((ref.read)));
@@ -47,6 +49,18 @@ class AuthViewModel extends StateNotifier<AsyncValue<ResOtp>> {
     final result = await repositery.verifyOtp(data);
     return result.when(success: (result) async {
       hideLoadingDialog(context: context);
+
+      setString(prefIsSubscribe, result.response.isSubscribed.toString());
+      setString(prefFirstChatBotStatus, result.response.firstChatBotStatus.toString());
+      setString(prefPaymentStatus, result.response.paymentStatus.toString());
+      setString(prefKycStatus, result.response.kycStatus.toString());
+      setString(prefSecondChatBotStatus, result.response.secondChatBotStatus.toString());
+      setString(prefBeneficiaryStatus, result.response.beneficiaryStatus.toString());
+      setString(prefWillDocumentStatus, result.response.willDocumentStatus.toString());
+      setString(prefWillReviewStatus, result.response.willReviewStatus.toString());
+      setString(prefAssetDetailsStatus, result.response.assetDetailsStatus.toString());
+      setString(prefReferCode, result.response.referCode.toString());
+
       return result;
 
     },

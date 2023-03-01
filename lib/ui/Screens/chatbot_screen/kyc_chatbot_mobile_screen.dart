@@ -2003,12 +2003,7 @@ class _KYCChatBotMobileState extends State<KYCChatBotMobile> {
                               .then((value) async {
                             if (value!.status == 1) {
 
-                              // ResponseSCB sChatBot = value.response;
-
-                              // setString( prefSecondChatBot,"${sChatBot}" );
-                              setStringList(prefSecondChatBot, ["${value.response}"]);
                               displayToast(value.message.toString());
-                              // navigationService.push(routeWillReview);
                               navigationService.push(routeSecondChatBotInformationEdit,arguments: {navMassageInfo : value.response ,navChildNameInfo :  name ,navChildCountInfo: childrenCount});
 
                              }else {

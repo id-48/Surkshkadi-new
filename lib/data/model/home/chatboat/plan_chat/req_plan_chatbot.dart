@@ -20,13 +20,15 @@ class ReqPlanChatBot {
   String covidDose;
   String nicotineProducts;
   String planAssets;
+  String paymentAmount;
+  String transactionId;
+  String transactionStatus;
 
 
   ReqPlanChatBot(
       {
         required this.userId,
         required this.planId,
-        // required this.processStatus,
         required this.name,
         required this.email,
         required this.wpNo,
@@ -44,7 +46,10 @@ class ReqPlanChatBot {
         required this.nomineeRelation,
         required this.covidDose,
         required this.nicotineProducts,
-        required this.planAssets
+        required this.planAssets,
+        required this.paymentAmount,
+        required this.transactionId,
+        required this.transactionStatus
       });
 
   Map<String, dynamic> toJson() =>
@@ -69,7 +74,10 @@ class ReqPlanChatBot {
         'nominee_relation': nomineeRelation,
         'covid_dose': covidDose,
         'nicotine_products': nicotineProducts,
-        'plan_assets': planAssets
+        'plan_assets': planAssets,
+        'payment_amount': paymentAmount,
+        'transaction_id': transactionId,
+        'transaction_status': transactionStatus
 
       };
 }

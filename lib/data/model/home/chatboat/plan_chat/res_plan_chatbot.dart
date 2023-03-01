@@ -44,5 +44,3 @@ class Response {
     "subscription_id": subscriptionId,
   };
 }
-
-

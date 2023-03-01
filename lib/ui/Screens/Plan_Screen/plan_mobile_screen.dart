@@ -11,6 +11,7 @@ import 'package:surakshakadi/utils/color_utils.dart';
 import 'package:surakshakadi/utils/constants/app_constant.dart';
 import 'package:surakshakadi/utils/constants/navigations_key_constant.dart';
 import 'package:surakshakadi/utils/constants/preference_key_constant.dart';
+import 'package:surakshakadi/utils/dialog_utils.dart';
 import 'package:surakshakadi/utils/image_utils.dart';
 import 'package:surakshakadi/utils/preference_utils.dart';
 import 'package:surakshakadi/utils/strings.dart';
@@ -30,7 +31,7 @@ class PlanScreen extends HookConsumerWidget {
     final isSelected = useState<int>(planIndex ?? 1);
     // final isSelectedPlanId = useState<int>(1);
     // final isPlanIndex = useState<int>(0);
-    final isCheck = useState<bool>( planType ?? true);
+    final isCheck = useState<bool>(planType ?? true);
 
     final planController = ref.watch(dashboardProvider);
 
@@ -164,9 +165,11 @@ class PlanScreen extends HookConsumerWidget {
                               // "Yearly",
                               style: TextStyle(
                                   fontSize: 14,
-                                  fontWeight: FontWeight.w700,fontFamily: fontFamily,
+                                  fontWeight: FontWeight.w700,
+                                  fontFamily: fontFamily,
                                   color: isCheck.value == true
-                                      ? navyblue : textColor),
+                                      ? navyblue
+                                      : textColor),
                             ),
                           ),
                         ),
@@ -180,15 +183,17 @@ class PlanScreen extends HookConsumerWidget {
                             isCheck.value = false;
                           },
                           child: Padding(
-                            padding: EdgeInsets.symmetric(vertical: 6, horizontal: 12),
-
+                            padding: EdgeInsets.symmetric(
+                                vertical: 6, horizontal: 12),
                             child: Text(
                               "${data.response.plans[0].type}",
                               style: TextStyle(
                                   fontSize: 14,
-                                  fontWeight: FontWeight.w700,fontFamily: fontFamily,
+                                  fontWeight: FontWeight.w700,
+                                  fontFamily: fontFamily,
                                   color: isCheck.value == false
-                                      ? navyblue : textColor),
+                                      ? navyblue
+                                      : textColor),
                             ),
                           ),
                         ),
@@ -723,7 +728,6 @@ class PlanScreen extends HookConsumerWidget {
                     //   ),
                     // ),
 
-
                     ///    plan mobile
                     Center(
                       child: CustomButton(
@@ -731,36 +735,74 @@ class PlanScreen extends HookConsumerWidget {
                         padding:
                             EdgeInsets.symmetric(horizontal: 30, vertical: 10),
                         onTap: () {
+                          print("isSubscribe:738 ${getBool(prefIsSubscribe)}");
+
+                            if(getString(prefFirstChatBotStatus) == '0'){
+
+                              var planId = isCheck.value == true
+                                  ? "${data.response.plans[1].plans[isSelected.value].planId}"
+                                  : "${data.response.plans[0].plans[isSelected.value].planId}";
+
+                              var planPrice = isCheck.value == true
+                                  ? "${data.response.plans[1].plans[isSelected.value].offerPrice}"
+                                  : "${data.response.plans[0].plans[isSelected.value].offerPrice}";
+
+                              var planTitle = isCheck.value == true
+                                  ? "${data.response.plans[1].plans[isSelected.value].planTitle}"
+                                  : "${data.response.plans[0].plans[isSelected.value].planTitle}";
+
+                              List<PlanModule> planSelected =
+                              isCheck.value == true
+                                  ? data.response.plans[1]
+                                  .plans[isSelected.value].planModules
+                                  : data.response.plans[0]
+                                  .plans[isSelected.value].planModules;
+
+                              setString(prefPlanIdMobile, planId);
+                              setString(prefPlanPrice, planPrice);
+                              setString(prefPlanTitle, planTitle);
+
+                              navigationService.push(routePlanChatBotMobile,
+                                  arguments: {navSelectedPlanCB: planSelected});
 
 
-                          if (getBool(prefSubChatBotCompletedMobile) == true){
+                            }else if(getString(prefKycStatus) == '0') {
+                              navigationService.push(routeKycScreen);
 
+                            }else if(getString(prefSecondChatBotStatus) == "0"){
+                              navigationService.push(routeKYCChatBotMobile);
+
+                            }else if(getString(prefBeneficiaryStatus) == "0"){
+                              navigationService.push(routeBeneficiary);
+
+                            }else if(getString(prefWillDocumentStatus) == "0") {
+                              navigationService.push(routeWillReview);
+
+                            }else if(getString(prefWillReviewStatus) == "0") {
+                              navigationService.push(routeWillReviewIssueDetail);
+
+                            }else if(getString(prefAssetDetailsStatus) == "0") {
+                              navigationService.push(routeAssetScreen);
+
+                            }else {
+                              displayToast("Your All Details Done");
+                            }
+
+
+
+
+
+
+
+                            if (getBool(prefSubChatBotCompletedMobile) ==
+                                true) {
                               navigationService.push(routeCheckYourInformation);
+                            } else {
 
-                          }else {
 
-                            var planId = isCheck.value == true
-                                ? "${data.response.plans[1].plans[isSelected.value].planId}"
-                                : "${data.response.plans[0].plans[isSelected.value].planId}";
 
-                            var planPrice = isCheck.value == true
-                                ? "${data.response.plans[1].plans[isSelected.value].offerPrice}"
-                                : "${data.response.plans[0].plans[isSelected.value].offerPrice}";
+                            }
 
-                            var planTitle = isCheck.value == true
-                                ? "${data.response.plans[1].plans[isSelected.value].planTitle}"
-                                : "${data.response.plans[0].plans[isSelected.value].planTitle}";
-
-                            List<PlanModule> planSelected = isCheck.value == true
-                                ? data.response.plans[1].plans[isSelected.value].planModules
-                                : data.response.plans[0].plans[isSelected.value].planModules;
-
-                            setString(prefPlanIdMobile, planId);
-                            setString(prefPlanPrice, planPrice);
-                            setString(prefPlanTitle, planTitle);
-
-                          navigationService.push(routePlanChatBotMobile, arguments: {navSelectedPlanCB: planSelected});
-                        }
                         },
                       ),
                     ),
@@ -1046,8 +1088,7 @@ CustomRow(context,
                         ),
                       ],
                     ),
-                    child: Text(
-                        planData[0].planModules[index].specialityStatus ,
+                    child: Text(planData[0].planModules[index].specialityStatus,
                         style: TextStyle(
                           fontSize: 20,
                           color: selecetdIndex == 0
@@ -1075,18 +1116,17 @@ CustomRow(context,
                         ),
                       ],
                     ),
-                    child: Text(
-                        planData[1].planModules[index].specialityStatus,
+                    child: Text(planData[1].planModules[index].specialityStatus,
                         style: TextStyle(
                           fontSize: 20,
                           color: selecetdIndex == 1
                               ? green
                               : planData[1]
-                              .planModules[index]
-                              .specialityStatus ==
-                              "X"
-                              ? jerrygreen
-                              : green,
+                                          .planModules[index]
+                                          .specialityStatus ==
+                                      "X"
+                                  ? jerrygreen
+                                  : green,
                         )),
                   ),
                 ),
@@ -1105,18 +1145,17 @@ CustomRow(context,
                         ),
                       ],
                     ),
-                    child: Text(
-                        planData[2].planModules[index].specialityStatus,
+                    child: Text(planData[2].planModules[index].specialityStatus,
                         style: TextStyle(
                           fontSize: 20,
                           color: selecetdIndex == 2
                               ? green
                               : planData[2]
-                              .planModules[index]
-                              .specialityStatus ==
-                              "X"
-                              ? jerrygreen
-                              : green,
+                                          .planModules[index]
+                                          .specialityStatus ==
+                                      "X"
+                                  ? jerrygreen
+                                  : green,
                         )),
                   ),
                 ),
@@ -1139,7 +1178,7 @@ displayDialog(
     builder: (_) => AlertDialog(
       insetPadding:
           const EdgeInsets.only(left: 85, right: 85, top: 0, bottom: 0),
-      contentPadding:  EdgeInsets.symmetric(horizontal: 0, vertical: 0),
+      contentPadding: EdgeInsets.symmetric(horizontal: 0, vertical: 0),
       shape: const RoundedRectangleBorder(
           borderRadius: BorderRadius.all(Radius.circular(5.0))),
       content: Builder(

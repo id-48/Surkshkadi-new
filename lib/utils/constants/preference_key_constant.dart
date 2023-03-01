@@ -14,6 +14,16 @@ const String prefRazorpayId = 'prefRazorpayId';
 const String prefCompanyName = 'prefCompanyName';
 const String prefClientType= 'prefClientType';
 const String prefChatBot= 'prefChatBot';
+const String prefIsSubscribe= 'is_subscribe';
+const String prefFirstChatBotStatus= 'prefFirstChatBotStatus';
+const String prefPaymentStatus= 'prefPaymentStatus';
+const String prefKycStatus= 'prefKycStatus';
+const String prefSecondChatBotStatus= 'prefSecondChatBotStatus';
+const String prefBeneficiaryStatus= 'prefBeneficiaryStatus';
+const String prefWillDocumentStatus= 'prefWillDocumentStatus';
+const String prefWillReviewStatus= 'prefWillReviewStatus';
+const String prefAssetDetailsStatus= 'prefAssetDetailsStatus';
+const String prefReferCode= 'prefReferCode';
 
 const String prefPlanIdMobile = 'prefPlanId PlanScreen Mobile';
 const String prefSingleUAId = 'pref Single user Assets Id';
