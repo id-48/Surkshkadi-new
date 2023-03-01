@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:gap/gap.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -32,11 +33,13 @@ class PlanChatBotWeb extends HookConsumerWidget {
     final formattedDate = useState<String>("");
     final inCome = useState<String>("");
     final occupation = useState<String>("");
-    // String inCome = "";
-    // String occupation = "";
+    final wpNo = useState<bool>(false);
+    final nominee = useState<bool>(false);
+
     int incomeIndex = -1;
     int occupationIndex = -1;
 
+    final wpNoController = useTextEditingController();
     final nameController = useTextEditingController();
     final emailController = useTextEditingController();
     final fatherController = useTextEditingController();
@@ -115,7 +118,7 @@ class PlanChatBotWeb extends HookConsumerWidget {
                   ],
                 ),
 
-                Gap(60),
+                Gap(50),
 
                 if(selectedIndex.value > 0) ...[
                 Align(
@@ -143,15 +146,14 @@ class PlanChatBotWeb extends HookConsumerWidget {
                 ],
 
 
-
                 if(selectedIndex.value == 0)...[
-                  Gap(60),
+                  Gap(50),
                   longText(context, queText: "Hey Avinash, I am SurakshaKadi between you and your loved ones. I’ll get you options in no time for your loved ones to hassle-free transfer the assets in your absence."),
                   Gap(13),
                   longText(context, queText: "I appreciate you are taking proactive steps for the welfare of your family."),
                   Gap(13),
                   shortText(context,boxWidth: 300 ,queText: "Is it your WhatsApp number?"),
-                  Gap(40),
+                  Gap(20),
                   Container(
                     width: 600,
                     // color: redFroly,
@@ -161,6 +163,7 @@ class PlanChatBotWeb extends HookConsumerWidget {
                       children: [
                         InkWell(
                           onTap: (){
+                            wpNo.value = false;
                             selectedIndex.value = selectedIndex.value + 1 ;
                           },
                           child: Container(
@@ -191,7 +194,8 @@ class PlanChatBotWeb extends HookConsumerWidget {
 
                         InkWell(
                           onTap: (){
-                            selectedIndex.value = selectedIndex.value + 1 ;
+                            wpNo.value = true;
+                            setState((){});
                           },
                           child: Container(
                             width: 180,
@@ -220,88 +224,115 @@ class PlanChatBotWeb extends HookConsumerWidget {
                         ),
                       ],
                     ),
-                  )
-                ],
+                  ),
 
+                  if(wpNo.value == true) ...[
+                    Gap(20),
 
-                if(selectedIndex.value == 1) ...[
-                  Gap(100),
-                  longText(context, queText: "Which gender do you most associate with?"),
-                  Gap(40),
-                  Container(
-                    width: 600,
-                    // color: redFroly,
-                    margin: EdgeInsets.only(left: 20,right: 20),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: [
-                        InkWell(
-                          onTap: (){
-                            selectedIndex.value = selectedIndex.value + 1 ;
-                          },
-                          child: Container(
-                            width: 180,
-                            padding: EdgeInsets.symmetric(vertical: 10),
-                            alignment: Alignment.center,
-                            decoration: BoxDecoration(
-                              gradient: LinearGradient(
-                                  colors: [
-                                    Color(0xff3C87E0).withOpacity(0.9),
-                                    Color(0xff0E3563).withOpacity(0.6),
-                                  ],
-                                  begin: Alignment.topCenter,
-                                  end: Alignment.bottomCenter),
-                              boxShadow: [
-                                BoxShadow(
-                                  color: Colors.grey,
-                                  // spreadRadius: 1,
-                                  blurRadius: 1,
-                                  offset: const Offset(0, 1),
-                                )
-                              ],
-                              borderRadius: BorderRadius.circular(10),
-                            ),
-                            child: Text("Male",style: TextStyle(color: white),),
-                          ),
-                        ),
-
-                        InkWell(
-                          onTap: (){
-                            selectedIndex.value = selectedIndex.value + 1 ;
-
-                          },
-                          child: Container(
-                            width: 180,
-                            alignment: Alignment.center,
-                            padding: EdgeInsets.symmetric(vertical: 10),
-                            decoration: BoxDecoration(
-                              gradient: LinearGradient(
-                                  colors: [
-                                    Color(0xff3C87E0).withOpacity(0.9),
-                                    Color(0xff0E3563).withOpacity(0.6),
-                                  ],
-                                  begin: Alignment.topCenter,
-                                  end: Alignment.bottomCenter),
-                              boxShadow: [
-                                BoxShadow(
-                                  color: Colors.grey,
-                                  // spreadRadius: 1,
-                                  blurRadius: 1,
-                                  offset: const Offset(0, 1),
-                                )
-                              ],
-                              borderRadius: BorderRadius.circular(10),
-                            ),
-                            child: Text("Female",style: TextStyle(color: white),),
-                          ),
-                        ),
-                      ],
+                    textFieldButton(context,
+                        hintText: "Enter Your WhatsApp Number...",
+                        controller: wpNoController,
+                        maxLength: 10,
+                        keyBoardType: TextInputType.numberWithOptions(decimal: true),
+                        textInputFormatter: [ FilteringTextInputFormatter.allow(RegExp(r'^\d+'))],
+                        onPressed: (){
+                          if (wpNoController.text.isNotEmpty) {
+                            if(wpNoController.text.length == 10){
+                               selectedIndex.value = selectedIndex.value + 1;
+                               setState(() {});
+                            }else {
+                               displayToast("Please Enter 10 digit No.");
+                            }
+                          } else {
+                            displayToast("Please Enter WhatsApp No.");
+                          }
+                          setState(() {});
+                        }
                     ),
-                  )
+                  ],
+
                 ],
+
+                ///    selectedIndex === 1
+
+                // if(selectedIndex.value == 1) ...[
+                //   Gap(60),
+                //   longText(context, queText: "Which gender do you most associate with?"),
+                //   Gap(40),
+                //   Container(
+                //     width: 600,
+                //     // color: redFroly,
+                //     margin: EdgeInsets.only(left: 20,right: 20),
+                //     child: Row(
+                //       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                //       children: [
+                //         InkWell(
+                //           onTap: (){
+                //             selectedIndex.value = selectedIndex.value + 1 ;
+                //           },
+                //           child: Container(
+                //             width: 180,
+                //             padding: EdgeInsets.symmetric(vertical: 10),
+                //             alignment: Alignment.center,
+                //             decoration: BoxDecoration(
+                //               gradient: LinearGradient(
+                //                   colors: [
+                //                     Color(0xff3C87E0).withOpacity(0.9),
+                //                     Color(0xff0E3563).withOpacity(0.6),
+                //                   ],
+                //                   begin: Alignment.topCenter,
+                //                   end: Alignment.bottomCenter),
+                //               boxShadow: [
+                //                 BoxShadow(
+                //                   color: Colors.grey,
+                //                   // spreadRadius: 1,
+                //                   blurRadius: 1,
+                //                   offset: const Offset(0, 1),
+                //                 )
+                //               ],
+                //               borderRadius: BorderRadius.circular(10),
+                //             ),
+                //             child: Text("Male",style: TextStyle(color: white),),
+                //           ),
+                //         ),
+                //
+                //         InkWell(
+                //           onTap: (){
+                //             selectedIndex.value = selectedIndex.value + 1 ;
+                //
+                //           },
+                //           child: Container(
+                //             width: 180,
+                //             alignment: Alignment.center,
+                //             padding: EdgeInsets.symmetric(vertical: 10),
+                //             decoration: BoxDecoration(
+                //               gradient: LinearGradient(
+                //                   colors: [
+                //                     Color(0xff3C87E0).withOpacity(0.9),
+                //                     Color(0xff0E3563).withOpacity(0.6),
+                //                   ],
+                //                   begin: Alignment.topCenter,
+                //                   end: Alignment.bottomCenter),
+                //               boxShadow: [
+                //                 BoxShadow(
+                //                   color: Colors.grey,
+                //                   // spreadRadius: 1,
+                //                   blurRadius: 1,
+                //                   offset: const Offset(0, 1),
+                //                 )
+                //               ],
+                //               borderRadius: BorderRadius.circular(10),
+                //             ),
+                //             child: Text("Female",style: TextStyle(color: white),),
+                //           ),
+                //         ),
+                //       ],
+                //     ),
+                //   )
+                // ],
 
                 if(selectedIndex.value == 2) ...[
-                  Gap(100),
+                  Gap(60),
                   longText(context, queText: "Please share your birth date. (DD/MM/YYYY)"),
                   Gap(40),
                   Container(
@@ -365,7 +396,7 @@ class PlanChatBotWeb extends HookConsumerWidget {
 
 
                 if(selectedIndex.value == 3) ...[
-                  Gap(100),
+                  Gap(60),
                   longText(context, queText: "Please share your Annual Income and Occupation."),
                   Gap(40),
                   Container(
@@ -489,215 +520,98 @@ class PlanChatBotWeb extends HookConsumerWidget {
 
 
                 if(selectedIndex.value == 4) ...[
-                  Gap(100),
+                  Gap(60),
                   longText(context, queText: "Please share your Full Name."),
                   Gap(40),
-                  Container(
-                    margin: EdgeInsets.symmetric(horizontal: 20),
 
-                    // color: redFroly,
-                    width: 600,
-                    // alignment: Alignment.center,
-                    child:  Container(
-                      // margin: EdgeInsets.only(left: 10, right: 10, bottom: 10),
-                      height: 60,
-                      width: double.infinity,
-                      // color: Colors.white,
-                      child: Row(
-                        children: <Widget>[
-                          Expanded(
-                            child: Container(
-                              decoration: BoxDecoration(
-                                color: Colors.white,
-                                border: Border.all(color: blue),
-                                borderRadius:
-                                BorderRadius.circular(20),
-                              ),
-                              child: TextFormField(
-                                controller: nameController,
-                                // keyboardType:TextInputType.number,
-                                keyboardType: TextInputType.text,
-                                decoration: InputDecoration(
-                                  contentPadding: EdgeInsets.only(
-                                      left: 10, bottom: 0, top: 0),
-                                  hintText: "Enter Your Name...",
-                                  hintStyle: TextStyle(
-                                      color: Colors.black54),
-                                  border: InputBorder.none,
-                                ),
-                              ),
-                            ),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.all(6.0),
-                            child: FloatingActionButton(
-                              onPressed: () {
-                                if (nameController.text.isNotEmpty) {
-                                  selectedIndex.value = selectedIndex.value + 1;
-                                  setState(() {});
-                                } else {
-                                  displayToast(
-                                      "Please Question the Ans.");
-                                }
+                  textFieldButton(context,
+                      hintText: "Enter Your Name...",
+                      controller: nameController,
+                      onPressed: (){
+                        if (nameController.text.isNotEmpty) {
+                          selectedIndex.value = selectedIndex.value + 1;
+                          setState(() {});
+                        } else {
+                          displayToast("Please Enter Your Name");
+                        }
 
-                                setState(() {});
-                              },
-                              child: Icon(
-                                Icons.send,
-                                color: Colors.white,
-                                size: 22,
-                              ),
-                              backgroundColor: Colors.blue,
-                              elevation: 0,
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
+                        setState(() {});
+                      }
                   ),
+
                 ],
 
                 if(selectedIndex.value == 5) ...[
-                  Gap(100),
+                  Gap(60),
                   longText(context, queText: "Please share your Email."),
                   Gap(40),
-                  Container(
-                    margin: EdgeInsets.symmetric(horizontal: 20),
 
-                    // color: redFroly,
-                    width: 600,
-                    // alignment: Alignment.center,
-                    child:  Container(
-                      // margin: EdgeInsets.only(left: 10, right: 10, bottom: 10),
-                      height: 60,
-                      width: double.infinity,
-                      // color: Colors.white,
-                      child: Row(
-                        children: <Widget>[
-                          Expanded(
-                            child: Container(
-                              decoration: BoxDecoration(
-                                color: Colors.white,
-                                border: Border.all(color: blue),
-                                borderRadius:
-                                BorderRadius.circular(20),
-                              ),
-                              child: TextFormField(
-                                controller: emailController,
-                                // keyboardType:TextInputType.number,
-                                keyboardType: TextInputType.text,
-                                decoration: InputDecoration(
-                                  contentPadding: EdgeInsets.only(
-                                      left: 10, bottom: 0, top: 0),
-                                  hintText: "Enter Your Email...",
-                                  hintStyle: TextStyle(
-                                      color: Colors.black54),
-                                  border: InputBorder.none,
-                                ),
-                              ),
-                            ),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.all(6.0),
-                            child: FloatingActionButton(
-                              onPressed: () {
-                                if (emailController.text.isNotEmpty) {
-                                  selectedIndex.value = selectedIndex.value + 1;
-                                  setState(() {});
-                                } else {
-                                  displayToast(
-                                      "Please Question the Ans.");
-                                }
+                  textFieldButton(context,
+                      hintText: "Enter Your Email...",
+                      controller: emailController,
+                      onPressed: (){
+                        if (emailController.text.isNotEmpty) {
+                          selectedIndex.value = selectedIndex.value + 1;
+                          setState(() {});
+                        } else {
+                          displayToast("Please Enter Your Email.");
+                        }
+                        setState(() {});
+                      }
 
-                                setState(() {});
-                              },
-                              child: Icon(
-                                Icons.send,
-                                color: Colors.white,
-                                size: 22,
-                              ),
-                              backgroundColor: Colors.blue,
-                              elevation: 0,
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
                   ),
+
                 ],
 
 
                 if(selectedIndex.value == 6) ...[
-                  Gap(100),
+                  Gap(60),
                   longText(context, queText: "Please share the Full Name of your Father."),
                   Gap(40),
-                  Container(
-                    margin: EdgeInsets.symmetric(horizontal: 20),
-
-                    // color: redFroly,
-                    width: 600,
-                    // alignment: Alignment.center,
-                    child:  Container(
-                      // margin: EdgeInsets.only(left: 10, right: 10, bottom: 10),
-                      height: 60,
-                      width: double.infinity,
-                      // color: Colors.white,
-                      child: Row(
-                        children: <Widget>[
-                          Expanded(
-                            child: Container(
-                              decoration: BoxDecoration(
-                                color: Colors.white,
-                                border: Border.all(color: blue),
-                                borderRadius:
-                                BorderRadius.circular(20),
-                              ),
-                              child: TextFormField(
-                                controller: fatherController,
-                                // keyboardType:TextInputType.number,
-                                keyboardType: TextInputType.text,
-                                decoration: InputDecoration(
-                                  contentPadding: EdgeInsets.only(
-                                      left: 10, bottom: 0, top: 0),
-                                  hintText: "Your Father Name...",
-                                  hintStyle: TextStyle(
-                                      color: Colors.black54),
-                                  border: InputBorder.none,
-                                ),
-                              ),
-                            ),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.all(6.0),
-                            child: FloatingActionButton(
-                              onPressed: () {
-                                if (fatherController.text.isNotEmpty) {
-                                  selectedIndex.value = selectedIndex.value + 1;
-                                  setState(() {});
-                                } else {
-                                  displayToast(
-                                      "Please Question the Ans.");
-                                }
-
-                                setState(() {});
-                              },
-                              child: Icon(
-                                Icons.send,
-                                color: Colors.white,
-                                size: 22,
-                              ),
-                              backgroundColor: Colors.blue,
-                              elevation: 0,
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
+                  textFieldButton(context,
+                      hintText: "Your Father Name...",
+                      controller: fatherController,
+                      onPressed: (){
+                        if (fatherController.text.isNotEmpty) {
+                          selectedIndex.value = selectedIndex.value + 1;
+                          setState(() {});
+                        } else {
+                          displayToast("Please Enter Your Father Name.");
+                        }
+                        setState(() {});
+                      }
                   ),
                 ],
 
 
-                if(selectedIndex.value == 7) ...[
+
+                if(selectedIndex.value == 1) ...[
+                  Gap(60),
+                  longText(context, queText: "Please share the Full Name of the Nominee."),
+                  Gap(40),
+                  textFieldButton(context,
+                      hintText: "Nominee Name...",
+                      controller: fatherController,
+                      onPressed: (){
+                        if (fatherController.text.isNotEmpty) {
+
+
+                          // selectedIndex.value = selectedIndex.value + 1;
+                          setState(() {});
+                        } else {
+                          displayToast("Please Enter Nominee Name");
+                        }
+                        setState(() {});
+                      }
+                  ),
+                ],
+
+
+
+
+
+
+                if(selectedIndex.value == 12) ...[
                   Gap(100),
                   GestureDetector(
                     onTap: (){
@@ -786,6 +700,131 @@ class PlanChatBotWeb extends HookConsumerWidget {
   }
 }
 
+//Container(
+//                     margin: EdgeInsets.symmetric(horizontal: 20),
+//
+//                     // color: redFroly,
+//                     width: 600,
+//                     // alignment: Alignment.center,
+//                     child:  Container(
+//                       // margin: EdgeInsets.only(left: 10, right: 10, bottom: 10),
+//                       height: 60,
+//                       width: double.infinity,
+//                       // color: Colors.white,
+//                       child: Row(
+//                         children: <Widget>[
+//                           Expanded(
+//                             child: Container(
+//                               decoration: BoxDecoration(
+//                                 color: Colors.white,
+//                                 border: Border.all(color: blue),
+//                                 borderRadius:
+//                                 BorderRadius.circular(20),
+//                               ),
+//                               child: TextFormField(
+//                                 controller: nameController,
+//                                 // keyboardType:TextInputType.number,
+//                                 keyboardType: TextInputType.text,
+//                                 decoration: InputDecoration(
+//                                   contentPadding: EdgeInsets.only(
+//                                       left: 10, bottom: 0, top: 0),
+//                                   hintText: "Enter Your Name...",
+//                                   hintStyle: TextStyle(
+//                                       color: Colors.black54),
+//                                   border: InputBorder.none,
+//                                 ),
+//                               ),
+//                             ),
+//                           ),
+//                           Padding(
+//                             padding: const EdgeInsets.all(6.0),
+//                             child: FloatingActionButton(
+//                               onPressed: () {
+//                                 if (nameController.text.isNotEmpty) {
+//                                   selectedIndex.value = selectedIndex.value + 1;
+//                                   setState(() {});
+//                                 } else {
+//                                   displayToast(
+//                                       "Please Question the Ans.");
+//                                 }
+//
+//                                 setState(() {});
+//                               },
+//                               child: Icon(
+//                                 Icons.send,
+//                                 color: Colors.white,
+//                                 size: 22,
+//                               ),
+//                               backgroundColor: Colors.blue,
+//                               elevation: 0,
+//                             ),
+//                           ),
+//                         ],
+//                       ),
+//                     ),
+//                   ),
+
+
+textFieldButton (context, {
+  required String hintText,
+  required TextEditingController controller,
+  TextInputType? keyBoardType,
+  List<TextInputFormatter>? textInputFormatter,
+  int? maxLength,
+  required void Function() onPressed,
+}
+    ){
+  return Container(
+    margin: EdgeInsets.symmetric(horizontal: 20),
+    width: 600,
+    child:  Container(
+      height: 60,
+      width: double.infinity,
+      child: Row(
+        children: [
+          Expanded(
+            child: Container(
+              decoration: BoxDecoration(
+                color: Colors.white,
+                border: Border.all(color: blue),
+                borderRadius:
+                BorderRadius.circular(20),
+              ),
+              child: TextFormField(
+                controller: controller,
+                keyboardType: keyBoardType ?? TextInputType.text,
+                inputFormatters: textInputFormatter ?? [],
+                maxLength: maxLength,
+                decoration: InputDecoration(
+                  counterText: "",
+                  contentPadding: EdgeInsets.only(
+                      left: 10, bottom: 0, top: 0),
+                  hintText: hintText,
+                  hintStyle: TextStyle(
+                      color: Colors.black54),
+                  border: InputBorder.none,
+                ),
+              ),
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.all(6.0),
+            child: FloatingActionButton(
+              onPressed: onPressed,
+              child: Icon(
+                Icons.send,
+                color: Colors.white,
+                size: 22,
+              ),
+              backgroundColor: Colors.blue,
+              elevation: 0,
+            ),
+          ),
+        ],
+      ),
+    ),
+  );
+}
 
 shortText(context,{
   required  String queText,
