@@ -33,6 +33,17 @@ class Response {
   Response({
     required this.banners,
     required this.video,
+
+    required this.isSubscribed,
+    required this.firstChatBotStatus,
+    required this.paymentStatus,
+    required this.kycStatus,
+    required this.secondChatBotStatus,
+    required this.beneficiaryStatus,
+    required this.willDocumentStatus,
+    required this.willReviewStatus,
+    required this.assetDetailsStatus,
+
     required this.specialities,
     required this.plans,
     required this.testimonials,
@@ -41,6 +52,17 @@ class Response {
 
   List<Banner> banners;
   String video;
+
+  String isSubscribed;
+  String firstChatBotStatus;
+  String paymentStatus;
+  String kycStatus;
+  String secondChatBotStatus;
+  String beneficiaryStatus;
+  String willDocumentStatus;
+  String willReviewStatus;
+  String assetDetailsStatus;
+
   List<ResponseSpeciality> specialities;
   List<ResponsePlan> plans;
   List<Testimonial> testimonials;
@@ -49,7 +71,19 @@ class Response {
   factory Response.fromJson(Map<String, dynamic> json) => Response(
         banners:
             List<Banner>.from(json["banners"].map((x) => Banner.fromJson(x))),
+
         video: json["video"],
+
+    isSubscribed: json["is_subscribed"],
+    firstChatBotStatus: json["first_chat_bot_status"],
+    paymentStatus: json["payment_status"],
+    kycStatus: json["kyc_status"],
+    secondChatBotStatus: json["second_chat_bot_status"],
+    beneficiaryStatus: json["beneficiary_status"],
+    willDocumentStatus: json["will_document_status"],
+    willReviewStatus: json["will_review_status"],
+    assetDetailsStatus: json["asset_details_status"],
+
         specialities: List<ResponseSpeciality>.from(
             json["specialities"].map((x) => ResponseSpeciality.fromJson(x))),
         plans: List<ResponsePlan>.from(
@@ -62,6 +96,19 @@ class Response {
   Map<String, dynamic> toJson() => {
         "banners": List<dynamic>.from(banners.map((x) => x.toJson())),
         "video": video,
+
+        // "will_review_video": ,
+
+    "is_subscribed": isSubscribed,
+    "first_chat_bot_status": firstChatBotStatus,
+    "payment_status": paymentStatus,
+    "kyc_status": kycStatus,
+    "second_chat_bot_status": secondChatBotStatus,
+    "beneficiary_status": beneficiaryStatus,
+    "will_document_status": willDocumentStatus,
+    "will_review_status": willReviewStatus,
+    "asset_details_status": assetDetailsStatus,
+
         "specialities": List<dynamic>.from(specialities.map((x) => x.toJson())),
         "plans": List<dynamic>.from(plans.map((x) => x.toJson())),
         "testimonials": List<dynamic>.from(testimonials.map((x) => x.toJson())),

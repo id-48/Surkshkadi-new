@@ -585,26 +585,26 @@ class PlanChatBotWeb extends HookConsumerWidget {
 
 
 
-                if(selectedIndex.value == 1) ...[
-                  Gap(60),
-                  longText(context, queText: "Please share the Full Name of the Nominee."),
-                  Gap(40),
-                  textFieldButton(context,
-                      hintText: "Nominee Name...",
-                      controller: fatherController,
-                      onPressed: (){
-                        if (fatherController.text.isNotEmpty) {
-
-
-                          // selectedIndex.value = selectedIndex.value + 1;
-                          setState(() {});
-                        } else {
-                          displayToast("Please Enter Nominee Name");
-                        }
-                        setState(() {});
-                      }
-                  ),
-                ],
+                // if(selectedIndex.value == 1) ...[
+                //   Gap(60),
+                //   longText(context, queText: "Please share the Full Name of the Nominee."),
+                //   Gap(40),
+                //   textFieldButton(context,
+                //       hintText: "Nominee Name...",
+                //       controller: fatherController,
+                //       onPressed: (){
+                //         if (fatherController.text.isNotEmpty) {
+                //
+                //
+                //           // selectedIndex.value = selectedIndex.value + 1;
+                //           setState(() {});
+                //         } else {
+                //           displayToast("Please Enter Nominee Name");
+                //         }
+                //         setState(() {});
+                //       }
+                //   ),
+                // ],
 
 
 

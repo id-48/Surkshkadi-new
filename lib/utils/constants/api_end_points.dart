@@ -1,3 +1,6 @@
+import 'package:surakshakadi/utils/constants/preference_key_constant.dart';
+import 'package:surakshakadi/utils/preference_utils.dart';
+
 ///  ----   Api Base Url ----
 
 const String apiBaseUrl = "https://backends.surakshakadi.com/";    //  baseUrl in Surakshakadi all Api
@@ -12,7 +15,7 @@ const String secretKey = "UqT0niybFOITDfiTXbNdcu9g59WJAoBRL5cnZ75hT8eWWWYAughOb8
 
 const String apiOtp = "user-login";
 const String apiVerifyOtp = "verify-otp";
-const String apiDashboard = "dashboard-details";
+      String apiDashboard = "dashboard-details/${getString(prefUserID)}";
 const String apiPlanChatBot = "plan-subscription";
 const String apiSingleChooseAssets = "store-single-user-assets";
 const String apiStoreCPdetails = "store-channel-partner-details";

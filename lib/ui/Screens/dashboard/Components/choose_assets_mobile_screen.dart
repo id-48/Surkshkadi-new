@@ -9,11 +9,8 @@ import 'package:surakshakadi/data/model/home/dashboard/components/single_user_as
 import 'package:surakshakadi/data/model/home/dashboard/payment/plan_chat_sub_payment/req_plan_chat_sub_payment.dart';
 import 'package:surakshakadi/data/model/home/dashboard/res_dashboard.dart';
 import 'package:surakshakadi/di/locator.dart';
-
 import 'package:surakshakadi/ui/Screens/chatbot_screen/plan_chatbot_screen.dart';
-import 'package:surakshakadi/ui/Screens/dashboard/Components/payment_view_modal.dart';
 import 'package:surakshakadi/utils/color_utils.dart';
-import 'package:surakshakadi/utils/constants/app_constant.dart';
 import 'package:surakshakadi/utils/constants/loading_dialog.dart';
 import 'package:surakshakadi/utils/constants/navigation_route_constants.dart';
 import 'package:surakshakadi/utils/constants/navigations_key_constant.dart';
@@ -23,496 +20,8 @@ import 'package:surakshakadi/utils/image_utils.dart';
 import 'package:surakshakadi/utils/preference_utils.dart';
 import 'package:surakshakadi/utils/strings.dart';
 import 'package:surakshakadi/utils/utils.dart';
-import 'package:surakshakadi/widgets/custom_toast.dart';
 
 import '../../chatbot_screen/planchat_view_modal.dart';
-
-///    StateFulWidget ---------->>>>>>>>>>>>>>>>> code
-// class ChooseAssetMobile extends StatefulWidget {
-//   final List<Specialities> dashboardResponse;
-//    String? specificAssets;
-//    List<ChatMessage>? messagesList;
-//
-//   ChooseAssetMobile({Key? key,this.specificAssets,required this.dashboardResponse, this.messagesList})
-//       : super(key: key);
-//
-//   @override
-//   State<ChooseAssetMobile> createState() => _ChooseAssetMobileState();
-// }
-//
-// class _ChooseAssetMobileState extends State<ChooseAssetMobile> {
-//   int selectedindex = 0;
-//   int totalLength = 0;
-//   double spacing = 8;
-//   double runSpacing = 8;
-//   List<Specialities> dashboardHeader = [];
-//   List<Specialities> dashboardBody = [];
-//   List<String> checkedIDs = [];
-//  double amountTotal = 0;
-//
-//   Razorpay? _razorpay;
-//
-//   void _handlePaymentSuccess(PaymentSuccessResponse response) async {
-//
-//
-//
-//     // ReqPlanChatSubPayment PlanChatSubPayment = ReqPlanChatSubPayment(
-//     //     paymentAmount: "${getString(prefPlanPrice)}",
-//     //     subscriptionId: "${getString(prefSingleUAId)}",
-//     //     transactionId: response.paymentId,
-//     //     transactionStatus: "Success"
-//     // );
-//     //
-//     //  print("data plan Payment --${PlanChatSubPayment.toJson()}");
-//     //
-//     // ref.read(planChatSubPaymentProvider.notifier)
-//     //     .planChatSubPayment(context: context, data: PlanChatSubPayment)
-//     //     .then((value) {
-//     //   if(value!.status == 1){
-//     //     displayToast(value.message);
-//         navigationService.push(routeConfirmationPlan);
-//       // }
-//     // } );
-//
-//
-//   }
-//
-//   void _handlePaymentError(PaymentFailureResponse response) {
-//     ToastUtils.showCustomToast(
-//         context, 'ERROR' + response.message!, 'warning');
-//   }
-//
-//   void _handleExternalWallet(ExternalWalletResponse response) {
-//     ToastUtils.showCustomToast(
-//         context, 'SUCCESS' + response.walletName!, 'SUCCES');
-//   }
-//
-//   void openCheckout(String amount) async {
-//     String razorpayKey = await getString(prefRazorpayId);
-//     print('razorPay 95 ${razorpayKey}');
-//     print('razorPay 95  --${amount}');
-//     var options = {
-//       'key': 'rzp_test_NNbwJ9tmM0fbxj',
-//       'amount': amount,
-//       'name': 'Surakshakadi',
-//       'description': 'Payment',
-//       'prefill': {
-//         'contact': '+91 7585982534',
-//         'email': 'surakshakadi@gmail.com'
-//       },
-//       'external': {
-//         'wallets': ['paytm']
-//       }
-//     };
-//
-//     try {
-//       _razorpay!.open(options);
-//     } catch (e) {
-//       debugPrint("$e");
-//     }
-//   }
-//
-//
-//   @override
-//   void initState() {
-//     super.initState();
-//     dashboardHeader.addAll(widget.dashboardResponse);
-//     // dashboardBody.addAll(widget.dashboardResponse);
-//     //
-//     // for(int h = 0; h < dashboardBody.length; h++) {
-//     //   dashboardBody[h].specialities = [];
-//     //   for (int i = 0; i < dashboardBody[h].specialities!.length; i++) {
-//     //     dashboardBody[h].specialities![i].checkValue = [];
-//     //     for (int j = 0; j < dashboardBody[h].specialities![i].specilityTitle!.length ; j++) {
-//     //       dashboardBody[h].specialities![i].checkValue?.add(false);
-//     //     }
-//     //   }
-//     // }
-//     _razorpay = Razorpay();
-//     _razorpay!.on(Razorpay.EVENT_PAYMENT_SUCCESS, _handlePaymentSuccess);
-//     _razorpay!.on(Razorpay.EVENT_PAYMENT_ERROR, _handlePaymentError);
-//     _razorpay!.on(Razorpay.EVENT_EXTERNAL_WALLET, _handleExternalWallet);
-//
-//   }
-//
-//
-//
-//
-//
-//
-//
-//   @override
-//   Widget build(BuildContext context) {
-//
-//
-//     return Scaffold(
-//       appBar: AppBar(
-//         elevation: 1,
-//         backgroundColor: gerywhite,
-//         title: Text(
-//           chooseYourAssets,
-//           style: TextStyle(
-//               fontSize: 16,
-//               fontWeight: FontWeight.w600,
-//               color: black,
-//               letterSpacing: 1),
-//         ),
-//         leading: GestureDetector(
-//           onTap: () {
-//             Navigator.pop(context);
-//           },
-//           child: Icon(
-//             Icons.arrow_back_ios, color: black, // add custom icons also
-//           ),
-//         ),
-//       ),
-//       body: Container(
-//         padding: EdgeInsets.only(left: 15, right: 15, top: 7),
-//         child: Container(
-//           child: SingleChildScrollView(
-//             scrollDirection: Axis.vertical,
-//             child: Column(
-//               crossAxisAlignment: CrossAxisAlignment.start,
-//               children: [
-//                 Text(
-//                   pleaseSelectTheAssets,
-//                   style: TextStyle(
-//                     fontSize: 15, fontWeight: FontWeight.w500,
-//                     // fontFamily: 'Nunito Sans'
-//                   ),
-//                 ),
-//                 SizedBox(
-//                   height: Utils.getHeight(context) * 0.022,
-//                 ),
-//
-//                 Container(
-//                   width: Utils.getWidth(context),
-//                   child: Wrap(
-//                     runSpacing: runSpacing,
-//                     spacing: spacing,
-//                     alignment: WrapAlignment.center,
-//                     children: List.generate(dashboardHeader.length, (index) {
-//                       return InkWell(
-//                         onTap: () {
-//                           if (index != selectedindex) {
-//                             selectedindex = index;
-//                             dashboardBody.clear();
-//                             dashboardBody.insert(
-//                                 0, widget.dashboardResponse[index]);
-//                             dashboardBody.addAll(widget.dashboardResponse);
-//                             dashboardBody.removeAt(index + 1);
-//                             setState(() {});
-//                           }
-//                         },
-//                         child: Container(
-//                           alignment: Alignment.center,
-//                           height: 45,
-//                           width: Utils.getWidth(context) / 5,
-//                           decoration: BoxDecoration(
-//                             color: selectedindex == index ? lightoreng : white,
-//                             border: Border.all(
-//                                 color:
-//                                     selectedindex == index ? lightoreng : oreng,
-//                                 width: 1.0),
-//                             borderRadius: BorderRadius.circular(5),
-//                           ),
-//                           child: Text(dashboardHeader[index].category ?? "",
-//                               style: TextStyle(
-//                                   fontSize: 11.5,
-//                                   // fontFamily: 'Nunito Sans',
-//                                   color:
-//                                       selectedindex == index ? white : black),
-//                               textAlign: TextAlign.center),
-//                         ),
-//                       );
-//                     }),
-//                   ),
-//                 ),
-//
-//                 SizedBox(
-//                   height: 10,
-//                 ),
-//
-//                 Container(
-//                   height: Utils.getHeight(context) * 0.7,
-//                   padding: EdgeInsets.only(bottom: 100),
-//                   child: ListView.builder(
-//                       shrinkWrap: true,
-//                       scrollDirection: Axis.vertical,
-//                       itemCount:  widget.dashboardResponse.length,
-//                       itemBuilder: (context, index) {
-//                         var data = widget.dashboardResponse[index];
-//                         return Container(
-//                           // height: 180,
-//                           // width: w,
-//                           margin: EdgeInsets.only(bottom: 15),
-//                           padding: const EdgeInsets.all(
-//                             12,
-//                           ),
-//                           decoration: BoxDecoration(
-//                             border: Border.all(
-//                               color: borderblue,
-//                               width: 1.2,
-//                             ),
-//                             borderRadius: BorderRadius.circular(7),
-//                           ),
-//
-//                           child: Column(
-//                             crossAxisAlignment: CrossAxisAlignment.start,
-//                             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-//                             children: [
-//                               Padding(
-//                                 padding: const EdgeInsets.only(bottom: 5),
-//                                 child: Text(
-//                                   data.category ?? "",
-//                                   style: TextStyle(
-//                                       fontWeight: FontWeight.bold,
-//                                       color: blue,
-//                                       letterSpacing: 0.5,
-//                                       fontSize: 15),
-//                                 ),
-//                               ),
-//                               ...data.specialities!.map((e) {
-//                                 return GestureDetector(
-//                                   onTap: () {
-//                                     setState(() {
-//                                       e.checkValue = e.checkValue == true ? false : true ;
-//                                           // !dashboardBody[index].checkValue![data.dataDsc!.indexOf(e)];
-//                                       totalLength = 0;
-//                                     });
-//
-//
-//                                     // for (int i = 0; i < dashboardHeader.length; i++) {
-//                                     //
-//                                     //   for (int j = 0; j < dashboardHeader[i].specialities!.length; j++) {
-//
-//                                         if (e.checkValue == true) {
-//                                           // print("fals1 : ${e.specilityId.toString()}");
-//                                           // totalLength++;
-//                                           checkedIDs.add(e.specilityId.toString());
-//
-//                                           print("Checked IDs-- ${checkedIDs}");
-//
-//                                         }else{
-//                                           // print("fals : ${e.specilityId.toString()}");
-//                                           checkedIDs.remove(e.specilityId.toString());
-//                                         // print("Checked IDs11-- ${checkedIDs}");
-//                                         }
-//                                     //    break;
-//                                     //   }
-//                                     //   break;
-//                                     // }
-//
-//                                     /// old
-//                                     // for (int i = 0;
-//                                     //     i < dashboardBody.length;
-//                                     //     i++) {
-//                                     //   for (int j = 0;
-//                                     //       j < dashboardBody[i].dataDsc!.length;
-//                                     //       j++) {
-//                                     //     if (dashboardBody[i].checkValue![j] ==
-//                                     //         true) {
-//                                     //       totalLength++;
-//                                     //     }
-//                                     //   }
-//                                     // }
-//                                   },
-//                                   child: Row(
-//                                     children: [
-//                                       e.checkValue == true
-//                                           ? Icon(
-//                                               Icons.check_box,
-//                                               color: blue,
-//                                             )
-//                                           : Icon(
-//                                               Icons.check_box_outline_blank,
-//                                               color: blue,
-//                                             ),
-//                                       Gap(5),
-//                                       Text(
-//                                         '${e.specilityTitle}',
-//                                         style: TextStyle(fontSize: 16),
-//                                       )
-//                                     ],
-//                                   ),
-//                                 );
-//                               }).toList(),
-//                             ],
-//                           ),
-//                         );
-//                        },
-//                       ),
-//                 )
-//
-//               ],
-//             ),
-//           ),
-//         ),
-//       ),
-//       bottomNavigationBar: Container(
-//         height: Utils.getHeight(context) * 0.08,
-//         decoration: BoxDecoration(
-//           color: Colors.white,
-//           boxShadow: [
-//             BoxShadow(
-//               color: Color(0xff037EEE).withOpacity(0.15),
-//               offset: const Offset(0.0, -3),
-//               blurRadius: 0.7,
-//               spreadRadius: 0.5,
-//             ), //BoxShadow
-//           ],
-//         ),
-//         child: Row(
-//           children: [
-//             Expanded(
-//                 flex: 1,
-//                 child: Container(
-//                     alignment: Alignment.center,
-//                     child: RichText(
-//                       text: TextSpan(
-//                         children: <TextSpan>[
-//                           TextSpan(
-//                               // text: "00",
-//                               text: "${checkedIDs.length}",
-//                               style: TextStyle(
-//                                   fontWeight: FontWeight.bold,
-//                                   fontSize: 15,
-//                                   color: blue)),
-//                           TextSpan(
-//                               text: itemsSelectedInYourAssets,
-//                               style: TextStyle(
-//                                   color: jerrygreen,
-//                                   fontSize: 14,
-//                                   letterSpacing: 0.5)),
-//                         ],
-//                       ),
-//                     ))),
-//             Expanded(
-//                 flex: 1,
-//                 child: HookConsumer(
-//                   builder: (context, ref, child) {
-//                     return InkWell(
-//                       onTap: () async {
-//
-//                         if(checkedIDs.isNotEmpty) {
-//                           if (widget.specificAssets == "SpecificAssets") {
-//                             displayDialog(context, ref, checkedIDs);
-//                           } else {
-//                             print( "fatherName: ${widget.messagesList![21].messageContent[0]}");
-//                             ReqPlanChatBot dataPlanChatBot = ReqPlanChatBot(
-//
-//                               userId: getString(prefUserID),
-//                               planId: getString(prefPlanIdMobile),
-//                               processStatus: "${widget.messagesList![1].messageContent[0]}",
-//                               gender: "${widget.messagesList![3].messageContent[0]}",
-//                               name: "${widget.messagesList![5].messageContent[0]}",
-//                               dob: "${widget.messagesList![7].messageContent[0]}",
-//                               address: "${widget.messagesList![9].messageContent[0]}",
-//                               state: "${widget.messagesList![11].messageContent[0]}",
-//                               city: "${widget.messagesList![11].messageContent[1]}",
-//                               postCode: "${widget.messagesList![13].messageContent[0]}",
-//                               wpNo: "${widget.messagesList![15].messageContent[0]}",
-//                               email: "${widget.messagesList![17].messageContent[0]}",
-//                               annualIncome: "${widget.messagesList![19].messageContent[0]}",
-//                               occupation: "${widget.messagesList![19].messageContent[1]}",
-//                               fatherName: "${widget.messagesList![21].messageContent[0]}",
-//                               nominee: "${widget.messagesList![23].messageContent[0]}",
-//                               nomineeRelation: "${widget.messagesList![25].messageContent[0]}",
-//                               covidDose: "${widget.messagesList![27].messageContent[0]}",
-//                               nicotineProducts: "${widget.messagesList![29].messageContent[0]}",
-//                               planAssets: "${checkedIDs}"
-//                                   .replaceAll("[", "")
-//                                   .replaceAll("]", ""),
-//                             );
-//
-//
-//                             print("Hello yash  --->> ${dataPlanChatBot.toJson()}");
-//                             await ref
-//                                 .read(planChatProvider.notifier)
-//                                 .planChatBotSub(
-//                                 context: context, data: dataPlanChatBot)
-//                                 .then((value) async {
-//                               print("Hello yashu");
-//                               if (value!.status == 1) {
-//                                 print("Hello yashu patel");
-//
-//                                 displayToast(value.message.toString());
-//                                print("pricer  -- ${getString(prefPlanPrice)}");
-//
-//                                 setString(prefSubscriptionId, "${value.response.subscriptionId}");
-//
-//                                 amountTotal = double.parse(getString(prefPlanPrice).toString()) * 100 ;
-//                                 print("total ___>>>>${amountTotal.toString()}");
-//
-//                                 openCheckout('${amountTotal.toString()}');
-//                               }
-//                             });
-//
-//
-//                             // navigationService.push(routeConfirmationPlan);
-//
-//                             //   Map<String, dynamic> arrData = {};
-//                             //
-//                             //   for (int i = 0; i < dashboardBody.length; i++) {
-//                             //     arrData.addAll({'${dashboardBody[i].title}': []});
-//                             //     for (int j = 0;
-//                             //         j < dashboardBody[i].dataDsc!.length;
-//                             //         j++) {
-//                             //       if (dashboardBody[i].checkValue![j] == true) {
-//                             //         arrData[dashboardBody[i].title]
-//                             //             .add(dashboardBody[i].dataDsc![j]);
-//                             //       }
-//                             //     }
-//                             //   }
-//                             //   ReqChooseAssets data = ReqChooseAssets.fromJson(arrData);
-//                             //
-//                             //   ref.read(dashboardProvider.notifier).getSingleUserAssets(
-//                             //       context: context, data: data,).then((value) {
-//                             //         if(value!.status == true){
-//                             //           // openCheckout(getString(prefSingleAssetsPrice));
-//                             //           openCheckout('100');
-//                             //         }
-//                             //   });
-//
-//                           }
-//                         }else{
-//                           displayToast("Please Select in one Assets");
-//                         }
-//
-//
-//                       },
-//                       child: Container(
-//                         height: Utils.getHeight(context) * 0.08,
-//                         alignment: Alignment.center,
-//                         decoration: BoxDecoration(
-//                           gradient: LinearGradient(
-//                             colors: [
-//                               Color(0xff3C87E0).withOpacity(0.9),
-//                               Color(0xff0E3563).withOpacity(0.9)
-//                             ],
-//                             begin: Alignment.topCenter,
-//                             end: Alignment.bottomCenter,
-//                           ),
-//                         ),
-//                         child: Text(
-//                           continuee,
-//                           style: TextStyle(
-//                               color: white,
-//                               fontWeight: FontWeight.w600,
-//                               letterSpacing: 0.5),
-//                         ),
-//                       ),
-//                     );
-//                   },
-//                 )),
-//           ],
-//         ),
-//       ),
-//     );
-//   }
-//
-//
-// }
 
 ///    Hook Widget ---------->>>>>>>>>>>>>>>>> code
 
@@ -548,16 +57,12 @@ class ChooseAssetMobile extends HookConsumerWidget {
     Razorpay? _razorpay;
 
     void _handlePaymentSuccess(PaymentSuccessResponse response) async {
-      print("yashtotal333333 ___>>>>");
-      print("transaction id --->> ${response.paymentId}");
-      print("transaction id --->> ${response.orderId}");
-      print("mobile number ----->>> ${getString(prefLoginNumber)}");
+
 
       String wpNumber = messagesList![3].messageContent[0] == "No"
           ? messagesList![3].messageContent[1]
           : "${getString((prefLoginNumber))}";
-      print("mobile WatsApp number ----->>> ${wpNumber}");
-      print("fatherName: ${messagesList![21].messageContent[0]}");
+
       ReqPlanChatBot dataPlanChatBot = ReqPlanChatBot(
         userId: getString(prefUserID),
         planId: getString(prefPlanIdMobile),
@@ -586,16 +91,15 @@ class ChooseAssetMobile extends HookConsumerWidget {
         transactionStatus: 'Success',
       );
 
-      print("Hello yash  --->> ${dataPlanChatBot.toJson()}");
       await ref
           .read(planChatProvider.notifier)
           .planChatBotSub(context: context, data: dataPlanChatBot)
           .then((value) async {
-        print("tatastd---->> ${value?.status}");
+
         if (value!.status == 1) {
           displayToast(value.message.toString());
-          // setString(prefSubscriptionId,
-          //     "${value.response.subscriptionId}");
+          setString(prefSubscriptionId,
+              "${value.response.subscriptionId}");
           // setBool(prefSubChatBotCompletedMobile, true);
 
           navigationService.push(routeConfirmationPlan);
@@ -616,7 +120,6 @@ class ChooseAssetMobile extends HookConsumerWidget {
     }
 
     void openCheckout(String amount) async {
-      print("yashtotal11111 ___>>>>");
       // String razorpayKey = await getString(prefRazorpayId);
       // print('razorPay 95 ${razorpayKey}');
       print('razorPay 95  --${int.parse(amount) * 100}');
@@ -635,7 +138,6 @@ class ChooseAssetMobile extends HookConsumerWidget {
       };
 
       try {
-        print("yashtotal2222 ___>>>>");
         _razorpay?.open(options);
       } catch (e) {
         debugPrint("$e");
@@ -643,7 +145,6 @@ class ChooseAssetMobile extends HookConsumerWidget {
     }
 
     useEffect(() {
-      print("yashupatel ___>>>>");
 
       if (selectedPlan.isNotEmpty) {
         selectedPlan.forEach((element) {
@@ -936,68 +437,63 @@ class ChooseAssetMobile extends HookConsumerWidget {
                               context, ref, checkedIDs.value, false);
                         } else {
                           if (getBool(prefSubChatBotCompletedMobile) == false) {
-                            // print("mobile number ----->>> ${getString(prefLoginNumber)}");
-                            //
-                            // String  wpNumber = messagesList![3].messageContent[0] == "No" ? messagesList![3].messageContent[1] : "${getString((prefLoginNumber))}";
-                            // print("mobile WatsApp number ----->>> ${wpNumber}");
-                            // print(
-                            //     "fatherName: ${messagesList![21].messageContent[0]}");
-                            // ReqPlanChatBot dataPlanChatBot = ReqPlanChatBot(
-                            //   userId: getString(prefUserID),
-                            //   planId: getString(prefPlanIdMobile),
-                            //   wpNo: wpNumber,
-                            //   gender: "${messagesList![3].messageContent[0]}",
-                            //   dob: "${messagesList![5].messageContent[0]}",
-                            //   annualIncome:"${messagesList![7].messageContent[0]}",
-                            //   occupation: "${messagesList![7].messageContent[1]}",
-                            //   name: "${messagesList![9].messageContent[0]}",
-                            //   email: "${messagesList![11].messageContent[0]}",
-                            //   fatherName:"${messagesList![13].messageContent[0]}",
-                            //   isFatherAlive: 'Yes',
-                            //   nominee: "${messagesList![15].messageContent[0]}",
-                            //   nomineeRelation: "${messagesList![15].messageContent[1]}",
-                            //   postCode:"${messagesList![17].messageContent[0]}",
-                            //   address:"${messagesList![19].messageContent[0]},${messagesList![19].messageContent[1]}",
-                            //   state: "${messagesList![19].messageContent[2]}",
-                            //   city: "${messagesList![19].messageContent[3]}",
-                            //   covidDose:"${messagesList![21].messageContent[0]}",
-                            //   nicotineProducts: "${messagesList![23].messageContent[0]}",
-                            //   planAssets: "${checkedIDs.value}"
-                            //       .replaceAll("[", "")
-                            //       .replaceAll("]", ""),
-                            //   paymentAmount: '',
-                            //   transactionId: '',
-                            //   transactionStatus: '',
-                            // );
-                            //
-                            // print(
-                            //     "Hello yash  --->> ${dataPlanChatBot.toJson()}");
-                            // await ref.read(planChatProvider.notifier)
-                            //     .planChatBotSub(context: context, data: dataPlanChatBot)
-                            //     .then((value) async {
-                            //
-                            //   if (value!.status == 1) {
-                            //     displayToast(value.message.toString());
-                            //     setString(prefSubscriptionId,
-                            //         "${value.response.subscriptionId}");
-                            //     setBool(prefSubChatBotCompletedMobile, true);
-                            //     // amountTotal.value = double.parse(
-                            //     //     getString(prefPlanPrice).toString()) *
-                            //     //     100;
-                            //
-                            //     navigationService.push(routeConfirmationPlan);
-                            //
-                            //     // openCheckout('22000');
-                            //     // openCheckout('${amountTotal.value.toString()}');
-                            //
-                            //   }else {
-                            //     displayToast(value.message.toString());
-                            //     hideLoadingDialog(context: context);
-                            //
-                            //   }
-                            // });
 
-                            openCheckout('22000');
+                            String  wpNumber = messagesList![3].messageContent[0] == "No" ? messagesList![3].messageContent[1] : "${getString((prefLoginNumber))}";
+
+                            ReqPlanChatBot dataPlanChatBot = ReqPlanChatBot(
+                              userId: getString(prefUserID),
+                              planId: getString(prefPlanIdMobile),
+                              wpNo: wpNumber,
+                              gender: "${messagesList![3].messageContent[0]}",
+                              dob: "${messagesList![5].messageContent[0]}",
+                              annualIncome:"${messagesList![7].messageContent[0]}",
+                              occupation: "${messagesList![7].messageContent[1]}",
+                              name: "${messagesList![9].messageContent[0]}",
+                              email: "${messagesList![11].messageContent[0]}",
+                              fatherName:"${messagesList![13].messageContent[0]}",
+                              isFatherAlive: 'Yes',
+                              nominee: "${messagesList![15].messageContent[0]}",
+                              nomineeRelation: "${messagesList![15].messageContent[1]}",
+                              postCode:"${messagesList![17].messageContent[0]}",
+                              address:"${messagesList![19].messageContent[0]},${messagesList![19].messageContent[1]}",
+                              state: "${messagesList![19].messageContent[2]}",
+                              city: "${messagesList![19].messageContent[3]}",
+                              covidDose:"${messagesList![21].messageContent[0]}",
+                              nicotineProducts: "${messagesList![23].messageContent[0]}",
+                              planAssets: "${checkedIDs.value}"
+                                  .replaceAll("[", "")
+                                  .replaceAll("]", ""),
+                              paymentAmount: '250500',
+                              transactionId: 'gvcgjh',
+                              transactionStatus: 'Success',
+                            );
+
+                            await ref.read(planChatProvider.notifier)
+                                .planChatBotSub(context: context, data: dataPlanChatBot)
+                                .then((value) async {
+
+                              if (value!.status == 1) {
+                                displayToast(value.message.toString());
+                                setString(prefSubscriptionId,
+                                    "${value.response.subscriptionId}");
+                                // setBool(prefSubChatBotCompletedMobile, true);
+                                // amountTotal.value = double.parse(
+                                //     getString(prefPlanPrice).toString()) *
+                                //     100;
+
+                                navigationService.push(routeConfirmationPlan);
+
+                                // openCheckout('22000');
+                                // openCheckout('${amountTotal.value.toString()}');
+
+                              }else {
+                                displayToast(value.message.toString());
+                                hideLoadingDialog(context: context);
+
+                              }
+                            });
+
+                            // openCheckout('22000');
                           } else {
                             navigationService.push(routeConfirmationPlan);
                           }

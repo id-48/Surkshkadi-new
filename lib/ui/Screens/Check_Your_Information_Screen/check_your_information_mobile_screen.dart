@@ -33,12 +33,14 @@ class CheckYourInformation extends HookConsumerWidget {
     final popContactNewData = useState<Map<String,dynamic>>({});
     final popProfessionalNewData = useState<Map<String,dynamic>>({});
 
+    print("texttasdgd -->> ${getString(prefSubscriptionId)}");
+
     useEffect(() {
 
       ReqPlanChatSubPayment PlanChatSubPayment = ReqPlanChatSubPayment(
-          paymentAmount: "${getString(prefPlanPrice)}",
+          paymentAmount: "250500",
           subscriptionId: "${getString(prefSubscriptionId)}",
-          transactionId: "testId",
+          transactionId: "gvcgjh",
           // transactionId: getString(prefPaymentId),
           transactionStatus: "Success"
       );

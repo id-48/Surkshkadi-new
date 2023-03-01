@@ -50,15 +50,6 @@ class AuthViewModel extends StateNotifier<AsyncValue<ResOtp>> {
     return result.when(success: (result) async {
       hideLoadingDialog(context: context);
 
-      setString(prefIsSubscribe, result.response.isSubscribed.toString());
-      setString(prefFirstChatBotStatus, result.response.firstChatBotStatus.toString());
-      setString(prefPaymentStatus, result.response.paymentStatus.toString());
-      setString(prefKycStatus, result.response.kycStatus.toString());
-      setString(prefSecondChatBotStatus, result.response.secondChatBotStatus.toString());
-      setString(prefBeneficiaryStatus, result.response.beneficiaryStatus.toString());
-      setString(prefWillDocumentStatus, result.response.willDocumentStatus.toString());
-      setString(prefWillReviewStatus, result.response.willReviewStatus.toString());
-      setString(prefAssetDetailsStatus, result.response.assetDetailsStatus.toString());
       setString(prefReferCode, result.response.referCode.toString());
 
       return result;
