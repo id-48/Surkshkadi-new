@@ -735,7 +735,6 @@ class PlanScreen extends HookConsumerWidget {
                         padding:
                             EdgeInsets.symmetric(horizontal: 30, vertical: 10),
                         onTap: () {
-                          print("isSubscribe:738 ${getBool(prefIsSubscribe)}");
 
                             if(getString(prefFirstChatBotStatus) == '0'){
 
