@@ -785,7 +785,7 @@ class PlanScreen extends HookConsumerWidget {
                               navigationService.push(routeAssetScreen);
 
                             }else {
-                              displayToast("Your All Details Done");
+                              displayToast("You have already subscribe");
                             }
 
 
