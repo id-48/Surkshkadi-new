@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:surakshakadi/data/model/home/chatboat/plan_chat/res_plan_chatbot.dart';
 import 'package:surakshakadi/di/locator.dart';
 import 'package:surakshakadi/utils/color_utils.dart';
 import 'package:surakshakadi/utils/constants/navigation_route_constants.dart';
+import 'package:surakshakadi/utils/constants/navigations_key_constant.dart';
 import 'package:surakshakadi/utils/constants/preference_key_constant.dart';
 import 'package:surakshakadi/utils/image_utils.dart';
 import 'package:surakshakadi/utils/preference_utils.dart';
@@ -12,7 +14,8 @@ import 'package:surakshakadi/widgets/custom_appbar.dart';
 
 
 class ConfirmationPlanScreen extends HookConsumerWidget {
-  const ConfirmationPlanScreen({Key? key}) : super(key: key);
+  final ResPlanChatBot chatBotData;
+  const ConfirmationPlanScreen({Key? key,required this.chatBotData}) : super(key: key);
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -96,7 +99,7 @@ class ConfirmationPlanScreen extends HookConsumerWidget {
             InkWell(
               onTap: () {
 
-                navigationService.push(routeCheckYourInformation);
+                navigationService.push(routeCheckYourInformation,arguments: {navCIChatBotDF: chatBotData});
 
               },
               child: Container(

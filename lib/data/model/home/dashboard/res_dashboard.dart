@@ -74,15 +74,15 @@ class Response {
 
         video: json["video"],
 
-    isSubscribed: json["is_subscribed"],
-    firstChatBotStatus: json["first_chat_bot_status"],
-    paymentStatus: json["payment_status"],
-    kycStatus: json["kyc_status"],
-    secondChatBotStatus: json["second_chat_bot_status"],
-    beneficiaryStatus: json["beneficiary_status"],
-    willDocumentStatus: json["will_document_status"],
-    willReviewStatus: json["will_review_status"],
-    assetDetailsStatus: json["asset_details_status"],
+    isSubscribed: json["is_subscribed"].toString(),
+    firstChatBotStatus: json["first_chat_bot_status"].toString(),
+    paymentStatus: json["payment_status"].toString(),
+    kycStatus: json["kyc_status"].toString(),
+    secondChatBotStatus: json["second_chat_bot_status"].toString(),
+    beneficiaryStatus: json["beneficiary_status"].toString(),
+    willDocumentStatus: json["will_document_status"].toString(),
+    willReviewStatus: json["will_review_status"].toString(),
+    assetDetailsStatus: json["asset_details_status"].toString(),
 
         specialities: List<ResponseSpeciality>.from(
             json["specialities"].map((x) => ResponseSpeciality.fromJson(x))),

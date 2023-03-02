@@ -33,7 +33,6 @@ class SecondChatBotInformationEditScreen extends HookConsumerWidget {
   @override
   Widget build(BuildContext context,WidgetRef ref) {
 
-    print("test datt-----");
 
     final popFamilyNewDataSecond = useState<Map<String,dynamic>>({});
     final popMinorNewDataSecond = useState<Map<String,dynamic>>({});
@@ -294,6 +293,9 @@ class SecondChatBotInformationEditScreen extends HookConsumerWidget {
 
                   onTap: () async {
 
+                    setString(prefMarriedSpouseName, "${popFamilyNewDataSecond.value.isEmpty ? messagesInfo.spouseName : popFamilyNewDataSecond.value["SpouseName"]}", );
+                    setString(prefMotherName, "${popFamilyNewDataSecond.value.isEmpty ? messagesInfo.motherName : popFamilyNewDataSecond.value["MotherName"]}", );
+
                     ReqUpdateSecondChatBot  kycUpdateData = ReqUpdateSecondChatBot(
                         userId: getString(prefUserID),
                         subRegisterStatus: messagesInfo.subRegisterStatus,
@@ -311,6 +313,8 @@ class SecondChatBotInformationEditScreen extends HookConsumerWidget {
                         minorBeneficiaryAddress: "${popMinorNewDataSecond.value.isEmpty ? messagesInfo.minorBeneficiaryAddress : popMinorNewDataSecond.value["GuardianAdd"]}",
 
                     );
+
+
 
                     await  ref.read(updateSecondChatBoatProvider.notifier)
                            .postUpdateSecondChatBot(context: context, data: kycUpdateData)

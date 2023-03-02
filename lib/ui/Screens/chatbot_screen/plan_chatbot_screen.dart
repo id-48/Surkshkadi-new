@@ -1,9 +1,11 @@
 ///                   New Chat demo Screen 26/12/2022                       ///
 
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:gap/gap.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:intl/intl.dart';
+import 'package:surakshakadi/data/model/home/chatboat/pincode_state_city/res_pincode_state_city.dart';
 import 'package:surakshakadi/data/model/home/dashboard/res_dashboard.dart';
 import 'package:surakshakadi/data/model/home/dashboard/state_and_city/city/req_city.dart';
 import 'package:surakshakadi/di/locator.dart';
@@ -21,6 +23,8 @@ import 'package:surakshakadi/utils/utils.dart';
 import 'package:surakshakadi/widgets/custom_button.dart';
 import 'package:surakshakadi/widgets/custom_expandable_card.dart';
 import 'package:surakshakadi/widgets/custom_select.dart';
+
+import 'pincode_state_city_view_model.dart';
 
 class PlanChatBotMobile extends StatefulWidget {
   List<PlanModule> selectedPlanCB;
@@ -43,6 +47,7 @@ class _PlanChatBotMobileState extends State<PlanChatBotMobile> {
   bool nomineeReName = false;
   bool address = false;
   bool otherRel = false;
+  bool fatherIsLive = false;
 
   String statee = "";
   String cityy = "";
@@ -52,7 +57,7 @@ class _PlanChatBotMobileState extends State<PlanChatBotMobile> {
   String nomineeRe = "";
   List<int> listIndex = [];
 
-  List<String> CityList = [];
+  List<PostOffice> cityList = [];
   String age = '0';
 
   List<ChatMessage> messages = [
@@ -134,6 +139,7 @@ class _PlanChatBotMobileState extends State<PlanChatBotMobile> {
   int incomeIndex = -1;
   int occupationIndex = -1;
   int nomineeIndex = -1;
+  int cityIndex = -1;
 
   String calculateAge(DateTime birthDate) {
     DateTime currentDate = DateTime.now();
@@ -370,8 +376,6 @@ class _PlanChatBotMobileState extends State<PlanChatBotMobile> {
                                               messages.add(messagesQustion[0]);
                                               setState(() {});
                                             }
-                                          // : messages.length == 1
-                                          // ? (){messages.add(ChatMessage(messageContent: ["Male"], messageType: 'sender'));}
                                           : () {},
                                       child: Container(
                                         alignment: Alignment.center,
@@ -470,10 +474,11 @@ class _PlanChatBotMobileState extends State<PlanChatBotMobile> {
                                               BorderRadius.circular(20),
                                         ),
                                         child: TextFormField(
+
+                                         inputFormatters: [FilteringTextInputFormatter.allow(RegExp(r'^\d+'))],
+                                          keyboardType: TextInputType.numberWithOptions(decimal: true),
                                           controller: chatController,
-                                          keyboardType: TextInputType.number,
                                           maxLength: 10,
-                                          // keyboardType: TextInputType.text,
                                           decoration: InputDecoration(
                                             contentPadding: EdgeInsets.only(
                                                 left: 10, bottom: 0, top: 0),
@@ -635,17 +640,12 @@ class _PlanChatBotMobileState extends State<PlanChatBotMobile> {
                                               DateFormat('yyyy-MM-dd')
                                                   .format(pickedDate);
                                           age = calculateAge(pickedDate);
-                                          print("---->1111 age   $age");
-                                          print(
-                                              "Date   ----->>>>${formattedDate}");
                                           messages.add(ChatMessage(
                                               messageContent: [formattedDate],
                                               messageType: 'sender'));
                                           messages.add(messagesQustion[2]);
 
                                           setString(prefAge, age);
-                                          print(
-                                              "----,.age   ${getString(prefAge)}");
                                           setState(() {});
                                         } else {
                                           displayToast(
@@ -706,8 +706,7 @@ class _PlanChatBotMobileState extends State<PlanChatBotMobile> {
                                                       incomeList[incomeIndex];
                                                   displayToast(
                                                       "Please Select Occupation");
-                                                  print(
-                                                      "yashu  ----->>>>${inCome}");
+
 
                                                   setState(() {});
                                                 }
@@ -978,6 +977,7 @@ class _PlanChatBotMobileState extends State<PlanChatBotMobile> {
                                               BorderRadius.circular(20),
                                         ),
                                         child: TextFormField(
+
                                           controller: chatController,
                                           // keyboardType:TextInputType.number,
                                           keyboardType: TextInputType.text,
@@ -995,15 +995,19 @@ class _PlanChatBotMobileState extends State<PlanChatBotMobile> {
                                     Padding(
                                       padding: const EdgeInsets.all(6.0),
                                       child: FloatingActionButton(
-                                        onPressed: () {
+                                        onPressed:fatherIsLive == false ?  () {
                                           if (chatController.text.isNotEmpty) {
-                                            messages.add(ChatMessage(
-                                                messageContent: [
-                                                  chatController.text
-                                                ],
-                                                messageType: 'sender'));
-                                            messages.add(messagesQustion[6]);
-                                            chatController.clear();
+
+                                            fatherIsLive = true ;
+
+                                            // messages.add(ChatMessage(
+                                            //     messageContent: [
+                                            //       chatController.text
+                                            //     ],
+                                            //     messageType: 'sender'));
+                                            // messages.add(messagesQustion[6]);
+
+                                            // chatController.clear();
                                             setState(() {});
                                           } else {
                                             displayToast(
@@ -1011,7 +1015,7 @@ class _PlanChatBotMobileState extends State<PlanChatBotMobile> {
                                           }
 
                                           setState(() {});
-                                        },
+                                        } : (){},
                                         child: Icon(
                                           Icons.send,
                                           color: Colors.white,
@@ -1026,6 +1030,116 @@ class _PlanChatBotMobileState extends State<PlanChatBotMobile> {
                               ),
                             )
                           : Container(),
+
+                      fatherIsLive == true ? Gap(10) : Gap(0),
+
+                      fatherIsLive == true
+                          ? Row(
+                        children: [
+                          // Image.asset(
+                          //   roundChatBot,
+                          //   scale: 3.5,
+                          // ),
+
+                          SizedBox(
+                            width: Utils.getWidth(context) * 0.18,
+                          ),
+
+                          Container(
+                            margin: EdgeInsets.only(right: 15),
+                            padding: EdgeInsets.only(
+                                left: 10, right: 10, top: 12, bottom: 12),
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.only(
+                                topLeft: Radius.circular(8),
+                                bottomRight: Radius.circular(14),
+                                topRight: Radius.circular(14),
+                              ),
+                              border: Border.all(
+                                  color: bordercolor, width: 1.5),
+                              color: white,
+                            ),
+                            child: Text(
+                              "Is your Father ALive?",
+                              style: TextStyle(fontSize: 15),
+                            ),
+                          ),
+                        ],
+                      )
+                          : Container(),
+
+                      if (messages.length == 13 && fatherIsLive == true ) ...[
+                        Gap(10),
+
+                        Container(
+                          padding: EdgeInsets.symmetric(horizontal: 16),
+                          margin: EdgeInsets.only(top: 8),
+                          height: 36,
+                          child: Row(
+                            children: [
+                              Expanded(
+                                child: InkWell(
+                                  onTap: messages.length == 13
+                                      ? () {
+                                          messages.add(ChatMessage(
+                                              messageContent: [chatController.text,"Yes"],
+                                              messageType: 'sender'));
+                                          messages.add(messagesQustion[6]);
+                                          chatController.clear();
+                                          setState(() {});
+                                        }
+                                      // : messages.length == 1
+                                      // ? (){messages.add(ChatMessage(messageContent: ["Male"], messageType: 'sender'));}
+                                      : () {},
+                                  child: Container(
+                                    alignment: Alignment.center,
+                                    decoration: BoxDecoration(
+                                        color: blue,
+                                        borderRadius: BorderRadius.circular(5)),
+                                    child: Text(
+                                      "Yes",
+                                      style: TextStyle(
+                                          fontSize: 13,
+                                          fontWeight: FontWeight.w500,
+                                          color: white),
+                                    ),
+                                  ),
+                                ),
+                              ),
+                              Gap(10),
+                              Expanded(
+                                child: InkWell(
+                                  onTap: messages.length == 13
+                                      ? () {
+                                          messages.add(ChatMessage(
+                                              messageContent: [chatController.text,"No"],
+                                              messageType: 'sender'));
+
+                                          messages.add(messagesQustion[6]);
+                                          chatController.clear();
+                                          setState(() {});
+                                        }
+                                      : () {},
+                                  child: Container(
+                                    alignment: Alignment.center,
+                                    decoration: BoxDecoration(
+                                        color: blue,
+                                        borderRadius: BorderRadius.circular(5)),
+                                    child: Text(
+                                      "No",
+                                      style: TextStyle(
+                                          fontSize: 13,
+                                          fontWeight: FontWeight.w500,
+                                          color: white),
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                        )
+                      ],
+
                     ],
                     if (index == 14) ...[
                       Gap(messages.length == 15 ? 6 : 0),
@@ -1106,8 +1220,8 @@ class _PlanChatBotMobileState extends State<PlanChatBotMobile> {
                               ),
                             )
                           : Container(),
-                      Gap(messages.length == 15 ? 10 : 0),
-                      messages.length == 15 && nomineeReName == true
+                      Gap(nomineeReName == true ? 10 : 0),
+                      nomineeReName == true
                           ? Row(
                               children: [
                                 // Image.asset(
@@ -1259,17 +1373,13 @@ class _PlanChatBotMobileState extends State<PlanChatBotMobile> {
                                           ),
                                         ),
                                       ),
-                                    )),
+                                    )
+                                ),
                                 Expanded(flex: 2, child: Container()),
                               ],
                             )
                           : Container(),
 
-                      // messages.length == 15 &&
-                      //         nomineeReName == true &&
-                      //         otherRel == false
-                      //     ? Gap(200)
-                      //     : Gap(0),
                       Gap(messages.length == 15 && otherRel == true ? 10 : 0),
 
                       messages.length == 15 && otherRel == true
@@ -1349,78 +1459,100 @@ class _PlanChatBotMobileState extends State<PlanChatBotMobile> {
                     ],
                     if (index == 16) ...[
                       messages.length == 17
-                          ? Align(
-                              alignment: Alignment.bottomLeft,
-                              child: Container(
-                                padding: EdgeInsets.only(
-                                  left: 5,
-                                ),
-                                // margin: EdgeInsets.only(left: 10, right: 10, bottom: 10),
-                                height: 60,
-                                width: double.infinity,
-                                // color: Colors.white,
-                                child: Row(
-                                  children: <Widget>[
-                                    Expanded(
-                                      child: Container(
-                                        decoration: BoxDecoration(
-                                          color: Colors.white,
-                                          border: Border.all(color: blue),
-                                          borderRadius:
-                                              BorderRadius.circular(20),
-                                        ),
-                                        child: TextFormField(
-                                          controller: chatController,
-                                          keyboardType: TextInputType.number,
-                                          maxLength: 6,
-                                          // keyboardType: TextInputType.text,
-                                          decoration: InputDecoration(
-                                            contentPadding: EdgeInsets.only(
-                                                left: 10, bottom: 0, top: 0),
-                                            hintText:
-                                                "Enter Your Pincode No...",
-                                            counterText: "",
-                                            hintStyle: TextStyle(
-                                                color: Colors.black54),
-                                            border: InputBorder.none,
+                          ? HookConsumer(
+                            builder: (context, ref, child) {
+                              return Align(
+                                  alignment: Alignment.bottomLeft,
+                                  child: Container(
+                                    padding: EdgeInsets.only(
+                                      left: 5,
+                                    ),
+                                    // margin: EdgeInsets.only(left: 10, right: 10, bottom: 10),
+                                    height: 60,
+                                    width: double.infinity,
+                                    // color: Colors.white,
+                                    child: Row(
+                                      children: <Widget>[
+                                        Expanded(
+                                          child: Container(
+                                            decoration: BoxDecoration(
+                                              color: Colors.white,
+                                              border: Border.all(color: blue),
+                                              borderRadius:
+                                                  BorderRadius.circular(20),
+                                            ),
+                                            child: TextFormField(
+                                              inputFormatters: [FilteringTextInputFormatter.allow(RegExp(r'^\d+'))],
+                                              keyboardType: TextInputType.numberWithOptions(decimal: true),
+                                              controller: chatController,
+                                              maxLength: 6,
+                                              // keyboardType: TextInputType.text,
+                                              decoration: InputDecoration(
+                                                contentPadding: EdgeInsets.only(
+                                                    left: 10, bottom: 0, top: 0),
+                                                hintText:
+                                                    "Enter Your Pincode No...",
+                                                counterText: "",
+                                                hintStyle: TextStyle(
+                                                    color: Colors.black54),
+                                                border: InputBorder.none,
+                                              ),
+                                            ),
                                           ),
                                         ),
-                                      ),
-                                    ),
-                                    Padding(
-                                      padding: const EdgeInsets.all(6.0),
-                                      child: FloatingActionButton(
-                                        onPressed: () {
-                                          if (chatController.text.isNotEmpty &&
-                                              chatController.text.length == 6) {
-                                            messages.add(ChatMessage(
-                                                messageContent: [
-                                                  chatController.text
-                                                ],
-                                                messageType: 'sender'));
-                                            messages.add(messagesQustion[8]);
-                                            chatController.clear();
-                                            setState(() {});
-                                          } else {
-                                            displayToast(
-                                                "Please Question the Ans.of(6 Digit)");
-                                          }
+                                        Padding(
+                                          padding: const EdgeInsets.all(6.0),
+                                          child: FloatingActionButton(
+                                            onPressed: () async{
+                                              if (chatController.text.isNotEmpty &&
+                                                  chatController.text.length == 6) {
 
-                                          setState(() {});
-                                        },
-                                        child: Icon(
-                                          Icons.send,
-                                          color: Colors.white,
-                                          size: 22,
+                                                // setString(prefPincode, chatController.text );
+
+                                                await ref.read(pincodeSCProvider.notifier)
+                                                    .getPincodeStateCity(context: context,pinCodeData: chatController.text).then((value){
+
+                                                      if(value![0].status == "Success"){
+                                                        cityList.clear();
+                                                        statee = value[0].postOffice[0].state ;
+
+                                                        // for (int i = 0; i < value!.length; i++) {
+                                                          for(int j = 0; j< value[0].postOffice.length; j++ ){
+                                                          cityList.add(value[0].postOffice[j]);
+                                                        }
+                                                        messages.add(ChatMessage(messageContent: [chatController.text], messageType: 'sender'));
+                                                        messages.add(messagesQustion[8]);
+                                                        chatController.clear();
+                                                        setState(() {});
+                                                      }else {
+                                                        displayToast(value[0].message.toString());
+                                                      }
+                                                });
+
+
+
+                                              } else {
+                                                displayToast(
+                                                    "Please Provide 6 Digit No.");
+                                              }
+
+                                              setState(() {});
+                                            },
+                                            child: Icon(
+                                              Icons.send,
+                                              color: Colors.white,
+                                              size: 22,
+                                            ),
+                                            backgroundColor: Colors.blue,
+                                            elevation: 0,
+                                          ),
                                         ),
-                                        backgroundColor: Colors.blue,
-                                        elevation: 0,
-                                      ),
+                                      ],
                                     ),
-                                  ],
-                                ),
-                              ),
-                            )
+                                  ),
+                                );
+                            }
+                          )
                           : Container(),
 
                       // messages.length == 17
@@ -1500,160 +1632,129 @@ class _PlanChatBotMobileState extends State<PlanChatBotMobile> {
                       messages.length == 19
                           ? HookConsumer(builder: (context, ref, child) {
                               return Row(
+                                crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   Gap(16),
                                   Expanded(
                                     flex: 1,
-                                    child: CustomSelect(
-                                      isColorBox: true,
-                                      onChanged: messages.length == 19
-                                          ? (val) async {
-                                              statee = val;
-                                              ReqCity cityData =
-                                                  ReqCity(state: "${statee}");
-                                              displayToast("Select City");
-                                              CityList.clear();
-                                              ref
-                                                  .read(cityProvider.notifier)
-                                                  .getCity(
-                                                      context: context,
-                                                      data: cityData)
-                                                  .then((value) {
-                                                if (value!.status == 1) {
-                                                  for (int i = 0;
-                                                      i <
-                                                          value.response.cities
-                                                              .length;
-                                                      i++) {
-                                                    CityList.add(value.response
-                                                        .cities[i].name);
-                                                  }
-                                                } else {
-                                                  displayToast(
-                                                      "${value.message}");
-                                                }
-                                              });
-                                            }
-                                          : (st) {},
-                                      items: stateList,
-                                      // items: ["Gujarat","Rajasthan","Goa"],
-                                      hint: 'State',
-                                    ),
+                                    child: Container(
+                                      padding: EdgeInsets.symmetric(vertical: 13),
+                                      alignment: Alignment.center,
+                                      decoration: BoxDecoration(
+                                        color: blue,
+                                        borderRadius: BorderRadius.circular(8),
+                                      ),
+                                      child: Text('$statee',style: TextStyle(fontSize: 15,fontWeight: FontWeight.w600,),),
+                                    )
                                   ),
                                   Gap(10),
                                   Expanded(
                                     flex: 1,
-                                    child: CustomSelect(
-                                      onChanged: messages.length == 19
-                                          ? (val) {
-                                              cityy = val;
-                                              print(
-                                                  "yashu  ----->>>>${statee}");
-
-                                              if (statee.isNotEmpty) {
-                                                address = true;
-                                                setState(() {});
-                                              } else {
-                                                displayToast(
-                                                    "Please select State");
-                                              }
-                                            }
-                                          : (ci) {},
-                                      isColorBox: true,
-                                      items: CityList,
-                                      // items: ['Ahmedabad', 'Surat', 'Amreli'],
-                                      hint: 'City',
-                                    ),
+                                    child: CustomExpandTextCard(
+                                      index: 0,
+                                      isExpanded: ValueNotifier(1),
+                                      boxcolor: blue,
+                                      title: cityIndex == -1
+                                          ? 'City'
+                                          : cityList[cityIndex].name.toString(),
+                                      expandedChild: Card(
+                                        elevation: 3,
+                                        child: Container(
+                                          height: 150,
+                                          color: Colors.white.withOpacity(0.2),
+                                          child: ListView.builder(
+                                            shrinkWrap: true,
+                                            itemCount: cityList.length,
+                                            itemBuilder: (BuildContext context,
+                                                int index) {
+                                              return InkWell(
+                                                onTap: messages.length == 19 && address == false
+                                                    ? () {
+                                                  cityIndex = index ;
+                                                  cityy = cityList[index].name.toString();
+                                                  address = true;
+                                                  setState(() {});
+                                                }
+                                                    : () {},
+                                                child: Container(
+                                                  padding: EdgeInsets.symmetric(
+                                                      horizontal: 10,
+                                                      vertical: 15),
+                                                  child: Text(
+                                                    cityList[index].name.toString(),
+                                                    style: TextStyle(
+                                                        fontSize: 16,
+                                                        color:
+                                                        nomineeIndex ==
+                                                            index
+                                                            ? Colors.blue
+                                                            : black),
+                                                  ),
+                                                ),
+                                              );
+                                            },
+                                          ),
+                                        ),
+                                      ),
+                                    )
                                   ),
                                   Gap(16),
                                 ],
                               );
                             })
                           : Container(),
+
+                      //HookConsumer(builder: (context, ref, child) {
+                      //                               return Row(
+                      //                                 children: [
+                      //                                   Gap(16),
+                      //                                   Expanded(
+                      //                                     flex: 1,
+                      //                                     child: CustomSelect(
+                      //                                       isColorBox: true,
+                      //                                       onChanged: messages.length == 19
+                      //                                           ? (val) async {
+                      //                                               statee = val;
+                      //                                             }
+                      //                                           : (st) {},
+                      //                                       items: stateList,
+                      //                                       // items: ["Gujarat","Rajasthan","Goa"],
+                      //                                       hint: 'State',
+                      //                                     ),
+                      //                                   ),
+                      //                                   Gap(10),
+                      //                                   Expanded(
+                      //                                     flex: 1,
+                      //                                     child: CustomSelect(
+                      //                                       onChanged: messages.length == 19
+                      //                                           ? (val) {
+                      //                                               cityy = val;
+                      //                                               print(
+                      //                                                   "yashu  ----->>>>${statee}");
+                      //
+                      //                                               if (statee.isNotEmpty) {
+                      //                                                 address = true;
+                      //                                                 setState(() {});
+                      //                                               } else {
+                      //                                                 displayToast(
+                      //                                                     "Please select State");
+                      //                                               }
+                      //                                             }
+                      //                                           : (ci) {},
+                      //                                       isColorBox: true,
+                      //                                       // items: CityList,
+                      //                                       items: ['Ahmedabad', 'Surat', 'Amreli'],
+                      //                                       hint: 'City',
+                      //                                     ),
+                      //                                   ),
+                      //                                   Gap(16),
+                      //                                 ],
+                      //                               );
+                      //                             })
                       Gap(address == true ? 10 : 180),
                       messages.length == 19 && address == true
                           ? Column(
                               children: [
-                                Gap(10),
-                                Row(
-                                  children: [
-                                    Gap(10),
-                                    Expanded(
-                                      flex: 1,
-                                      child: Align(
-                                        alignment: Alignment.bottomLeft,
-                                        child: Container(
-                                          margin: EdgeInsets.only(
-                                            left: 5,
-                                          ),
-                                          // margin: EdgeInsets.only(left: 10, right: 10, bottom: 10),
-                                          height: 45,
-                                          width: double.infinity,
-                                          decoration: BoxDecoration(
-                                            color: Colors.white,
-                                            border: Border.all(color: blue),
-                                            borderRadius:
-                                                BorderRadius.circular(20),
-                                          ),
-                                          // color: Colors.white,
-                                          child: TextFormField(
-                                            controller: buildNoController,
-                                            // keyboardType: TextInputType.number,
-                                            // maxLength: 6,
-                                            keyboardType: TextInputType.text,
-                                            decoration: InputDecoration(
-                                              contentPadding: EdgeInsets.only(
-                                                  left: 10, bottom: 0, top: 0),
-                                              hintText: "Building No...",
-                                              counterText: "",
-                                              hintStyle: TextStyle(
-                                                  color: Colors.black54),
-                                              border: InputBorder.none,
-                                            ),
-                                          ),
-                                        ),
-                                      ),
-                                    ),
-                                    Gap(10),
-                                    Expanded(
-                                      flex: 1,
-                                      child: Align(
-                                        alignment: Alignment.bottomLeft,
-                                        child: Container(
-                                          margin: EdgeInsets.only(
-                                            left: 5,
-                                          ),
-                                          // margin: EdgeInsets.only(left: 10, right: 10, bottom: 10),
-                                          height: 45,
-                                          width: double.infinity,
-                                          decoration: BoxDecoration(
-                                            color: Colors.white,
-                                            border: Border.all(color: blue),
-                                            borderRadius:
-                                                BorderRadius.circular(20),
-                                          ),
-                                          // color: Colors.white,
-                                          child: TextFormField(
-                                            controller: flatNoController,
-                                            // keyboardType: TextInputType.number,
-                                            // maxLength: 6,
-                                            keyboardType: TextInputType.text,
-                                            decoration: InputDecoration(
-                                              contentPadding: EdgeInsets.only(
-                                                  left: 10, bottom: 0, top: 0),
-                                              hintText: "Flat/House No...",
-                                              counterText: "",
-                                              hintStyle: TextStyle(
-                                                  color: Colors.black54),
-                                              border: InputBorder.none,
-                                            ),
-                                          ),
-                                        ),
-                                      ),
-                                    ),
-                                    Gap(10),
-                                  ],
-                                ),
                                 Gap(10),
                                 Align(
                                   alignment: Alignment.bottomLeft,
@@ -1686,7 +1787,7 @@ class _PlanChatBotMobileState extends State<PlanChatBotMobile> {
                                                     bottom: 0,
                                                     top: 0),
                                                 hintText:
-                                                    "Enter Your Street...",
+                                                    "Enter Your Address...",
                                                 counterText: "",
                                                 hintStyle: TextStyle(
                                                     color: Colors.black54),
@@ -1701,32 +1802,20 @@ class _PlanChatBotMobileState extends State<PlanChatBotMobile> {
                                             onPressed: () {
                                               if (chatController
                                                   .text.isNotEmpty) {
-                                                if (buildNoController
-                                                    .text.isNotEmpty) {
-                                                  if (flatNoController
-                                                      .text.isNotEmpty) {
+
                                                     messages.add(ChatMessage(
                                                         messageContent: [
-                                                          "${flatNoController.text},${buildNoController.text}",
                                                           chatController.text,
-                                                          statee,
                                                           cityy,
+                                                          statee,
                                                         ],
                                                         messageType: 'sender'));
                                                     messages.add(
                                                         messagesQustion[9]);
                                                     chatController.clear();
-                                                    buildNoController.clear();
-                                                    flatNoController.clear();
+
                                                     setState(() {});
-                                                  } else {
-                                                    displayToast(
-                                                        "Please Your Flat/House No.");
-                                                  }
-                                                } else {
-                                                  displayToast(
-                                                      "Please Your Building No");
-                                                }
+
                                               } else {
                                                 displayToast(
                                                     "Please Your Street");
@@ -1769,10 +1858,7 @@ class _PlanChatBotMobileState extends State<PlanChatBotMobile> {
                                           e["isSelect"] = !e["isSelect"];
 
                                           int indexValue = vaccines.indexOf(e);
-                                          print(
-                                              "Dose Index in    -------->>>> ${vaccines.indexOf(e)}");
-                                          print(
-                                              "Dose Index in    -------->>>> ${vaccines[indexValue]["title"]}");
+
                                           messages.add(ChatMessage(
                                               messageContent: [
                                                 "${vaccines[indexValue]["title"]}"
@@ -1893,9 +1979,17 @@ class _PlanChatBotMobileState extends State<PlanChatBotMobile> {
                         padding:
                             EdgeInsets.symmetric(horizontal: 30, vertical: 10),
                         onTap: () {
-                          print("plan ChatData : ${messages.toString()}");
-                          print(
-                              "plan ChatData : ${messages[5].messageContent}");
+
+
+                          setString(prefUserName, "${messages[9].messageContent[0]}");
+                          setString(prefFatherName,"${messages[13].messageContent[0]}" );
+                          setString(prefAddress,"${messages[19].messageContent[0]},${messages[19].messageContent[1]}" );
+                          setString(prefOccupation, "${messages[7].messageContent[1]}");
+                          setString(prefDOB,"${messages[5].messageContent[0]}");
+                          setString(prefState, statee);
+                          setString(prefCity, cityy);
+
+
 
                           navigationService
                               .push(routeChooseAssetMobile, arguments: {
@@ -1923,3 +2017,5 @@ class ChatMessage {
 
   ChatMessage({required this.messageContent, required this.messageType});
 }
+
+

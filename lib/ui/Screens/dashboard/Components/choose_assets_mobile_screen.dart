@@ -451,13 +451,13 @@ class ChooseAssetMobile extends HookConsumerWidget {
                               name: "${messagesList![9].messageContent[0]}",
                               email: "${messagesList![11].messageContent[0]}",
                               fatherName:"${messagesList![13].messageContent[0]}",
-                              isFatherAlive: 'Yes',
+                              isFatherAlive: "${messagesList![13].messageContent[1]}",
                               nominee: "${messagesList![15].messageContent[0]}",
                               nomineeRelation: "${messagesList![15].messageContent[1]}",
                               postCode:"${messagesList![17].messageContent[0]}",
-                              address:"${messagesList![19].messageContent[0]},${messagesList![19].messageContent[1]}",
+                              address:"${messagesList![19].messageContent[0]}",
                               state: "${messagesList![19].messageContent[2]}",
-                              city: "${messagesList![19].messageContent[3]}",
+                              city: "${messagesList![19].messageContent[1]}",
                               covidDose:"${messagesList![21].messageContent[0]}",
                               nicotineProducts: "${messagesList![23].messageContent[0]}",
                               planAssets: "${checkedIDs.value}"
@@ -468,6 +468,7 @@ class ChooseAssetMobile extends HookConsumerWidget {
                               transactionStatus: 'Success',
                             );
 
+                            print("data  ---->>>>>>>  ${dataPlanChatBot.toJson()}");
                             await ref.read(planChatProvider.notifier)
                                 .planChatBotSub(context: context, data: dataPlanChatBot)
                                 .then((value) async {
@@ -481,7 +482,7 @@ class ChooseAssetMobile extends HookConsumerWidget {
                                 //     getString(prefPlanPrice).toString()) *
                                 //     100;
 
-                                navigationService.push(routeConfirmationPlan);
+                                navigationService.push(routeConfirmationPlan,arguments: {navChatBotDataFirst: value});
 
                                 // openCheckout('22000');
                                 // openCheckout('${amountTotal.value.toString()}');

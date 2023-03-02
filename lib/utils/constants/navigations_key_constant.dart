@@ -27,3 +27,5 @@ const navChildCountInfo = "childCountInfo";
 const navChildName = "childName";
 const navChildNameInfo = "childNameInfo";
 const navMassageInfo= "massageInfo";
+const navChatBotDataFirst= "chatBotDataFirst";
+const navCIChatBotDF = "cIChatBotDF";

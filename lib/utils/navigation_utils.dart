@@ -150,7 +150,7 @@ class NavigationUtils {
       case routeCheckYourInformation:
         return CustomRoute(
             settings: const RouteSettings(name: routeCheckYourInformation),
-            builder: (_) => CheckYourInformation());
+            builder: (_) => CheckYourInformation( data: args?[navCIChatBotDF],));
 
       case routeKycIdentiyScreen:
         return CustomRoute(
@@ -163,7 +163,7 @@ class NavigationUtils {
       case routeConfirmationPlan:
         return CustomRoute(
             settings:  RouteSettings(name: routeConfirmationPlan),
-            builder: (_) => ConfirmationPlanScreen());
+            builder: (_) => ConfirmationPlanScreen(chatBotData: args?[navChatBotDataFirst],));
 
       case routeAssetsInformation:
         return CustomRoute(

@@ -46,6 +46,7 @@ const String apiWillDocument = "accept-will-document";
 const String apiUpdateSecondChatBoat = "update-second-chatboard-data";
 
 
+ String apiPincodeSC = "https://api.postalpincode.in/pincode/";
 
 const String apiPanCard = "https://api.emptra.com/fetchPanDetails";
 const String apiAadharNoVerify = "https://api.emptra.com/aadhaarVerification/requestOtp";

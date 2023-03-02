@@ -188,16 +188,20 @@ class Beneficiary extends HookConsumerWidget {
     }
 
     print("child data end -->>>> ${childPer}");
-    final totalCount = useState<int>(
-      // "${
-              int.parse(fatherController.text.isNotEmpty ? fatherController.text : '00')
-            + int.parse(motherController.text.isNotEmpty ? motherController.text  : '00')
-            + int.parse(spouseController.text.isNotEmpty ? spouseController.text  : '00')
-            // + int.parse(childController[].text.isNotEmpty ? childController.text  : '00')
-            // + int.parse("${                    }")
 
-      // }"
-    );
+    final totalCount = useState<int>(00);
+
+    // final totalCount = useState<int>(
+    //   // "${
+    //           int.parse(fatherController.text.isNotEmpty ? fatherController.text : '00')
+    //         + int.parse(motherController.text.isNotEmpty ? motherController.text  : '00')
+    //         + int.parse(spouseController.text.isNotEmpty ? spouseController.text  : '00')
+    //         + childPer
+    //
+    //   // }"
+    // );
+
+    print(" total count data ------>>>>>>>>>>>  ${totalCount.value}");
 
     return Scaffold(
       appBar: CustomAppBar(
@@ -210,7 +214,15 @@ class Beneficiary extends HookConsumerWidget {
         child: StatefulBuilder(
           builder: (context,setState , ) {
 
-             // totalPercentage =
+            totalCount.value =   int.parse(fatherController.text.isNotEmpty ? fatherController.text : '00')
+                    + int.parse(motherController.text.isNotEmpty ? motherController.text  : '00')
+                    + int.parse(spouseController.text.isNotEmpty ? spouseController.text  : '00')
+                    + childPer ;
+
+            print(" total count data in under ------>>>>>>>>>>>  ${totalCount.value}");
+
+
+            // totalPercentage =
              //      int.parse(fatherController.text.isNotEmpty ? fatherController.text : '00')
              //    + int.parse(motherController.text.isNotEmpty ? motherController.text  : '00')
              //    + int.parse(spouseController.text.isNotEmpty ? spouseController.text  : '00')
@@ -248,7 +260,7 @@ class Beneficiary extends HookConsumerWidget {
 
                       },
                     onFieldSubmitted: (value){
-                      totalPercentage.value += int.parse(fatherController.text);
+                     setState((){});
                     },
 
                   ),
@@ -286,7 +298,7 @@ class Beneficiary extends HookConsumerWidget {
                     },
 
                     onFieldSubmitted: (value){
-                      totalPercentage.value += int.parse(motherController.text);
+                      setState((){});
 
                     },
                   ),
@@ -318,7 +330,7 @@ class Beneficiary extends HookConsumerWidget {
                     controller: spouseController,
                     onTap: (){
 
-                      if(spouseController.text == "00"){
+                      if(spouseController.text == "00" ){
                         setState((){
                           isSpouse.value= !isSpouse.value;
                         });
@@ -326,7 +338,8 @@ class Beneficiary extends HookConsumerWidget {
                     },
 
                     onFieldSubmitted: (value){
-                      totalPercentage.value += int.parse(spouseController.text);
+                      setState((){});
+
                     },
 
                   ),
@@ -375,7 +388,7 @@ class Beneficiary extends HookConsumerWidget {
 
                             },
                             onFieldSubmitted: (value){
-                              totalPercentage.value += int.parse(childController[index].text);
+                              setState((){});
                             },
                           ),
 
@@ -454,15 +467,7 @@ class Beneficiary extends HookConsumerWidget {
                                     borderRadius: BorderRadius.circular(5)
                                 ),
                                 child: Text(
-                                  '${
-                                      totalPercentage.value
-
-                                    // int.parse(fatherController.text.isNotEmpty ? fatherController.text : '00')
-                                    // + int.parse(motherController.text.isNotEmpty ? motherController.text  : '00')
-                                    // + int.parse(spouseController.text.isNotEmpty ? spouseController.text  : '00')
-                                    // + int.parse(child1Controller.text.isNotEmpty ? child1Controller.text  : '00')
-                                    // + int.parse(child2Controller.text.isNotEmpty ? child2Controller.text  : '00')
-                                  } %',
+                                  '${totalCount.value} %',
                                   textAlign: TextAlign.center,
                                   style: GoogleFonts.inter(fontSize: 13,color: Colors.red,fontWeight: FontWeight.w600),),
                               )
@@ -544,7 +549,7 @@ class Beneficiary extends HookConsumerWidget {
 
                         if (fatherController.text.isEmpty) {
 
-                          displayToast( "Parentage Field  Can't Be Empty Enter Reason");
+                          displayToast( "Parentage Field  Can't Be Empty Enter Reason Father");
                         }else if (motherController.text.isEmpty) {
 
                           displayToast( "Parentage Field  Can't Be Empty Enter Reason");
@@ -552,24 +557,39 @@ class Beneficiary extends HookConsumerWidget {
                           displayToast( "Parentage Field  Can't Be Empty Enter Reason");
                         }else if (childController.length.toString().isEmpty){
                           displayToast( "Parentage Field  Can't Be Empty Enter Reason");
-                        }else  if (totalPercentage.value >  100) {
+                        }else  if (totalCount.value >  100) {
 
                           displayToast("A Value Can't Be Above 100%");
-                        }else if(totalPercentage.value < 100 ) {
+                        }else if(totalCount.value < 100 ) {
                           displayToast("A Value Can't Be Less Then 100%");
                         }else {
 
+                          String childNameData = "${childName}".replaceAll("[", '').replaceAll(']', '') ;
+
+                          // print("chiassmmsd name ---->>${childNameData}");
+
                           ReqBeneficiary   beneficiaryData= ReqBeneficiary(
                               userId: getString(prefUserID),
-                              relation: ["son " ,"father"],
-                              name: [getString(prefFatherName),getString(prefMotherName),prefMarriedSpouseName,],
+                              relation: ["son" ,"father"],
+                              name: [getString(prefFatherName),getString(prefMotherName),prefMarriedSpouseName,childNameData],
                               percentage: [fatherController.text ,motherController.text ,spouseController.text ,childController.length.toString()],
                               exclusionReason: [fatherReasonController.text ,motherReasonController.text ,spouseReasonController.text ,reasonChildController.length.toString()]
                           );
 
 
-                          await  ref.read(beneficiaryProvider.notifier).postBeneficiary(context: context, data: beneficiaryData) ;
-                          navigationService.pushAndRemoveUntil(routeWillReview);
+                          print("test data ---->>>> ${beneficiaryData.toJson()}");
+
+                          await  ref.read(beneficiaryProvider.notifier)
+                              .postBeneficiary(context: context, data: beneficiaryData).then((value) {
+
+                                if(value!.status == 1){
+                                  displayToast("${value.message}");
+                                  navigationService.pushAndRemoveUntil(routeWillReview);
+
+                                }else {
+                                  displayToast("${value.message}");
+                                }
+                          });
 
                         }
 

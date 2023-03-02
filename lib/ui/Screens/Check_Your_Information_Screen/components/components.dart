@@ -7,6 +7,8 @@ import 'package:surakshakadi/data/model/home/chatboat/kyc_chatbot/res_kyc_chatbo
 import 'package:surakshakadi/di/locator.dart';
 import 'package:surakshakadi/ui/Screens/chatbot_screen/plan_chatbot_screen.dart';
 import 'package:surakshakadi/utils/color_utils.dart';
+import 'package:surakshakadi/data/model/home/chatboat/plan_chat/res_plan_chatbot.dart' as planChatBot;
+
 import 'package:surakshakadi/utils/constants/preference_key_constant.dart';
 import 'package:surakshakadi/utils/dialog_utils.dart';
 import 'package:surakshakadi/utils/preference_utils.dart';
@@ -18,7 +20,7 @@ import 'package:surakshakadi/widgets/custom_textfeild.dart';
 import 'package:surakshakadi/data/model/home/dashboard/payment/plan_chat_sub_payment/res_plan_chat_sub_payment.dart';
 
 class FamilyInfoDialog extends HookConsumerWidget {
-  final Response planChatBotSPData;
+  final planChatBot.Response  planChatBotSPData;
   FamilyInfoDialog({Key? key, required this.planChatBotSPData})
       : super(key: key);
 
@@ -274,7 +276,7 @@ class FamilyInfoDialog extends HookConsumerWidget {
 }
 
 class ContactInfoDialog extends HookConsumerWidget {
-  final Response planChatBotSPData;
+  final planChatBot.Response planChatBotSPData;
   ContactInfoDialog({Key? key, required this.planChatBotSPData})
       : super(key: key);
 
@@ -392,7 +394,7 @@ class ContactInfoDialog extends HookConsumerWidget {
 }
 
 class ProfessionalInfoDialog extends HookConsumerWidget {
-  final Response planChatBotSPData;
+  final planChatBot.Response planChatBotSPData;
   ProfessionalInfoDialog({Key? key, required this.planChatBotSPData})
       : super(key: key);
 

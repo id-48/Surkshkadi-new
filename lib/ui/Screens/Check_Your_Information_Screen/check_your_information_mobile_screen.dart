@@ -2,12 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:gap/gap.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:surakshakadi/data/model/home/chatboat/plan_chat/res_plan_chatbot.dart';
 import 'package:surakshakadi/data/model/home/chatboat/plan_chat_update/req_plan_chat_update.dart';
-import 'package:surakshakadi/data/model/home/dashboard/payment/plan_chat_sub_payment/req_plan_chat_sub_payment.dart';
 import 'package:surakshakadi/di/locator.dart';
 import 'package:surakshakadi/ui/Screens/Check_Your_Information_Screen/components/components.dart';
 import 'package:surakshakadi/ui/Screens/Check_Your_Information_Screen/plan_chat_bot_update_view_modal.dart';
-import 'package:surakshakadi/ui/Screens/dashboard/Components/payment_view_modal.dart';
 import 'package:surakshakadi/utils/color_utils.dart';
 import 'package:surakshakadi/utils/constants/navigation_route_constants.dart';
 import 'package:surakshakadi/utils/constants/preference_key_constant.dart';
@@ -17,14 +16,14 @@ import 'package:surakshakadi/utils/strings.dart';
 import 'package:surakshakadi/utils/utils.dart';
 import 'package:surakshakadi/widgets/custom_appbar.dart';
 import 'package:surakshakadi/widgets/custom_button.dart';
-import 'package:surakshakadi/widgets/loading.dart';
 
 
 
 
 
 class CheckYourInformation extends HookConsumerWidget {
-  const CheckYourInformation({Key? key}) : super(key: key);
+  final ResPlanChatBot data;
+  const CheckYourInformation({Key? key,required this.data}) : super(key: key);
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -33,33 +32,12 @@ class CheckYourInformation extends HookConsumerWidget {
     final popContactNewData = useState<Map<String,dynamic>>({});
     final popProfessionalNewData = useState<Map<String,dynamic>>({});
 
-    print("texttasdgd -->> ${getString(prefSubscriptionId)}");
-
-    useEffect(() {
-
-      ReqPlanChatSubPayment PlanChatSubPayment = ReqPlanChatSubPayment(
-          paymentAmount: "250500",
-          subscriptionId: "${getString(prefSubscriptionId)}",
-          transactionId: "gvcgjh",
-          // transactionId: getString(prefPaymentId),
-          transactionStatus: "Success"
-      );
-
-      ref.read(planChatSubPaymentProvider.notifier)
-          .planChatSubPayment(context: context, data: PlanChatSubPayment);
-
-      return null;
-    },[]);
-
-
-    final  planChatSPController = ref.watch(planChatSubPaymentProvider);
 
 
     return StatefulBuilder(
       builder: (BuildContext context,setState) {
 
-    return  planChatSPController.when(data: (data){
-        return Scaffold(
+    return  Scaffold(
           appBar: CustomAppBar(
             title: checkYourInformation,
             backonTap: () {
@@ -431,109 +409,9 @@ class CheckYourInformation extends HookConsumerWidget {
             ),
           ),
 
-          // bottomNavigationBar: Container(
-          //   height: Utils.getHeight(context) * 0.08,
-          //   decoration: BoxDecoration(
-          //     color: Colors.white,
-          //     boxShadow: [
-          //       BoxShadow(
-          //         color: Color(0xff037EEE).withOpacity(0.15),
-          //         offset: const Offset(0.0, -1),
-          //         blurRadius: 0.5,
-          //         spreadRadius: 0.3,
-          //       ), //BoxShadow
-          //     ],
-          //   ),
-          //   child: Row(
-          //     children: [
-          //       Expanded(
-          //         flex: 1,
-          //         child: InkWell(
-          //           onTap: (){
-          //             Navigator.pop(context);
-          //           },
-          //           child: Container(
-          //             alignment: Alignment.center,
-          //             child: Text(
-          //                 back,
-          //                 style: TextStyle(fontWeight: FontWeight.bold,fontSize: 15,color: Color(0xff727272))),
-          //           ),
-          //         ),
-          //       ),
-          //       Expanded(
-          //           flex: 1,
-          //           child: InkWell(
-          //             onTap: () async{
-          //               // Navigator.push(context, MaterialPageRoute(builder: (context) => Assets() ));
-          //
-          //               ReqPlanChatUpdate chatBotUpdate = ReqPlanChatUpdate(
-          //                   userId: getString(prefUserID),
-          //                   name:  popFamilyNewData.value.isEmpty ?  '${data.response.name}' : "${popFamilyNewData.value["fullName"]}",
-          //                   email: popContactNewData.value.isEmpty ? '${data.response.email}' : "${popContactNewData.value["email"]}",
-          //                   wpNo:  popContactNewData.value.isEmpty ? '${data.response.wpNo}' : "${popContactNewData.value["mobile"]}",
-          //                   dob: popFamilyNewData.value.isEmpty ? '${data.response.dob.year}''-${data.response.dob.month}-''${data.response.dob.day}' : "${popFamilyNewData.value["dob"]}",
-          //                   gender: popFamilyNewData.value.isEmpty ? '${data.response.gender}' : "${popFamilyNewData.value["gender"]}",
-          //                   address: popContactNewData.value.isEmpty ? '${data.response.address}' : "${popContactNewData.value["address"]}",
-          //                   state: popFamilyNewData.value.isEmpty ? '${data.response.state}' : "${popFamilyNewData.value["state"]}",
-          //                   city: popFamilyNewData.value.isEmpty ? '${data.response.city}' : "${popFamilyNewData.value["city"]}",
-          //                   postCode: popFamilyNewData.value.isEmpty ? '${data.response.postCode}' : "${popFamilyNewData.value["pinCode"]}",
-          //                   annualIncome: popProfessionalNewData.value.isEmpty ? '${data.response.annualIncome}' : "${popProfessionalNewData.value["inCome"]}",
-          //                   occupation:  popProfessionalNewData.value.isEmpty ? '${data.response.occupation}' : "${popProfessionalNewData.value["occupation"]}",
-          //                   fatherName: '${data.response.fatherName}',
-          //                   nominee: '${data.response.nominee}',
-          //                   nomineeRelation: '${data.response.nomineeRelation}',
-          //                   covidDose: '${data.response.covidDose}',
-          //                   nicotineProducts: '${data.response.nicotineProducts}'
-          //               );
-          //
-          //
-          //               await ref.read(planChatUpdateProvider.notifier)
-          //                   .getPlanChatUpdate(context: context, data: chatBotUpdate)
-          //                   .then((value) {
-          //                    if(value!.status == 1){
-          //                      displayToast("${value.message}");
-          //                      navigationService.push(routeKycScreen);
-          //                    }else{
-          //                      displayToast("${value.message}");
-          //
-          //                    }
-          //               } );
-          //
-          //
-          //
-          //
-          //
-          //             },
-          //             child: Container(
-          //               height: Utils.getHeight(context) * 0.08,
-          //               alignment: Alignment.center,
-          //               decoration: BoxDecoration(
-          //                 gradient: LinearGradient(
-          //                   colors: [
-          //                     Color(0xff3C87E0).withOpacity(0.9),
-          //                     Color(0xff0E3563).withOpacity(0.9)
-          //                   ],
-          //                   begin: Alignment.topCenter,
-          //                   end: Alignment.bottomCenter,
-          //                 ),
-          //               ),
-          //               child: Text(
-          //                 allGood,
-          //                 style: TextStyle(
-          //                     color: white,
-          //                     fontWeight: FontWeight.w600,
-          //                     letterSpacing: 0.5),
-          //               ),
-          //             ),
-          //           )),
-          //     ],
-          //   ),
-          // ),
         );
 
-      },
-        error: (obj, trace) => ErrorWidget(obj),
-        loading: () => const Loading());
+
       }
     );
   }

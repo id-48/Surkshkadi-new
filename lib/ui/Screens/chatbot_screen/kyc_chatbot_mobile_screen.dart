@@ -47,6 +47,7 @@ class _KYCChatBotMobileState extends State<KYCChatBotMobile> {
   bool oneCheck = false;
   bool twoCheck = false;
   bool check = false;
+  bool motherIsLive = false;
 
   String statee = "";
   String cityy = "";
@@ -253,9 +254,7 @@ class _KYCChatBotMobileState extends State<KYCChatBotMobile> {
                                     messages.add(messagesQustion[0]);
                                     setState(() {});
                                   }
-                                  // : messages.length == 3
-                                  // ? (){messages.add(ChatMessage(messageContent: ["Male"], messageType: 'sender'));}
-                                      : () {},
+                                    : () {},
                                   child: Container(
                                     alignment: Alignment.center,
                                     decoration: BoxDecoration(
@@ -345,21 +344,11 @@ class _KYCChatBotMobileState extends State<KYCChatBotMobile> {
                                 Padding(
                                   padding: const EdgeInsets.all(6.0),
                                   child: FloatingActionButton(
-                                    onPressed: () {
+                                    onPressed:motherIsLive == false ? () {
                                       if (chatController.text.isNotEmpty) {
 
-                                        messages.add(ChatMessage(
-                                            messageContent: [chatController.text],
-                                            messageType: 'sender'));
+                                        motherIsLive = true ;
 
-                                        controller.jumpTo(
-                                            Utils.getHeight(context)
-                                                 +
-                                                200);
-
-                                        messages.add(messagesQustion[1]);
-
-                                        chatController.clear();
                                         setState(() {});
 
                                       } else {
@@ -368,7 +357,7 @@ class _KYCChatBotMobileState extends State<KYCChatBotMobile> {
                                       }
 
                                       setState(() {});
-                                    },
+                                    } : (){},
                                     child: Icon(
                                       Icons.send,
                                       color: Colors.white,
@@ -383,6 +372,119 @@ class _KYCChatBotMobileState extends State<KYCChatBotMobile> {
                           ),
                         )
                             : Container(),
+
+                        motherIsLive == true ? Gap(10) : Gap(0),
+
+                        motherIsLive == true
+                            ? Row(
+                          children: [
+                            // Image.asset(
+                            //   roundChatBot,
+                            //   scale: 3.5,
+                            // ),
+
+                            SizedBox(
+                              width: Utils.getWidth(context) * 0.18,
+                            ),
+
+                            Container(
+                              margin: EdgeInsets.only(right: 15),
+                              padding: EdgeInsets.only(
+                                  left: 10, right: 10, top: 12, bottom: 12),
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.only(
+                                  topLeft: Radius.circular(8),
+                                  bottomRight: Radius.circular(14),
+                                  topRight: Radius.circular(14),
+                                ),
+                                border: Border.all(
+                                    color: bordercolor, width: 1.5),
+                                color: white,
+                              ),
+                              child: Text(
+                                "Is your Mother ALive?",
+                                style: TextStyle(fontSize: 15),
+                              ),
+                            ),
+                          ],
+                        )
+                            : Container(),
+
+                        if (messages.length == 3 && motherIsLive == true ) ...[
+                          Gap(10),
+
+                          Container(
+                            padding: EdgeInsets.symmetric(horizontal: 16),
+                            margin: EdgeInsets.only(top: 8),
+                            height: 36,
+                            child: Row(
+                              children: [
+                                Expanded(
+                                  child: InkWell(
+                                    onTap: () {
+
+
+                                      messages.add(ChatMessage(
+                                          messageContent: [chatController.text,"Yes"],
+                                          messageType: 'sender'));
+                                      controller.jumpTo(
+                                          Utils.getHeight(context) + 200);
+
+                                      chatController.clear();
+                                      messages.add(messagesQustion[1]);
+                                      setState(() {});
+                                    },
+                                    child: Container(
+                                      alignment: Alignment.center,
+                                      decoration: BoxDecoration(
+                                          color: blue,
+                                          borderRadius: BorderRadius.circular(5)),
+                                      child: Text(
+                                        "Yes",
+                                        style: TextStyle(
+                                            fontSize: 13,
+                                            fontWeight: FontWeight.w500,
+                                            color: white),
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                                Gap(10),
+                                Expanded(
+                                  child: InkWell(
+                                    onTap: () {
+                                      messages.add(ChatMessage(
+                                          messageContent: [chatController.text,"No"],
+                                          messageType: 'sender'));
+
+                                      controller.jumpTo(
+                                          Utils.getHeight(context) + 200);
+
+                                      messages.add(messagesQustion[1]);
+                                      chatController.clear();
+
+                                      setState(() {});
+                                    },
+                                    child: Container(
+                                      alignment: Alignment.center,
+                                      decoration: BoxDecoration(
+                                          color: blue,
+                                          borderRadius: BorderRadius.circular(5)),
+                                      child: Text(
+                                        "No",
+                                        style: TextStyle(
+                                            fontSize: 13,
+                                            fontWeight: FontWeight.w500,
+                                            color: white),
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          )
+                        ],
+
                       ],
 
                       if (index == 4) ...[
@@ -1977,7 +2079,7 @@ class _KYCChatBotMobileState extends State<KYCChatBotMobile> {
                             userId:  getString(prefUserID),
                             subRegisterStatus: "${messages[1].messageContent[0]}",
                             motherName: "${messages[3].messageContent[0]}",
-                            isMotherAlive: "Yes",
+                            isMotherAlive: "${messages[3].messageContent[1]}",
                             maritalStatus: "${messages[5].messageContent[0]}",
                             spouseName: messages[5].messageContent[0] == "Unmarried" ?  "" : "${messages[7].messageContent[0]}",
                             divorceStatus: messages[5].messageContent[0] == "Unmarried" ? "" : messages[5].messageContent[0] == "Married" ? ""  : messages[7].messageContent[1] ,
