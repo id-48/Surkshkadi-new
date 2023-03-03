@@ -37,10 +37,10 @@ class SplashScreen extends HookConsumerWidget {
               //     MaterialPageRoute(builder: (context) => Beneficiary() ));
                   // MaterialPageRoute(builder: (context) => RecordAVideo(videoRecord: false ) ));
 
-              navigationService.pushAndRemoveUntil(routeKYCChatBotMobile);
+              // navigationService.pushAndRemoveUntil(routeKYCChatBotMobile);
               // navigationService.push(routeBeneficiary,arguments: {navChildName :["data , daya"],navChildCount : 5});
 
-              // navigationService.pushAndRemoveUntil(routeCustomBottomNavigationBar);
+              navigationService.pushAndRemoveUntil(routeCustomBottomNavigationBar);
 
                } else {
               // Navigator.push(context,

@@ -24,6 +24,7 @@ import 'package:surakshakadi/widgets/custom_button.dart';
 import 'package:surakshakadi/widgets/custom_expandable_card.dart';
 import 'package:surakshakadi/widgets/custom_select.dart';
 
+import '../../../utils/constants/validation.dart';
 import 'pincode_state_city_view_model.dart';
 
 class PlanChatBotMobile extends StatefulWidget {
@@ -35,6 +36,9 @@ class PlanChatBotMobile extends StatefulWidget {
 }
 
 class _PlanChatBotMobileState extends State<PlanChatBotMobile> {
+
+  final GlobalKey<FormState> formKey = GlobalKey<FormState>();
+
   TextEditingController chatController = TextEditingController();
   TextEditingController buildNoController = TextEditingController();
   TextEditingController flatNoController = TextEditingController();
@@ -877,80 +881,90 @@ class _PlanChatBotMobileState extends State<PlanChatBotMobile> {
 
                     if (index == 10) ...[
                       messages.length == 11
-                          ? Align(
-                              alignment: Alignment.bottomLeft,
-                              child: Container(
-                                padding: EdgeInsets.only(
-                                  left: 5,
-                                ),
-                                // margin: EdgeInsets.only(left: 10, right: 10, bottom: 10),
-                                height: 60,
-                                width: double.infinity,
-                                // color: Colors.white,
-                                child: Row(
-                                  children: <Widget>[
-                                    Expanded(
-                                      child: Container(
-                                        decoration: BoxDecoration(
-                                          color: Colors.white,
-                                          border: Border.all(color: blue),
-                                          borderRadius:
-                                              BorderRadius.circular(20),
-                                        ),
-                                        child: TextFormField(
-                                          autofillHints: [
-                                            AutofillHints.email,
-                                          ],
-                                          controller: chatController,
-                                          // keyboardType: TextInputType.number,
-                                          // maxLength: 10,
-                                          keyboardType: TextInputType.text,
-                                          decoration: InputDecoration(
-                                            contentPadding: EdgeInsets.only(
-                                                left: 10, bottom: 0, top: 0),
-                                            hintText: "Enter Your Email...",
-                                            counterText: "",
-                                            hintStyle: TextStyle(
-                                                color: Colors.black54),
-                                            border: InputBorder.none,
+                          ? Form(
+                                 key: formKey ,
+                            child: Align(
+                                alignment: Alignment.bottomLeft,
+                                child: Container(
+                                  padding: EdgeInsets.only(
+                                    left: 5,
+                                  ),
+                                  // margin: EdgeInsets.only(left: 10, right: 10, bottom: 10),
+                                  height: 60,
+                                  width: double.infinity,
+                                  // color: Colors.white,
+                                  child: Row(
+                                    children: <Widget>[
+                                      Expanded(
+                                        child: Container(
+                                          decoration: BoxDecoration(
+                                            color: Colors.white,
+                                            border: Border.all(color: blue),
+                                            borderRadius:
+                                                BorderRadius.circular(20),
+                                          ),
+                                          child: TextFormField(
+                                            autofillHints: [
+                                              AutofillHints.email,
+                                            ],
+                                            controller: chatController,
+                                            // keyboardType: TextInputType.number,
+                                            // maxLength: 10,
+                                            validator: (val) => Validation.emailValidation(val.toString()),
+                                            keyboardType: TextInputType.text,
+                                            decoration: InputDecoration(
+                                              contentPadding: EdgeInsets.only(
+                                                  left: 10, bottom: 0, top: 0),
+                                              hintText: "Enter Your Email...",
+                                              counterText: "",
+                                              hintStyle: TextStyle(
+                                                  color: Colors.black54),
+                                              border: InputBorder.none,
+                                            ),
                                           ),
                                         ),
                                       ),
-                                    ),
-                                    Padding(
-                                      padding: const EdgeInsets.all(6.0),
-                                      child: FloatingActionButton(
-                                        onPressed: () {
-                                          if (chatController.text.isNotEmpty) {
-                                            messages.add(ChatMessage(
-                                                messageContent: [
-                                                  chatController.text
-                                                ],
-                                                messageType: 'sender'));
-                                            messages.add(messagesQustion[5]);
-                                            setState(() {});
-                                            chatController.clear();
-                                            setState(() {});
-                                          } else {
-                                            displayToast(
-                                                "Please Question the Ans.");
-                                          }
+                                      Padding(
+                                        padding: const EdgeInsets.all(6.0),
+                                        child: FloatingActionButton(
+                                          onPressed: () {
 
-                                          setState(() {});
-                                        },
-                                        child: Icon(
-                                          Icons.send,
-                                          color: Colors.white,
-                                          size: 22,
+                                            if (formKey.currentState!.validate()) {
+                                              if (chatController.text
+                                                  .isNotEmpty) {
+                                                messages.add(ChatMessage(
+                                                    messageContent: [
+                                                      chatController.text
+                                                    ],
+                                                    messageType: 'sender'));
+                                                messages.add(
+                                                    messagesQustion[5]);
+                                                setState(() {});
+                                                chatController.clear();
+                                                setState(() {});
+                                              } else {
+                                                displayToast(
+                                                    "Please Question the Ans.");
+                                              }
+                                            }
+
+
+                                            setState(() {});
+                                          },
+                                          child: Icon(
+                                            Icons.send,
+                                            color: Colors.white,
+                                            size: 22,
+                                          ),
+                                          backgroundColor: Colors.blue,
+                                          elevation: 0,
                                         ),
-                                        backgroundColor: Colors.blue,
-                                        elevation: 0,
                                       ),
-                                    ),
-                                  ],
+                                    ],
+                                  ),
                                 ),
                               ),
-                            )
+                          )
                           : Container(),
                     ],
 
