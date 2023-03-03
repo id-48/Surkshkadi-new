@@ -977,7 +977,7 @@ class _PlanChatBotMobileState extends State<PlanChatBotMobile> {
                                               BorderRadius.circular(20),
                                         ),
                                         child: TextFormField(
-
+                                          enabled: fatherIsLive == true ? false : true,
                                           controller: chatController,
                                           // keyboardType:TextInputType.number,
                                           keyboardType: TextInputType.text,
@@ -1060,7 +1060,7 @@ class _PlanChatBotMobileState extends State<PlanChatBotMobile> {
                               color: white,
                             ),
                             child: Text(
-                              "Is your Father ALive?",
+                              "Is your Father alive?",
                               style: TextStyle(fontSize: 15),
                             ),
                           ),

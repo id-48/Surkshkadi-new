@@ -278,6 +278,11 @@ class _KYCChatBotMobileState extends State<KYCChatBotMobile> {
                                     messages.add(ChatMessage(
                                         messageContent: ["No"],
                                         messageType: 'sender'));
+                                    messages.add(messagesQustion[0]);
+
+
+
+
                                     setState(() {
                                       // navigationService.pop();
                                     });
@@ -327,6 +332,7 @@ class _KYCChatBotMobileState extends State<KYCChatBotMobile> {
                                       BorderRadius.circular(20),
                                     ),
                                     child: TextFormField(
+                                      enabled:  motherIsLive == true ? false : true,
                                       controller: chatController,
                                       // keyboardType:TextInputType.number,
                                       keyboardType: TextInputType.text,
@@ -402,7 +408,7 @@ class _KYCChatBotMobileState extends State<KYCChatBotMobile> {
                                 color: white,
                               ),
                               child: Text(
-                                "Is your Mother ALive?",
+                                "Is your Mother alive?",
                                 style: TextStyle(fontSize: 15),
                               ),
                             ),
