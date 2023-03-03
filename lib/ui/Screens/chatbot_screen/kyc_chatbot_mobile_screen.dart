@@ -429,7 +429,7 @@ class _KYCChatBotMobileState extends State<KYCChatBotMobile> {
                                   child: InkWell(
                                     onTap: () {
 
-
+                                      setString(prefMotherLive,"Yes" );
                                       messages.add(ChatMessage(
                                           messageContent: [chatController.text,"Yes"],
                                           messageType: 'sender'));
@@ -459,6 +459,8 @@ class _KYCChatBotMobileState extends State<KYCChatBotMobile> {
                                 Expanded(
                                   child: InkWell(
                                     onTap: () {
+                                      setString(prefMotherLive,"No" );
+
                                       messages.add(ChatMessage(
                                           messageContent: [chatController.text,"No"],
                                           messageType: 'sender'));
@@ -566,7 +568,7 @@ class _KYCChatBotMobileState extends State<KYCChatBotMobile> {
                                     )),
                                 Gap(6),
                                 Text(
-                                  "Divorce Granted ",
+                                  "Divorce Granted",
                                   style: TextStyle(
                                       fontSize: 12, fontWeight: FontWeight.w500),
                                 ),
@@ -598,7 +600,7 @@ class _KYCChatBotMobileState extends State<KYCChatBotMobile> {
                                     )),
                                 Gap(6),
                                 Text(
-                                  "Divorce Pending ",
+                                  "Divorce Pending",
                                   style: TextStyle(
                                       fontSize: 12, fontWeight: FontWeight.w500),
                                 ),

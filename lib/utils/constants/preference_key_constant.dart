@@ -49,6 +49,8 @@ const String prefMotherName = "prefMotherName";
 const String prefDOB = "prefDOB";
 const String prefState = "prefState";
 const String prefCity = "prefCity";
+const String prefFatherLive = "prefFatherLive";
+const String prefMotherLive = "prefMotherLive";
 
 
 

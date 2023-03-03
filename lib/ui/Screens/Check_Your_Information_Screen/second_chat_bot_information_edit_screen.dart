@@ -169,7 +169,7 @@ class SecondChatBotInformationEditScreen extends HookConsumerWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Expanded(flex: 4,
-                    child: Text('Separated',style: TextStyle(fontWeight: FontWeight.w500,fontSize: 12.5),),
+                    child: Text('Divorce Status',style: TextStyle(fontWeight: FontWeight.w500,fontSize: 12.5),),
                   ),
 
                   Expanded(flex: 7,

@@ -58,13 +58,15 @@ class Beneficiary extends HookConsumerWidget {
 
 
     List<TextEditingController> reasonAddAnotherController =
-    List.generate(addAnotherIndex.value, (i) => TextEditingController());
+    List.generate(addAnotherIndex.value, (i) => useTextEditingController());
 
     List<TextEditingController> addAnotherPController =
-    List.generate(addAnotherIndex.value, (i) => TextEditingController(text: "00"));
+    List.generate(addAnotherIndex.value, (i) => useTextEditingController(text: "00"));
 
     List<TextEditingController> addNameController =
-    List.generate(addAnotherIndex.value, (i) => TextEditingController());
+    List.generate(addAnotherIndex.value, (i) => useTextEditingController());
+
+
 
     List<bool> isAddAnother = List.generate(addAnotherIndex.value, (i) => false);
 
@@ -72,13 +74,7 @@ class Beneficiary extends HookConsumerWidget {
 
     List<bool> isChild = List.generate(childCount, (i) => false);
 
-    // onChange: (val){
-    //   if(val != ""){
-    //     totalPercentage.value += int.parse(val);
-    //   }else{
-    //     totalPercentage.value -= int.parse(val);
-    //   }
-    // },
+
 
     final totalPercentage = useState<int>(0);
 
@@ -217,6 +213,8 @@ class Beneficiary extends HookConsumerWidget {
           required void Function()? onTap,
           required void Function(String)? onChanged,
           required void Function(String) onFieldSubmitted,
+          required void Function(String) onChangedAddName,
+          required void Function(String) onFieldSubmittedAddName,
         }) {
       return Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -250,6 +248,8 @@ class Beneficiary extends HookConsumerWidget {
                           fontWeight: FontWeight.w600),
                       contentPadding:
                       EdgeInsets.only(  left: 18, top: -13, bottom: 12),
+                      onChange: onChangedAddName,
+                      onFieldSubmitted: onFieldSubmittedAddName,
 
 
 
@@ -341,14 +341,26 @@ class Beneficiary extends HookConsumerWidget {
 
 
     int childPer = 0;
+    int addAnother = 0;
     print("child data start -->>>> ${childPer}");
 
     for (int i = 0; i < childController.length; i++) {
       childPer += int.parse(
           childController[i].text.isEmpty ? "00" : childController[i].text);
     }
+    // print("test 123---->> ${addAnotherPController[0].text} ");
+    // print("test 123---->> ${addAnotherPController[1].text} ");
+
+
+    for (int i = 0; i < addAnotherPController.length; i++) {
+      print("test 123---->> ${addAnotherPController[i].text} ");
+
+      addAnother += int.parse(
+          addAnotherPController[i].text.isEmpty ? "00" : addAnotherPController[i].text);
+    }
 
     print("child data end -->>>> ${childPer}");
+    print("child data end -->>>> ${addAnother}");
 
     final totalCount = useState<int>(00);
 
@@ -382,8 +394,7 @@ class Beneficiary extends HookConsumerWidget {
                   : '00') +
               int.parse(spouseController.text.isNotEmpty
                   ? spouseController.text
-                  : '00') +
-              childPer;
+                  : '00') + childPer + addAnother;
 
           print(
               " total count data in under ------>>>>>>>>>>>  ${totalCount.value}");
@@ -436,7 +447,6 @@ class Beneficiary extends HookConsumerWidget {
                     }
                   },
                   onFieldSubmitted: (value) {
-
                     setState(() {});
                   },
                 ),
@@ -632,7 +642,10 @@ class Beneficiary extends HookConsumerWidget {
                         rowAddValue(
                           context,
                           nameController: addNameController[index],
+                          percentageController : addAnotherPController[index],
 
+                          onChangedAddName: (val){},
+                          onFieldSubmittedAddName: (valFie){},
 
                           isMinus: isAddAnother[index],
                           onChanged: (v) {
@@ -641,16 +654,18 @@ class Beneficiary extends HookConsumerWidget {
                               setState(() {});
                             }
                           },
-                          percentageController : addAnotherPController[index],
+
+
+
+
+
                           onTap: () {
-                            print("------> ooooo");
-                            print("ischild ---> ${isAddAnother[index]}");
 
                             if (addAnotherPController[index].text == "00" || addAnotherPController[index].text.isEmpty) {
-                              setState(() {
-                                print("ischild ---> ${isAddAnother[index]}");
+
                                 isAddAnother[index] = !isAddAnother[index];
-                                print("ischild pachi ---> ${isAddAnother[index]}");
+
+                              setState(() {
                               });
                             }
                           },
@@ -686,16 +701,6 @@ class Beneficiary extends HookConsumerWidget {
                   },
                 ),
 
-                // rowValue(context,
-                //   keyText: "Child 1",
-                //   valueText: '',
-                //   controller: child1Controller,
-                //   onTap: (){},
-                //   onFieldSubmitted: (value){
-                //     setState((){});
-                //   },
-                //
-                // ),
 
                 Gap(15),
 
@@ -764,11 +769,11 @@ class Beneficiary extends HookConsumerWidget {
                     title: "+ Add Another",
                     padding: EdgeInsets.symmetric(vertical: 14, horizontal: 30),
                     onTap: () {
-                      print("adddd----> ${addAnotherIndex.value}");
+                      // print("adddd----> ${addAnotherIndex.value}");
 
-                      addAnotherIndex.value ++ ;
+                      addAnotherIndex.value = addAnotherIndex.value + 1 ;
 
-                      print("adddd----> pacgi ${addAnotherIndex.value}");
+                      // print("adddd----> pacgi ${addAnotherIndex.value}");
                       // navigationService.push(routeRecordAVideo,arguments: {navVideoRecord: false,});
                     },
                   ),

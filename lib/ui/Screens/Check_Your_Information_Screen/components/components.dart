@@ -613,8 +613,8 @@ class FamilyDialogSecond extends HookConsumerWidget {
       {"title": "Divorce Pending", }
     ];
 
-    final  maritalIndex = useState<int>(-1);
-    final  sepDivorceIndex = useState<int>(-1);
+    final  maritalIndex = useState<int>( messagesInfoDialog.maritalStatus == "Married" ? 0 : messagesInfoDialog.maritalStatus == "UnMarried" ? 1 : 2 );
+    final  sepDivorceIndex = useState<int>(messagesInfoDialog.divorceStatus.isEmpty ? -1 :  messagesInfoDialog.divorceStatus == "Divorce Granted" ? 0 : 1);
 
     return StatefulBuilder(
       builder: (context, setState) {
@@ -686,9 +686,7 @@ class FamilyDialogSecond extends HookConsumerWidget {
                             arrowColor: black,
                             isExpanded: ValueNotifier(1),
                             boxcolor: lightsky,
-                            title: maritalIndex.value == -1
-                                ? "${messagesInfoDialog.maritalStatus}"
-                                : marital[maritalIndex.value]["title"],
+                            title:  marital[maritalIndex.value]["title"],
                             expandedChild: Container(
                               height: 100,
                               color: white,
@@ -745,7 +743,7 @@ class FamilyDialogSecond extends HookConsumerWidget {
                           flex: 6,
                           child: Padding(
                             padding: const EdgeInsets.only(top: 8.0),
-                            child: Text("Separated"),
+                            child: Text("Divorce Status"),
                           )),
 
                       Expanded(
@@ -769,7 +767,7 @@ class FamilyDialogSecond extends HookConsumerWidget {
                             isExpanded: ValueNotifier(1),
                             boxcolor: lightsky,
                             title: sepDivorceIndex.value == -1
-                                ? "${messagesInfoDialog.divorceStatus}"
+                                ? ""
                                 : SepDivorce[sepDivorceIndex.value]["title"],
                             expandedChild: Container(
                               height: 70,
@@ -848,21 +846,88 @@ class FamilyDialogSecond extends HookConsumerWidget {
                             EdgeInsets.symmetric(vertical: 10, horizontal: 46),
                         title: "Save",
                         onTap: () {
+
+
+                          if(MotherNameCon.text.isNotEmpty){
+
+                            if(marital[maritalIndex.value]["title"] == "Married"){
+
+                              if(SpouseNameCon.text.isNotEmpty){
+
+                                popFamilyInfoData.value = {
+                                  "MotherName": MotherNameCon.text,
+                                  "MaritalStatus":  marital[maritalIndex.value]["title"],
+                                  "SpouseName": SpouseNameCon.text,
+                                  "Separated": sepDivorceIndex.value == -1 ? "" : marital[sepDivorceIndex.value]["title"],
+                                };
+
+                                  navigationService.pop(args: popFamilyInfoData.value);
+
+                              }else{
+                                displayToast("Please Enter Your Spouse Name ");
+                              }
+
+                            }else if(marital[maritalIndex.value]["title"] == "Separated"){
+
+                              if(SpouseNameCon.text.isNotEmpty){
+
+                                if(sepDivorceIndex.value != -1) {
+                                  popFamilyInfoData.value = {
+                                    "MotherName": MotherNameCon.text,
+                                    "MaritalStatus": marital[maritalIndex.value]["title"],
+                                    "SpouseName": SpouseNameCon.text,
+                                    "Separated": sepDivorceIndex.value == -1 ? "" : marital[sepDivorceIndex.value]["title"],
+                                  };
+
+                                  navigationService.pop(
+                                      args: popFamilyInfoData.value);
+                                }else{
+                                  displayToast("Please Select Separated");
+                                }
+
+                              }else{
+                                displayToast("Please Enter Your Spouse Name ");
+                              }
+
+
+                            }else {
+
+                              popFamilyInfoData.value = {
+                                "MotherName": MotherNameCon.text,
+                                "MaritalStatus":  marital[maritalIndex.value]["title"],
+                                "SpouseName": "",
+                                "Separated": "",
+                              };
+
+                              navigationService.pop(args: popFamilyInfoData.value);
+
+
+
+                            }
+
+                          }else {
+                            displayToast("Please Enter Your Mother Name");
+                          }
+
                           popFamilyInfoData.value = {
                             "MotherName": MotherNameCon.text,
-                            "MaritalStatus": maritalIndex.value == -1 ? "${messagesInfoDialog.maritalStatus}" : marital[maritalIndex.value]["title"],
+                            "MaritalStatus":  marital[maritalIndex.value]["title"],
                             "SpouseName": SpouseNameCon.text,
                             "Separated": sepDivorceIndex.value == -1 ? "${messagesInfoDialog.divorceStatus}" : marital[sepDivorceIndex.value]["title"],
                           };
 
-                          if (MotherNameCon.text.isNotEmpty &&
-                              MaritalStaCon.text.isNotEmpty
-                          ) {
-                            navigationService.pop(
-                                args: popFamilyInfoData.value);
-                          } else {
-                            displayToast("Please Check Your Information");
-                          }
+                          // if (MotherNameCon.text.isNotEmpty &&
+                          //     MaritalStaCon.text.isNotEmpty
+                          // ) {
+                          //   navigationService.pop(
+                          //       args: popFamilyInfoData.value);
+                          // } else {
+                          //   displayToast("Please Check Your Information");
+                          // }
+
+
+
+
                         },
                       ),
                     ],
