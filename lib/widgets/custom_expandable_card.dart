@@ -129,7 +129,6 @@ class CustomExpandableCard extends HookWidget {
 }
 
 
-
 class CustomExpandableCardCode extends HookWidget {
   const CustomExpandableCardCode({
     Key? key,
@@ -250,11 +249,6 @@ class CustomExpandableCardCode extends HookWidget {
 }
 
 
-
-
-
-
-
 class CustomChildExpandableCard extends HookWidget {
   const CustomChildExpandableCard(
       {Key? key,
@@ -346,7 +340,6 @@ class CustomChildExpandableCard extends HookWidget {
     );
   }
 }
-
 
 
 class CustomExpandTextCard extends HookWidget {
@@ -477,3 +470,130 @@ class CustomExpandTextCard extends HookWidget {
     );
   }
 }
+
+
+class CustomExpandableDrawer extends HookWidget {
+  const CustomExpandableDrawer({
+    Key? key,
+    required  this.name,
+    required  this.image,
+    required this.boxcolor,
+    this.onTap,
+    required this.isExpanded,
+    this.collapsedChild,
+    required this.index,
+    this.expandedChild,
+    this.openchild,
+    this.color,
+    this.iconcolor,
+    // required this.border,
+    // this.onCall,
+  }) : super(key: key);
+
+  final Function(bool isExpanded, int index)? onTap;
+  // final Function? onCall;
+  final int animationTime = 600;
+  final int index;
+  final  Color? color;
+  final  Color? iconcolor;
+  final Widget? collapsedChild;
+  final Widget? expandedChild;
+  final Widget? openchild;
+  final String name;
+  final String image;
+  final Color boxcolor;
+  // final BoxBorder border;
+  // final Color? color;
+  final ValueNotifier<int> isExpanded;
+
+  @override
+  Widget build(BuildContext context) {
+    final _controller = useAnimationController(
+      duration: const Duration(milliseconds: 600),
+    );
+    final update = useValueListenable(isExpanded);
+    useEffect(() {
+      if (isExpanded.value == index) {
+        _controller.forward();
+      } else {
+        _controller.reverse();
+      }
+    }, [update]);
+    final appColors = Theme.of(context).appColors;
+    return Container(
+      margin: EdgeInsets.only(bottom: 16),
+      clipBehavior: Clip.antiAlias,
+      decoration:  BoxDecoration(
+        // border: border,
+        // borderRadius: BorderRadius.all(Radius.circular(8)),
+
+      ),
+      child: Column(
+        children: [
+          InkWell(
+              onTap: () {
+                // onCall!();
+                // print("is Expanded == ${isExpanded.value}");
+                if (onTap != null) {
+                  onTap!(isExpanded.value == index, index);
+                } else {
+                  if (isExpanded.value == index) {
+                    isExpanded.value = -1;
+                  } else {
+                    isExpanded.value = index;
+                  }
+                }
+              },
+              child:
+              Container(
+                padding: EdgeInsets.only(right: 26,),
+                height: 58,
+                decoration: BoxDecoration(
+                  // borderRadius: BorderRadius.circular(8),
+                  color: boxcolor,
+                ),
+                child: Row(
+                  //mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+
+                      // Gap(15),
+                      Expanded(
+                          flex: 3,
+                          child: Container(child: Image.asset(image,scale: 4,))),
+                      // Gap(),
+
+                      Expanded(
+                        flex: 10,
+                        child:  Text(name,
+                          style: TextStyle(color: black,fontSize: 16,fontWeight: FontWeight.w500),),),
+
+                      RotationTransition(
+                          turns: Tween(begin: 0.0, end: 0.5)
+                              .animate(_controller),
+                          child: Image.asset(
+                            rightIconBack,scale: 4,color: blue,
+
+                          )),
+                      // Gap(20),
+
+
+                    ]),
+              )
+          ),
+
+
+          AnimatedSize(
+            duration: Duration(milliseconds: animationTime),
+            child: SizedBox(
+                child: (isExpanded.value != index && collapsedChild != null)
+                    ? collapsedChild!
+                    : (isExpanded.value == index && expandedChild != null)
+                    ? expandedChild!
+                    : const SizedBox()),
+          )
+        ],
+      ),
+    );
+  }
+}
+

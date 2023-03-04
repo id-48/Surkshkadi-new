@@ -18,7 +18,7 @@ const String plans = 'Plans';
 const String weSimplifyThe =
     'We simplify the process, saving you\ntime money and stress';
 const String getBestIn = 'Get best in subscription plans here.';
-const String easyAndAff = 'Easy and Affordable';
+const String easyAndAff = 'Simple and Affordable';
 const String safeSecure = 'Safe & Secure';
 const String buildByExperts = 'Built by Experts';
 const String freeeWill = '** Free e-Will Creation. **';

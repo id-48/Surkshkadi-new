@@ -22,7 +22,7 @@ class UpdateSecondChatBoatViewModel extends StateNotifier<AsyncValue<ResUpdateSe
     final result = await repositery.postUpdateSecondChatBot(data);
     return result.when(
         success: (result) async {
-          hideLoadingDialog(context: context);
+
           return result;
         },
         failure: (error) {

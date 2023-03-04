@@ -58,6 +58,7 @@ const String youBotIcon = 'assets/images/youboticon.png';
 const String testimonialsBG = 'assets/images/testimonials.png';
 const String verifiedIcon = 'assets/images/verifiedIcon.png';
 const String plusIcon = 'assets/images/plusIcon.png';
+const String rightIconBack = 'assets/images/rightIconBack.png';
 
 const String bank = 'assets/images/bank.png';
 const String utility = 'assets/images/utility.png';

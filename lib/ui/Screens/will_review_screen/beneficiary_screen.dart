@@ -43,12 +43,13 @@ class Beneficiary extends HookConsumerWidget {
     final isMother = useState<bool>(false);
     final isSpouse = useState<bool>(false);
 
+    final totalCount = useState<int>(0);
 
     final addAnotherIndex= useState<int>(0);
 
     // final isIcon= useState <bool>(false);
 
-    List<String> childrenList = ["one", "Two", "Thee"];
+    // List<String> childrenList = ["one", "Two", "Thee"];
 
     List<TextEditingController> childController =
         List.generate(childCount, (i) => useTextEditingController(text: "00"));
@@ -56,27 +57,26 @@ class Beneficiary extends HookConsumerWidget {
     List<TextEditingController> reasonChildController =
         List.generate(childCount, (i) => useTextEditingController());
 
+    List<bool> isChild = List.generate(childCount, (i) => false);
+
 
     List<TextEditingController> reasonAddAnotherController =
     List.generate(addAnotherIndex.value, (i) => useTextEditingController());
 
     List<TextEditingController> addAnotherPController =
-    List.generate(addAnotherIndex.value, (i) => useTextEditingController(text: "00"));
+    List.generate(addAnotherIndex.value, (j) => useTextEditingController(text: "00"));
 
     List<TextEditingController> addNameController =
-    List.generate(addAnotherIndex.value, (i) => useTextEditingController());
-
-
+    List.generate(addAnotherIndex.value, (k) => useTextEditingController());
 
     List<bool> isAddAnother = List.generate(addAnotherIndex.value, (i) => false);
 
 
 
-    List<bool> isChild = List.generate(childCount, (i) => false);
 
 
 
-    final totalPercentage = useState<int>(0);
+    // final totalPercentage = useState<int>(0);
 
     rowValue(
       context, {
@@ -182,11 +182,12 @@ class Beneficiary extends HookConsumerWidget {
                           child: isMinus
                               ? Icon(
                                   Icons.remove,
-                                  color: blueee,
+                                  color: buttonColor,
                                 )
                               : Image.asset(
                                   plusIcon,
                                   scale: 3.5,
+                                 // color: blueee,
                                 ),
                         )),
                   )),
@@ -212,9 +213,9 @@ class Beneficiary extends HookConsumerWidget {
           required TextEditingController percentageController,
           required void Function()? onTap,
           required void Function(String)? onChanged,
-          required void Function(String) onFieldSubmitted,
-          required void Function(String) onChangedAddName,
-          required void Function(String) onFieldSubmittedAddName,
+          required void Function(String)? onFieldSubmitted,
+          required void Function(String)? onChangedAddName,
+          required void Function(String)? onFieldSubmittedAddName,
         }) {
       return Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -230,6 +231,9 @@ class Beneficiary extends HookConsumerWidget {
                     width: 50,
 
                     child: CustomTextfeild(
+
+                      controller: nameController,
+
                       textStyle: GoogleFonts.inter(
                           fontSize: 13,
                           color: buttonColor,
@@ -238,9 +242,7 @@ class Beneficiary extends HookConsumerWidget {
                       textInputType: TextInputType.text,
                       offset: Offset(0.0, 0.0),
                       blurRadius: 0.0,
-
                       containercolor: white,
-                      controller: nameController,
                       hinttext: "{Free text}",
                       hintStyle: GoogleFonts.inter(
                           fontSize: 13,
@@ -318,7 +320,7 @@ class Beneficiary extends HookConsumerWidget {
                           child: isMinus
                               ? Icon(
                             Icons.remove,
-                            color: blueee,
+                            color: buttonColor,
                           )
                               : Image.asset(
                             plusIcon,
@@ -342,27 +344,29 @@ class Beneficiary extends HookConsumerWidget {
 
     int childPer = 0;
     int addAnother = 0;
-    print("child data start -->>>> ${childPer}");
+    // print("child data start -->>>> ${childPer}");
 
     for (int i = 0; i < childController.length; i++) {
       childPer += int.parse(
           childController[i].text.isEmpty ? "00" : childController[i].text);
     }
-    // print("test 123---->> ${addAnotherPController[0].text} ");
-    // print("test 123---->> ${addAnotherPController[1].text} ");
 
 
-    for (int i = 0; i < addAnotherPController.length; i++) {
-      print("test 123---->> ${addAnotherPController[i].text} ");
 
-      addAnother += int.parse(
-          addAnotherPController[i].text.isEmpty ? "00" : addAnotherPController[i].text);
-    }
+    // print("test 0 name---->> ${addNameController[0].text} ");
+    // print("test 0 pc ---->> ${addAnotherPController[0].text} ");
+    // print("test 0 reason ---->> ${reasonAddAnotherController[0].text} ");
+    // print("test 1 name ---->> ${addNameController[1].text} ");
+    // print("test 1 pc ---->> ${addAnotherPController[1].text} ");
+    // print("test 1 reason ---->> ${reasonAddAnotherController[1].text} ");
 
-    print("child data end -->>>> ${childPer}");
-    print("child data end -->>>> ${addAnother}");
 
-    final totalCount = useState<int>(00);
+    // for (int i = 0; i < addAnotherPController.length; i++) {
+    //
+    //   addAnother += int.parse(
+    //       addAnotherPController[i].text.isEmpty ? "00" : addAnotherPController[i].text);
+    // }
+
 
     // final totalCount = useState<int>(
     //   // "${
@@ -374,7 +378,7 @@ class Beneficiary extends HookConsumerWidget {
     //   // }"
     // );
 
-    print(" total count data ------>>>>>>>>>>>  ${totalCount.value}");
+    // print(" total count data ------>>>>>>>>>>>  ${totalCount.value}");
 
     return Scaffold(
       appBar: CustomAppBar(
@@ -382,10 +386,7 @@ class Beneficiary extends HookConsumerWidget {
         backonTap: () {},
       ),
       body: SingleChildScrollView(
-        child: StatefulBuilder(builder: (
-          context,
-          setState,
-        ) {
+        child: StatefulBuilder(builder: (BuildContext context, setState,) {
           totalCount.value = int.parse(fatherController.text.isNotEmpty
                   ? fatherController.text
                   : '00') +
@@ -394,19 +395,29 @@ class Beneficiary extends HookConsumerWidget {
                   : '00') +
               int.parse(spouseController.text.isNotEmpty
                   ? spouseController.text
-                  : '00') + childPer + addAnother;
+                  : '00') + childPer
+              ;
+              // + addAnother;
+          print("test 0 name---->> ${reasonChildController[0].text} ");
+          print("test 0 pc ---->> ${childController[0].text} ");
+          print("test 1 name ---->> ${reasonChildController[0].text} ");
+          print("test 1 pc ---->> ${childController[1].text} ");
 
-          print(
-              " total count data in under ------>>>>>>>>>>>  ${totalCount.value}");
-
-          // totalPercentage =
-          //      int.parse(fatherController.text.isNotEmpty ? fatherController.text : '00')
-          //    + int.parse(motherController.text.isNotEmpty ? motherController.text  : '00')
-          //    + int.parse(spouseController.text.isNotEmpty ? spouseController.text  : '00')
-          //    + int.parse(childController[0].text.isEmpty ? childController[0].text  : '00')
-          //    + int.parse( for(int i=1;i<75;i++) {
-          //   TextEditingController _controller[i] = TextEditingController();
-          // });
+          // print("test 0 name---->> ${addNameController[0].text} ");
+          // print("test 0 pc ---->> ${addAnotherPController[0].text} ");
+          // print("test 0 reason ---->> ${reasonAddAnotherController[0].text} ");
+          // print("test 1 name ---->> ${addNameController[1].text} ");
+          // print("test 1 pc ---->> ${addAnotherPController[1].text} ");
+          // print("test 1 reason ---->> ${reasonAddAnotherController[1].text} ");
+          // print("test 2 name ---->> ${addNameController[2].text} ");
+          // print("test 2 pc ---->> ${addAnotherPController[2].text} ");
+          // print("test 2 reason ---->> ${reasonAddAnotherController[2].text} ");
+          // print("test 3 name ---->> ${addNameController[3].text} ");
+          // print("test 3 pc ---->> ${addAnotherPController[3].text} ");
+          // print("test 3 reason ---->> ${reasonAddAnotherController[3].text} ");
+          // print("test 4 name ---->> ${addNameController[4].text} ");
+          // print("test 4 pc ---->> ${addAnotherPController[4].text} ");
+          // print("test 4 reason ---->> ${reasonAddAnotherController[4].text} ");
 
           return Padding(
             padding: EdgeInsets.only(left: 16, right: 16, top: 16),
@@ -582,6 +593,7 @@ class Beneficiary extends HookConsumerWidget {
                           valueText: '${childName[index]}',
                           isMinus: isChild[index],
                           onChanged: (v) {
+                            print("test data");
                             if (v != "") {
                               isChild[index] = false ;
                               setState(() {});
@@ -594,7 +606,7 @@ class Beneficiary extends HookConsumerWidget {
 
                             if (childController[index].text == "00" || childController[index].text.isEmpty) {
                               setState(() {
-                                print("ischild ---> ${isChild[index]}");
+                                print("ischild pela---> ${isChild[index]}");
                                 isChild[index] = !isChild[index];
                                 print("ischild pachi ---> ${isChild[index]}");
                               });
@@ -631,6 +643,8 @@ class Beneficiary extends HookConsumerWidget {
                     );
                   },
                 ),
+
+
                 ListView.builder(
                   shrinkWrap: true,
                   // padding: const EdgeInsets.symmetric(vertical: 10),
@@ -656,9 +670,6 @@ class Beneficiary extends HookConsumerWidget {
                           },
 
 
-
-
-
                           onTap: () {
 
                             if (addAnotherPController[index].text == "00" || addAnotherPController[index].text.isEmpty) {
@@ -673,27 +684,26 @@ class Beneficiary extends HookConsumerWidget {
                             setState(() {});
                           },
                         ),
+
+
                         if (isAddAnother[index] == true)
                           Padding(
                             padding: const EdgeInsets.symmetric(vertical: 10),
                             child: CustomTextfeild(
+                              controller: reasonAddAnotherController[index],
                               textCapitalization: TextCapitalization.none,
-                              contentPadding: EdgeInsets.only(
-                                left: 10,
-                              ),
+                              contentPadding: EdgeInsets.only(left: 10,),
                               blurRadius: 4.0,
                               maxLines: 1,
-                              offset: Offset(
-                                0.0,
-                                4,
-                              ),
+                              offset: Offset(0.0, 4,),
                               containerborder: Border.all(color: webBorder),
                               containercolor: white,
                               hinttext: "What's Your reason",
                               hintStyle: TextStyle(fontSize: 15),
                               borderRadius: BorderRadius.circular(10),
-                              controller: reasonAddAnotherController[index],
                               textStyle: TextStyle(fontSize: 20),
+                              onChange: (change){},
+                              onFieldSubmitted: (sub){},
                             ),
                           ),
                       ],
@@ -762,7 +772,8 @@ class Beneficiary extends HookConsumerWidget {
                   width: double.infinity,
                 ),
 
-                Gap(50),
+
+                Gap(40),
 
                 Center(
                   child: CustomButton(
@@ -771,13 +782,20 @@ class Beneficiary extends HookConsumerWidget {
                     onTap: () {
                       // print("adddd----> ${addAnotherIndex.value}");
 
+                      // addNameController.clear();
+                      // addAnotherPController.clear();
+                      // reasonAddAnotherController.clear();
                       addAnotherIndex.value = addAnotherIndex.value + 1 ;
 
+                      setState((){});
                       // print("adddd----> pacgi ${addAnotherIndex.value}");
                       // navigationService.push(routeRecordAVideo,arguments: {navVideoRecord: false,});
                     },
                   ),
                 ),
+
+                Gap(30),
+
               ],
             ),
           );

@@ -67,88 +67,210 @@ class PlanScreen extends HookConsumerWidget {
                   children: [
                     Gap(20),
                     Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
                         Image.asset(
                           transfer,
-                          scale: 4,
+                          scale: 3.2,
                         ),
-                        Gap(10),
+
                         Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Text(weSimplifyThe,
-                                style: TextStyle(
-                                    fontWeight: FontWeight.w900,
-                                    color: navyblue)),
-                            Gap(2),
-                            Text(getBestIn,
-                                style: TextStyle(
-                                  fontSize: 12,
-                                )),
+
+                            Row(
+                              children: [
+                                Gap(15),
+                                Icon(Icons.check, color: pista, size: 20),
+                                Gap(5),
+                                Text(easyAndAff,
+                                    style: TextStyle(
+                                        fontSize: 12,
+                                        fontWeight: FontWeight.bold,
+                                        color: pista)),
+                              ],
+                            ),
+                            Gap(3),
+                            Row(
+                              children: [
+                                Gap(15),
+                                Icon(
+                                  Icons.check,
+                                  color: pista,
+                                  size: 20,
+                                ),
+                                Gap(5),
+                                Text(safeSecure,
+                                    style: TextStyle(
+                                        fontSize: 12,
+                                        fontWeight: FontWeight.bold,
+                                        color: pista)),
+                              ],
+                            ),
+                            Gap(3),
+                            Row(
+                              children: [
+                                Gap(15),
+                                Icon(
+                                  Icons.check,
+                                  color: pista,
+                                  size: 20,
+                                ),
+                                Gap(5),
+                                Text(buildByExperts,
+                                    style: TextStyle(
+                                        fontSize: 12,
+                                        fontWeight: FontWeight.bold,
+                                        color: pista)),
+                              ],
+                            ),
+
                           ],
                         ),
                       ],
                     ),
                     Gap(10),
+
                     Row(
                       children: [
-                        Gap(15),
-                        Icon(Icons.check, color: pista, size: 20),
-                        Gap(5),
-                        Text(easyAndAff,
-                            style: TextStyle(
-                                fontSize: 12,
-                                fontWeight: FontWeight.bold,
-                                color: pista)),
-                      ],
-                    ),
-                    Gap(3),
-                    Row(
-                      children: [
-                        Gap(15),
-                        Icon(
-                          Icons.check,
-                          color: pista,
-                          size: 20,
+                        Expanded(
+                          flex: 1,
+                          child: Card(
+                            elevation: 2,
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(14.0),
+                            ),
+                            child: Container(
+                              padding: EdgeInsets.symmetric(horizontal: 6,vertical: 7),
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(14),
+                                color: lowBlue,
+                                // boxShadow: [
+                                //   BoxShadow(
+                                //     color: Colors.grey.shade300,
+                                //     spreadRadius: 1,
+                                //     blurRadius: 1,
+                                //   ),
+                                // ]
+                              ),
+                              child: Column(
+                                children: [
+                                  Image.asset(
+                                    willVector,
+                                    scale: 7,
+                                  ),
+                                  Gap(6),
+                                  Padding(
+                                    padding:
+                                    const EdgeInsets.symmetric(horizontal: 4),
+                                    child: Text(
+                                      complementaryEWillCreation,
+                                      style: TextStyle(
+                                        fontWeight: FontWeight.w600,
+                                        fontSize: 10,
+                                      ),
+                                      textAlign: TextAlign.center,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ),
                         ),
-                        Gap(5),
-                        Text(safeSecure,
-                            style: TextStyle(
-                                fontSize: 12,
-                                fontWeight: FontWeight.bold,
-                                color: pista)),
-                      ],
-                    ),
-                    Gap(3),
-                    Row(
-                      children: [
-                        Gap(15),
-                        Icon(
-                          Icons.check,
-                          color: pista,
-                          size: 20,
+                        // Gap(4),
+                        Expanded(
+                          flex: 1,
+                          child: Card(
+                            elevation: 2,
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(14.0),
+                            ),
+                            child: Container(
+                              padding: EdgeInsets.symmetric(horizontal: 6,vertical: 7),
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(14),
+                                color: lowBlue,
+                                // boxShadow: [
+                                //   BoxShadow(
+                                //     color: Colors.grey.shade300,
+                                //     spreadRadius: 1,
+                                //     blurRadius: 1,
+                                //   ),
+                                // ]
+                              ),
+                              child: Column(
+                                children: [
+                                  Image.asset(
+                                    vactor,
+                                    scale: 7,
+                                  ),
+                                  Gap(6),
+                                  Padding(
+                                    padding:
+                                    const EdgeInsets.symmetric(horizontal: 4),
+                                    child: Text(
+                                      freeInsuranceCover,
+                                      style: TextStyle(
+                                        fontWeight: FontWeight.w600,
+                                        fontSize: 10,
+                                      ),
+                                      textAlign: TextAlign.center,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ),
                         ),
-                        Gap(5),
-                        Text(buildByExperts,
-                            style: TextStyle(
-                                fontSize: 12,
-                                fontWeight: FontWeight.bold,
-                                color: pista)),
+                        // Gap(4),
+                        Expanded(
+                          flex: 1,
+                          child: Card(
+                            elevation: 2,
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(14.0),
+                            ),
+                            child: Container(
+                              padding: EdgeInsets.symmetric(horizontal: 6,vertical: 7),
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(14),
+                                color: lowBlue,
+                                // boxShadow: [
+                                //   BoxShadow(
+                                //     color: Colors.grey.shade300,
+                                //     spreadRadius: 1,
+                                //     blurRadius: 1,
+                                //   ),
+                                // ]
+                              ),
+                              child: Column(
+                                children: [
+                                  Image.asset(
+                                    subscriptionModel,
+                                    scale: 7,
+                                  ),
+                                  Gap(6),
+                                  Padding(
+                                    padding:
+                                    const EdgeInsets.symmetric(horizontal: 4),
+                                    child: Text(
+                                      returnOfYourSubscription,
+                                      style: TextStyle(
+                                        fontWeight: FontWeight.w600,
+                                        fontSize: 10,
+                                      ),
+                                      textAlign: TextAlign.center,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ),
+                        ),
                       ],
                     ),
-                    Gap(3),
-                    Padding(
-                      padding:
-                          const EdgeInsets.only(left: 20, top: 7, bottom: 7),
-                      child: BlinkText(freeeWill,
-                          style: TextStyle(
-                              fontWeight: FontWeight.w900,
-                              color: Colors.black,
-                              fontSize: 16),
-                          times: 40,
-                          duration: Duration(seconds: 3)),
-                    ),
-                    Gap(6),
+
+                    Gap(14),
 
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,

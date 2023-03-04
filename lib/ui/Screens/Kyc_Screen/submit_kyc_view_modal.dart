@@ -33,7 +33,7 @@ class SubmitKycViewModel extends StateNotifier<AsyncValue<ResSubmitKyc>> {
           return result;
         },
         failure: (error) {
-          displayToast(error.message);
+          // displayToast(error.message);
           hideLoadingDialog(context: context);
 
 

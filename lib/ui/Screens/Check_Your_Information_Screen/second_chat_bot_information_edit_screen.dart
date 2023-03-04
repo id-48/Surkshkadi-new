@@ -11,6 +11,7 @@ import 'package:surakshakadi/ui/Screens/Check_Your_Information_Screen/components
 import 'package:surakshakadi/ui/Screens/Check_Your_Information_Screen/upadate_second_chatbot_view_modal.dart';
 import 'package:surakshakadi/ui/Screens/chatbot_screen/plan_chatbot_screen.dart';
 import 'package:surakshakadi/utils/color_utils.dart';
+import 'package:surakshakadi/utils/constants/loading_dialog.dart';
 import 'package:surakshakadi/utils/constants/navigation_route_constants.dart';
 import 'package:surakshakadi/utils/constants/navigations_key_constant.dart';
 import 'package:surakshakadi/utils/constants/preference_key_constant.dart';
@@ -321,6 +322,7 @@ class SecondChatBotInformationEditScreen extends HookConsumerWidget {
                         .then((value) {
                              if(value?.status == 1){
                                displayToast("${value?.message}");
+                               hideLoadingDialog(context: context);
                                navigationService.push(routeBeneficiary ,arguments: {navChildCount:   childCountInfo  ,navChildName: childNameInfo});
 
                              }else {

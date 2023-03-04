@@ -29,10 +29,15 @@ class AuthViewModel extends StateNotifier<AsyncValue<ResOtp>> {
     final result = await repositery.logIn(data);
     return result.when(
         success: (result) async {
-          hideLoadingDialog(context: context);
+          print("test data success------>>>>");
+
+          // hideLoadingDialog(context: context);
           return result;
         },
         failure: (error) {
+
+          print("test data error------>>>>");
+
           hideLoadingDialog(context: context);
           displayToast("${error.message}");
 
@@ -58,7 +63,7 @@ class AuthViewModel extends StateNotifier<AsyncValue<ResOtp>> {
         failure: (error) {
           hideLoadingDialog(context: context);
 
-          displayToast("${error.message}");
+          // displayToast("${error.message}");
       // displayToast(error.response!.data["errors"][0]['code']);
     });
   }

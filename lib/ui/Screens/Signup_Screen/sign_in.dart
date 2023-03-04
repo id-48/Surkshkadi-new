@@ -6,6 +6,7 @@ import 'package:surakshakadi/data/model/auth/otp/req_otp.dart';
 import 'package:surakshakadi/di/locator.dart';
 import 'package:surakshakadi/ui/Screens/Signup_Screen/auth_view_model.dart';
 import 'package:surakshakadi/utils/color_utils.dart';
+import 'package:surakshakadi/utils/constants/loading_dialog.dart';
 import 'package:surakshakadi/utils/constants/navigation_route_constants.dart';
 import 'package:surakshakadi/utils/constants/navigations_key_constant.dart';
 import 'package:surakshakadi/utils/constants/preference_key_constant.dart';
@@ -200,7 +201,7 @@ class SignIn extends HookConsumerWidget {
                       {
                             if(value?.status == 1){
                               // displayToast("${value?.response?.otp}");
-
+                              hideLoadingDialog(context: context);
                               setString(prefUserID,"${value?.response?.userId}" );
 
                               print("key Id-- ${getString(prefUserID)}");
@@ -208,8 +209,8 @@ class SignIn extends HookConsumerWidget {
                               navigationService.push(routeOtpVerification, arguments: {
                                 navUserId: value?.response?.userId, navUserType : value?.response?.userType });
                             }else{
-                              displayToast("${value?.message}");
-
+                              // displayToast("${value?.message}");
+                              // hideLoadingDialog(context: context);
                             }
                       });
                     } else {

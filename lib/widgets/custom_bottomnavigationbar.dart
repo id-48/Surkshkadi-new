@@ -74,10 +74,10 @@ class Custom_BottomNavigationBar extends HookConsumerWidget {
             BottomNavigationBarItem(
               icon: SvgPicture.asset(accounticon),
               label: 'Account',
-              // activeIcon: SvgPicture.asset(),
+              activeIcon: SvgPicture.asset(accounticon,color: blue,),
             ),
             BottomNavigationBarItem(
-              icon: SvgPicture.asset(helpicon),
+              icon: SvgPicture.asset(helpicon,color: _selectedIndex.value == 3 ? blue : black,),
               label: 'Help',
               // activeIcon: SvgPicture.asset(),
             ),
