@@ -872,6 +872,7 @@ class PlanScreen extends HookConsumerWidget {
                                   ? "${data.response.plans[1].plans[isSelected.value].planTitle}"
                                   : "${data.response.plans[0].plans[isSelected.value].planTitle}";
 
+
                               List<PlanModule> planSelected =
                               isCheck.value == true
                                   ? data.response.plans[1]
@@ -882,6 +883,7 @@ class PlanScreen extends HookConsumerWidget {
                               setString(prefPlanIdMobile, planId);
                               setString(prefPlanPrice, planPrice);
                               setString(prefPlanTitle, planTitle);
+                              setBool(prefPlanType, isCheck.value );
 
                               navigationService.push(routePlanChatBotMobile,
                                   arguments: {navSelectedPlanCB: planSelected});
@@ -910,19 +912,6 @@ class PlanScreen extends HookConsumerWidget {
                             }
 
 
-
-
-
-
-
-                            if (getBool(prefSubChatBotCompletedMobile) ==
-                                true) {
-                              navigationService.push(routeCheckYourInformation);
-                            } else {
-
-
-
-                            }
 
                         },
                       ),

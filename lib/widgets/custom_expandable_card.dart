@@ -521,10 +521,10 @@ class CustomExpandableDrawer extends HookWidget {
     }, [update]);
     final appColors = Theme.of(context).appColors;
     return Container(
-      margin: EdgeInsets.only(bottom: 16),
+      // margin: EdgeInsets.only(bottom: 16),
       clipBehavior: Clip.antiAlias,
       decoration:  BoxDecoration(
-        // border: border,
+
         // borderRadius: BorderRadius.all(Radius.circular(8)),
 
       ),
@@ -547,10 +547,13 @@ class CustomExpandableDrawer extends HookWidget {
               child:
               Container(
                 padding: EdgeInsets.only(right: 26,),
-                height: 58,
+                height: 50,
                 decoration: BoxDecoration(
                   // borderRadius: BorderRadius.circular(8),
                   color: boxcolor,
+                  border: Border(
+                      bottom: BorderSide(color: blue,width: 1.5)
+                  ),
                 ),
                 child: Row(
                   //mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -568,7 +571,8 @@ class CustomExpandableDrawer extends HookWidget {
                           style: TextStyle(color: black,fontSize: 16,fontWeight: FontWeight.w500),),),
 
                       RotationTransition(
-                          turns: Tween(begin: 0.0, end: 0.5)
+                        // turns: AlwaysStoppedAnimation( isExpanded.value == index ? 90  / 360 : 1 / 360),
+                          turns: Tween(begin: 0.0, end: 0.25)
                               .animate(_controller),
                           child: Image.asset(
                             rightIconBack,scale: 4,color: blue,

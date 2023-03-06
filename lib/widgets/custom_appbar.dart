@@ -51,16 +51,16 @@ class CustomAppBar extends StatelessWidget with PreferredSizeWidget {
             ),
           ),
           actions: <Widget>[
-            notificationIcon == true ?  Padding(
-                padding: EdgeInsets.only(right: 20.0),
-                child: GestureDetector(
-                  onTap: notionTap,
-                  child: Icon(
-                    Icons.notifications_none,
-                    color: black,
-                    size: 26.0,
-                  ),
-                )) : Container(),
+             // notificationIcon == true ?  Padding(
+            //     padding: EdgeInsets.only(right: 20.0),
+            //     child: GestureDetector(
+            //       onTap: notionTap,
+            //       child: Icon(
+            //         Icons.notifications_none,
+            //         color: black,
+            //         size: 26.0,
+            //       ),
+            //     )) : Container(),
 
           ]),
     );
