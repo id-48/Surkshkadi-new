@@ -6,6 +6,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:surakshakadi/di/locator.dart';
 import 'package:surakshakadi/ui/Screens/chatbot_screen/kyc_chatbot_mobile_screen.dart';
 import 'package:surakshakadi/ui/Screens/chatbot_screen/plan_chatbot_web_screen.dart';
+import 'package:surakshakadi/ui/Screens/drawer_item_screen/refer_and_earn_screen.dart';
 import 'package:surakshakadi/ui/Screens/record_video_screen/record_a_video_screen.dart';
 import 'package:surakshakadi/ui/Screens/will_review_screen/beneficiary_screen.dart';
 import 'package:surakshakadi/ui/Screens/will_review_screen/will_review_screen.dart';
@@ -34,7 +35,7 @@ class SplashScreen extends HookConsumerWidget {
             // print("Aadhar token ${getString(prefUserID)}");
             if (getString(prefLoginToken).isNotEmpty) {
               // Navigator.push(context,
-              //     MaterialPageRoute(builder: (context) => Beneficiary() ));
+              //     MaterialPageRoute(builder: (context) => ReferAndEarn() ));
                   // MaterialPageRoute(builder: (context) => RecordAVideo(videoRecord: false ) ));
 
               // navigationService.pushAndRemoveUntil(routeKYCChatBotMobile);

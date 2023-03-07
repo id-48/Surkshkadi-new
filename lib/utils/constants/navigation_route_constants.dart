@@ -51,9 +51,12 @@ const String routePersonalVehicle = "/routePersonalVehicle";
 const String routeUtilityElectricity = "/routeUtilityElectricity";
 const String routeUtility = "/routeUtility";
 const String routeLegalAll = "/routeLegalAll";
-const String routeBeneficiary= "/routeBeneficiary";
-const String routeWillReviewIssueDetail= "/routeWillReviewIssueDetail";
-const String routeSecondChatBotInformationEdit= "/routeSecondChatBotInformationEdit";
+const String routeBeneficiary = "/routeBeneficiary";
+const String routeWillReviewIssueDetail = "/routeWillReviewIssueDetail";
+const String routeSecondChatBotInformationEdit = "/routeSecondChatBotInformationEdit";
+const String routeReferAndEarn = "/routeReferAndEarn";
+const String routeAccount = "/routeAccount";
+const String routeHelpAndSupport = "/routeHelpAndSupport";
 
 
 

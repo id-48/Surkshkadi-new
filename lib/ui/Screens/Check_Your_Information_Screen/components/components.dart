@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:gap/gap.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -10,6 +11,7 @@ import 'package:surakshakadi/utils/color_utils.dart';
 import 'package:surakshakadi/data/model/home/chatboat/plan_chat/res_plan_chatbot.dart' as planChatBot;
 
 import 'package:surakshakadi/utils/constants/preference_key_constant.dart';
+import 'package:surakshakadi/utils/constants/validation.dart';
 import 'package:surakshakadi/utils/dialog_utils.dart';
 import 'package:surakshakadi/utils/preference_utils.dart';
 import 'package:surakshakadi/utils/strings.dart';
@@ -283,6 +285,9 @@ class ContactInfoDialog extends HookConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     // final key = useState(GlobalKey<FormState>());
+
+    final GlobalKey<FormState> formKey = GlobalKey<FormState>();
+
     final popContactData = useState<Map<String, dynamic>>({});
 
     final emailCon = useTextEditingController(text: planChatBotSPData.email);
@@ -301,91 +306,100 @@ class ContactInfoDialog extends HookConsumerWidget {
           ),
           child: Padding(
               padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 20),
-              child: Column(
-                children: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      const Text(
-                        contactInformation,
-                        style: TextStyle(
-                            color: blue,
-                            fontWeight: FontWeight.w800,
-                            fontSize: 20),
-                      ),
-                      GestureDetector(
-                        onTap: () {
-                          navigationService.pop();
-                        },
-                        child: const Icon(
-                          Icons.cancel,
-                          color: blue,
-                          size: 30,
+              child: Form(
+                key: formKey,
+                child: Column(
+                  children: [
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        const Text(
+                          contactInformation,
+                          style: TextStyle(
+                              color: blue,
+                              fontWeight: FontWeight.w800,
+                              fontSize: 20),
                         ),
-                      ),
-                    ],
-                  ),
-                  Gap(20),
-                  PlanChatBSPDialogRow(
-                      controller: emailCon, keyValue: "Email :"),
-                  Gap(10),
-                  PlanChatBSPDialogRow(
-                      controller: mobileCon, keyValue: "WhatsApp No. :"),
-                  Gap(10),
-                  PlanChatBSPDialogRow(
-                      controller: addressCon, keyValue: "Address :"),
-                  Spacer(),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      GestureDetector(
-                        onTap: () {
-                          navigationService.pop();
-                        },
-                        child: Container(
-                          padding:
-                              EdgeInsets.symmetric(vertical: 9, horizontal: 40),
-                          child: Text("Close",
-                              style: TextStyle(color: Colors.blue)),
-                          decoration: BoxDecoration(
-                            color: white,
-                            border: Border.all(color: blue),
-                            boxShadow: [
-                              BoxShadow(
-                                color: Colors.grey,
-                                // spreadRadius: 1,
-                                blurRadius: 1,
-                                offset: const Offset(0, 1),
-                              )
-                            ],
-                            borderRadius: BorderRadius.circular(15),
+                        GestureDetector(
+                          onTap: () {
+                            navigationService.pop();
+                          },
+                          child: const Icon(
+                            Icons.cancel,
+                            color: blue,
+                            size: 30,
                           ),
                         ),
-                      ),
-                      Gap(16),
-                      CustomButton(
-                        padding:
-                            EdgeInsets.symmetric(vertical: 10, horizontal: 46),
-                        title: "Save",
-                        onTap: () {
-                          popContactData.value = {
-                            "email": emailCon.text,
-                            "mobile": mobileCon.text,
-                            "address": addressCon.text
-                          };
+                      ],
+                    ),
+                    Gap(20),
+                    PlanChatBSPDialogRow(
+                        controller: emailCon, keyValue: "Email :",validator: (val) => Validation.emailValidation(val.toString())),
+                    Gap(10),
+                    PlanChatBSPDialogRow(
+                        controller: mobileCon, keyValue: "WhatsApp No. :",
+                      inputFormatters: [FilteringTextInputFormatter.allow(RegExp(r'^\d+'))],
+                      keyboardType: TextInputType.numberWithOptions(decimal: true),
+                    ),
+                    Gap(10),
+                    PlanChatBSPDialogRow(
+                        controller: addressCon, keyValue: "Address :"),
+                    Spacer(),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        GestureDetector(
+                          onTap: () {
+                            navigationService.pop();
+                          },
+                          child: Container(
+                            padding:
+                                EdgeInsets.symmetric(vertical: 9, horizontal: 40),
+                            child: Text("Close",
+                                style: TextStyle(color: Colors.blue)),
+                            decoration: BoxDecoration(
+                              color: white,
+                              border: Border.all(color: blue),
+                              boxShadow: [
+                                BoxShadow(
+                                  color: Colors.grey,
+                                  // spreadRadius: 1,
+                                  blurRadius: 1,
+                                  offset: const Offset(0, 1),
+                                )
+                              ],
+                              borderRadius: BorderRadius.circular(15),
+                            ),
+                          ),
+                        ),
+                        Gap(16),
+                        CustomButton(
+                          padding:
+                              EdgeInsets.symmetric(vertical: 10, horizontal: 46),
+                          title: "Save",
+                          onTap: () {
+                            popContactData.value = {
+                              "email": emailCon.text,
+                              "mobile": mobileCon.text,
+                              "address": addressCon.text
+                            };
 
-                          if (emailCon.text.isNotEmpty &&
-                              emailCon.text.isNotEmpty &&
-                              addressCon.text.isNotEmpty) {
-                            navigationService.pop(args: popContactData.value);
-                          } else {
-                            displayToast("Please Check Your Information");
-                          }
-                        },
-                      ),
-                    ],
-                  ),
-                ],
+                            if (formKey.currentState!.validate()) {
+                              if (
+                              mobileCon.text.isNotEmpty &&
+                                  addressCon.text.isNotEmpty) {
+                                navigationService.pop(
+                                    args: popContactData.value);
+                              } else {
+                                displayToast("Please Check Your Information");
+                              }
+                             }
+                            },
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
               )),
         );
       },
@@ -511,8 +525,17 @@ class ProfessionalInfoDialog extends HookConsumerWidget {
 class PlanChatBSPDialogRow extends HookWidget {
   final TextEditingController controller;
   final String keyValue;
+  final String? Function(String?)? validator;
+  final TextInputType? keyboardType;
+  final List<TextInputFormatter>? inputFormatters;
+
   const PlanChatBSPDialogRow(
-      {Key? key, required this.controller, required this.keyValue})
+      {Key? key, required this.controller,
+        required this.keyValue,
+        this.validator,
+        this.inputFormatters,
+        this.keyboardType
+      })
       : super(key: key);
 
   @override
@@ -530,6 +553,9 @@ class PlanChatBSPDialogRow extends HookWidget {
           child: CustomTextfeild(
             controller: controller,
             height: 32,
+            validator: validator,
+            textInputType: keyboardType,
+            textInputFormatter: inputFormatters,
             textCapitalization: TextCapitalization.none,
             contentPadding: EdgeInsets.only(left: 5, top: -3.0, bottom: 15),
             blurRadius: 1.0,

@@ -59,6 +59,11 @@ const String testimonialsBG = 'assets/images/testimonials.png';
 const String verifiedIcon = 'assets/images/verifiedIcon.png';
 const String plusIcon = 'assets/images/plusIcon.png';
 const String rightIconBack = 'assets/images/rightIconBack.png';
+const String referBg = 'assets/images/referBg.png';
+const String introOffer = 'assets/images/introOffer.png';
+const String addFriend = 'assets/images/addFriend.png';
+const String referralIn = 'assets/images/referralIn.png';
+const String unPoint = 'assets/images/unPoint.png';
 
 const String bank = 'assets/images/bank.png';
 const String utility = 'assets/images/utility.png';

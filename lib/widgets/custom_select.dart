@@ -67,7 +67,7 @@ class CustomSelect extends StatelessWidget {
       height: height,
       decoration: BoxDecoration(
         color: isColorBox == true ? blue : colors ,
-        borderRadius: BorderRadius.circular(isColorBox == true ? 7 : 0),
+        borderRadius: BorderRadius.circular(isColorBox == true ? 7 : 7),
       ),
 
       child: TextDropdownFormField(

@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:gap/gap.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:surakshakadi/data/model/home/dashboard/res_dashboard.dart';
 import 'package:surakshakadi/di/locator.dart';
@@ -661,13 +662,15 @@ class DashBoard extends HookConsumerWidget {
                             ClipRRect(
                               borderRadius: BorderRadius.circular(6),
                               child: Container(
-                                child: Image.asset(banner),
+                                height: 100,
+
+                                child: Image.asset(banner,fit: BoxFit.fitHeight,),
                               ),
                             ),
                             Positioned(
-                              bottom: 0,
+                              // bottom: 0,
                               child: Container(
-                                height: 110,
+                                height: 100,
                                 width: Utils.getWidth(context),
                                 padding: EdgeInsets.only(
                                   left: 10,
@@ -676,49 +679,51 @@ class DashBoard extends HookConsumerWidget {
                                   mainAxisAlignment: MainAxisAlignment.start,
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
-                                    Gap(19),
+                                    Gap(12),
+                                    Text(
+                                      getTheQuotation,
+                                      style: GoogleFonts.bonaNova(
+                                          fontSize: 16,
+                                          fontWeight: FontWeight.w700,
+                                          color: white,
+                                          ),
+                                    ),
+                                    Gap(6),
+
+                                    Text(
+                                      forSpecificAssetTransferService ,
+                                      style: TextStyle(
+                                          fontSize: 10,
+                                          fontWeight: FontWeight.w400,
+                                          color: white,
+                                          fontFamily: fontFamily,
+                                          letterSpacing: 0.5),
+                                    ),
+
+                                    Spacer(),
+
                                     Row(
+                                      mainAxisAlignment: MainAxisAlignment.center,
                                       children: [
-                                        Text(
-                                          legalHeir,
-                                          style: TextStyle(
-                                              fontSize: 13,
-                                              fontWeight: FontWeight.w600,
-                                              color: white,
-                                              letterSpacing: 0.5),
-                                        ),
-                                        // SizedBox(
-                                        //   width: Utils.getWidth(context) * 0.17,
-                                        // ),
-                                        Spacer(),
-                                        Text(
-                                          selectFromHere,
-                                          style: TextStyle(
-                                            fontWeight: FontWeight.w600,
-                                            color: white,
-                                            fontSize: 11,
+                                        Container(
+                                          padding: EdgeInsets.symmetric(vertical: 4.5,horizontal: 10),
+                                          decoration: BoxDecoration(
+                                            color: lightRed,
+                                            borderRadius: BorderRadius.circular(20),
+                                          ),
+                                          child: Text(
+                                            selectFromHere,
+                                            style: TextStyle(
+                                                fontWeight: FontWeight.w600,
+                                                color: white,
+                                                fontSize: 11,
+                                                fontFamily: fontFamily),
                                           ),
                                         ),
-                                        Spacer(),
+                                        Gap(6),
                                       ],
                                     ),
-                                    Text(
-                                      specificAsset,
-                                      style: TextStyle(
-                                          fontSize: 13,
-                                          fontWeight: FontWeight.w600,
-                                          color: white,
-                                          letterSpacing: 0.5),
-                                    ),
-                                    Gap(19),
-                                    Text(
-                                      timeAndEfforts,
-                                      style: TextStyle(
-                                          fontWeight: FontWeight.w600,
-                                          color: white,
-                                          fontSize: 11,
-                                          letterSpacing: 0.5),
-                                    ),
+                                    Gap(10),
                                   ],
                                 ),
                               ),
@@ -761,7 +766,7 @@ class DashBoard extends HookConsumerWidget {
                             flex: 1,
                             child: InkWell(
                               onTap: (){
-
+                                navigationService.push(routeReferAndEarn);
                               },
                               child: Container(
                                 alignment: Alignment.center,
@@ -880,41 +885,58 @@ class DashBoard extends HookConsumerWidget {
                         ],
                       ),
                       Gap(20),
-                      RichText(
-                        text: TextSpan(
-                          children: <TextSpan>[
-                            TextSpan(
-                                text: forMoreInformation,
+                     Row(
+                          children: [
+                            Text(
+                                forMoreInformation,
                                 style: TextStyle(
                                     fontWeight: FontWeight.w300,
                                     color: Colors.grey[600],
                                     fontSize: 13,
                                     letterSpacing: 0.2)),
-                            TextSpan(
-                              text: " " + faq + " ",
-                              style: TextStyle(
-                                  fontWeight: FontWeight.w600,
-                                  color: Colors.grey[700],
-                                  fontSize: 13,
-                                  letterSpacing: 0.2),
-                            ),
-                            TextSpan(
-                                text: and + " ",
-                                style: TextStyle(
-                                    fontWeight: FontWeight.w300,
-                                    color: Colors.grey[600],
-                                    fontSize: 13,
-                                    letterSpacing: 0.2)),
-                            TextSpan(
-                                text: termsAndConditions,
+                            InkWell(
+                              onTap: (){
+                                navigationService.push(routeCustomBottomNavigationBar,arguments: {navIndex : 3});
+                              },
+                              child: Text(
+                                " " + faq + " ",
                                 style: TextStyle(
                                     fontWeight: FontWeight.w600,
                                     color: Colors.grey[700],
                                     fontSize: 13,
+                                    letterSpacing: 0.2),
+                              ),
+                            ),
+                            Text(
+                                 and + " ",
+                                style: TextStyle(
+                                    fontWeight: FontWeight.w300,
+                                    color: Colors.grey[600],
+                                    fontSize: 13,
                                     letterSpacing: 0.2)),
+
                           ],
-                        ),
                       ),
+
+                      Gap(4),
+
+
+                      InkWell(
+                        onTap: (){
+
+                          // navigationService.push(routeLegalAll, arguments: {
+                          //   navSecurityContent: "terms_conditions"
+                          // });
+                        },
+                        child: Text(
+                            termsAndConditions,
+                            style: TextStyle(
+                                fontWeight: FontWeight.w600,
+                                color: Colors.grey[700],
+                                fontSize: 13,
+                                letterSpacing: 0.2)),
+                      ),
+
                       Gap(50),
                     ],
                   ),

@@ -359,7 +359,7 @@ class _KYCChatBotMobileState extends State<KYCChatBotMobile> {
 
                                       } else {
                                         displayToast(
-                                            "Please Question the Ans.");
+                                            "This field is required. Please enter a value.");
                                       }
 
                                       setState(() {});
@@ -666,7 +666,7 @@ class _KYCChatBotMobileState extends State<KYCChatBotMobile> {
                                               setState(() {});
                                             } else {
                                               displayToast(
-                                                  "Please Question the Ans.");
+                                                  "This field is required. Please enter a value.");
                                             }
                                           }else {
                                             displayToast(
@@ -745,7 +745,7 @@ class _KYCChatBotMobileState extends State<KYCChatBotMobile> {
                                         setState(() {});
                                       } else {
                                         displayToast(
-                                            "Please Question the Ans.");
+                                            "This field is required. Please enter a value.");
                                       }
 
                                       setState(() {});

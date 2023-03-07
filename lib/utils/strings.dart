@@ -12,6 +12,8 @@ const String cp = "CP";
 ///           Account Screen
 const String accounts = "Account";
 const String avinashSahini = "Avinash Sahini";
+const String CompleteYour = "Complete your eKYC";
+const String goDigitalSave = "Go Digital! Save Paper for Greener Future!";
 
 ///     Plan Screen
 const String plans = 'Plans';
@@ -131,7 +133,7 @@ const String itemsSelectedInYourAssets = " items selected in\nyour assets list";
 
 ///      Add Information Screen
 const String addinformation = "Add Information";
-const String shareMoreDetails = "Share More Details";
+const String shareMoreDetails = "Share More Details *";
 const String beforeWeProceed =
     "Before we proceed please fill in the details\nbelow.";
 const String beforeWeProceeFill =
@@ -223,6 +225,14 @@ const String recordAVideo = "Record a Video";
 const String loremIpsumDolorSitSmallName =
     "Lorem ipsum dolor sit amet, consectetur\nadipiscing elit.";
 const String submit = "Submit";
+
+
+///    refer and earn
+
+const String  get300Points = "Get 300 points for every friends’ subscription!";
+const String  withOurReferral = "With our Referral Program, get 300 points on each subscription Referral, redeemable at renewal";
+
+
 
 
 ///          -----------   CP Partner Register -------------

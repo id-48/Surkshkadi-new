@@ -1,5 +1,6 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:surakshakadi/ui/Screens/Account_Screen/account_screen.dart';
 import 'package:surakshakadi/ui/Screens/Assets_Details_Screen/assets_information_mobile_screen.dart';
 import 'package:surakshakadi/ui/Screens/Assets_Details_Screen/assets_information_web_screen.dart';
 import 'package:surakshakadi/ui/Screens/Assets_Details_Screen/assets_mobile_screen.dart';
@@ -48,6 +49,8 @@ import 'package:surakshakadi/ui/Screens/dashboard/Components/choose_assets_mobil
 import 'package:surakshakadi/ui/Screens/dashboard/Components/choose_assets_web_screen.dart';
 import 'package:surakshakadi/ui/Screens/dashboard/Components/legal_screen.dart';
 import 'package:surakshakadi/ui/Screens/dashboard/dashboard_web_screen.dart';
+import 'package:surakshakadi/ui/Screens/drawer_item_screen/help_and_support_screen.dart';
+import 'package:surakshakadi/ui/Screens/drawer_item_screen/refer_and_earn_screen.dart';
 import 'package:surakshakadi/ui/Screens/record_video_screen/record_a_video_screen.dart';
 import 'package:surakshakadi/ui/Screens/will_review_screen/beneficiary_screen.dart';
 import 'package:surakshakadi/ui/Screens/will_review_screen/will_review_issue_detail_screen.dart';
@@ -283,8 +286,20 @@ class NavigationUtils {
               childCountInfo: args?[navChildCountInfo],
               childNameInfo: args?[navChildNameInfo],));
 
+      case routeReferAndEarn:
+        return CustomRoute(
+            settings: const RouteSettings(name: routeReferAndEarn),
+            builder: (_) => ReferAndEarn());
 
+      case routeAccount:
+        return CustomRoute(
+            settings: const RouteSettings(name: routeAccount),
+            builder: (_) => Account());
 
+      case routeHelpAndSupport:
+        return CustomRoute(
+            settings: const RouteSettings(name: routeHelpAndSupport),
+            builder: (_) => HelpAndSupport());
 
 
 

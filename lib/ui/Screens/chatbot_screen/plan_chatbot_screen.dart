@@ -515,7 +515,7 @@ class _PlanChatBotMobileState extends State<PlanChatBotMobile> {
                                             // setState(() {});
                                           } else {
                                             displayToast(
-                                                "Please Question the Ans.of(10 Digit)");
+                                                "This field is required. Please enter a value.");
                                           }
 
                                           setState(() {});
@@ -708,10 +708,6 @@ class _PlanChatBotMobileState extends State<PlanChatBotMobile> {
 
                                                   inCome =
                                                       incomeList[incomeIndex];
-                                                  displayToast(
-                                                      "Please Select Occupation");
-
-
                                                   setState(() {});
                                                 }
                                               : () {},
@@ -772,9 +768,6 @@ class _PlanChatBotMobileState extends State<PlanChatBotMobile> {
                                                   messages
                                                       .add(messagesQustion[3]);
                                                   setState(() {});
-                                                } else {
-                                                  displayToast(
-                                                      "Please select Income");
                                                 }
 
                                                 setState(() {});
@@ -858,7 +851,7 @@ class _PlanChatBotMobileState extends State<PlanChatBotMobile> {
                                             setState(() {});
                                           } else {
                                             displayToast(
-                                                "Please Question the Ans.");
+                                                "This field is required. Please enter a value.");
                                           }
 
                                           setState(() {});
@@ -944,7 +937,7 @@ class _PlanChatBotMobileState extends State<PlanChatBotMobile> {
                                                 setState(() {});
                                               } else {
                                                 displayToast(
-                                                    "Please Question the Ans.");
+                                                    "This field is required. Please enter a value.");
                                               }
                                             }
 
@@ -1025,7 +1018,7 @@ class _PlanChatBotMobileState extends State<PlanChatBotMobile> {
                                             setState(() {});
                                           } else {
                                             displayToast(
-                                                "Please Question the Ans.");
+                                                "This field is required. Please enter a value.");
                                           }
 
                                           setState(() {});
@@ -1214,7 +1207,7 @@ class _PlanChatBotMobileState extends State<PlanChatBotMobile> {
                                                   setState(() {});
                                                 } else {
                                                   displayToast(
-                                                      "Please Question the Ans.");
+                                                      "This field is required. Please enter a value.");
                                                 }
 
                                                 setState(() {});
@@ -1451,7 +1444,7 @@ class _PlanChatBotMobileState extends State<PlanChatBotMobile> {
                                             setState(() {});
                                           } else {
                                             displayToast(
-                                                "Please Question the Ans.");
+                                                "This field is required. Please enter a value.");
                                           }
 
                                           setState(() {});
@@ -1547,7 +1540,7 @@ class _PlanChatBotMobileState extends State<PlanChatBotMobile> {
 
                                               } else {
                                                 displayToast(
-                                                    "Please Provide 6 Digit No.");
+                                                    "This field is required. Please enter a value.");
                                               }
 
                                               setState(() {});
@@ -1569,77 +1562,6 @@ class _PlanChatBotMobileState extends State<PlanChatBotMobile> {
                           )
                           : Container(),
 
-                      // messages.length == 17
-                      //     ? Align(
-                      //         alignment: Alignment.bottomLeft,
-                      //         child: Container(
-                      //           padding: EdgeInsets.only(
-                      //             left: 5,
-                      //           ),
-                      //           // margin: EdgeInsets.only(left: 10, right: 10, bottom: 10),
-                      //           height: 60,
-                      //           width: double.infinity,
-                      //           // color: Colors.white,
-                      //           child: Row(
-                      //             children: <Widget>[
-                      //               Expanded(
-                      //                 child: Container(
-                      //                   decoration: BoxDecoration(
-                      //                     color: Colors.white,
-                      //                     border: Border.all(color: blue),
-                      //                     borderRadius:
-                      //                         BorderRadius.circular(20),
-                      //                   ),
-                      //                   child: TextFormField(
-                      //                     controller: chatController,
-                      //                     // keyboardType:TextInputType.number,
-                      //                     keyboardType: TextInputType.text,
-                      //                     decoration: InputDecoration(
-                      //                       contentPadding: EdgeInsets.only(
-                      //                           left: 10, bottom: 0, top: 0),
-                      //                       hintText: "Enter Your Email...",
-                      //                       hintStyle: TextStyle(
-                      //                           color: Colors.black54),
-                      //                       border: InputBorder.none,
-                      //                     ),
-                      //                   ),
-                      //                 ),
-                      //               ),
-                      //               Padding(
-                      //                 padding: const EdgeInsets.all(6.0),
-                      //                 child: FloatingActionButton(
-                      //                   onPressed: () {
-                      //                     if (chatController.text.isNotEmpty) {
-                      //                       controller.jumpTo(Utils.getHeight(context) *2);
-                      //                       messages.add(ChatMessage(
-                      //                           messageContent: [
-                      //                             chatController.text
-                      //                           ],
-                      //                           messageType: 'sender'));
-                      //                       messages.add(messagesQustion[8]);
-                      //                       chatController.clear();
-                      //                       setState(() {});
-                      //                     } else {
-                      //                       displayToast(
-                      //                           "Please Question the Ans.");
-                      //                     }
-                      //
-                      //                     setState(() {});
-                      //                   },
-                      //                   child: Icon(
-                      //                     Icons.send,
-                      //                     color: Colors.white,
-                      //                     size: 22,
-                      //                   ),
-                      //                   backgroundColor: Colors.blue,
-                      //                   elevation: 0,
-                      //                 ),
-                      //               ),
-                      //             ],
-                      //           ),
-                      //         ),
-                      //       )
-                      //     : Container(),
                     ],
                     if (index == 18) ...[
                       Gap(10),
@@ -1669,12 +1591,12 @@ class _PlanChatBotMobileState extends State<PlanChatBotMobile> {
                                       isExpanded: ValueNotifier(1),
                                       boxcolor: blue,
                                       title: cityIndex == -1
-                                          ? 'City'
+                                          ? 'locality'
                                           : cityList[cityIndex].name.toString(),
                                       expandedChild: Card(
                                         elevation: 3,
                                         child: Container(
-                                          height: 150,
+                                          height: cityList.length == 2 ? 100 : 150,
                                           color: Colors.white.withOpacity(0.2),
                                           child: ListView.builder(
                                             shrinkWrap: true,
@@ -1832,7 +1754,7 @@ class _PlanChatBotMobileState extends State<PlanChatBotMobile> {
 
                                               } else {
                                                 displayToast(
-                                                    "Please Your Street");
+                                                    "Please share Your address");
                                               }
 
                                               setState(() {});

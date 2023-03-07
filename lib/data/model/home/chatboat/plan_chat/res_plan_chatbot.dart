@@ -1,7 +1,3 @@
-// To parse this JSON data, do
-//
-//     final resPlanChatBot = resPlanChatBotFromJson(jsonString);
-
 import 'package:meta/meta.dart';
 import 'dart:convert';
 
@@ -55,6 +51,7 @@ class Response {
     required this.nomineeRelation,
     required this.covidDose,
     required this.nicotineProducts,
+    required this.planValidity,
   });
 
   int subscriptionId;
@@ -77,6 +74,7 @@ class Response {
   String nomineeRelation;
   String covidDose;
   String nicotineProducts;
+  String planValidity;
 
   factory Response.fromJson(Map<String, dynamic> json) => Response(
     subscriptionId: json["subscription_id"],
@@ -99,6 +97,7 @@ class Response {
     nomineeRelation: json["nominee_relation"],
     covidDose: json["covid_dose"],
     nicotineProducts: json["nicotine_products"],
+    planValidity: json["plan_validity"].toString(),
   );
 
   Map<String, dynamic> toJson() => {
@@ -122,5 +121,6 @@ class Response {
     "nominee_relation": nomineeRelation,
     "covid_dose": covidDose,
     "nicotine_products": nicotineProducts,
+    "plan_validity": planValidity,
   };
 }

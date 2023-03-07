@@ -16,7 +16,7 @@ const Color lightNavyBlue = Color(0xFFE4EDF4);
 
 const Color lavenderGrey = Color(0xFFB4B4B4);
 const Color raven = Color(0xFF6B7280);
-const Color appleGreen = Color(0xFF72BE44);
+const Color whatsAppGreen = Color(0xFF2E9823);
 const Color cinnabarRed = Color(0xFFDC3F3F);
 const Color parisViolet = Color(0xFF1E2452);
 const Color whiteSmoke = Color(0xFFF9F9F9);
@@ -55,6 +55,7 @@ const Color lowwhite = Color(0xffF5F5F5);
 const Color deepindigo = Color(0xff155DB4);
 const Color navyblue = Color(0xff002E9E);
 const Color fullgray = Color(0xff777474);
+const Color lightRed = Color(0xffDA3838);
 
 const Color blueee = Color(0xff1970DA);
 const Color bordercolor = Color(0xffd3d3d3);
@@ -74,6 +75,8 @@ const Color dividerColor = Color(0xff9d9d9d);
 const Color hintTextColor = Color(0xff9E9E9E);
 const Color bgProfileColor = Color(0xfff6f6f6);
 const Color dividerProColor = Color(0xffdbdbdb);
+const Color navyLight = Color(0xffB4D0F1);
+const Color blackLight = Color(0xff575757);
 
 
 

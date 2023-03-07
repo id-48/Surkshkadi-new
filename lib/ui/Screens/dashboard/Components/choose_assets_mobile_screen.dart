@@ -438,7 +438,7 @@ class ChooseAssetMobile extends HookConsumerWidget {
                         } else {
                           if (getBool(prefSubChatBotCompletedMobile) == false) {
 
-                            String  wpNumber = messagesList![3].messageContent[0] == "No" ? messagesList![3].messageContent[1] : "${getString((prefLoginNumber))}";
+                            String  wpNumber = messagesList![3].messageContent[0] == "No" ? messagesList![3].messageContent[1] : "${getString(prefLoginNumber)}";
 
                             ReqPlanChatBot dataPlanChatBot = ReqPlanChatBot(
                               userId: getString(prefUserID),
@@ -475,8 +475,9 @@ class ChooseAssetMobile extends HookConsumerWidget {
 
                               if (value!.status == 1) {
                                 displayToast(value.message.toString());
-                                setString(prefSubscriptionId,
-                                    "${value.response.subscriptionId}");
+                                setString(prefSubscriptionId, "${value.response.subscriptionId}");
+                                setString(prefPlanValidity, "${value.response.planValidity}");
+
                                 // setBool(prefSubChatBotCompletedMobile, true);
                                 // amountTotal.value = double.parse(
                                 //     getString(prefPlanPrice).toString()) *

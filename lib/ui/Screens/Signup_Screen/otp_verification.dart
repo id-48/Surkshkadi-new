@@ -79,7 +79,7 @@ class OTPVerification extends HookConsumerWidget {
               Container(
                   alignment: Alignment.center,
                   child: Text(
-                    'Enter OTP sent to mobile number 8756XXXX78.',
+                    'Enter OTP sent to mobile number ${getString(prefLoginNumber)}.',
                     style: TextStyle(
                       fontWeight: FontWeight.w400,
                       fontSize: 11,
@@ -143,7 +143,7 @@ class OTPVerification extends HookConsumerWidget {
                       if (value!.status == 1) {
                         displayToast("${value.message}");
                         setString(prefLoginToken, "LoginSuccess");
-                        setString(prefLoginNumber, "${value.response.mobile}");
+
                         navigationService.pushAndRemoveUntil(routeCustomBottomNavigationBar, arguments: {navIndex: 0});
                       } else {
                         displayToast("${value.message}");

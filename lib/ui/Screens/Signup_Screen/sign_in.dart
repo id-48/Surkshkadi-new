@@ -195,6 +195,9 @@ class SignIn extends HookConsumerWidget {
                   if (mobilenoController.text.length == 10) {
                     if (check.value == true) {
                       ReqOtp data = ReqOtp(mobileNo: mobilenoController.text,userType: "Customer",referCode: referController.text);
+
+                      setString(prefLoginNumber, mobilenoController.text);
+
                       ref
                           .read(authProvider.notifier)
                           .logIn(context: context, data: data).then((value)

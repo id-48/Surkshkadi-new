@@ -22,6 +22,7 @@ import 'package:surakshakadi/utils/constants/app_constant.dart';
 import 'package:surakshakadi/utils/constants/loading_dialog.dart';
 import 'package:surakshakadi/utils/constants/navigation_route_constants.dart';
 import 'package:surakshakadi/utils/constants/preference_key_constant.dart';
+import 'package:surakshakadi/utils/constants/validation.dart';
 import 'package:surakshakadi/utils/dialog_utils.dart';
 import 'package:surakshakadi/utils/preference_utils.dart';
 import 'package:surakshakadi/utils/strings.dart';
@@ -45,10 +46,13 @@ class AddInformationScreen extends HookConsumerWidget {
     final statee = useState<String>("");
     final cityy = useState<String>("");
 
+    final GlobalKey<FormState> formKey = GlobalKey<FormState>();
+
 
     ImagePicker _picker = ImagePicker();
 
     final imageFileList = useState<List<XFile>>([]);
+    final cameraFileList = useState<List<XFile>>([]);
     final imageList = useState<List<MultipartFile>>([]);
     final imageListDemo = useState<List>([]);
 
@@ -185,321 +189,309 @@ class AddInformationScreen extends HookConsumerWidget {
               padding: EdgeInsets.symmetric(vertical: 20, horizontal: 20),
               child: SingleChildScrollView(
                 scrollDirection: Axis.vertical,
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      shareMoreDetails,
-                      style: TextStyle(color: blue, fontSize: 15),
-                    ),
-                    SizedBox(
-                      height: Utils.getHeight(context) * 0.006,
-                    ),
-                    Container(
-                      height: Utils.getHeight(context) * 0.16,
-                      child: Card(
+                child: Form(
+                  key: formKey,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        shareMoreDetails,
+                        style: TextStyle(color: blue, fontSize: 15),
+                      ),
+                      SizedBox(
+                        height: Utils.getHeight(context) * 0.006,
+                      ),
+                      Container(
+                        height: Utils.getHeight(context) * 0.16,
+                        child: Card(
+                          elevation: 3,
+                          shape: RoundedRectangleBorder(
+                            // side: BorderSide(style: BorderStyle.none),
+                            borderRadius: BorderRadius.circular(10),
+                          ),
+                          child: Container(
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(7),
+                              color: lightsky,
+                              border: Border.all(color: blue),
+                              boxShadow: [
+                                BoxShadow(
+                                    color: black12.withOpacity(0.05), //New
+                                    blurRadius: 6.0,
+                                    offset: Offset(-3, 5))
+                              ],
+                            ),
+                            child: Row(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Padding(
+                                  padding: EdgeInsets.all(10),
+                                  child: Image.asset(
+                                    textlineicon,
+                                    scale: 4,
+                                  ),
+                                ),
+                                Expanded(
+                                  child: CustomTextfeild(
+                                    containercolor: lightsky,
+                                    borderRadius: BorderRadius.circular(7),
+                                    textCapitalization: TextCapitalization.none,
+                                    blurRadius: 0.0,
+                                    offset: Offset(0, 0),
+                                    controller: issueController,
+                                    border: InputBorder.none,
+                                    hinttext: 'Please add details here.',
+                                    maxLines: 5,
+                                    hintStyle: TextStyle(color: black, fontSize: 14),
+                                    // prefix: Image.asset(textlineicon, scale: 4,),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                      ),
+                      SizedBox(
+                        height: Utils.getHeight(context) * 0.03,
+                      ),
+                      Text(
+                        beforeWeProceed,
+                        // style: TextStyle(color: blue, fontSize: 15),
+                        style: GoogleFonts.nunitoSans(
+                            textStyle: TextStyle(
+                          fontSize: 15,
+                          color: blue,
+                        )),
+                      ),
+                      SizedBox(
+                        height: Utils.getHeight(context) * 0.017,
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.only(bottom: 2, top: 7),
+                        child: Text(
+                          "$emailId *",
+                          style: TextStyle(color: black, fontWeight: FontWeight.w400),
+                        ),
+                      ),
+                      Container(
+                        child: Card(
+                          elevation: 3,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(7),
+                          ),
+                          child: CustomTextfeild(
+                              textCapitalization: TextCapitalization.none,
+                              blurRadius: 5.0,
+                              offset: Offset(-1, 1),
+                              validator: (val) => Validation.emailValidation(val.toString()),
+                              containerborder: Border.all(color: blue),
+                              containercolor: lightsky,
+                              borderRadius: BorderRadius.circular(7),
+                              controller: emailController,
+                              hinttext: 'Enter your email',
+                              hintStyle: TextStyle(color: black, fontSize: 14),
+                              prefix: Icon(
+                                Icons.email_outlined,
+                                color: Color(0xffD6D6D6),
+                              )),
+                        ),
+                      ),
+                      SizedBox(
+                        height: Utils.getHeight(context) * 0.007,
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.only(bottom: 6, top: 7),
+                        child: Text(
+                          "$states *",
+                          style: TextStyle(color: black, fontWeight: FontWeight.w400),
+                        ),
+                      ),
+
+                      Card(
                         elevation: 3,
                         shape: RoundedRectangleBorder(
-                          side: BorderSide(style: BorderStyle.none),
-                          borderRadius: BorderRadius.circular(10),
+                          borderRadius: BorderRadius.circular(9),
                         ),
                         child: Container(
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(7),
-                            color: lightsky,
-                            border: Border.all(color: blue),
-                            boxShadow: [
-                              BoxShadow(
-                                  color: black12.withOpacity(0.05), //New
-                                  blurRadius: 6.0,
-                                  offset: Offset(-3, 5))
-                            ],
-                          ),
-                          child: Row(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Padding(
-                                padding: EdgeInsets.all(10),
+                            decoration: BoxDecoration(
+                              color: lightsky,
+                              borderRadius: BorderRadius.circular(7),
+                              boxShadow: [
+                                BoxShadow(
+                                    color: black12, //New
+                                    blurRadius: 5.0,
+                                    offset: Offset(-1, 1))
+                              ],
+                            ),
+                            child: CustomSelect(
+                              onChanged: (stateVal) async {
+
+                                cityList.value.clear();
+                                statee.value = stateVal;
+
+                                ReqCity cityData = ReqCity(state: "${stateVal}" );
+
+                                await ref
+                                    .read(cityProvider.notifier)
+                                    .getCity(context: context, data: cityData).then((value) {
+                                      if(value!.status == 1){
+                                        // displayToast("${value.message}");
+                                        for(int j = 0; j<value.response.cities.length; j++){
+                                          cityList.value.add(value.response.cities[j].name);
+                                        }
+                                      }else{
+                                        displayToast("${value.message}");
+                                      }
+                                });
+                              },
+                              items: stateList,
+                              // isColorBox: true,
+                              // items: ['Gujarat', 'Goa', 'Mumbai'],
+                              hint: 'Choose your state',
+                              prefix: Padding(
+                                padding: EdgeInsets.only(
+                                  top: 0,
+                                  right: 15,
+                                ),
                                 child: Image.asset(
-                                  textlineicon,
-                                  scale: 4,
+                                  state,
+                                  scale: 3.8,
                                 ),
                               ),
-                              Expanded(
-                                child: CustomTextfeild(
-                                  containercolor: lightsky,
-                                  borderRadius: BorderRadius.circular(7),
-                                  textCapitalization: TextCapitalization.none,
-                                  blurRadius: 0.0,
-                                  offset: Offset(0, 0),
-                                  controller: issueController,
-                                  border: InputBorder.none,
-                                  hinttext: 'Please add details here.',
-                                  maxLines: 5,
-                                  hintStyle: TextStyle(color: black, fontSize: 14),
-                                  // prefix: Image.asset(textlineicon, scale: 4,),
-                                ),
-                              ),
-                            ],
-                          ),
+                            )),
+                      ),
+                      SizedBox(
+                        height: Utils.getHeight(context) * 0.007,
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.only(bottom: 6, top: 7),
+                        child: Text(
+                          "$city *",
+                          style: TextStyle(color: black, fontWeight: FontWeight.w400),
                         ),
                       ),
-                    ),
-                    SizedBox(
-                      height: Utils.getHeight(context) * 0.03,
-                    ),
-                    Text(
-                      beforeWeProceed,
-                      // style: TextStyle(color: blue, fontSize: 15),
-                      style: GoogleFonts.nunitoSans(
-                          textStyle: TextStyle(
-                        fontSize: 15,
-                        color: blue,
-                      )),
-                    ),
-                    SizedBox(
-                      height: Utils.getHeight(context) * 0.017,
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.only(bottom: 2, top: 7),
-                      child: Text(
-                        emailId,
-                        style: TextStyle(color: black, fontWeight: FontWeight.w400),
-                      ),
-                    ),
-                    Container(
-                      child: Card(
+                      Card(
                         elevation: 3,
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(7),
                         ),
-                        child: CustomTextfeild(
-                            textCapitalization: TextCapitalization.none,
-                            blurRadius: 5.0,
-                            offset: Offset(-1, 1),
-                            containerborder: Border.all(color: blue),
-                            containercolor: lightsky,
-                            borderRadius: BorderRadius.circular(7),
-                            controller: emailController,
-                            hinttext: 'Enter your email',
-                            hintStyle: TextStyle(color: black, fontSize: 14),
-                            prefix: Icon(
-                              Icons.email_outlined,
-                              color: Color(0xffD6D6D6),
-                            )),
-                      ),
-                    ),
-                    SizedBox(
-                      height: Utils.getHeight(context) * 0.007,
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.only(bottom: 6, top: 7),
-                      child: Text(
-                        states,
-                        style: TextStyle(color: black, fontWeight: FontWeight.w400),
-                      ),
-                    ),
-
-                    Card(
-                      elevation: 3,
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(7),
-                      ),
-                      child: Container(
+                        child: Container(
                           decoration: BoxDecoration(
                             color: lightsky,
                             borderRadius: BorderRadius.circular(7),
                             boxShadow: [
                               BoxShadow(
-                                  color: black12, //New
+                                  color: black12,
                                   blurRadius: 5.0,
                                   offset: Offset(-1, 1))
                             ],
                           ),
                           child: CustomSelect(
-                            onChanged: (stateVal) async {
+                            onChanged: (val) {
+                              if(statee.value.isNotEmpty){
+                                cityy.value = val;
+                              }else{
+                                displayToast("Please Select State");
+                              }
 
-                              cityList.value.clear();
-                              statee.value = stateVal;
-
-                              ReqCity cityData = ReqCity(state: "${stateVal}" );
-
-                              await ref
-                                  .read(cityProvider.notifier)
-                                  .getCity(context: context, data: cityData).then((value) {
-                                    if(value!.status == 1){
-                                      // displayToast("${value.message}");
-                                      for(int j = 0; j<value.response.cities.length; j++){
-                                        cityList.value.add(value.response.cities[j].name);
-                                      }
-                                    }else{
-                                      displayToast("${value.message}");
-                                    }
-                              });
                             },
-                            items: stateList,
-                            // items: ['Gujarat', 'Goa', 'Mumbai'],
-                            hint: 'Choose your state',
+                            items: cityList.value,
+                            // items: ['Amreli', 'Surat', 'Ahemdabad'],
+                            hint: 'Choose your city',
                             prefix: Padding(
                               padding: EdgeInsets.only(
                                 top: 0,
                                 right: 15,
                               ),
                               child: Image.asset(
-                                state,
+                                cityicon,
                                 scale: 3.8,
                               ),
-                            ),
-                          )),
-                    ),
-                    SizedBox(
-                      height: Utils.getHeight(context) * 0.007,
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.only(bottom: 6, top: 7),
-                      child: Text(
-                        city,
-                        style: TextStyle(color: black, fontWeight: FontWeight.w400),
-                      ),
-                    ),
-                    Card(
-                      elevation: 3,
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(7),
-                      ),
-                      child: Container(
-                        decoration: BoxDecoration(
-                          color: lightsky,
-                          borderRadius: BorderRadius.circular(7),
-                          boxShadow: [
-                            BoxShadow(
-                                color: black12,
-                                blurRadius: 5.0,
-                                offset: Offset(-1, 1))
-                          ],
-                        ),
-                        child: CustomSelect(
-                          onChanged: (val) {
-                            if(statee.value.isNotEmpty){
-                              cityy.value = val;
-                            }else{
-                              displayToast("Please Select State");
-                            }
-
-                          },
-                          items: cityList.value,
-                          // items: ['Amreli', 'Surat', 'Ahemdabad'],
-                          hint: 'Choose your city',
-                          prefix: Padding(
-                            padding: EdgeInsets.only(
-                              top: 0,
-                              right: 15,
-                            ),
-                            child: Image.asset(
-                              cityicon,
-                              scale: 3.8,
                             ),
                           ),
                         ),
                       ),
-                    ),
-                    SizedBox(
-                      height: Utils.getHeight(context) * 0.007,
-                    ),
-                    SizedBox(
-                      height: Utils.getHeight(context) * 0.06,
-                    ),
-                    InkWell(
-                      onTap: () async {
-                        print('------------->>>>>>>>>>>>>>>>>.image ');
-                        image = await _picker.pickImage(source: ImageSource.gallery);
-                        print('image path 216${image}');
-                        if (image != null) {
-                          pickedImage.value = File(image!.path);
-                          print(
-                              ' image path 200 ---->>>>>>${pickedImage}');
-                          imageFileList.value.add(image!);
-                          displayToast("Image Successful Upload");
-                          setState((){});
-                        }
+                      SizedBox(
+                        height: Utils.getHeight(context) * 0.007,
+                      ),
+                      SizedBox(
+                        height: Utils.getHeight(context) * 0.06,
+                      ),
+                      InkWell(
+                        onTap: () async {
+                          print('------------->>>>>>>>>>>>>>>>>.image ');
+                          image = await _picker.pickImage(source: ImageSource.gallery);
+                          print('image path 216${image}');
+                          if (image != null) {
+                            pickedImage.value = File(image!.path);
+                            print(
+                                ' image path 200 ---->>>>>>${pickedImage}');
+                            imageFileList.value.add(image!);
+                            displayToast("Image Successful Upload");
+                            setState((){});
+                          }
 
-                      },
-                      child: Container(
-                        width: Utils.getWidth(context),
-                        height: Utils.getHeight(context) * 0.055,
-                        decoration: BoxDecoration(
-                          color: blue,
-                          borderRadius: BorderRadius.circular(5),
-                        ),
-                        child: Row(
-                          children: [
-                            Gap(5),
-                            Icon(
-                              Icons.attach_file,
-                              size: 25,
-                              color: white,
-                            ),
-                            Gap(20),
-                            Text(
-                              attachDocument,
-                              style: TextStyle(
-                                  fontSize: 14,
-                                  fontWeight: FontWeight.w500,
-                                  color: white),
-                            ),
-                          ],
+                        },
+                        child: Container(
+                          width: Utils.getWidth(context),
+                          height: Utils.getHeight(context) * 0.055,
+                          decoration: BoxDecoration(
+                            color: blue,
+                            borderRadius: BorderRadius.circular(5),
+                          ),
+                          child: Row(
+                            children: [
+                              Gap(5),
+                              Icon(
+                                Icons.attach_file,
+                                size: 25,
+                                color: white,
+                              ),
+                              Gap(20),
+                              Text(
+                                "$attachDocument *",
+                                style: TextStyle(
+                                    fontSize: 14,
+                                    fontWeight: FontWeight.w500,
+                                    color: white),
+                              ),
+                            ],
+                          ),
                         ),
                       ),
-                    ),
-                    SizedBox(
-                      height: Utils.getHeight(context) * 0.025,
-                    ),
-                    InkWell(
-                      onTap: () async {
-
-                        print('------------->>>>>>>>>>>>>>>>>.image ');
-                        addImage = await _picker.pickImage(source: ImageSource.gallery);
-                        print('image path 216${addImage}');
-                        if (addImage != null) {
-                          addPickedImage.value = File(addImage!.path);
-                          print(
-                              ' image path 200 ---->>>>>>${addPickedImage}');
-                          imageFileList.value.add(addImage!);
-                          displayToast("Image Successful Upload");
-
-                          setState((){});
-
-                        }
-                      },
-                      child: Text(
-                        addAnotherDocument,
-                        style: TextStyle(
-                            fontWeight: FontWeight.w500,
-                            color: blueee,
-                            fontSize: 12),
+                      SizedBox(
+                        height: Utils.getHeight(context) * 0.025,
                       ),
-                    ),
-                    SizedBox(
-                      height: Utils.getHeight(context) * 0.035,
-                    ),
-                    StatefulBuilder(
-                      builder: (BuildContext context, void Function(void Function()) setState) {
-                        return InkWell(
-                          onTap: () async {
-                            print('------------->>>>>>>>>>>>>>>>>.image ');
-                            cameraImage = await _picker.pickImage(source: ImageSource.camera);
-                            print('image path 216${cameraImage}');
-                            if (cameraImage != null) {
-                              cameraPickedImage.value = File(cameraImage!.path);
-                              imageFileList.value.add(cameraImage!);
-                              print(' image path 200 ---->>>>>>${cameraPickedImage}');
-                              isCameraPicked.value = true;
-                              displayToast("Image Successful Upload");
-                              setState((){});
-                            }
+                      InkWell(
+                        onTap: () async {
 
-                          },
-                          child: Container(
+                          print('------------->>>>>>>>>>>>>>>>>.image ');
+                          addImage = await _picker.pickImage(source: ImageSource.gallery);
+                          print('image path 216${addImage}');
+                          if (addImage != null) {
+                            addPickedImage.value = File(addImage!.path);
+                            print(
+                                ' image path 200 ---->>>>>>${addPickedImage}');
+                            // imageFileList.value.add(addImage!);
+                            displayToast("Image Successful Upload");
+
+                            setState((){});
+
+                          }
+                        },
+                        child: Text(
+                          addAnotherDocument,
+                          style: TextStyle(
+                              fontWeight: FontWeight.w500,
+                              color: blueee,
+                              fontSize: 12),
+                        ),
+                      ),
+                      SizedBox(
+                        height: Utils.getHeight(context) * 0.035,
+                      ),
+
+                          Container(
                             height: 170,
                             child: Custom_Dottedborder(
                               padding: EdgeInsets.only(top: 10, left: 10, bottom: 10),
@@ -508,36 +500,85 @@ class AddInformationScreen extends HookConsumerWidget {
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
                                     Text(
-                                      clickPhoto,
+                                      "$clickPhoto *",
                                       style: TextStyle(
                                           fontSize: 13,
                                           fontWeight: FontWeight.w600,
                                           color: black),
                                     ),
-                                    Gap(15),
+                                    Gap(24),
                                     Row(
                                       children: [
                                         Center(
                                           child: Container(
                                             height: 90,
                                             width: Utils.getWidth(context) * 0.27,
-                                            child: isCameraPicked.value == true
-                                                ? Image.file(
-                                                cameraPickedImage.value
-                                            )
-                                                : Image.asset(
-                                              informationupload,
-                                              scale: 4,
-                                              fit: BoxFit.fill,
-                                            ),
+                                            child: cameraFileList.value.isNotEmpty
+                                                ? Stack(
+                                                 clipBehavior: Clip.none,
+                                                  children :[
+                                                     Image.file(
+                                                       File(cameraFileList.value[0].path),
+                                                    // cameraPickedImage.value,
+                                                       fit: BoxFit.fill,
+                                                       height: 90,
+                                                       width: Utils.getWidth(context) * 0.27,
+                                                    ),
+
+
+                                                    Positioned(
+                                                      top: -10,
+                                                      right: -10,
+                                                      child: GestureDetector(
+                                                        onTap: () {
+                                                          cameraFileList.value.clear();
+                                                          // isCameraPicked.value = false ;
+                                                          setState(() {});
+                                                          // res.value.
+                                                        },
+                                                        child: Container(
+                                                          decoration: const BoxDecoration(
+                                                              shape: BoxShape.circle, color: Colors.red),
+                                                          child: const Icon(
+                                                            Icons.close,
+                                                            color: white,
+                                                            size: 25,
+                                                          ),
+                                                        ),
+                                                      ),
+                                                    ),
+                                                  ],
+                                                )
+                                                : InkWell(
+                                                   onTap: () async{
+                                                     print('------------->>>>>>>>>>>>>>>>>.image ${cameraPickedImage.value} ');
+                                                     cameraImage = await _picker.pickImage(source: ImageSource.camera);
+                                                     print('image path 216${cameraImage}');
+                                                     if (cameraImage != null) {
+                                                       cameraPickedImage.value = File(cameraImage!.path);
+                                                       // imageFileList.value.add(cameraImage!);
+                                                       cameraFileList.value.add(cameraImage!);
+                                                       print(' image path 200 ---->>>>>>${cameraPickedImage}');
+                                                       isCameraPicked.value = true;
+                                                       // displayToast("Image Successful Upload");
+                                                       setState((){});
+                                                     }
+
+                                                   },
+                                                  child: Image.asset(
+                                                   informationupload,
+                                                     scale: 4,
+                                                     fit: BoxFit.fill,
+                                                   ),
+                                                 ),
                                           ),
                                         ),
                                         Gap(25),
                                         Column(
                                           crossAxisAlignment:
-                                              CrossAxisAlignment.start,
+                                          CrossAxisAlignment.start,
                                           mainAxisAlignment:
-                                              MainAxisAlignment.center,
+                                          MainAxisAlignment.center,
                                           children: [
                                             Text(
                                               uploadImage,
@@ -562,212 +603,146 @@ class AddInformationScreen extends HookConsumerWidget {
                               ),
                             ),
                           ),
-                        );
-                      },
 
-                      // child: Container(
-                      //   height: 170,
-                      //   child: Custom_Dottedborder(
-                      //     padding: EdgeInsets.only(top: 10, left: 10, bottom: 10),
-                      //     child: Container(
-                      //       child: Column(
-                      //         crossAxisAlignment: CrossAxisAlignment.start,
-                      //         children: [
-                      //           Text(
-                      //             clickPhoto,
-                      //             style: TextStyle(
-                      //                 fontSize: 13,
-                      //                 fontWeight: FontWeight.w600,
-                      //                 color: black),
-                      //           ),
-                      //           Gap(15),
-                      //           Row(
-                      //             children: [
-                      //               Center(
-                      //                 child: Container(
-                      //                   height: 90,
-                      //                   width: Utils.getWidth(context) * 0.27,
-                      //                   child: GestureDetector(
-                      //
-                      //                     child:
-                      //                         imageFileList.value.isNotEmpty
-                      //                             ? SelectedImageViewer(
-                      //                                 res: imageFileList,
-                      //                                 setState: (void Function()) {
-                      //                                   setState(() {});
-                      //                                 },
-                      //                               )
-                      //                             : Image.asset(
-                      //                                 informationupload,
-                      //                                 scale: 4,
-                      //                                 fit: BoxFit.fill,
-                      //                               ),
-                      //                   ),
-                      //                 ),
-                      //               ),
-                      //               Gap(25),
-                      //               GestureDetector(
-                      //                 onTap: () async {
-                      //                   getImage(imageFileList);
-                      //                   isPicked.value = true;
-                      //                 },
-                      //                 child: Column(
-                      //                   crossAxisAlignment: CrossAxisAlignment.start,
-                      //                   mainAxisAlignment: MainAxisAlignment.center,
-                      //                   children: [
-                      //                     Text(
-                      //                       uploadImage,
-                      //                       style: TextStyle(
-                      //                           fontSize: 9,
-                      //                           fontWeight: FontWeight.w600,
-                      //                           color: black),
-                      //                     ),
-                      //                     Text(
-                      //                       uploadMultipleImage,
-                      //                       style: TextStyle(
-                      //                           fontSize: 9,
-                      //                           fontWeight: FontWeight.w400,
-                      //                           color: lightGray),
-                      //                     ),
-                      //                   ],
-                      //                 ),
-                      //               ),
-                      //             ],
-                      //           ),
-                      //         ],
-                      //       ),
-                      //     ),
-                      //   ),
-                      // ),
-                    ),
-                    SizedBox(
-                      height: Utils.getHeight(context) * 0.08,
-                    ),
-                    Center(
-                      child: GestureDetector(
-                        onTap: () async {
-                          if(imageFileList.value.isNotEmpty) {
-                            for (int i = 0; i <
-                                imageFileList.value.length; i++) {
-                              Uint8List imageBytes =
-                              await imageFileList.value[i].readAsBytes();
-                              int length = imageBytes.length;
-                              http.ByteStream stream =
-                              http.ByteStream(
-                                  imageFileList.value[i].openRead());
-                              imageList.value.add(
-                                MultipartFile(stream, length,
-                                    filename: imageFileList.value[i].name),
-                              );
-
-                              imageListDemo.value.add(stream);
-                            }
-
-                            print('image List -------->>>>>>>>>> ${imageList
-                                .value} }');
-
-                            // initPlatformState();
-
-                            if (issueController.text.isNotEmpty &&
-                                emailController.text.isNotEmpty &&
-                                statee.value.isNotEmpty &&
-                                cityy.value.isNotEmpty) {
-                              singleChooseAssetsAI.otherDetails =
-                                  issueController.text;
-                              singleChooseAssetsAI.email = emailController.text;
-                              singleChooseAssetsAI.state = statee.value;
-                              singleChooseAssetsAI.city = cityy.value;
-                              singleChooseAssetsAI.documents = imageListDemo.value;
-                              // singleChooseAssetsAI.documents = imageList.value;
-
-                              await ref
-                                  .read(dashboardProvider.notifier)
-                                  .getSingleUserAssets(
-                                  context: context, data: singleChooseAssetsAI)
-                                  .then((value) {
-                                if (value?.status == 1) {
-                                  // openCheckout(9900);
-                                  setString(prefSingleUAId,
-                                      "${value?.response.singleUserAssetId}");
-                                  print(
-                                      "Single userId ---->>>> ${value?.response
-                                          .singleUserAssetId}");
-                                  ReqSingleUAPayment SingleUAPayment = ReqSingleUAPayment(
-                                      paymentAmount: "99",
-                                      singleUserAssetsId: "${value?.response
-                                          .singleUserAssetId}",
-                                      transactionId: "hashdafefojahfo",
-                                      transactionStatus: "Success"
+                      SizedBox(
+                        height: Utils.getHeight(context) * 0.08,
+                      ),
+                      Center(
+                        child: GestureDetector(
+                          onTap: () async {
+                            if(cameraFileList.value.isNotEmpty) {
+                              imageFileList.value.add(cameraFileList.value[0]);
+                              if (imageFileList.value.isNotEmpty) {
+                                for (int i = 0; i < imageFileList.value.length; i++) {
+                                  Uint8List imageBytes =
+                                  await imageFileList.value[i].readAsBytes();
+                                  int length = imageBytes.length;
+                                  http.ByteStream stream =
+                                  http.ByteStream(
+                                      imageFileList.value[i].openRead());
+                                  imageList.value.add(
+                                    MultipartFile(stream, length,
+                                        filename: imageFileList.value[i].name),
                                   );
 
-                                  ref.read(singleUAPaymentProvider.notifier)
-                                      .singleUAPayment(
-                                      context: context, data: SingleUAPayment)
-                                      .then((value) {
-                                    if (value!.status == 1) {
-                                      // openCheckout(9900);
-                                      hideLoadingDialog(context: context);
-
-                                      displayToast(value.message);
-                                      navigationService.push(
-                                          routeConfirmationSpecific);
-                                    }
-                                  });
-
-
-                                  displayToast(value!.message);
-                                  print("Yashu Patel");
-                                } else {
-                                  displayToast(value!.message);
+                                  imageListDemo.value.add(stream);
                                 }
-                              });
-                            } else {
-                              displayToast('Enter Your Information');
+
+                                print('image List -------->>>>>>>>>> ${imageList
+                                    .value} }');
+
+                                // initPlatformState();
+
+                                if(formKey.currentState!.validate()) {
+                                  if (issueController.text.isNotEmpty &&
+                                      statee.value.isNotEmpty &&
+                                      cityy.value.isNotEmpty) {
+                                    singleChooseAssetsAI.otherDetails =
+                                        issueController.text;
+                                    singleChooseAssetsAI.email =
+                                        emailController.text;
+                                    singleChooseAssetsAI.state = statee.value;
+                                    singleChooseAssetsAI.city = cityy.value;
+                                    singleChooseAssetsAI.documents =
+                                        imageListDemo.value;
+                                    // singleChooseAssetsAI.documents = imageList.value;
+
+                                    await ref
+                                        .read(dashboardProvider.notifier)
+                                        .getSingleUserAssets(
+                                        context: context,
+                                        data: singleChooseAssetsAI)
+                                        .then((value) {
+                                      if (value?.status == 1) {
+                                        // openCheckout(9900);
+                                        setString(prefSingleUAId,
+                                            "${value?.response
+                                                .singleUserAssetId}");
+                                        print(
+                                            "Single userId ---->>>> ${value
+                                                ?.response
+                                                .singleUserAssetId}");
+                                        ReqSingleUAPayment SingleUAPayment = ReqSingleUAPayment(
+                                            paymentAmount: "99",
+                                            singleUserAssetsId: "${value
+                                                ?.response
+                                                .singleUserAssetId}",
+                                            transactionId: "hashdafefojahfo",
+                                            transactionStatus: "Success"
+                                        );
+
+                                        ref.read(
+                                            singleUAPaymentProvider.notifier)
+                                            .singleUAPayment(
+                                            context: context,
+                                            data: SingleUAPayment)
+                                            .then((value) {
+                                          if (value!.status == 1) {
+                                            // openCheckout(9900);
+                                            hideLoadingDialog(context: context);
+
+                                            displayToast(value.message);
+                                            navigationService.push(
+                                                routeConfirmationSpecific);
+                                          }
+                                        });
+
+
+                                        displayToast(value!.message);
+                                        print("Yashu Patel");
+                                      } else {
+                                        displayToast(value!.message);
+                                      }
+                                    });
+                                  } else {
+                                    displayToast('Enter Your Information');
+                                  }
+                                }
+
+                                setState(() {});
+                              } else {
+                                displayToast('Please Upload Image');
+                              }
+                            }else {
+
                             }
-
-                            // openCheckout(9900);
-
-
-                            setState(() {});
-                          }else{
-                            displayToast('Please Upload Image');
-                          }
-                        },
-                        child: Container(
-                          padding:
-                              EdgeInsets.symmetric(vertical: 17, horizontal: 50),
-                          decoration: BoxDecoration(
-                            gradient: LinearGradient(
-                                colors: [
-                                  Color(0xff3C87E0).withOpacity(0.9),
-                                  Color(0xff0E3563).withOpacity(0.6),
-                                ],
-                                begin: Alignment.topCenter,
-                                end: Alignment.bottomCenter),
-                            boxShadow: [
-                              BoxShadow(
-                                color: Colors.grey,
-                                // spreadRadius: 1,
-                                blurRadius: 1,
-                                offset: const Offset(0, 1),
-                              )
-                            ],
-                            borderRadius: BorderRadius.circular(15),
-                          ),
-                          child: Text(
-                            'Continue',
-                            style: TextStyle(
-                                fontSize: 14,
-                                color: white,
-                                fontWeight: FontWeight.w500),
+                          },
+                          child: Container(
+                            padding:
+                                EdgeInsets.symmetric(vertical: 17, horizontal: 50),
+                            decoration: BoxDecoration(
+                              gradient: LinearGradient(
+                                  colors: [
+                                    Color(0xff3C87E0).withOpacity(0.9),
+                                    Color(0xff0E3563).withOpacity(0.6),
+                                  ],
+                                  begin: Alignment.topCenter,
+                                  end: Alignment.bottomCenter),
+                              boxShadow: [
+                                BoxShadow(
+                                  color: Colors.grey,
+                                  // spreadRadius: 1,
+                                  blurRadius: 1,
+                                  offset: const Offset(0, 1),
+                                )
+                              ],
+                              borderRadius: BorderRadius.circular(15),
+                            ),
+                            child: Text(
+                              'Continue',
+                              style: TextStyle(
+                                  fontSize: 14,
+                                  color: white,
+                                  fontWeight: FontWeight.w500),
+                            ),
                           ),
                         ),
                       ),
-                    ),
-                    SizedBox(
-                      height: Utils.getHeight(context) * 0.02,
-                    ),
-                  ],
+                      SizedBox(
+                        height: Utils.getHeight(context) * 0.02,
+                      ),
+                    ],
+                  ),
                 ),
               ),
             ),

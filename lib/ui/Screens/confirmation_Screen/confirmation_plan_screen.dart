@@ -65,7 +65,7 @@ class ConfirmationPlanScreen extends HookConsumerWidget {
                   Text('${getString(prefPlanTitle)} Plan',style: TextStyle(fontWeight: FontWeight.w600,letterSpacing: 0.6),),
 
                   SizedBox(height: Utils.getHeight(context) *0.006  ,),
-                  Text('Vaild upto 31st Aug, 2023',style: TextStyle(fontWeight: FontWeight.w400,fontSize: 11),),
+                  Text("${ getBool(prefPlanType) == true ? 'valid up to 31st Aug, 2023' : 'valid for LIFETIME' }",style: TextStyle(fontWeight: FontWeight.w400,fontSize: 11),),
 
                   SizedBox(height: Utils.getHeight(context) *0.03 ,),
                 ],

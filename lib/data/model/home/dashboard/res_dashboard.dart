@@ -33,6 +33,7 @@ class Response {
   Response({
     required this.banners,
     required this.video,
+    required this.howItWorksVideo,
 
     required this.isSubscribed,
     required this.firstChatBotStatus,
@@ -52,6 +53,7 @@ class Response {
 
   List<Banner> banners;
   String video;
+  String howItWorksVideo;
 
   String isSubscribed;
   String firstChatBotStatus;
@@ -73,6 +75,7 @@ class Response {
             List<Banner>.from(json["banners"].map((x) => Banner.fromJson(x))),
 
         video: json["video"],
+        howItWorksVideo: json["how_it_works_video"],
 
     isSubscribed: json["is_subscribed"].toString(),
     firstChatBotStatus: json["first_chat_bot_status"].toString(),
@@ -96,8 +99,7 @@ class Response {
   Map<String, dynamic> toJson() => {
         "banners": List<dynamic>.from(banners.map((x) => x.toJson())),
         "video": video,
-
-        // "will_review_video": ,
+        "how_it_works_video": howItWorksVideo,
 
     "is_subscribed": isSubscribed,
     "first_chat_bot_status": firstChatBotStatus,
@@ -206,8 +208,8 @@ class PlanPlan {
         planId: json["plan_id"],
         bgColor: json["bg_color"],
         planTitle: json["plan_title"],
-        actualPrice: json["actual_price"],
-        offerPrice: json["offer_price"],
+        actualPrice: json["actual_price"].toString(),
+        offerPrice: json["offer_price"].toString(),
         planType: json["plan_type"],
         description: json["description"],
         planModules: List<PlanModule>.from(

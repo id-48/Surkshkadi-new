@@ -2,10 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:surakshakadi/di/locator.dart';
 import 'package:surakshakadi/ui/Screens/Account_Screen/account_screen.dart';
 import 'package:surakshakadi/ui/Screens/Plan_Screen/plan_mobile_screen.dart';
 import 'package:surakshakadi/ui/Screens/dashboard/dashboard_mobile_screen.dart';
 import 'package:surakshakadi/ui/Screens/demo_screen/demo_help_screen.dart';
+import 'package:surakshakadi/ui/Screens/drawer_item_screen/help_and_support_screen.dart';
+import 'package:surakshakadi/utils/constants/navigation_route_constants.dart';
 import 'package:surakshakadi/utils/image_utils.dart';
 
 import '../utils/color_utils.dart';
@@ -22,8 +25,12 @@ class Custom_BottomNavigationBar extends HookConsumerWidget {
     final _selectedIndex = useState<int>(index);
 
     void _onItemTapped(int index) {
-      _selectedIndex.value = index;
-      planIndex = 1;
+      if(index != 2) {
+        _selectedIndex.value = index;
+        planIndex = 1;
+      }else{
+        navigationService.push(routeAccount);
+      }
     }
 
     // useEffect((){
@@ -34,8 +41,11 @@ class Custom_BottomNavigationBar extends HookConsumerWidget {
         DashBoard(),
         PlanScreen(),
         Account(),
-        Demo_Help_Screen(),
+        HelpAndSupport(),
+        // Demo_Help_Screen(),
       ].elementAt(_selectedIndex.value),
+
+
       bottomNavigationBar: Container(
         decoration: BoxDecoration(
           color: Colors.white,

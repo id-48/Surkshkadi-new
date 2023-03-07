@@ -2,11 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:surakshakadi/di/locator.dart';
-import 'package:surakshakadi/ui/Screens/drawer_item_screen/about_us_screen.dart';
-import 'package:surakshakadi/ui/Screens/drawer_item_screen/how_to_use_screen.dart';
-import 'package:surakshakadi/ui/Screens/drawer_item_screen/my_profile_screen.dart';
-import 'package:surakshakadi/ui/Screens/drawer_item_screen/terms_and_condition_screen.dart';
 import 'package:surakshakadi/utils/constants/navigation_route_constants.dart';
+import 'package:surakshakadi/utils/constants/navigations_key_constant.dart';
 import 'package:surakshakadi/utils/image_utils.dart';
 import 'package:surakshakadi/widgets/custom_appbar.dart';
 import 'package:surakshakadi/widgets/custom_expandable_card.dart';
@@ -160,7 +157,10 @@ class Custom_drawer extends HookConsumerWidget {
                     title: "Profile",
                     image:  profile ,
                     onTap: (){
-                      Navigator.push(context, MaterialPageRoute(builder: (context) => MyProfile()));
+
+                      navigationService.push(routeAccount);
+
+                      // Navigator.push(context, MaterialPageRoute(builder: (context) => MyProfile()));
                     }
                 ),
 
@@ -246,7 +246,7 @@ class Custom_drawer extends HookConsumerWidget {
                     title: "Refer & Earn",
                     image:  refer ,
                     onTap: (){
-
+                      navigationService.push(routeReferAndEarn);
                     }
                 ),
 
@@ -268,7 +268,7 @@ class Custom_drawer extends HookConsumerWidget {
                     title: "Help & Support",
                     image:  help ,
                     onTap: (){
-
+                      navigationService.push(routeCustomBottomNavigationBar,arguments: {navIndex: 3});
                     }
                 ),
 

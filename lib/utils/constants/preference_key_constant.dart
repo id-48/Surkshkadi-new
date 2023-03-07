@@ -37,7 +37,7 @@ const String prefPlanTitle = 'prefPlanTitle';
 const String prefIssueDetail = 'prefIssueDetail';
 const String prefSubscriptionAssetId = 'prefSubscriptionAssetId';
 const String prefSecondChatBot = 'prefSecondChatBot';
-const String prefPincode = 'prefPincode';
+const String prefPlanValidity = 'prefPlanValidity';
 
 
 const String prefUserName = 'prefUserName';

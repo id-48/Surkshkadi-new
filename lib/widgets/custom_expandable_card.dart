@@ -359,7 +359,8 @@ class CustomExpandTextCard extends HookWidget {
     this.iconcolor,
     this.border,
     this.boxShadow,
-    this.arrowColor
+    this.arrowColor,
+    this.faq
 
     // this.onCall,
   }) : super(key: key);
@@ -377,6 +378,7 @@ class CustomExpandTextCard extends HookWidget {
   final String title;
   final BoxBorder? border;
   final Color? arrowColor;
+  final bool? faq;
 
   final Color boxcolor;
   final  List<BoxShadow>? boxShadow;
@@ -403,7 +405,7 @@ class CustomExpandTextCard extends HookWidget {
       clipBehavior: Clip.antiAlias,
       decoration:  BoxDecoration(
 
-        borderRadius: BorderRadius.all(Radius.circular(8)),
+        borderRadius: faq == true ? null : BorderRadius.all(Radius.circular(8)),
 
       ),
       child: Column(
@@ -425,10 +427,10 @@ class CustomExpandTextCard extends HookWidget {
               child:
               Container(
                 // margin: EdgeInsets.symmetric(horizontal: MediaQuery.of(context).orientation == Orientation.landscape ? MediaQuery.of(context).size.width * 0.2 : 16),
-                padding: EdgeInsets.symmetric(horizontal: 10),
+                padding: faq == true ?  EdgeInsets.only(right: 14) : EdgeInsets.symmetric(horizontal: 10),
                 height: height ?? 45,
                 decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(8),
+                  borderRadius: faq == true ? null : BorderRadius.circular(8),
                   color: boxcolor,
                   border: border,
                   boxShadow: boxShadow,
@@ -440,9 +442,11 @@ class CustomExpandTextCard extends HookWidget {
                       // Expanded(flex: 3,
                       //     child: Image.network(assetimage,scale: 6,)),
 
-                      Text(title,
-                        style: TextStyle(color: black,fontSize: 16,fontWeight: FontWeight.w400),),
-                      Spacer(),
+                      Expanded(
+                        child: Text(title,
+                          style: TextStyle(color: black,fontSize: faq == true ? 12 : 16,fontWeight: FontWeight.w400),),
+                      ),
+                      // Spacer(),
 
                       RotationTransition(
                           turns: Tween(begin: 0.0, end: 0.5)
