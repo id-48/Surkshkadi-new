@@ -40,9 +40,9 @@ class CheckYourInformation extends HookConsumerWidget {
     return  Scaffold(
           appBar: CustomAppBar(
             title: checkYourInformation,
-            backonTap: () {
-              Navigator.pop(context);
-            },
+            // backonTap: () {
+            //   Navigator.pop(context);
+            // },
             notionTap: () {},
           ),
           body: SingleChildScrollView(

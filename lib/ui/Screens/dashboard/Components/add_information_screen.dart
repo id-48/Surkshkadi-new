@@ -179,10 +179,10 @@ class AddInformationScreen extends HookConsumerWidget {
           return Scaffold(
             appBar: CustomAppBar(
               title: '${addinformation}',
-              backonTap: () {
-                navigationService.pop();
-                // Navigator.pop(context);
-              },
+              // backonTap: () {
+              //   navigationService.pop();
+              //   // Navigator.pop(context);
+              // },
               notionTap: () {},
             ),
             body: Container(

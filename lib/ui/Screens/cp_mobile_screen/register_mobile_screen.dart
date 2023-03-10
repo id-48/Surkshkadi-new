@@ -19,7 +19,7 @@ class RegisterMobile extends HookConsumerWidget {
     return Scaffold(
       appBar: CustomAppBar(
         title: "Chanel Partner",
-        backonTap: (){},
+        // backonTap: (){},
         notionTap: (){},
       ),
       body: Padding(

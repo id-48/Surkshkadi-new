@@ -77,9 +77,9 @@ class Custom_drawer extends HookConsumerWidget {
       child: SafeArea(
         child: Scaffold(
           appBar: CustomAppBar(
-            backonTap: () {
-              Navigator.pop(context);
-            },
+            // backonTap: () {
+            //   Navigator.pop(context);
+            // },
             title: 'Surakshakadi',
           ),
           body: SingleChildScrollView(
