@@ -27,10 +27,10 @@ class ImmovableProperty extends HookConsumerWidget {
   const ImmovableProperty({Key? key}) : super(key: key);
 
   @override
-  Widget build(BuildContext context,WidgetRef ref) {
-    final propertyController         = useTextEditingController();
-    final roughValueController       = useTextEditingController();
-    final detailsLoanController       = useTextEditingController();
+  Widget build(BuildContext context, WidgetRef ref) {
+    final propertyController = useTextEditingController();
+    final roughValueController = useTextEditingController();
+    final detailsLoanController = useTextEditingController();
     final detailsInsuranceController = useTextEditingController();
     final messageController = useTextEditingController();
     final imageFileList = useState<List<XFile>>([]);
@@ -52,17 +52,17 @@ class ImmovableProperty extends HookConsumerWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               iconText(context),
-
-              header(context, image: immovable, title: "Immovable Assets", description: "(Property)"),
-
+              header(context,
+                  image: immovable,
+                  title: "Immovable Assets",
+                  description: "(Property)"),
               Gap(16),
-
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 16),
                 child: CustomExpandableCardCode(
                   index: 0,
                   isExpanded: ValueNotifier(1),
-                  border:  Border.all(color: blue),
+                  border: Border.all(color: blue),
                   height: 40,
                   name: "Type of Property",
                   textColor: white,
@@ -87,8 +87,7 @@ class ImmovableProperty extends HookConsumerWidget {
                         //     .map(
                         //       (e) =>
                         GestureDetector(
-                          onTap: (){
-
+                          onTap: () {
                             //    Navigator.push(context, MaterialPageRoute(builder: (context)  =>
                             //        AssetsInformation(selectedindex: data["description"].indexOf(e), dattaa: data, )));
                             //     colorBox == true ?
@@ -100,17 +99,18 @@ class ImmovableProperty extends HookConsumerWidget {
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              Divider(thickness: 1.2, endIndent: 0, color: blue,height: 0,),
-
+                              Divider(
+                                thickness: 1.2,
+                                endIndent: 0,
+                                color: blue,
+                                height: 0,
+                              ),
                               Container(
                                 height: 100,
                                 width: Utils.getWidth(context),
-                                padding: EdgeInsets.only(left: 20,top: 6,bottom: 6),
-
+                                padding: EdgeInsets.only(
+                                    left: 20, top: 6, bottom: 6),
                               ),
-
-
-
                             ],
                           ),
                         ),
@@ -121,13 +121,12 @@ class ImmovableProperty extends HookConsumerWidget {
                   ),
                 ),
               ),
-
-
               Gap(16),
-
-              expandRow(context,controller: propertyController,title: "Property Address"),
-              expandRow(context,controller: roughValueController,title: "Rough Value of the Property"),
-
+              expandRow(context,
+                  controller: propertyController, title: "Property Address"),
+              expandRow(context,
+                  controller: roughValueController,
+                  title: "Rough Value of the Property"),
               Container(
                 padding: EdgeInsets.only(left: 15, right: 15),
                 margin: EdgeInsets.only(bottom: 14),
@@ -144,48 +143,73 @@ class ImmovableProperty extends HookConsumerWidget {
                       flex: 10,
                       child: Row(
                         children: [
-                          Expanded(flex: 1,child: GestureDetector(
-                            onTap: (){
-                              ownership.value = true;
-                            },
-                            child: Container(
-                              height: 32,
-                              alignment: Alignment.center,
-                              decoration: BoxDecoration(
-                                color: ownership.value == true ? blue : lightsky,
-                                borderRadius: BorderRadius.circular(5),
-                                border: Border.all(color: blue),
-                                 boxShadow: [
-                                  BoxShadow(
-                                      color: Colors.black26, blurRadius: 2.0, offset: Offset(2,2)),
-                                ],
+                          Expanded(
+                            flex: 1,
+                            child: GestureDetector(
+                              onTap: () {
+                                ownership.value = true;
+                              },
+                              child: Container(
+                                height: 32,
+                                alignment: Alignment.center,
+                                decoration: BoxDecoration(
+                                  color:
+                                      ownership.value == true ? blue : lightsky,
+                                  borderRadius: BorderRadius.circular(5),
+                                  border: Border.all(color: blue),
+                                  boxShadow: [
+                                    BoxShadow(
+                                        color: Colors.black26,
+                                        blurRadius: 2.0,
+                                        offset: Offset(2, 2)),
+                                  ],
+                                ),
+                                child: Text(
+                                  "Single",
+                                  style: TextStyle(
+                                      fontSize: 12,
+                                      fontWeight: FontWeight.w400,
+                                      color: ownership.value == true
+                                          ? white
+                                          : blue),
+                                ),
                               ),
-                              child: Text("Single",style: TextStyle(fontSize: 12,fontWeight: FontWeight.w400,color: ownership.value == true ? white : blue),),
                             ),
-                           ),
                           ),
-
                           Gap(8),
-
-                          Expanded(flex: 1,child: GestureDetector(
-                            onTap: (){
-                              ownership.value = false;
-                            },
-                            child: Container(
-                              height: 32,
-                              alignment: Alignment.center,
-                              decoration: BoxDecoration(
-                                color: ownership.value == false ? blue : lightsky,
-                                borderRadius: BorderRadius.circular(5),
-                                border: Border.all(color: blue),
-                                boxShadow: [
-                                  BoxShadow(
-                                      color: Colors.black26, blurRadius: 2.0, offset: Offset(2,2)),
-                                ],
+                          Expanded(
+                            flex: 1,
+                            child: GestureDetector(
+                              onTap: () {
+                                ownership.value = false;
+                              },
+                              child: Container(
+                                height: 32,
+                                alignment: Alignment.center,
+                                decoration: BoxDecoration(
+                                  color: ownership.value == false
+                                      ? blue
+                                      : lightsky,
+                                  borderRadius: BorderRadius.circular(5),
+                                  border: Border.all(color: blue),
+                                  boxShadow: [
+                                    BoxShadow(
+                                        color: Colors.black26,
+                                        blurRadius: 2.0,
+                                        offset: Offset(2, 2)),
+                                  ],
+                                ),
+                                child: Text(
+                                  "Joint",
+                                  style: TextStyle(
+                                      fontSize: 12,
+                                      fontWeight: FontWeight.w400,
+                                      color: ownership.value == false
+                                          ? white
+                                          : blue),
+                                ),
                               ),
-                              child: Text("Joint",style: TextStyle(fontSize: 12,fontWeight: FontWeight.w400,color: ownership.value == false ? white : blue),),
                             ),
-                          ),
                           ),
                         ],
                       ),
@@ -193,70 +217,80 @@ class ImmovableProperty extends HookConsumerWidget {
                   ],
                 ),
               ),
-
-              expandRow(context,controller: detailsLoanController,title: "Details of the Loan(If Taken)"),
-              expandRow(context,controller: detailsInsuranceController,title: "Details of the Insurance(If Taken)"),
-
+              expandRow(context,
+                  controller: detailsLoanController,
+                  title: "Details of the Loan(If Taken)"),
+              expandRow(context,
+                  controller: detailsInsuranceController,
+                  title: "Details of the Insurance(If Taken)"),
               Gap(16),
               Padding(
                   padding: EdgeInsets.only(left: 15),
-                  child: Text(addAnother,style: TextStyle(fontWeight: FontWeight.w500,color: blueee ,fontSize: 12),)),
+                  child: Text(
+                    addAnother,
+                    style: TextStyle(
+                        fontWeight: FontWeight.w500,
+                        color: blueee,
+                        fontSize: 12),
+                  )),
               Gap(10),
-
               Padding(
                   padding: EdgeInsets.only(left: 15),
-                  child: Text(noteACopyYour,style: TextStyle(fontWeight: FontWeight.w400,color: black ,fontSize: 12,fontFamily: fontFamily),)),
+                  child: Text(
+                    noteACopyYour,
+                    style: TextStyle(
+                        fontWeight: FontWeight.w400,
+                        color: black,
+                        fontSize: 12,
+                        fontFamily: fontFamily),
+                  )),
               Gap(20),
-
-              assetsPhotoText(context,controller: messageController, imageFileList: imageFileList.value),
-
+              assetsPhotoText(context,
+                  controller: messageController,
+                  imageFileList: imageFileList.value),
               Center(
                 child: CustomButton(
                   title: continuee,
-                  padding:
-                  EdgeInsets.symmetric(horizontal: 34, vertical: 11),
+                  padding: EdgeInsets.symmetric(horizontal: 34, vertical: 11),
                   onTap: () async {
+                    if (propertyController.text.isNotEmpty &&
+                        roughValueController.text.isNotEmpty &&
+                        detailsLoanController.text.isNotEmpty &&
+                        detailsInsuranceController.text.isNotEmpty) {
+                      if (imageFileList.value.isNotEmpty) {
+                        for (int i = 0; i < imageFileList.value.length; i++) {
+                          Uint8List imageBytes =
+                              await imageFileList.value[i].readAsBytes();
+                          int length = imageBytes.length;
+                          http.ByteStream stream = http.ByteStream(
+                              imageFileList.value[i].openRead());
+                          imageList.add(
+                            MultipartFile(stream, length,
+                                filename: imageFileList.value[i].name),
+                          );
+                        }
 
-                    if(imageFileList.value.isNotEmpty) {
-                      for (int i = 0; i < imageFileList.value.length; i++) {
-                        Uint8List imageBytes =
-                        await imageFileList.value[i].readAsBytes();
-                        int length = imageBytes.length;
-                        http.ByteStream stream =
-                        http.ByteStream(imageFileList.value[i].openRead());
-                        imageList.add(
-                          MultipartFile(stream, length,
-                              filename: imageFileList.value[i].name),
-                        );
-                      }
-
-                      if (propertyController.text.isNotEmpty
-                          && roughValueController.text.isNotEmpty
-                          && detailsLoanController.text.isNotEmpty
-                          && detailsInsuranceController.text.isNotEmpty
-                      ) {
-                        Map<String, dynamic> formDetailsData =
-                        {
+                        Map<String, dynamic> formDetailsData = {
                           "property": propertyController.text,
                           "roughValue": roughValueController.text,
-                          "ownership": ownership.value == true
-                              ? "Single"
-                              : "Joint",
+                          "ownership":
+                              ownership.value == true ? "Single" : "Joint",
                           "detailsLoan": detailsLoanController.text,
                           "detailsInsurance": detailsInsuranceController.text,
                           "legalHeir": messageController.text,
                         };
 
-                        ReqStoreAssetsFormDetails storeAssetsFormData = ReqStoreAssetsFormDetails(
-                            subscriptionAssetId: int.parse(
-                                getString(prefSubscriptionAssetId)),
-                            formDetails: ["${formDetailsData}"],
-                            assetDocuments: imageList
-                        );
+                        ReqStoreAssetsFormDetails storeAssetsFormData =
+                            ReqStoreAssetsFormDetails(
+                                subscriptionAssetId: int.parse(
+                                    getString(prefSubscriptionAssetId)),
+                                formDetails: ["${formDetailsData}"],
+                                assetDocuments: imageList);
 
-                        await ref.read(storeAssetsFormProvider.notifier)
+                        await ref
+                            .read(storeAssetsFormProvider.notifier)
                             .assetsFormDetails(
-                            context: context, data: storeAssetsFormData)
+                                context: context, data: storeAssetsFormData)
                             .then((value) {
                           if (value?.status == 1) {
                             print("enter ---->>> ");
@@ -267,29 +301,23 @@ class ImmovableProperty extends HookConsumerWidget {
                           }
                         });
                       } else {
-                        displayToast("Please Attach Field");
+                        displayToast("Please Upload Image");
                       }
-
-                    }else{
-                      displayToast("Please Upload Image");
+                    } else {
+                      // displayToast("Please Attach Field");
+                      infoAssetsCustomDialog(context);
                     }
                   },
                 ),
               ),
-
               Gap(10),
-
-
               SizedBox(
                 height: Utils.getHeight(context) * 0.023,
               ),
-
-
             ],
           ),
         ),
       ),
-
     );
   }
 }

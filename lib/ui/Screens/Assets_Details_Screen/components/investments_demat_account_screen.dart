@@ -106,6 +106,14 @@ class InvestmentsDematAccount extends HookConsumerWidget {
                     title: continuee,
                     padding: EdgeInsets.symmetric(horizontal: 34, vertical: 11),
                     onTap: () async {
+
+                      if (dematAccNoController.text.isNotEmpty &&
+                          dpNameController.text.isNotEmpty &&
+                          nameJointHolderController.text.isNotEmpty &&
+                          bankBranchNameController.text.isNotEmpty &&
+                          ifscCodeController.text.isNotEmpty &&
+                          nomineeController.text.isNotEmpty) {
+
                       if (imageFileList.value.isNotEmpty) {
                         for (int i = 0; i < imageFileList.value.length; i++) {
                           Uint8List imageBytes =
@@ -119,12 +127,6 @@ class InvestmentsDematAccount extends HookConsumerWidget {
                           );
                         }
 
-                        if (dematAccNoController.text.isNotEmpty &&
-                            dpNameController.text.isNotEmpty &&
-                            nameJointHolderController.text.isNotEmpty &&
-                            bankBranchNameController.text.isNotEmpty &&
-                            ifscCodeController.text.isNotEmpty &&
-                            nomineeController.text.isNotEmpty) {
                           Map<String, dynamic> formDetailsData = {
                             "dematAcNo": dematAccNoController.text,
                             "dpName": dpNameController.text,
@@ -157,10 +159,11 @@ class InvestmentsDematAccount extends HookConsumerWidget {
                             }
                           });
                         } else {
-                          displayToast("Please Attach Field");
+                        displayToast("Please Upload Image");
                         }
                       } else {
-                        displayToast("Please Upload Image");
+                          // displayToast("Please Attach Field");
+                          infoAssetsCustomDialog(context);
                       }
                     }),
               ),

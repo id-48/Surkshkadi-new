@@ -4,13 +4,17 @@ import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:gap/gap.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:surakshakadi/di/locator.dart';
 import 'package:surakshakadi/utils/color_utils.dart';
 import 'package:surakshakadi/utils/dialog_utils.dart';
 import 'package:surakshakadi/utils/image_utils.dart';
 import 'package:surakshakadi/utils/strings.dart';
 import 'package:surakshakadi/utils/utils.dart';
+import 'package:surakshakadi/widgets/custom_button.dart';
 import 'package:surakshakadi/widgets/custom_dottedborder.dart';
 import 'package:surakshakadi/widgets/custom_textfeild.dart';
+
+import '../../../../utils/constants/navigation_route_constants.dart';
 
 class FillTextField extends HookWidget {
   final String  title ;
@@ -396,3 +400,69 @@ expandRow(context,{
 }
 
 
+infoAssetsCustomDialog(BuildContext context) {
+  print("welcome to display Dialog in Assets Info");
+  showDialog(
+    barrierDismissible: false,
+    context: context,
+    builder: (_) => AlertDialog(
+      insetPadding:
+      const EdgeInsets.only(left: 0, right: 0, top: 0, bottom: 0),
+      contentPadding: EdgeInsets.symmetric(horizontal: 0, vertical: 0),
+      shape: const RoundedRectangleBorder(
+          borderRadius: BorderRadius.all(Radius.circular(5.0))),
+      content: Builder(
+        builder: (context) {
+          return Container(
+            height: 250,
+            width: Utils.getWidth(context) - 40,
+            padding: EdgeInsets.only(
+                top: 15,left: 10,right: 10
+            ),
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(5),
+              border: Border.all(color: indigo, width: 1.5),
+            ),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Padding(
+                  padding: EdgeInsets.only(right: 5),
+                  child: Row(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: [
+
+                      InkWell(
+                        onTap: () {
+                          Navigator.pop(context);
+                        },
+                        child: Image.asset(
+                          cross,
+                          scale: 2.5,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+
+                Gap(20),
+                Text("Please ensure to access your Asset Wallet from the Home page menu and update information for your loved ones as soon as possible.",
+                  textAlign: TextAlign.center,style: TextStyle(fontWeight: FontWeight.w500,fontFamily: fontFamily),),
+                Gap(20),
+
+                CustomButton(
+                  title: "OK",
+                  padding: EdgeInsets.symmetric(horizontal: 34, vertical: 11),
+                  onTap: (){
+                    navigationService.push(routeCustomBottomNavigationBar);
+                  },
+                ),
+              ],
+            ),
+          );
+        },
+      ),
+    ),
+  );
+}

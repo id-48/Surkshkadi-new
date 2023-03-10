@@ -169,6 +169,8 @@ class Utility extends HookConsumerWidget {
                   title: continuee,
                   padding: EdgeInsets.symmetric(horizontal: 34, vertical: 11),
                   onTap: () async {
+
+                    if (writeHereController.text.isNotEmpty) {
                     if (imageFileList.value.isNotEmpty) {
                       for (int i = 0; i < imageFileList.value.length; i++) {
                         Uint8List imageBytes =
@@ -182,7 +184,6 @@ class Utility extends HookConsumerWidget {
                         );
                       }
 
-                      if (writeHereController.text.isNotEmpty) {
                         Map<String, dynamic> formDetailsData = {
                           "writeHere": writeHereController.text,
                           "legalHeir": messageController.text,
@@ -209,10 +210,11 @@ class Utility extends HookConsumerWidget {
                           }
                         });
                       } else {
-                        displayToast("Please Attach Field");
+                      displayToast("Please Upload Image");
                       }
                     } else {
-                      displayToast("Please Upload Image");
+                        // displayToast("Please Attach Field");
+                      infoAssetsCustomDialog(context);
                     }
                   },
                 ),

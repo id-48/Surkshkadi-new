@@ -1065,7 +1065,8 @@ class _YoutubeVideoPlayerState extends State<YoutubeVideoPlayer> {
                             _controller.value.isPlaying
                                 ? Icons.pause
                                 : Icons.play_arrow,
-                            color: Colors.white,
+                            color: black,
+                            size: 30,
                           )),
                     ),
                   )),

@@ -97,6 +97,14 @@ class BankLifeInsurance extends HookConsumerWidget {
                   title: continuee,
                   padding: EdgeInsets.symmetric(horizontal: 34, vertical: 11),
                   onTap: () async {
+
+
+                    if (nameInsuranceController.text.isNotEmpty &&
+                        typeInsuranceController.text.isNotEmpty &&
+                        policyNoController.text.isNotEmpty &&
+                        beneficiaryController.text.isNotEmpty &&
+                        relationshipController.text.isNotEmpty) {
+
                     if (imageFileList.value.isNotEmpty) {
                       for (int i = 0; i < imageFileList.value.length; i++) {
                         Uint8List imageBytes =
@@ -110,11 +118,6 @@ class BankLifeInsurance extends HookConsumerWidget {
                         );
                       }
 
-                      if (nameInsuranceController.text.isNotEmpty &&
-                          typeInsuranceController.text.isNotEmpty &&
-                          policyNoController.text.isNotEmpty &&
-                          beneficiaryController.text.isNotEmpty &&
-                          relationshipController.text.isNotEmpty) {
                         Map<String, dynamic> formDetailsData = {
                           "insuranceCompanyName": nameInsuranceController.text,
                           "typeInsurance": typeInsuranceController.text,
@@ -126,30 +129,35 @@ class BankLifeInsurance extends HookConsumerWidget {
 
                         ReqStoreAssetsFormDetails storeAssetsFormData =
                             ReqStoreAssetsFormDetails(
-                                // subscriptionAssetId: 1,
                                 subscriptionAssetId: int.parse(getString(prefSubscriptionAssetId)),
                                 formDetails: ["${formDetailsData}"],
                                 assetDocuments: imageList);
 
-                        await ref
-                            .read(storeAssetsFormProvider.notifier)
-                            .assetsFormDetails(
-                                context: context, data: storeAssetsFormData)
-                            .then((value) {
-                          if (value?.status == 1) {
-                            print("enter ---->>> ");
-                            displayToast("${value?.message}");
-                            navigationService.push(routeAssetScreen);
-                          } else {
-                            displayToast("${value?.message}");
-                          }
-                        });
+                        // await ref
+                        //     .read(storeAssetsFormProvider.notifier)
+                        //     .assetsFormDetails(
+                        //         context: context, data: storeAssetsFormData)
+                        //     .then((value) {
+                        //   if (value?.status == 1) {
+                        //     print("enter ---->>> ");
+                        //     displayToast("${value?.message}");
+                        //     navigationService.push(routeAssetScreen);
+                        //   } else {
+                        //     displayToast("${value?.message}");
+                        //   }
+                        // });
+
                       } else {
-                        displayToast("Please Attach Field");
+                           displayToast("Please Upload Image");
                       }
+
                     } else {
-                      displayToast("Please Upload Image");
+                        // displayToast("Please Attach Field");
+
+                      infoAssetsCustomDialog(context);
                     }
+
+
                   },
                 ),
               ),
@@ -225,3 +233,7 @@ class BankLifeInsurance extends HookConsumerWidget {
     );
   }
 }
+
+
+
+

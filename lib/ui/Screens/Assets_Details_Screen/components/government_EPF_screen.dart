@@ -79,6 +79,13 @@ class GovernmentEPF extends HookConsumerWidget {
                   padding:
                   EdgeInsets.symmetric(horizontal: 34, vertical: 11),
                   onTap: () async {
+
+                    if(universalController.text.isNotEmpty
+                        && epfController.text.isNotEmpty
+                        && nameCompanyController.text.isNotEmpty
+                        && nomineeController.text.isNotEmpty
+                    ){
+
                     if(imageFileList.value.isNotEmpty) {
                       for (int i = 0; i < imageFileList.value.length; i++) {
                         Uint8List imageBytes =
@@ -91,11 +98,7 @@ class GovernmentEPF extends HookConsumerWidget {
                               filename: imageFileList.value[i].name),
                         );
                       }
-                    if(universalController.text.isNotEmpty
-                        && epfController.text.isNotEmpty
-                        && nameCompanyController.text.isNotEmpty
-                        && nomineeController.text.isNotEmpty
-                    ){
+
 
                       Map<String,dynamic>  formDetailsData =
                       {
@@ -126,12 +129,13 @@ class GovernmentEPF extends HookConsumerWidget {
                       });
 
                     }else{
-                      displayToast("Please Attach Field");
+                    displayToast("Please Upload Image");
                     }
 
-    }else{
-    displayToast("Please Upload Image");
-    }
+                  }else{
+                      // displayToast("Please Attach Field");
+                    infoAssetsCustomDialog(context);
+                   }
                   },
                 ),
               ),

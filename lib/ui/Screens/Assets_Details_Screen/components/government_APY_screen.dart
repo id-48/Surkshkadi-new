@@ -97,6 +97,12 @@ class GovernmentAPY extends HookConsumerWidget {
                   padding: EdgeInsets.symmetric(horizontal: 34, vertical: 11),
                   onTap: () async {
                     // navigationService.push(routeCustomeBottomNavigationBar,);
+
+                    if (apyController.text.isNotEmpty &&
+                        bankNameController.text.isNotEmpty &&
+                        nameSpouseController.text.isNotEmpty &&
+                        nomineeController.text.isNotEmpty) {
+
                     if (imageFileList.value.isNotEmpty) {
                       for (int i = 0; i < imageFileList.value.length; i++) {
                         Uint8List imageBytes =
@@ -109,10 +115,6 @@ class GovernmentAPY extends HookConsumerWidget {
                               filename: imageFileList.value[i].name),
                         );
                       }
-                      if (apyController.text.isNotEmpty &&
-                          bankNameController.text.isNotEmpty &&
-                          nameSpouseController.text.isNotEmpty &&
-                          nomineeController.text.isNotEmpty) {
                         Map<String, dynamic> formDetailsData = {
                           "apy": apyController.text,
                           "bankName": bankNameController.text,
@@ -142,10 +144,13 @@ class GovernmentAPY extends HookConsumerWidget {
                           }
                         });
                       } else {
-                        displayToast("Please Attach Field");
+                      displayToast("Please Upload Image");
                       }
                     } else {
-                      displayToast("Please Upload Image");
+                        // displayToast("Please Attach Field");
+
+                      infoAssetsCustomDialog(context);
+
                     }
                   },
                 ),

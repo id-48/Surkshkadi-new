@@ -95,6 +95,12 @@ class GovernmentKVP extends HookConsumerWidget {
                   title: continuee,
                   padding: EdgeInsets.symmetric(horizontal: 34, vertical: 11),
                   onTap: () async {
+
+                    if (kvpAccNoController.text.isNotEmpty &&
+                        nameJointHolderController.text.isNotEmpty &&
+                        bankBranchNameController.text.isNotEmpty &&
+                        nomineeController.text.isNotEmpty) {
+
                     if (imageFileList.value.isNotEmpty) {
                       for (int i = 0; i < imageFileList.value.length; i++) {
                         Uint8List imageBytes =
@@ -108,10 +114,6 @@ class GovernmentKVP extends HookConsumerWidget {
                         );
                       }
 
-                      if (kvpAccNoController.text.isNotEmpty &&
-                          nameJointHolderController.text.isNotEmpty &&
-                          bankBranchNameController.text.isNotEmpty &&
-                          nomineeController.text.isNotEmpty) {
                         Map<String, dynamic> formDetailsData = {
                           "kvpAcNo": kvpAccNoController.text,
                           "nameJoinHolder": nameJointHolderController.text,
@@ -141,10 +143,11 @@ class GovernmentKVP extends HookConsumerWidget {
                           }
                         });
                       } else {
-                        displayToast("Please Attach Field");
+                      displayToast("Please Upload Image");
                       }
                     } else {
-                      displayToast("Please Upload Image");
+                        // displayToast("Please Attach Field");
+                      infoAssetsCustomDialog(context);
                     }
                   },
                 ),

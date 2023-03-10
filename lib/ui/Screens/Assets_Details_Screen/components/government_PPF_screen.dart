@@ -26,7 +26,7 @@ class GovernmentPPF extends HookConsumerWidget {
   const GovernmentPPF({Key? key}) : super(key: key);
 
   @override
-  Widget build(BuildContext context,WidgetRef ref) {
+  Widget build(BuildContext context, WidgetRef ref) {
     final ppfAcNoController = useTextEditingController();
     final bankBranchNameController = useTextEditingController();
     final nomineeController = useTextEditingController();
@@ -47,99 +47,106 @@ class GovernmentPPF extends HookConsumerWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               iconText(context),
-
-              header(context, image: government, title: "Government Schemes", description: "Public Provident Fund (PPF)"),
-
+              header(context,
+                  image: government,
+                  title: "Government Schemes",
+                  description: "Public Provident Fund (PPF)"),
               Gap(16),
-
               Padding(
                   padding: EdgeInsets.only(left: 15),
-                  child: Text(pleaseShareTheDetailsPPF,style: TextStyle(fontWeight: FontWeight.w400,color: black ,fontSize: 12,fontFamily: fontFamily),)),
+                  child: Text(
+                    pleaseShareTheDetailsPPF,
+                    style: TextStyle(
+                        fontWeight: FontWeight.w400,
+                        color: black,
+                        fontSize: 12,
+                        fontFamily: fontFamily),
+                  )),
               Gap(10),
-
-              expandRow(context,controller: ppfAcNoController,title: "PPF Acc. No."),
-              expandRow(context,controller: bankBranchNameController,title: "Bank Name & Branch/ Post Office"),
-              expandRow(context,controller: nomineeController,title: "Nominee's Name (if any)"),
-
-
-
+              expandRow(context,
+                  controller: ppfAcNoController, title: "PPF Acc. No."),
+              expandRow(context,
+                  controller: bankBranchNameController,
+                  title: "Bank Name & Branch/ Post Office"),
+              expandRow(context,
+                  controller: nomineeController,
+                  title: "Nominee's Name (if any)"),
               Gap(6),
-
               Padding(
                   padding: EdgeInsets.only(left: 15),
-                  child: Text(addAnother,style: TextStyle(fontWeight: FontWeight.w500,color: blueee ,fontSize: 12),)),
+                  child: Text(
+                    addAnother,
+                    style: TextStyle(
+                        fontWeight: FontWeight.w500,
+                        color: blueee,
+                        fontSize: 12),
+                  )),
               Gap(10),
-
-              assetsPhotoText(context,controller: messageController,imageFileList: imageFileList.value),
-
+              assetsPhotoText(context,
+                  controller: messageController,
+                  imageFileList: imageFileList.value),
               Center(
                 child: CustomButton(
                   title: continuee,
-                  padding:
-                  EdgeInsets.symmetric(horizontal: 34, vertical: 11),
+                  padding: EdgeInsets.symmetric(horizontal: 34, vertical: 11),
                   onTap: () async {
-                    if(imageFileList.value.isNotEmpty) {
-                      for (int i = 0; i < imageFileList.value.length; i++) {
-                        Uint8List imageBytes =
-                        await imageFileList.value[i].readAsBytes();
-                        int length = imageBytes.length;
-                        http.ByteStream stream =
-                        http.ByteStream(imageFileList.value[i].openRead());
-                        imageList.add(
-                          MultipartFile(stream, length,
-                              filename: imageFileList.value[i].name),
-                        );
-                      }
-
-                    if(ppfAcNoController.text.isNotEmpty
-                        && bankBranchNameController.text.isNotEmpty
-                        && nomineeController.text.isNotEmpty
-                    ){
-
-                      Map<String,dynamic>  formDetailsData =
-                      {
-                        "ppfAcNo": ppfAcNoController.text,
-                        "bankBranchName": bankBranchNameController.text,
-                        "nominee": nomineeController.text,
-                        "legalHeir": messageController.text ,
-                      };
-
-                      ReqStoreAssetsFormDetails storeAssetsFormData = ReqStoreAssetsFormDetails(
-                          // subscriptionAssetId: 1,
-                          subscriptionAssetId: int.parse(getString(prefSubscriptionAssetId)),
-                          formDetails: ["${formDetailsData}"],
-                          assetDocuments: imageList
-                      );
-
-                      await ref.read(storeAssetsFormProvider.notifier)
-                          .assetsFormDetails(context: context, data: storeAssetsFormData)
-                          .then((value) {
-
-                        if(value?.status == 1){
-                          displayToast("${value?.message}");
-                          navigationService.push(routeAssetScreen);
-                          print("enter ---->>> ");
-                        }else{
-                          displayToast("${value?.message}");
+                    if (ppfAcNoController.text.isNotEmpty &&
+                        bankBranchNameController.text.isNotEmpty &&
+                        nomineeController.text.isNotEmpty) {
+                      if (imageFileList.value.isNotEmpty) {
+                        for (int i = 0; i < imageFileList.value.length; i++) {
+                          Uint8List imageBytes =
+                              await imageFileList.value[i].readAsBytes();
+                          int length = imageBytes.length;
+                          http.ByteStream stream = http.ByteStream(
+                              imageFileList.value[i].openRead());
+                          imageList.add(
+                            MultipartFile(stream, length,
+                                filename: imageFileList.value[i].name),
+                          );
                         }
-                      });
 
-                    }else{
-                      displayToast("Please Attach Field");
+                        Map<String, dynamic> formDetailsData = {
+                          "ppfAcNo": ppfAcNoController.text,
+                          "bankBranchName": bankBranchNameController.text,
+                          "nominee": nomineeController.text,
+                          "legalHeir": messageController.text,
+                        };
+
+                        ReqStoreAssetsFormDetails storeAssetsFormData =
+                            ReqStoreAssetsFormDetails(
+                                // subscriptionAssetId: 1,
+                                subscriptionAssetId: int.parse(
+                                    getString(prefSubscriptionAssetId)),
+                                formDetails: ["${formDetailsData}"],
+                                assetDocuments: imageList);
+
+                        await ref
+                            .read(storeAssetsFormProvider.notifier)
+                            .assetsFormDetails(
+                                context: context, data: storeAssetsFormData)
+                            .then((value) {
+                          if (value?.status == 1) {
+                            displayToast("${value?.message}");
+                            navigationService.push(routeAssetScreen);
+                            print("enter ---->>> ");
+                          } else {
+                            displayToast("${value?.message}");
+                          }
+                        });
+                      } else {
+                        displayToast("Please Upload Image");
+                      }
+                    } else {
+                      // displayToast("Please Attach Field");
+                      infoAssetsCustomDialog(context);
                     }
-
-
-    }else{
-    displayToast("Please Upload Image");
-    }
                   },
                 ),
               ),
               SizedBox(
                 height: Utils.getHeight(context) * 0.023,
               ),
-
-
             ],
           ),
         ),

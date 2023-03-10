@@ -465,14 +465,10 @@ class AddInformationScreen extends HookConsumerWidget {
                       InkWell(
                         onTap: () async {
 
-                          print('------------->>>>>>>>>>>>>>>>>.image ');
                           addImage = await _picker.pickImage(source: ImageSource.gallery);
-                          print('image path 216${addImage}');
                           if (addImage != null) {
                             addPickedImage.value = File(addImage!.path);
-                            print(
-                                ' image path 200 ---->>>>>>${addPickedImage}');
-                            // imageFileList.value.add(addImage!);
+                            imageFileList.value.add(addImage!);
                             displayToast("Image Successful Upload");
 
                             setState((){});
@@ -551,16 +547,12 @@ class AddInformationScreen extends HookConsumerWidget {
                                                 )
                                                 : InkWell(
                                                    onTap: () async{
-                                                     print('------------->>>>>>>>>>>>>>>>>.image ${cameraPickedImage.value} ');
+
                                                      cameraImage = await _picker.pickImage(source: ImageSource.camera);
-                                                     print('image path 216${cameraImage}');
                                                      if (cameraImage != null) {
                                                        cameraPickedImage.value = File(cameraImage!.path);
-                                                       // imageFileList.value.add(cameraImage!);
                                                        cameraFileList.value.add(cameraImage!);
-                                                       print(' image path 200 ---->>>>>>${cameraPickedImage}');
-                                                       isCameraPicked.value = true;
-                                                       // displayToast("Image Successful Upload");
+
                                                        setState((){});
                                                      }
 
@@ -610,9 +602,15 @@ class AddInformationScreen extends HookConsumerWidget {
                       Center(
                         child: GestureDetector(
                           onTap: () async {
+
+                            if(formKey.currentState!.validate()) {
+                              if (issueController.text.isNotEmpty &&
+                                  statee.value.isNotEmpty &&
+                                  cityy.value.isNotEmpty) {
                             if(cameraFileList.value.isNotEmpty) {
-                              imageFileList.value.add(cameraFileList.value[0]);
+
                               if (imageFileList.value.isNotEmpty) {
+                                imageFileList.value.add(cameraFileList.value[0]);
                                 for (int i = 0; i < imageFileList.value.length; i++) {
                                   Uint8List imageBytes =
                                   await imageFileList.value[i].readAsBytes();
@@ -628,15 +626,7 @@ class AddInformationScreen extends HookConsumerWidget {
                                   imageListDemo.value.add(stream);
                                 }
 
-                                print('image List -------->>>>>>>>>> ${imageList
-                                    .value} }');
 
-                                // initPlatformState();
-
-                                if(formKey.currentState!.validate()) {
-                                  if (issueController.text.isNotEmpty &&
-                                      statee.value.isNotEmpty &&
-                                      cityy.value.isNotEmpty) {
                                     singleChooseAssetsAI.otherDetails =
                                         issueController.text;
                                     singleChooseAssetsAI.email =
@@ -689,23 +679,25 @@ class AddInformationScreen extends HookConsumerWidget {
 
 
                                         displayToast(value!.message);
-                                        print("Yashu Patel");
                                       } else {
                                         displayToast(value!.message);
                                       }
                                     });
-                                  } else {
-                                    displayToast('Enter Your Information');
-                                  }
-                                }
+
 
                                 setState(() {});
                               } else {
                                 displayToast('Please Upload Image');
                               }
                             }else {
-
+                              displayToast('Please Upload Selfie Image');
                             }
+
+                              } else {
+                                displayToast('Enter Your Information');
+                              }
+                            }
+
                           },
                           child: Container(
                             padding:

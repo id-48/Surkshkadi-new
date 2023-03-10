@@ -91,6 +91,12 @@ class MiscellaneousCompany extends HookConsumerWidget {
                   title: continuee,
                   padding: EdgeInsets.symmetric(horizontal: 34, vertical: 11),
                   onTap: () async {
+
+
+                    if (companyNameController.text.isNotEmpty &&
+                        cinController.text.isNotEmpty &&
+                        dinController.text.isNotEmpty &&
+                        gstinController.text.isNotEmpty) {
                     if (imageFileList.value.isNotEmpty) {
                       for (int i = 0; i < imageFileList.value.length; i++) {
                         Uint8List imageBytes =
@@ -104,10 +110,6 @@ class MiscellaneousCompany extends HookConsumerWidget {
                         );
                       }
 
-                      if (companyNameController.text.isNotEmpty &&
-                          cinController.text.isNotEmpty &&
-                          dinController.text.isNotEmpty &&
-                          gstinController.text.isNotEmpty) {
                         Map<String, dynamic> formDetailsData = {
                           "insuranceCompanyName": companyNameController.text,
                           "typeInsurance": cinController.text,
@@ -138,11 +140,13 @@ class MiscellaneousCompany extends HookConsumerWidget {
                           }
                         });
                       } else {
-                        displayToast("Please Attach Field");
+                      displayToast("Please Upload Image");
                       }
                     } else {
-                      displayToast("Please Upload Image");
+                        // displayToast("Please Attach Field");
+                    infoAssetsCustomDialog(context);
                     }
+
                   },
                 ),
               ),

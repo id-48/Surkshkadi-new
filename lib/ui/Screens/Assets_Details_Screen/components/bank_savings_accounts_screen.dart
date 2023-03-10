@@ -182,6 +182,12 @@ class BankSavingsAccounts extends HookConsumerWidget {
                   title: continuee,
                   padding: EdgeInsets.symmetric(horizontal: 34, vertical: 11),
                   onTap: () async {
+
+                    if (accountController.text.isNotEmpty &&
+                        ifscCodeController.text.isNotEmpty &&
+                        nomineeController.text.isNotEmpty &&
+                        additionalController.text.isNotEmpty) {
+
                     if (imageFileList.value.isNotEmpty) {
                       for (int i = 0; i < imageFileList.value.length; i++) {
                         Uint8List imageBytes =
@@ -195,10 +201,6 @@ class BankSavingsAccounts extends HookConsumerWidget {
                         );
                       }
 
-                      if (accountController.text.isNotEmpty &&
-                          ifscCodeController.text.isNotEmpty &&
-                          nomineeController.text.isNotEmpty &&
-                          additionalController.text.isNotEmpty) {
                         Map<String, dynamic> formDetailsData = {
                           "account": accountController.text,
                           "ifscCode": ifscCodeController.text,
@@ -229,10 +231,12 @@ class BankSavingsAccounts extends HookConsumerWidget {
                           }
                         });
                       } else {
-                        displayToast("Please Attach Field");
+                      displayToast("Please Upload Image");
                       }
                     } else {
-                      displayToast("Please Upload Image");
+                        // displayToast("Please Attach Field");
+                      infoAssetsCustomDialog(context);
+
                     }
                   },
                 ),

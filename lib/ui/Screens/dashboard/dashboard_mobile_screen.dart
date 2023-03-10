@@ -2,6 +2,7 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -720,7 +721,7 @@ class DashBoard extends HookConsumerWidget {
                                                 fontFamily: fontFamily),
                                           ),
                                         ),
-                                        Gap(6),
+                                        Gap(20.w),
                                       ],
                                     ),
                                     Gap(10),
@@ -738,7 +739,27 @@ class DashBoard extends HookConsumerWidget {
                             flex: 1,
                             child: InkWell(
                               onTap: (){
-
+                                showDialog(
+                                  context: context,
+                                  builder: (_) => AlertDialog(
+                                    insetPadding:
+                                        const EdgeInsets.only(left: 0, right: 0, top: 0, bottom: 0),
+                                    contentPadding: EdgeInsets.symmetric(horizontal: 0, vertical: 0),
+                                    shape: const RoundedRectangleBorder(
+                                        borderRadius: BorderRadius.all(Radius.circular(5.0))),
+                                    content: Builder(
+                                      builder: (context) {
+                                        return Container(
+                                          height: 200,
+                                          width: Utils.getWidth(context) - 40,
+                                          child: YoutubeVideoPlayer(
+                                            videoUrl: data.response.howItWorksVideo,
+                                          )
+                                        );
+                                      },
+                                    ),
+                                  ),
+                                );
                               },
                               child: Container(
                                 alignment: Alignment.center,
@@ -924,9 +945,9 @@ class DashBoard extends HookConsumerWidget {
                       InkWell(
                         onTap: (){
 
-                          // navigationService.push(routeLegalAll, arguments: {
-                          //   navSecurityContent: "terms_conditions"
-                          // });
+                          navigationService.push(routeLegalAll, arguments: {
+                            navSecurityContent: "terms_conditions"
+                          });
                         },
                         child: Text(
                             termsAndConditions,
