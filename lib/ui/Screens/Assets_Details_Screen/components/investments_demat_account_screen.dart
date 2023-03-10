@@ -35,6 +35,8 @@ class InvestmentsDematAccount extends HookConsumerWidget {
     final nomineeController = useTextEditingController();
     final messageController = useTextEditingController();
     final imageFileList = useState<List<XFile>>([]);
+    final cameraFileList = useState<List<XFile>>([]);
+
     List<MultipartFile> imageList = [];
     return Scaffold(
       appBar: CustomAppBar(
@@ -88,19 +90,21 @@ class InvestmentsDematAccount extends HookConsumerWidget {
                         fontWeight: FontWeight.w400, color: blue, fontSize: 12),
                   )),
               Gap(16),
-              Padding(
-                  padding: EdgeInsets.only(left: 15),
-                  child: Text(
-                    addAnother,
-                    style: TextStyle(
-                        fontWeight: FontWeight.w500,
-                        color: blueee,
-                        fontSize: 12),
-                  )),
+              addAnotherDoc(context, imageFileList: imageFileList.value),
+
+              // Padding(
+              //     padding: EdgeInsets.only(left: 15),
+              //     child: Text(
+              //       addAnother,
+              //       style: TextStyle(
+              //           fontWeight: FontWeight.w500,
+              //           color: blueee,
+              //           fontSize: 12),
+              //     )),
               Gap(10),
               assetsPhotoText(context,
                   controller: messageController,
-                  imageFileList: imageFileList.value),
+                  imageFileList: imageFileList.value,cameraFileList: cameraFileList.value),
               Center(
                 child: CustomButton(
                     title: continuee,
@@ -113,6 +117,10 @@ class InvestmentsDematAccount extends HookConsumerWidget {
                           bankBranchNameController.text.isNotEmpty &&
                           ifscCodeController.text.isNotEmpty &&
                           nomineeController.text.isNotEmpty) {
+
+
+                        if(cameraFileList.value.isNotEmpty){
+                          imageFileList.value.add(cameraFileList.value[0]);
 
                       if (imageFileList.value.isNotEmpty) {
                         for (int i = 0; i < imageFileList.value.length; i++) {
@@ -153,14 +161,14 @@ class InvestmentsDematAccount extends HookConsumerWidget {
                             if (value?.status == 1) {
                               print("enter ---->>> ");
                               displayToast("${value?.message}");
-                              navigationService.push(routeAssetScreen);
+                              navigationService.push(routeCustomBottomNavigationBar);
                             } else {
                               displayToast("${value?.message}");
                             }
                           });
-                        } else {
-                        displayToast("Please Upload Image");
-                        }
+                        } else {displayToast("Please Upload Image");}
+                        } else {displayToast("Please Upload selfie Image");}
+
                       } else {
                           // displayToast("Please Attach Field");
                           infoAssetsCustomDialog(context);

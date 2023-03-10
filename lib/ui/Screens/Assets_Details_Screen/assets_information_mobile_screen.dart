@@ -33,6 +33,7 @@ class AssetsInformation extends HookConsumerWidget {
     final messageController = useTextEditingController();
     final imageFileList = useState<List<XFile>>([]);
 
+    final cameraFileList = useState<List<XFile>>([]);
 
     return Scaffold(
       appBar: CustomAppBar(
@@ -192,7 +193,7 @@ class AssetsInformation extends HookConsumerWidget {
                   padding: EdgeInsets.only(left: 15),
                   child: Text(noteACopyYour,style: TextStyle(fontWeight: FontWeight.w400,color: black ,fontSize: 12,fontFamily: fontFamily),)),
 
-              assetsPhotoText(context,controller: messageController,imageFileList: imageFileList.value),
+              assetsPhotoText(context,controller: messageController,imageFileList: imageFileList.value,cameraFileList: cameraFileList.value),
 
               Center(
                 child: CustomButton(

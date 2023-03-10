@@ -34,6 +34,8 @@ class BankLifeInsurance extends HookConsumerWidget {
     final relationshipController = useTextEditingController();
     final messageController = useTextEditingController();
     final imageFileList = useState<List<XFile>>([]);
+    final cameraFileList = useState<List<XFile>>([]);
+
     List<MultipartFile> imageList = [];
     return Scaffold(
       appBar: CustomAppBar(
@@ -78,20 +80,21 @@ class BankLifeInsurance extends HookConsumerWidget {
               expandRow(context,
                   controller: relationshipController,
                   title: "Relationship with the Beneficiary(ies)"),
+
               Gap(6),
-              Padding(
-                  padding: EdgeInsets.only(left: 15),
-                  child: Text(
-                    addAnother,
-                    style: TextStyle(
-                        fontWeight: FontWeight.w500,
-                        color: blueee,
-                        fontSize: 12),
-                  )),
+
+              addAnotherDoc(context, imageFileList: imageFileList.value),
+
               Gap(10),
+
+
               assetsPhotoText(context,
                   controller: messageController,
-                  imageFileList: imageFileList.value),
+                  imageFileList: imageFileList.value,
+                  cameraFileList: cameraFileList.value,
+              ),
+
+
               Center(
                 child: CustomButton(
                   title: continuee,
@@ -105,7 +108,13 @@ class BankLifeInsurance extends HookConsumerWidget {
                         beneficiaryController.text.isNotEmpty &&
                         relationshipController.text.isNotEmpty) {
 
+
+                      if(cameraFileList.value.isNotEmpty){
+                      imageFileList.value.add(cameraFileList.value[0]);
+
                     if (imageFileList.value.isNotEmpty) {
+                      print("test image file list length --->> ${imageFileList.value.length}");
+
                       for (int i = 0; i < imageFileList.value.length; i++) {
                         Uint8List imageBytes =
                             await imageFileList.value[i].readAsBytes();
@@ -133,26 +142,28 @@ class BankLifeInsurance extends HookConsumerWidget {
                                 formDetails: ["${formDetailsData}"],
                                 assetDocuments: imageList);
 
-                        // await ref
-                        //     .read(storeAssetsFormProvider.notifier)
-                        //     .assetsFormDetails(
-                        //         context: context, data: storeAssetsFormData)
-                        //     .then((value) {
-                        //   if (value?.status == 1) {
-                        //     print("enter ---->>> ");
-                        //     displayToast("${value?.message}");
-                        //     navigationService.push(routeAssetScreen);
-                        //   } else {
-                        //     displayToast("${value?.message}");
-                        //   }
-                        // });
+                        await ref
+                            .read(storeAssetsFormProvider.notifier)
+                            .assetsFormDetails(
+                                context: context,data: storeAssetsFormData)
+                            .then((value) {
+                          if (value?.status == 1) {
+                            displayToast("${value?.message}");
+                            navigationService.push(routeCustomBottomNavigationBar);
+                          } else {
+                            displayToast("${value?.message}");
+                          }
+                        });
 
                       } else {
                            displayToast("Please Upload Image");
                       }
 
+                      } else {
+                        displayToast("Please Upload selfie Image");
+                      }
+
                     } else {
-                        // displayToast("Please Attach Field");
 
                       infoAssetsCustomDialog(context);
                     }

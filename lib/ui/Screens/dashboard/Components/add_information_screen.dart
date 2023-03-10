@@ -515,7 +515,6 @@ class AddInformationScreen extends HookConsumerWidget {
                                                   children :[
                                                      Image.file(
                                                        File(cameraFileList.value[0].path),
-                                                    // cameraPickedImage.value,
                                                        fit: BoxFit.fill,
                                                        height: 90,
                                                        width: Utils.getWidth(context) * 0.27,
@@ -526,11 +525,9 @@ class AddInformationScreen extends HookConsumerWidget {
                                                       top: -10,
                                                       right: -10,
                                                       child: GestureDetector(
-                                                        onTap: () {
+                                                        onTap: (){
                                                           cameraFileList.value.clear();
-                                                          // isCameraPicked.value = false ;
                                                           setState(() {});
-                                                          // res.value.
                                                         },
                                                         child: Container(
                                                           decoration: const BoxDecoration(

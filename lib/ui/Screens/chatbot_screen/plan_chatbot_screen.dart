@@ -1088,6 +1088,8 @@ class _PlanChatBotMobileState extends State<PlanChatBotMobile> {
                                 child: InkWell(
                                   onTap: messages.length == 13
                                       ? () {
+
+                                          setBool(prefFatherLive, true );
                                           messages.add(ChatMessage(
                                               messageContent: [chatController.text,"Yes"],
                                               messageType: 'sender'));
@@ -1118,10 +1120,12 @@ class _PlanChatBotMobileState extends State<PlanChatBotMobile> {
                                 child: InkWell(
                                   onTap: messages.length == 13
                                       ? () {
-                                          messages.add(ChatMessage(
+
+                                    setBool(prefFatherLive, false);
+
+                                    messages.add(ChatMessage(
                                               messageContent: [chatController.text,"No"],
                                               messageType: 'sender'));
-
                                           messages.add(messagesQustion[6]);
                                           chatController.clear();
                                           setState(() {});
@@ -1146,8 +1150,8 @@ class _PlanChatBotMobileState extends State<PlanChatBotMobile> {
                           ),
                         )
                       ],
-
                     ],
+
                     if (index == 14) ...[
                       Gap(messages.length == 15 ? 6 : 0),
                       messages.length == 15

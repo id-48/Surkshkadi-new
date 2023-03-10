@@ -34,6 +34,8 @@ class ImmovableProperty extends HookConsumerWidget {
     final detailsInsuranceController = useTextEditingController();
     final messageController = useTextEditingController();
     final imageFileList = useState<List<XFile>>([]);
+    final cameraFileList = useState<List<XFile>>([]);
+
     List<MultipartFile> imageList = [];
 
     final ownership = useState<bool>(true);
@@ -224,15 +226,18 @@ class ImmovableProperty extends HookConsumerWidget {
                   controller: detailsInsuranceController,
                   title: "Details of the Insurance(If Taken)"),
               Gap(16),
-              Padding(
-                  padding: EdgeInsets.only(left: 15),
-                  child: Text(
-                    addAnother,
-                    style: TextStyle(
-                        fontWeight: FontWeight.w500,
-                        color: blueee,
-                        fontSize: 12),
-                  )),
+              addAnotherDoc(context, imageFileList: imageFileList.value),
+
+
+              // Padding(
+              //     padding: EdgeInsets.only(left: 15),
+              //     child: Text(
+              //       addAnother,
+              //       style: TextStyle(
+              //           fontWeight: FontWeight.w500,
+              //           color: blueee,
+              //           fontSize: 12),
+              //     )),
               Gap(10),
               Padding(
                   padding: EdgeInsets.only(left: 15),
@@ -247,7 +252,7 @@ class ImmovableProperty extends HookConsumerWidget {
               Gap(20),
               assetsPhotoText(context,
                   controller: messageController,
-                  imageFileList: imageFileList.value),
+                  imageFileList: imageFileList.value,cameraFileList: cameraFileList.value),
               Center(
                 child: CustomButton(
                   title: continuee,
@@ -257,6 +262,11 @@ class ImmovableProperty extends HookConsumerWidget {
                         roughValueController.text.isNotEmpty &&
                         detailsLoanController.text.isNotEmpty &&
                         detailsInsuranceController.text.isNotEmpty) {
+
+
+                      if(cameraFileList.value.isNotEmpty){
+                        imageFileList.value.add(cameraFileList.value[0]);
+
                       if (imageFileList.value.isNotEmpty) {
                         for (int i = 0; i < imageFileList.value.length; i++) {
                           Uint8List imageBytes =
@@ -295,14 +305,13 @@ class ImmovableProperty extends HookConsumerWidget {
                           if (value?.status == 1) {
                             print("enter ---->>> ");
                             displayToast("${value?.message}");
-                            navigationService.push(routeAssetScreen);
+                            navigationService.push(routeCustomBottomNavigationBar);
                           } else {
                             displayToast("${value?.message}");
                           }
                         });
-                      } else {
-                        displayToast("Please Upload Image");
-                      }
+                      } else {displayToast("Please Upload Image");}
+                      } else {displayToast("Please Upload selfie Image");}
                     } else {
                       // displayToast("Please Attach Field");
                       infoAssetsCustomDialog(context);

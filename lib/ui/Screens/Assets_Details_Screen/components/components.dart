@@ -65,6 +65,7 @@ class FillTextField extends HookWidget {
  assetsPhotoText (context,{
   required TextEditingController controller,
   required List<XFile> imageFileList,
+  required List<XFile> cameraFileList,
    bool textField = true,
 }){
   ImagePicker _picker = ImagePicker();
@@ -102,20 +103,15 @@ final pickedImage = useState<File>(File(""));
 
           InkWell(
             onTap: () async{
-              // print('------------->>>>>>>>>>>>>>>>>.image ');
               image = await _picker.pickImage(source: ImageSource.gallery);
               print('image path 216${image}');
               if (image != null) {
                 pickedImage.value = File(image!.path);
-                // print(
-                //     ' image path 200 ---->>>>>>${pickedImage}');
-                imageFileList.add(image!);
+                 imageFileList.add(image!);
                 displayToast("Image Successful Upload");
                 setState((){});
               }
 
-              // getImage(imageFileList);
-              // isPicked.value = true;
             },
             child: Container(
               margin: EdgeInsets.symmetric(horizontal: 15),
@@ -169,9 +165,10 @@ final pickedImage = useState<File>(File(""));
             height: Utils.getHeight(context) * 0.03,
           ),
 
-          StatefulBuilder(
-            builder:  (BuildContext context, void Function(void Function()) setState) {
-              return Container(
+          // StatefulBuilder(
+          //   builder:  (BuildContext context, void Function(void Function()) setState) {
+          //     return
+                Container(
                 height: 170,
                 padding: EdgeInsets.symmetric(horizontal: 15),
                 child: Custom_Dottedborder(
@@ -190,32 +187,58 @@ final pickedImage = useState<File>(File(""));
                                 height: 90,
                                 width: Utils.getWidth(context) * 0.27,
                                 child:
-                                GestureDetector(
-                                  onTap: () async {
-
-                                    cameraImage = await _picker.pickImage(source: ImageSource.camera);
-
-                                    if (cameraImage != null) {
-                                      cameraPickedImage.value = File(cameraImage!.path);
-
-                                      isCameraPicked.value = true;
-
-                                    }
-                                  },
-                                  child: Container(
-
-                                    child:   isCameraPicked.value == true
-                                        ? Image.file(
-                                        cameraPickedImage.value
-                                            )
-                                            : Image.asset(
-                                        informationupload,
-                                        scale: 4,
+                                Container(
+                                  child:cameraFileList.isNotEmpty
+                                      ? Stack(
+                                    clipBehavior: Clip.none,
+                                    children :[
+                                      Image.file(
+                                        File(cameraFileList[0].path),
                                         fit: BoxFit.fill,
+                                        height: 90,
+                                        width: Utils.getWidth(context) * 0.27,
                                       ),
 
 
-                                  ),
+                                      Positioned(
+                                        top: -10,
+                                        right: -10,
+                                        child: GestureDetector(
+                                          onTap: () {
+                                            cameraFileList.clear();
+                                            setState(() {});
+                                          },
+                                          child: Container(
+                                            decoration: const BoxDecoration(
+                                                shape: BoxShape.circle, color: Colors.red),
+                                            child: const Icon(
+                                              Icons.close,
+                                              color: white,
+                                              size: 25,
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                    ],
+                                  )
+                                          : InkWell(
+                                             onTap: () async{
+                                               cameraImage = await _picker.pickImage(source: ImageSource.camera);
+
+                                               if (cameraImage != null) {
+                                                 cameraPickedImage.value = File(cameraImage!.path);
+                                                 cameraFileList.add(cameraImage!);
+                                               }
+
+                                             },
+                                            child: Image.asset(
+                                      informationupload,
+                                      scale: 4,
+                                      fit: BoxFit.fill,
+                                    ),
+                                          ),
+
+
                                 ),
                               ),
                             ),
@@ -238,9 +261,9 @@ final pickedImage = useState<File>(File(""));
                     ),
                   ),
                 ),
-              );
-            }
-          ),
+              ),
+            // }
+          // ),
 
 
           if(textField == true)  ...[
@@ -399,6 +422,41 @@ expandRow(context,{
   );
 }
 
+
+addAnotherDoc(context,{
+  required List<XFile> imageFileList,
+}){
+
+  ImagePicker _picker = ImagePicker();
+
+
+
+  XFile? imageAdd;
+  final pickedAddImage = useState<File>(File(""));
+
+  return   Padding(
+      padding: EdgeInsets.only(left: 15),
+      child: InkWell(
+        onTap: () async{
+
+          imageAdd = await _picker.pickImage(source: ImageSource.gallery);
+          if (imageAdd != null) {
+            pickedAddImage.value = File(imageAdd!.path);
+            imageFileList.add(imageAdd!);
+            displayToast("Image Successful Upload");
+            // setState((){});
+          }
+
+        },
+        child: Text(
+          addAnother,
+          style: TextStyle(
+              fontWeight: FontWeight.w500,
+              color: blueee,
+              fontSize: 12),
+        ),
+      ));
+}
 
 infoAssetsCustomDialog(BuildContext context) {
   print("welcome to display Dialog in Assets Info");

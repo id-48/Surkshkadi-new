@@ -25,6 +25,7 @@ const String prefWillReviewStatus= 'prefWillReviewStatus';
 const String prefAssetDetailsStatus= 'prefAssetDetailsStatus';
 const String prefReferCode = 'prefReferCode';
 const String prefPlanType = 'prefPlanType';
+// const String prefFatherLive = 'prefFatherLive';
 
 const String prefPlanIdMobile = 'prefPlanId PlanScreen Mobile';
 const String prefSingleUAId = 'pref Single user Assets Id';

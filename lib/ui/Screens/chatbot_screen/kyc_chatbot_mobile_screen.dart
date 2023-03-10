@@ -18,7 +18,6 @@ import 'package:surakshakadi/widgets/custom_button.dart';
 import 'package:surakshakadi/widgets/custom_expandable_card.dart';
 import 'package:surakshakadi/widgets/custom_select.dart';
 
-import '../../../data/model/home/chatboat/kyc_chatbot/res_kyc_chatbot.dart';
 
 class KYCChatBotMobile extends StatefulWidget {
   const KYCChatBotMobile({Key? key}) : super(key: key);
@@ -429,7 +428,7 @@ class _KYCChatBotMobileState extends State<KYCChatBotMobile> {
                                   child: InkWell(
                                     onTap: () {
 
-                                      setString(prefMotherLive,"Yes" );
+                                      setBool(prefMotherLive,true );
                                       messages.add(ChatMessage(
                                           messageContent: [chatController.text,"Yes"],
                                           messageType: 'sender'));
@@ -459,7 +458,7 @@ class _KYCChatBotMobileState extends State<KYCChatBotMobile> {
                                 Expanded(
                                   child: InkWell(
                                     onTap: () {
-                                      setString(prefMotherLive,"No" );
+                                      setBool(prefMotherLive, false );
 
                                       messages.add(ChatMessage(
                                           messageContent: [chatController.text,"No"],
