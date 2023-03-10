@@ -53,6 +53,7 @@ class ChooseAssetMobile extends HookConsumerWidget {
 
     final selectedIndex = useState<int>(0);
     var checkedIDs = useState<List<String>>([]);
+    var checkedIDsName = useState<List<String>>([]);
 
     Razorpay? _razorpay;
 
@@ -334,13 +335,12 @@ class ChooseAssetMobile extends HookConsumerWidget {
                                             e.checkValue == true ? false : true;
 
                                         if (e.checkValue == true) {
-                                          checkedIDs.value
-                                              .add(e.specilityId.toString());
-                                          print(
-                                              "Checked IDs-- ${checkedIDs.value}");
+                                          checkedIDs.value.add(e.specilityId.toString());
+                                          checkedIDsName.value.add(e.specilityTitle.toString());
+                                          print("Checked IDs-- ${checkedIDs.value}");
                                         } else {
-                                          checkedIDs.value
-                                              .remove(e.specilityId.toString());
+                                          checkedIDs.value.remove(e.specilityId.toString());
+                                          checkedIDsName.value.remove(e.specilityTitle.toString());
                                         }
                                         setState(() {});
 
@@ -439,6 +439,8 @@ class ChooseAssetMobile extends HookConsumerWidget {
                           if (getBool(prefSubChatBotCompletedMobile) == false) {
 
                             String  wpNumber = messagesList![3].messageContent[0] == "No" ? messagesList![3].messageContent[1] : "${getString(prefLoginNumber)}";
+
+                            setString(prefSelectAssets, "${checkedIDsName.value}".replaceAll("[", '').replaceAll("]", '') );
 
                             ReqPlanChatBot dataPlanChatBot = ReqPlanChatBot(
                               userId: getString(prefUserID),

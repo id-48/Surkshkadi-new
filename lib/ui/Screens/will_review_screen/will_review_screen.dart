@@ -54,14 +54,6 @@ class WillReview extends HookConsumerWidget {
               children: [
 
                 Gap(20),
-                // Text(loremIpsumDolorSit,
-                // style: TextStyle(fontWeight: FontWeight.w500,fontSize: 13),),
-                //
-                // Gap(15),
-                //
-                // Text(loremIpsumDolorSitLongName,
-                //   style: TextStyle(fontWeight: FontWeight.w500,fontSize: 13),),
-
 
                 Text("I ${getString(prefUserName)}, s/o Shri ${getString(prefFatherName)}, residing at ${getString(prefAddress)}, aged about ${getString(prefAge)} years, occupation ${getString(prefOccupation)}, declare this deed to be my last will and testament.",
                   style: GoogleFonts.inter(fontWeight: FontWeight.w500,fontSize: 12),),

@@ -952,8 +952,9 @@ class Disclaimers extends HookWidget {
 
 class YoutubeVideoPlayer extends StatefulWidget {
   final String videoUrl;
+  final bool? playColor;
 
-  const YoutubeVideoPlayer({Key? key, required this.videoUrl})
+  const YoutubeVideoPlayer({Key? key, required this.videoUrl, this.playColor})
       : super(key: key);
 
   @override
@@ -1065,7 +1066,7 @@ class _YoutubeVideoPlayerState extends State<YoutubeVideoPlayer> {
                             _controller.value.isPlaying
                                 ? Icons.pause
                                 : Icons.play_arrow,
-                            color: black,
+                            color: widget.playColor == true  ?  white : black,
                             size: 30,
                           )),
                     ),

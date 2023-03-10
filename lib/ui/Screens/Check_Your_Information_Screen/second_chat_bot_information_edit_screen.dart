@@ -1,6 +1,3 @@
-
-
-
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:gap/gap.dart';
@@ -9,7 +6,6 @@ import 'package:surakshakadi/data/model/home/chatboat/kyc_chatbot_update/req_upd
 import 'package:surakshakadi/di/locator.dart';
 import 'package:surakshakadi/ui/Screens/Check_Your_Information_Screen/components/components.dart';
 import 'package:surakshakadi/ui/Screens/Check_Your_Information_Screen/upadate_second_chatbot_view_modal.dart';
-import 'package:surakshakadi/ui/Screens/chatbot_screen/plan_chatbot_screen.dart';
 import 'package:surakshakadi/utils/color_utils.dart';
 import 'package:surakshakadi/utils/constants/loading_dialog.dart';
 import 'package:surakshakadi/utils/constants/navigation_route_constants.dart';
@@ -216,8 +212,6 @@ class SecondChatBotInformationEditScreen extends HookConsumerWidget {
                         },
                       ).then((value) {
                         popMinorNewDataSecond.value = value ;
-                        print("data minor mother ----->>>   ${popMinorNewDataSecond.value["GuardianName"]}");
-                        print("data minor  marital ----->>>   ${popMinorNewDataSecond.value["GuardianReal"]}");
 
                       });
 
@@ -300,6 +294,7 @@ class SecondChatBotInformationEditScreen extends HookConsumerWidget {
                     setString(prefMarriedSpouseName, "${popFamilyNewDataSecond.value.isEmpty ? messagesInfo.spouseName : popFamilyNewDataSecond.value["SpouseName"]}", );
                     setString(prefMotherName, "${popFamilyNewDataSecond.value.isEmpty ? messagesInfo.motherName : popFamilyNewDataSecond.value["MotherName"]}", );
 
+
                     ReqUpdateSecondChatBot  kycUpdateData = ReqUpdateSecondChatBot(
                         userId: getString(prefUserID),
                         subRegisterStatus: messagesInfo.subRegisterStatus,
@@ -322,16 +317,15 @@ class SecondChatBotInformationEditScreen extends HookConsumerWidget {
 
                     await  ref.read(updateSecondChatBoatProvider.notifier)
                            .postUpdateSecondChatBot(context: context, data: kycUpdateData)
-                        .then((value) {
+                           .then((value) {
                              if(value?.status == 1){
                                displayToast("${value?.message}");
                                hideLoadingDialog(context: context);
                                navigationService.push(routeBeneficiary ,arguments: {navChildCount:   childCountInfo  ,navChildName: childNameInfo});
-
                              }else {
                                displayToast("${value?.message}");
                              }
-                    });
+                         });
 
 
 

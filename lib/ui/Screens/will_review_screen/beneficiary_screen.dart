@@ -389,6 +389,8 @@ class Beneficiary extends HookConsumerWidget {
                   color: dividerColor,
                 ),
 
+
+                if(getBool(prefFatherLive) == true)  ...[
                 rowValue(
                   context,
                   keyText: "Father",
@@ -412,7 +414,7 @@ class Beneficiary extends HookConsumerWidget {
                     setState(() {});
                   },
                 ),
-                if (isFather.value && fatherController.text.isEmpty)
+                if (isFather.value && fatherController.text.isEmpty)...[
                   Padding(
                     padding: const EdgeInsets.symmetric(vertical: 10),
                     child: CustomTextfeild(
@@ -435,7 +437,10 @@ class Beneficiary extends HookConsumerWidget {
                       textStyle: TextStyle(fontSize: 20),
                     ),
                   ),
+                 ],
+                ],
 
+                if(getBool(prefMotherLive) == true)  ...[
                 rowValue(
                   context,
                   keyText: "Mother",
@@ -459,7 +464,7 @@ class Beneficiary extends HookConsumerWidget {
                     setState(() {});
                   },
                 ),
-                if (isMother.value)
+                if (isMother.value) ...[
                   Padding(
                     padding: const EdgeInsets.symmetric(vertical: 10),
                     child: CustomTextfeild(
@@ -482,6 +487,8 @@ class Beneficiary extends HookConsumerWidget {
                       textStyle: TextStyle(fontSize: 20),
                     ),
                   ),
+                ],
+                ],
 
                 rowValue(
                   context,
@@ -787,10 +794,9 @@ class Beneficiary extends HookConsumerWidget {
                   builder: (context, ref, child) {
                     return InkWell(
                       onTap: () async {
-                        if (fatherController.text.isEmpty || fatherController.text == "00") {
-                          displayToast(
-                              "Please enter the reason for disinheriting (excluding) your family member from your Will");
-                        } else if (motherController.text.isEmpty || motherController.text == "00") {
+                        if ( getBool(prefFatherLive) == true && (fatherController.text.isEmpty || fatherController.text == "00")) {
+                          displayToast("Please enter the reason for disinheriting (excluding) your family member from your Will");
+                        } else if (  getBool(prefFatherLive) == true &&  ( motherController.text.isEmpty || motherController.text == "00" )) {
                           displayToast(
                               "Please enter the reason for disinheriting (excluding) your family member from your Will");
                         } else if (spouseController.text.isEmpty || spouseController.text == "00") {
@@ -838,20 +844,23 @@ class Beneficiary extends HookConsumerWidget {
                           print(
                               "test data ---->>>> ${beneficiaryData.toJson()}");
 
-                          await ref
-                              .read(beneficiaryProvider.notifier)
-                              .postBeneficiary(
-                              context: context, data: beneficiaryData)
-                              .then((value) {
-                            if (value!.status == 1) {
-                              displayToast("${value.message}");
-                              navigationService
-                                  .pushAndRemoveUntil(routeWillReview);
-                            } else {
-                              displayToast("${value.message}");
-                            }
-                          });
+                          // await ref
+                          //     .read(beneficiaryProvider.notifier)
+                          //     .postBeneficiary(
+                          //     context: context, data: beneficiaryData)
+                          //     .then((value) {
+                          //   if (value!.status == 1) {
+                          //     displayToast("${value.message}");
+                          //     navigationService
+                          //         .pushAndRemoveUntil(routeWillReview);
+                          //   } else {
+                          //     displayToast("${value.message}");
+                          //   }
+                          // });
                         }
+
+
+
                       },
                       child: Container(
                         height: Utils.getHeight(context) * 0.08,

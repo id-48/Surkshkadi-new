@@ -131,17 +131,17 @@ class DashBoard extends HookConsumerWidget {
                         )),
                   ]),
               body: Container(
-                padding: EdgeInsets.symmetric(horizontal: 15, vertical: 10),
+                padding: EdgeInsets.only(left: 15,right: 15),
                 child: SingleChildScrollView(
                   scrollDirection: Axis.vertical,
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
+                      Gap(10),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Container(
-                            // height: h*0.15,
                             padding: EdgeInsets.only(left: 8),
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
@@ -180,6 +180,7 @@ class DashBoard extends HookConsumerWidget {
                           ),
                           child: video.value == true
                               ? YoutubeVideoPlayer(
+                                  playColor: true,
                                   videoUrl: data.response.video,
                                 )
                               : Stack(
@@ -664,8 +665,8 @@ class DashBoard extends HookConsumerWidget {
                               borderRadius: BorderRadius.circular(6),
                               child: Container(
                                 height: 100,
-
-                                child: Image.asset(banner,fit: BoxFit.fitHeight,),
+                                width: double.infinity,
+                                child: Image.asset(banner,fit: BoxFit.fill,),
                               ),
                             ),
                             Positioned(
@@ -753,6 +754,7 @@ class DashBoard extends HookConsumerWidget {
                                           height: 200,
                                           width: Utils.getWidth(context) - 40,
                                           child: YoutubeVideoPlayer(
+                                            playColor: false,
                                             videoUrl: data.response.howItWorksVideo,
                                           )
                                         );
@@ -936,27 +938,43 @@ class DashBoard extends HookConsumerWidget {
                                     fontSize: 13,
                                     letterSpacing: 0.2)),
 
+                            InkWell(
+                              onTap: (){
+
+                                navigationService.push(routeLegalAll, arguments: {
+                                  navSecurityContent: "terms_conditions"
+                                });
+                              },
+                              child: Text(
+                                  termsAndConditions,
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.w600,
+                                      color: Colors.grey[700],
+                                      fontSize: 13,
+                                      letterSpacing: 0.2)),
+                            ),
+
                           ],
                       ),
 
                       Gap(4),
 
 
-                      InkWell(
-                        onTap: (){
-
-                          navigationService.push(routeLegalAll, arguments: {
-                            navSecurityContent: "terms_conditions"
-                          });
-                        },
-                        child: Text(
-                            termsAndConditions,
-                            style: TextStyle(
-                                fontWeight: FontWeight.w600,
-                                color: Colors.grey[700],
-                                fontSize: 13,
-                                letterSpacing: 0.2)),
-                      ),
+                      // InkWell(
+                      //   onTap: (){
+                      //
+                      //     navigationService.push(routeLegalAll, arguments: {
+                      //       navSecurityContent: "terms_conditions"
+                      //     });
+                      //   },
+                      //   child: Text(
+                      //       termsAndConditions,
+                      //       style: TextStyle(
+                      //           fontWeight: FontWeight.w600,
+                      //           color: Colors.grey[700],
+                      //           fontSize: 13,
+                      //           letterSpacing: 0.2)),
+                      // ),
 
                       Gap(50),
                     ],

@@ -131,143 +131,132 @@ class PlanScreen extends HookConsumerWidget {
                     ),
                     Gap(10),
 
-                    Row(
-                      children: [
-                        Expanded(
-                          flex: 1,
-                          child: Card(
-                            elevation: 2,
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(14.0),
-                            ),
-                            child: Container(
-                              padding: EdgeInsets.symmetric(horizontal: 6,vertical: 7),
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(14),
-                                color: lowBlue,
-                                // boxShadow: [
-                                //   BoxShadow(
-                                //     color: Colors.grey.shade300,
-                                //     spreadRadius: 1,
-                                //     blurRadius: 1,
-                                //   ),
-                                // ]
+                    Container(
+                      height: 90,
+                      child: Row(
+                        children: [
+                          Expanded(
+                            flex: 1,
+                            child: Card(
+                              elevation: 2,
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(14.0),
                               ),
-                              child: Column(
-                                children: [
-                                  Image.asset(
-                                    willVector,
-                                    scale: 7,
-                                  ),
-                                  Gap(6),
-                                  Padding(
-                                    padding:
-                                    const EdgeInsets.symmetric(horizontal: 4),
-                                    child: Text(
-                                      complementaryEWillCreation,
-                                      style: TextStyle(
-                                        fontWeight: FontWeight.w600,
-                                        fontSize: 10,
-                                      ),
-                                      textAlign: TextAlign.center,
+                              child: Container(
+                                padding: EdgeInsets.symmetric(horizontal: 6,),
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(14),
+                                  color: lowBlue,
+                                ),
+                                child: Column(
+                                  children: [
+                                    Gap(10),
+                                    Image.asset(
+                                      willVector,
+                                      scale: 7,
                                     ),
-                                  ),
-                                ],
+                                    Gap(6),
+                                    Padding(
+                                      padding:
+                                      const EdgeInsets.symmetric(horizontal: 4),
+                                      child: Text(
+                                        complementaryEWillCreation,
+                                        style: TextStyle(
+                                          fontWeight: FontWeight.w600,
+                                          fontSize: 10,
+                                        ),
+                                        textAlign: TextAlign.center,
+                                      ),
+                                    ),
+                                  ],
+                                ),
                               ),
                             ),
                           ),
-                        ),
-                        // Gap(4),
-                        Expanded(
-                          flex: 1,
-                          child: Card(
-                            elevation: 2,
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(14.0),
-                            ),
-                            child: Container(
-                              padding: EdgeInsets.symmetric(horizontal: 6,vertical: 7),
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(14),
-                                color: lowBlue,
-                                // boxShadow: [
-                                //   BoxShadow(
-                                //     color: Colors.grey.shade300,
-                                //     spreadRadius: 1,
-                                //     blurRadius: 1,
-                                //   ),
-                                // ]
+
+                          Expanded(
+                            flex: 1,
+                            child: Card(
+                              elevation: 2,
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(14.0),
                               ),
-                              child: Column(
-                                children: [
-                                  Image.asset(
-                                    vactor,
-                                    scale: 7,
-                                  ),
-                                  Gap(6),
-                                  Padding(
-                                    padding:
-                                    const EdgeInsets.symmetric(horizontal: 4),
-                                    child: Text(
-                                      freeInsuranceCover,
-                                      style: TextStyle(
-                                        fontWeight: FontWeight.w600,
-                                        fontSize: 10,
-                                      ),
-                                      textAlign: TextAlign.center,
+                              child: Container(
+                                padding: EdgeInsets.symmetric(horizontal: 6,),
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(14),
+                                  color: lowBlue,
+
+                                ),
+                                child: Column(
+                                  children: [
+                                    Gap(10),
+
+                                    Image.asset(
+                                      vactor,
+                                      scale: 7,
                                     ),
-                                  ),
-                                ],
+                                    Gap(6),
+                                    Padding(
+                                      padding:
+                                      const EdgeInsets.symmetric(horizontal: 4),
+                                      child: Text(
+                                        freeInsuranceCover,
+                                        style: TextStyle(
+                                          fontWeight: FontWeight.w600,
+                                          fontSize: 10,
+                                        ),
+                                        textAlign: TextAlign.center,
+                                      ),
+                                    ),
+                                  ],
+                                ),
                               ),
                             ),
                           ),
-                        ),
-                        // Gap(4),
-                        Expanded(
-                          flex: 1,
-                          child: Card(
-                            elevation: 2,
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(14.0),
-                            ),
-                            child: Container(
-                              padding: EdgeInsets.symmetric(horizontal: 6,vertical: 7),
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(14),
-                                color: lowBlue,
-                                // boxShadow: [
-                                //   BoxShadow(
-                                //     color: Colors.grey.shade300,
-                                //     spreadRadius: 1,
-                                //     blurRadius: 1,
-                                //   ),
-                                // ]
+
+                          Expanded(
+                            flex: 1,
+                            child: Card(
+                              elevation: 2,
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(14.0),
                               ),
-                              child: Column(
-                                children: [
-                                  Image.asset(
-                                    subscriptionModel,
-                                    scale: 7,
-                                  ),
-                                  Gap(6),
-                                  Padding(
-                                    padding:
-                                    const EdgeInsets.symmetric(horizontal: 4),
-                                    child: Text(
-                                      returnOfYourSubscription,
-                                      style: TextStyle(
-                                        fontWeight: FontWeight.w600,
-                                        fontSize: 10,
-                                      ),
-                                      textAlign: TextAlign.center,
+                              child: Container(
+                                padding: EdgeInsets.symmetric(horizontal: 6,),
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(14),
+                                  color: lowBlue,
+
+                                ),
+                                child: Column(
+                                  children: [
+                                    Gap(10),
+
+                                    Image.asset(
+                                      subscriptionModel,
+                                      scale: 7,
                                     ),
-                                  ),
-                                ],
+                                    Gap(6),
+                                    Padding(
+                                      padding:
+                                      const EdgeInsets.symmetric(horizontal: 4),
+                                      child: Text(
+                                        returnOfYourSubscription,
+                                        style: TextStyle(
+                                          fontWeight: FontWeight.w600,
+                                          fontSize: 10,
+                                        ),
+                                        textAlign: TextAlign.center,
+                                      ),
+                                    ),
+                                  ],
+                                ),
                               ),
                             ),
                           ),
-                        ),
-                      ],
+                        ],
+                      ),
                     ),
 
                     Gap(14),
@@ -889,10 +878,10 @@ class PlanScreen extends HookConsumerWidget {
                                   arguments: {navSelectedPlanCB: planSelected});
 
 
-                            }else if(getString(prefKycStatus) == '1') {
+                            }else if(getString(prefKycStatus) == '0') {
                               navigationService.push(routeKycScreen);
 
-                            }else if(getString(prefSecondChatBotStatus) == "1"){
+                            }else if(getString(prefSecondChatBotStatus) == "0"){
                               navigationService.push(routeKYCChatBotMobile);
 
                             }else if(getString(prefBeneficiaryStatus) == "0"){

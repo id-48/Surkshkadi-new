@@ -77,8 +77,8 @@ class ConfirmationSpecific extends HookConsumerWidget {
                     TextSpan(text: youWillReceive, style: TextStyle(fontWeight: FontWeight.w400,color: deepindigo)),
                     TextSpan(text: theQuotation, style: TextStyle(fontWeight: FontWeight.bold,color: blue,),),
                     TextSpan(text: workingDays, style: TextStyle(fontWeight: FontWeight.w400,color: deepindigo)),
-
                   ],
+
                 ),
               ),
             ),

@@ -219,7 +219,6 @@ class KYCIdentity extends HookConsumerWidget {
                   // )
                   //     : Container(),
 
-
                   ///  Aadhar card No
 
               Container(
@@ -431,12 +430,11 @@ class KYCIdentity extends HookConsumerWidget {
 
                                                 // print("image --->> ${value.result.data.profileImage}");
 
-                                                displayToast(
-                                                    "Your Aadhar Card Verify");
-                                                print(
-                                                    "Your Pan Card Verify");
-                                                print(
-                                                    "Your Name --->> ${value.toJson()}");
+                                                displayToast("Thanks, your Aadhaar number verified successfully");
+                                                // print(
+                                                //     "Your Pan Card Verify");
+                                                // print(
+                                                //     "Your Name --->> ${value.toJson()}");
                                               } else {
                                                 displayToast(
                                                     "Enter Your Right OTP");
@@ -671,7 +669,7 @@ class KYCIdentity extends HookConsumerWidget {
                                           if (value!.result.essentials
                                               .number.isNotEmpty) {
                                             displayToast(
-                                                "Your Pan Card Verify Success");
+                                                "Thanks, your PAN number verified successfully");
                                             isPanCard.value = true;
                                           } else {
                                             displayToast(
@@ -697,21 +695,20 @@ class KYCIdentity extends HookConsumerWidget {
                                 children: [
                                   GestureDetector(
                                     onTap: () async {
-                                      print(
-                                          '------------->>>>>>>>>>>>>>>>>.image ');
+                                      // print('------------->>>>>>>>>>>>>>>>>.image ');
                                       panImage = await _picker.pickImage(
                                           source: ImageSource.gallery);
                                       print('image path 216${panImage}');
                                       if (panImage != null) {
                                         panPickedImage.value = File(panImage!.path);
-                                        print(' ------------------------- image path 200 --------------------------->>>>>>>${panPickedImage}');
-                                        print('runtime type --->>  ${panPickedImage.value.runtimeType}');
-                                        print('absolute  ------>>>>' '${panPickedImage.value.absolute}'.split('.')[3].replaceAll("'", ""));
+                                        // print(' ------------------------- image path 200 --------------------------->>>>>>>${panPickedImage}');
+                                        // print('runtime type --->>  ${panPickedImage.value.runtimeType}');
+                                        // print('absolute  ------>>>>' '${panPickedImage.value.absolute}'.split('.')[3].replaceAll("'", ""));
 
                                         panFrontType.value = "data:image/" + '${panPickedImage.value.absolute}'.split('.')[3].replaceAll("'", "") + ";base64,";
 
 
-                                        print('frontType  --->> ${panFrontType}');
+                                        // print('frontType  --->> ${panFrontType}');
                                         isPanPicked.value = true;
                                       }
                                     },

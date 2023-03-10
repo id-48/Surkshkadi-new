@@ -89,9 +89,9 @@ const String yaayYourPaymentFor =
 const String quotation = "Quotation";
 const String pleaseCheckYourEmail =
     "Please check your E-mail for futher assistance";
-const String youWillReceive = "You Will Receive\n";
-const String theQuotation = "The Quotation In ";
-const String workingDays = "3-4 working Days.";
+const String youWillReceive = "You Will Receive\nThe";
+const String theQuotation = " Quotation ";
+const String workingDays = "In 3-4 working Days.";
 
 ///        Plan Bot Screen
 const String getToKonwYou = "Get to know you";
