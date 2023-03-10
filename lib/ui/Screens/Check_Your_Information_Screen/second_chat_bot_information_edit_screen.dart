@@ -41,9 +41,9 @@ class SecondChatBotInformationEditScreen extends HookConsumerWidget {
     return Scaffold(
       appBar: CustomAppBar(
         title: checkYourInformation,
-        backonTap: () {
-          Navigator.pop(context);
-        },
+        // backonTap: () {
+        //   Navigator.pop(context);
+        // },
         notionTap: () {},
       ),
       body: SingleChildScrollView(
@@ -147,8 +147,10 @@ class SecondChatBotInformationEditScreen extends HookConsumerWidget {
 
 
               // if( "${messagesInfo[5].messageContent[0] == "Unmarried" ?  "" : "${messagesInfo[7].messageContent[0]}"}" != '') ...[
+
+             if(messagesInfo.spouseName != "")...[
               Gap(5),
-              Row(mainAxisAlignment: MainAxisAlignment.start,
+              Row (mainAxisAlignment: MainAxisAlignment.start,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Expanded(flex: 4,
@@ -163,8 +165,9 @@ class SecondChatBotInformationEditScreen extends HookConsumerWidget {
                   ),
                 ],
               ),
-              // ],
+              ],
 
+              if(messagesInfo.divorceStatus != "")...[
               Gap(5),
               Row(mainAxisAlignment: MainAxisAlignment.start,
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -182,7 +185,7 @@ class SecondChatBotInformationEditScreen extends HookConsumerWidget {
                 ],
               ),
 
-
+],
 
               SizedBox(height: Utils.getHeight(context) *0.03 ,),
               Row(

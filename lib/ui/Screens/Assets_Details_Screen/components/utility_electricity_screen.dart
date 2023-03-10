@@ -34,9 +34,9 @@ class UtilityElectricity extends HookConsumerWidget {
     List<MultipartFile> imageList = [];
     return Scaffold(
       appBar: CustomAppBar(
-        backonTap: () {
-          Navigator.pop(context);
-        },
+        // backonTap: () {
+        //   Navigator.pop(context);
+        // },
         title: "${assetsInformation}",
       ),
       body: Container(

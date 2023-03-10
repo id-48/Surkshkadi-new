@@ -889,10 +889,10 @@ class PlanScreen extends HookConsumerWidget {
                                   arguments: {navSelectedPlanCB: planSelected});
 
 
-                            }else if(getString(prefKycStatus) == '0') {
+                            }else if(getString(prefKycStatus) == '1') {
                               navigationService.push(routeKycScreen);
 
-                            }else if(getString(prefSecondChatBotStatus) == "0"){
+                            }else if(getString(prefSecondChatBotStatus) == "1"){
                               navigationService.push(routeKYCChatBotMobile);
 
                             }else if(getString(prefBeneficiaryStatus) == "0"){
@@ -1176,7 +1176,7 @@ CustomRow(context,
         ),
         Gap(5),
         Container(
-          height: 35,
+          // height: 35,
           child: InkWell(
             onTap: () {
               displayDialog(context, data: assetsName![index]);
@@ -1186,7 +1186,7 @@ CustomRow(context,
                 Expanded(
                   child: Container(
                     alignment: Alignment.center,
-                    padding: EdgeInsets.symmetric(horizontal: 10, vertical: 8),
+                    padding: EdgeInsets.symmetric(horizontal: 10, vertical: 5),
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(3),
                       color: selecetdIndex == 0 ? gradientblue : Colors.white,
@@ -1215,7 +1215,7 @@ CustomRow(context,
                 Expanded(
                   child: Container(
                     alignment: Alignment.center,
-                    padding: EdgeInsets.symmetric(horizontal: 10, vertical: 8),
+                    padding: EdgeInsets.symmetric(horizontal: 10, vertical: 5),
                     decoration: BoxDecoration(
                       color: selecetdIndex == 1 ? gradientblue : Colors.white,
                       boxShadow: [
@@ -1243,7 +1243,7 @@ CustomRow(context,
                 Expanded(
                   child: Container(
                     alignment: Alignment.center,
-                    padding: EdgeInsets.symmetric(horizontal: 10, vertical: 8),
+                    padding: EdgeInsets.symmetric(horizontal: 10, vertical: 5),
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(3),
                       color: selecetdIndex == 2 ? gradientblue : Colors.white,

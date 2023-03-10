@@ -26,9 +26,9 @@ class ConfirmationPlanScreen extends HookConsumerWidget {
     return Scaffold(
       appBar: CustomAppBar(
           title: 'Confirmation',
-          backonTap: () {
-            Navigator.pop(context);
-          },
+          // backonTap: () {
+          //   Navigator.pop(context);
+          // },
         notificationIcon: false,
 
       ),

@@ -146,6 +146,7 @@ class _PlanChatBotMobileState extends State<PlanChatBotMobile> {
   int cityIndex = -1;
 
   String calculateAge(DateTime birthDate) {
+
     DateTime currentDate = DateTime.now();
     int agee = currentDate.year - birthDate.year;
     int month1 = currentDate.month;
@@ -639,7 +640,7 @@ class _PlanChatBotMobileState extends State<PlanChatBotMobile> {
                                         );
 
                                         if (pickedDate != null) {
-                                          // print(pickedDate);
+                                          print(" $pickedDate");
                                           formattedDate =
                                               DateFormat('yyyy-MM-dd')
                                                   .format(pickedDate);
@@ -648,6 +649,9 @@ class _PlanChatBotMobileState extends State<PlanChatBotMobile> {
                                               messageContent: [formattedDate],
                                               messageType: 'sender'));
                                           messages.add(messagesQustion[2]);
+
+
+                                          print("age in date 11 ----->>> ${age}");
 
                                           setString(prefAge, age);
                                           setState(() {});
@@ -1916,6 +1920,7 @@ class _PlanChatBotMobileState extends State<PlanChatBotMobile> {
                             EdgeInsets.symmetric(horizontal: 30, vertical: 10),
                         onTap: () {
 
+                          print("age in date ----->>> ${age}");
 
                           setString(prefUserName, "${messages[9].messageContent[0]}");
                           setString(prefFatherName,"${messages[13].messageContent[0]}" );

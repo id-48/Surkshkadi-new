@@ -70,10 +70,9 @@ class AssetsMobile extends HookConsumerWidget {
               child: Scaffold(
                 appBar: CustomAppBar(
                   title: assets,
-                  backonTap: () {
-                    Navigator.pop(context);
-                    // navigationService.push(routeCustomeBottomNavigationBar);
-                  },
+                  // backonTap: () {Navigator.pop(context);
+                  //   // navigationService.push(routeCustomeBottomNavigationBar);
+                  // },
                   notionTap: () {},
                 ),
                 body: Container(

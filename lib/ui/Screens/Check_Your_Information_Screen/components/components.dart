@@ -31,7 +31,7 @@ class FamilyInfoDialog extends HookConsumerWidget {
     // final key = useState(GlobalKey<FormState>());
 
     final popFamilyData = useState<Map<String, dynamic>>({});
-    final formattedDate = useState<String>("");
+    final formattedDate = useState<String>("${planChatBotSPData.dob.year}""-${planChatBotSPData.dob.month}-""${planChatBotSPData.dob.day}");
     // final age = useState<String>("");
     String age = '0';
 
@@ -149,14 +149,13 @@ class FamilyInfoDialog extends HookConsumerWidget {
 
                             if (pickedDate != null) {
                               // print(pickedDate);
-                              formattedDate.value =
-                                  DateFormat('yyyy-MM-dd').format(pickedDate);
+                              formattedDate.value = DateFormat('yyyy-MM-dd').format(pickedDate);
 
                               age = calculateAge(pickedDate);
 
                               setString(prefAge, age);
-                              print("Date   ----->>>>${formattedDate}");
-                              print("agee   ----->>>>${age}");
+                              print("FORMATTED  Date::   ----->>>>${formattedDate.value}");
+                              print(" PREF AGE  ::  ----->>>>${age}");
 
                               setState(() {});
                             } else {
@@ -182,10 +181,7 @@ class FamilyInfoDialog extends HookConsumerWidget {
                                 color: lightsky,
                                 border: Border.all(color: blue),
                                 borderRadius: BorderRadius.circular(7)),
-                            child: Text(
-                              dobUpdateData.isEmpty
-                                  ? dobOldData
-                                  : dobUpdateData,
+                            child: Text(formattedDate.value,
                               style: TextStyle(),
                             ),
                           ),
@@ -244,7 +240,7 @@ class FamilyInfoDialog extends HookConsumerWidget {
                             EdgeInsets.symmetric(vertical: 10, horizontal: 46),
                         title: "Save",
                         onTap: () {
-                          setString(prefAge, age);
+                          // setString(prefAge, age);
                           print("agegege---->${getString(prefAge)}");
 
                           popFamilyData.value = {
@@ -617,13 +613,9 @@ class FamilyDialogSecond extends HookConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final popFamilyInfoData = useState<Map<String, dynamic>>({});
 
-    final MotherNameCon = useTextEditingController(
-        text: "${messagesInfoDialog.motherName}");
-    final MaritalStaCon = useTextEditingController(
-        text: "${messagesInfoDialog.maritalStatus}");
-    final SpouseNameCon = useTextEditingController(
-        text:
-            "${messagesInfoDialog.spouseName}");
+    final MotherNameCon = useTextEditingController(text: "${messagesInfoDialog.motherName}");
+    final MaritalStaCon = useTextEditingController(text: "${messagesInfoDialog.maritalStatus}");
+    final SpouseNameCon = useTextEditingController(text: "${messagesInfoDialog.spouseName}");
     final SeparatedCon = useTextEditingController(text: "${messagesInfoDialog.divorceStatus}");
 
     List marital = [
@@ -678,8 +670,7 @@ class FamilyDialogSecond extends HookConsumerWidget {
                     ],
                   ),
                   Gap(20),
-                  PlanChatBSPDialogRow(
-                      controller: MotherNameCon, keyValue: "Mother Name"),
+                  PlanChatBSPDialogRow(controller: MotherNameCon, keyValue: "Mother Name"),
                   Gap(10),
 
                   Row(
@@ -695,8 +686,11 @@ class FamilyDialogSecond extends HookConsumerWidget {
                       Expanded(
                         flex: 10,
                         child: Container(
+                          height: 33,
                           decoration: BoxDecoration(
+                            color: lightsky,
                             borderRadius: BorderRadius.circular(7),
+                            border: Border.all(color: blue),
                             boxShadow: [
                               BoxShadow(
                                 color: Colors.black26,
@@ -705,59 +699,150 @@ class FamilyDialogSecond extends HookConsumerWidget {
                               ),
                             ],
                           ),
-                          child: CustomExpandTextCard(
-                            index: 0,
-                            height: 33,
-                            border: Border.all(color: blue),
-                            arrowColor: black,
-                            isExpanded: ValueNotifier(1),
-                            boxcolor: lightsky,
-                            title:  marital[maritalIndex.value]["title"],
-                            expandedChild: Container(
-                              height: 100,
-                              color: white,
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                // mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                                children: [
-                                  ListView.builder(
-                                    shrinkWrap: true,
-                                    itemCount: marital.length,
-                                    itemBuilder:
-                                        (BuildContext context, int index) {
-                                      return InkWell(
-                                          onTap: () {
+                          child: Container(
+                            height: 120,
 
-                                            maritalIndex.value = index;
-
-                                            setState(() {});
-                                          },
-                                          child:  Padding(
-                                            padding: const EdgeInsets.only(top: 12,left: 6),
-                                            // padding: const EdgeInsets.only(top: 8),
-                                            child: Text(
-                                              marital[index]["title"],
-                                              style: TextStyle(
-                                                  fontSize: 13.5, fontWeight: FontWeight.w500),
-                                            ),
-                                          ),
-                                      );
-                                    },
-                                  ),
-
-                                ],
+                            child: Padding(
+                              padding: const EdgeInsets.symmetric(vertical: 5,horizontal: 6),
+                              // padding: const EdgeInsets.only(top: 8),
+                              child: Text(
+                                messagesInfoDialog.maritalStatus,
+                                // marital[index]["title"],
+                                style: TextStyle(
+                                    fontSize:14, fontWeight: FontWeight.w500),
                               ),
                             ),
                           ),
+
+
+
+
+
+                          // CustomExpandTextCard(
+                          //   index: 0,
+                          //   height: 33,
+                          //   border: Border.all(color: blue),
+                          //   arrowColor: black,
+                          //   isExpanded: ValueNotifier(1),
+                          //   boxcolor: lightsky,
+                          //   title:  messagesInfoDialog.maritalStatus,
+                          //   // title:  marital[maritalIndex.value]["title"],
+                          //   expandedChild: Container(
+                          //     height: 100,
+                          //     color: white,
+                          //     child: Column(
+                          //       crossAxisAlignment: CrossAxisAlignment.start,
+                          //       // mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          //       children: [
+                          //         ListView.builder(
+                          //           shrinkWrap: true,
+                          //           itemCount: 1,
+                          //           // itemCount: marital.length,
+                          //           itemBuilder:
+                          //               (BuildContext context, int index) {
+                          //             return InkWell(
+                          //               onTap: () {
+                          //
+                          //                 // maritalIndex.value = index;
+                          //                 //
+                          //                 // setState(() {});
+                          //               },
+                          //               child:  Padding(
+                          //                 padding: const EdgeInsets.only(top: 12,left: 6),
+                          //                 // padding: const EdgeInsets.only(top: 8),
+                          //                 child: Text(
+                          //                   messagesInfoDialog.maritalStatus,
+                          //                   // marital[index]["title"],
+                          //                   style: TextStyle(
+                          //                       fontSize: 13.5, fontWeight: FontWeight.w500),
+                          //                 ),
+                          //               ),
+                          //             );
+                          //           },
+                          //         ),
+                          //
+                          //       ],
+                          //     ),
+                          //   ),
+                          // ),
                         ),
                       ),
+
+                      /// old DropDown Menu
+                      // Expanded(
+                      //   flex: 10,
+                      //   child: Container(
+                      //     decoration: BoxDecoration(
+                      //       borderRadius: BorderRadius.circular(7),
+                      //       boxShadow: [
+                      //         BoxShadow(
+                      //           color: Colors.black26,
+                      //           blurRadius: 1.0,
+                      //           offset: Offset(2, 3,),
+                      //         ),
+                      //       ],
+                      //     ),
+                      //     child: CustomExpandTextCard(
+                      //       index: 0,
+                      //       height: 33,
+                      //       border: Border.all(color: blue),
+                      //       arrowColor: black,
+                      //       isExpanded: ValueNotifier(1),
+                      //       boxcolor: lightsky,
+                      //       title:  messagesInfoDialog.maritalStatus,
+                      //       // title:  marital[maritalIndex.value]["title"],
+                      //       expandedChild: Container(
+                      //         height: 100,
+                      //         color: white,
+                      //         child: Column(
+                      //           crossAxisAlignment: CrossAxisAlignment.start,
+                      //           // mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      //           children: [
+                      //             ListView.builder(
+                      //               shrinkWrap: true,
+                      //               itemCount: 1,
+                      //               // itemCount: marital.length,
+                      //               itemBuilder:
+                      //                   (BuildContext context, int index) {
+                      //                 return InkWell(
+                      //                     onTap: () {
+                      //
+                      //                       // maritalIndex.value = index;
+                      //                       //
+                      //                       // setState(() {});
+                      //                     },
+                      //                     child:  Padding(
+                      //                       padding: const EdgeInsets.only(top: 12,left: 6),
+                      //                       // padding: const EdgeInsets.only(top: 8),
+                      //                       child: Text(
+                      //                         messagesInfoDialog.maritalStatus,
+                      //                         // marital[index]["title"],
+                      //                         style: TextStyle(
+                      //                             fontSize: 13.5, fontWeight: FontWeight.w500),
+                      //                       ),
+                      //                     ),
+                      //                 );
+                      //               },
+                      //             ),
+                      //
+                      //           ],
+                      //         ),
+                      //       ),
+                      //     ),
+                      //   ),
+                      // ),
                     ],
                   ),
+
+                  if(messagesInfoDialog.spouseName != "")...[
 
                   Gap(10),
 
                   PlanChatBSPDialogRow(
-                      controller: SpouseNameCon, keyValue: "Spouse Name"),
+                      controller: SpouseNameCon, keyValue: "Spouse Name"),],
+
+                 if(messagesInfoDialog.divorceStatus != "" ) ...[
+
                   Gap(10),
                   // PlanChatBSPDialogRow(
                   //     controller: SeparatedCon, keyValue: "Separated"),
@@ -775,8 +860,11 @@ class FamilyDialogSecond extends HookConsumerWidget {
                       Expanded(
                         flex: 10,
                         child: Container(
+                          height: 33,
                           decoration: BoxDecoration(
+                            color: lightsky,
                             borderRadius: BorderRadius.circular(7),
+                            border: Border.all(color: blue),
                             boxShadow: [
                               BoxShadow(
                                 color: Colors.black26,
@@ -785,56 +873,138 @@ class FamilyDialogSecond extends HookConsumerWidget {
                               ),
                             ],
                           ),
-                          child: CustomExpandTextCard(
-                            index: 0,
-                            height: 33,
-                            border: Border.all(color: blue),
-                            arrowColor: black,
-                            isExpanded: ValueNotifier(1),
-                            boxcolor: lightsky,
-                            title: sepDivorceIndex.value == -1
-                                ? ""
-                                : SepDivorce[sepDivorceIndex.value]["title"],
-                            expandedChild: Container(
-                              height: 70,
-                              color: white,
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                // mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                                children: [
-                                  ListView.builder(
-                                    shrinkWrap: true,
-                                    itemCount: SepDivorce.length,
-                                    itemBuilder:
-                                        (BuildContext context, int index) {
-                                      return InkWell(
-                                        onTap: () {
+                          child: Container(
+                            height: 120,
 
-                                          sepDivorceIndex.value = index;
+                            child: Padding(
+                              padding: const EdgeInsets.symmetric(vertical: 5,horizontal: 6),
+                              // padding: const EdgeInsets.only(top: 8),
+                              child: Text(
+                                messagesInfoDialog.divorceStatus,
 
-                                          setState(() {});
-                                        },
-                                        child:  Padding(
-                                          padding: const EdgeInsets.only(top: 12,left: 6),
-                                          // padding: const EdgeInsets.only(top: 8),
-                                          child: Text(
-                                            SepDivorce[index]["title"],
-                                            style: TextStyle(
-                                                fontSize: 13.5, fontWeight: FontWeight.w500),
-                                          ),
-                                        ),
-                                      );
-                                    },
-                                  ),
-
-                                ],
+                                style: TextStyle(
+                                    fontSize:14, fontWeight: FontWeight.w500),
                               ),
                             ),
                           ),
+
+
+
+
+
+                          // CustomExpandTextCard(
+                          //   index: 0,
+                          //   height: 33,
+                          //   border: Border.all(color: blue),
+                          //   arrowColor: black,
+                          //   isExpanded: ValueNotifier(1),
+                          //   boxcolor: lightsky,
+                          //   title:  messagesInfoDialog.maritalStatus,
+                          //   // title:  marital[maritalIndex.value]["title"],
+                          //   expandedChild: Container(
+                          //     height: 100,
+                          //     color: white,
+                          //     child: Column(
+                          //       crossAxisAlignment: CrossAxisAlignment.start,
+                          //       // mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          //       children: [
+                          //         ListView.builder(
+                          //           shrinkWrap: true,
+                          //           itemCount: 1,
+                          //           // itemCount: marital.length,
+                          //           itemBuilder:
+                          //               (BuildContext context, int index) {
+                          //             return InkWell(
+                          //               onTap: () {
+                          //
+                          //                 // maritalIndex.value = index;
+                          //                 //
+                          //                 // setState(() {});
+                          //               },
+                          //               child:  Padding(
+                          //                 padding: const EdgeInsets.only(top: 12,left: 6),
+                          //                 // padding: const EdgeInsets.only(top: 8),
+                          //                 child: Text(
+                          //                   messagesInfoDialog.maritalStatus,
+                          //                   // marital[index]["title"],
+                          //                   style: TextStyle(
+                          //                       fontSize: 13.5, fontWeight: FontWeight.w500),
+                          //                 ),
+                          //               ),
+                          //             );
+                          //           },
+                          //         ),
+                          //
+                          //       ],
+                          //     ),
+                          //   ),
+                          // ),
                         ),
                       ),
+                      /// old Drop Down Menu
+                      // Expanded(
+                      //   flex: 10,
+                      //   child: Container(
+                      //     decoration: BoxDecoration(
+                      //       borderRadius: BorderRadius.circular(7),
+                      //       boxShadow: [
+                      //         BoxShadow(
+                      //           color: Colors.black26,
+                      //           blurRadius: 1.0,
+                      //           offset: Offset(2, 3,),
+                      //         ),
+                      //       ],
+                      //     ),
+                      //     child: CustomExpandTextCard(
+                      //       index: 0,
+                      //       height: 33,
+                      //       border: Border.all(color: blue),
+                      //       arrowColor: black,
+                      //       isExpanded: ValueNotifier(1),
+                      //       boxcolor: lightsky,
+                      //       title: sepDivorceIndex.value == -1
+                      //           ? ""
+                      //           : SepDivorce[sepDivorceIndex.value]["title"],
+                      //       expandedChild: Container(
+                      //         height: 70,
+                      //         color: white,
+                      //         child: Column(
+                      //           crossAxisAlignment: CrossAxisAlignment.start,
+                      //           // mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      //           children: [
+                      //             ListView.builder(
+                      //               shrinkWrap: true,
+                      //               itemCount: SepDivorce.length,
+                      //               itemBuilder:
+                      //                   (BuildContext context, int index) {
+                      //                 return InkWell(
+                      //                   onTap: () {
+                      //
+                      //                     sepDivorceIndex.value = index;
+                      //
+                      //                     setState(() {});
+                      //                   },
+                      //                   child:  Padding(
+                      //                     padding: const EdgeInsets.only(top: 12,left: 6),
+                      //                     // padding: const EdgeInsets.only(top: 8),
+                      //                     child: Text(
+                      //                       SepDivorce[index]["title"],
+                      //                       style: TextStyle(
+                      //                           fontSize: 13.5, fontWeight: FontWeight.w500),
+                      //                     ),
+                      //                   ),
+                      //                 );
+                      //               },
+                      //             ),
+                      //
+                      //           ],
+                      //         ),
+                      //       ),
+                      //     ),
+                      //   ),
+                      // ),
                     ],
-                  ),
+                  ),],
 
 
 
@@ -876,15 +1046,15 @@ class FamilyDialogSecond extends HookConsumerWidget {
 
                           if(MotherNameCon.text.isNotEmpty){
 
-                            if(marital[maritalIndex.value]["title"] == "Married"){
+                            if(messagesInfoDialog.maritalStatus == "Married"){
 
                               if(SpouseNameCon.text.isNotEmpty){
 
                                 popFamilyInfoData.value = {
                                   "MotherName": MotherNameCon.text,
-                                  "MaritalStatus":  marital[maritalIndex.value]["title"],
+                                  "MaritalStatus":  messagesInfoDialog.maritalStatus,
                                   "SpouseName": SpouseNameCon.text,
-                                  "Separated": sepDivorceIndex.value == -1 ? "" : marital[sepDivorceIndex.value]["title"],
+                                  "Separated": messagesInfoDialog.divorceStatus,
                                 };
 
                                   navigationService.pop(args: popFamilyInfoData.value);
@@ -893,36 +1063,48 @@ class FamilyDialogSecond extends HookConsumerWidget {
                                 displayToast("Please Enter Your Spouse Name ");
                               }
 
-                            }else if(marital[maritalIndex.value]["title"] == "Separated"){
+                            }
+                            else if(messagesInfoDialog.maritalStatus == "Separated"){
 
                               if(SpouseNameCon.text.isNotEmpty){
 
-                                if(sepDivorceIndex.value != -1) {
-                                  popFamilyInfoData.value = {
-                                    "MotherName": MotherNameCon.text,
-                                    "MaritalStatus": marital[maritalIndex.value]["title"],
-                                    "SpouseName": SpouseNameCon.text,
-                                    "Separated": sepDivorceIndex.value == -1 ? "" : marital[sepDivorceIndex.value]["title"],
-                                  };
+                                popFamilyInfoData.value = {
+                                  "MotherName": MotherNameCon.text,
+                                  "MaritalStatus":messagesInfoDialog.maritalStatus,
+                                  "SpouseName": SpouseNameCon.text,
+                                  "Separated": messagesInfoDialog.divorceStatus,
+                                };
 
-                                  navigationService.pop(
-                                      args: popFamilyInfoData.value);
-                                }else{
-                                  displayToast("Please Select Separated");
-                                }
+                                navigationService.pop(
+                                    args: popFamilyInfoData.value);
+
+                                // if(sepDivorceIndex.value != -1) {
+                                //   popFamilyInfoData.value = {
+                                //     "MotherName": MotherNameCon.text,
+                                //     "MaritalStatus":messagesInfoDialog.maritalStatus,
+                                //     "SpouseName": SpouseNameCon.text,
+                                //     "Separated": messagesInfoDialog.divorceStatus,
+                                //   };
+                                //
+                                //   navigationService.pop(
+                                //       args: popFamilyInfoData.value);
+                                // }else{
+                                //   displayToast("Please Select Separated");
+                                // }
 
                               }else{
                                 displayToast("Please Enter Your Spouse Name ");
                               }
 
 
-                            }else {
+                            }
+                            else if(messagesInfoDialog.maritalStatus == "Unmarried") {
 
                               popFamilyInfoData.value = {
                                 "MotherName": MotherNameCon.text,
-                                "MaritalStatus":  marital[maritalIndex.value]["title"],
-                                "SpouseName": "",
-                                "Separated": "",
+                                "MaritalStatus":  messagesInfoDialog.maritalStatus,
+                                "SpouseName": SpouseNameCon.text,
+                                "Separated": messagesInfoDialog.divorceStatus,
                               };
 
                               navigationService.pop(args: popFamilyInfoData.value);
@@ -939,7 +1121,7 @@ class FamilyDialogSecond extends HookConsumerWidget {
                             "MotherName": MotherNameCon.text,
                             "MaritalStatus":  marital[maritalIndex.value]["title"],
                             "SpouseName": SpouseNameCon.text,
-                            "Separated": sepDivorceIndex.value == -1 ? "${messagesInfoDialog.divorceStatus}" : marital[sepDivorceIndex.value]["title"],
+                            "Separated": sepDivorceIndex.value == -1 ? "${messagesInfoDialog.divorceStatus}" : SepDivorce[sepDivorceIndex.value]["title"],
                           };
 
                           // if (MotherNameCon.text.isNotEmpty &&

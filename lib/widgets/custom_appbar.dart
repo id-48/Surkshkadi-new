@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:surakshakadi/di/locator.dart';
 
 import '../utils/color_utils.dart';
 
@@ -43,7 +44,9 @@ class CustomAppBar extends StatelessWidget with PreferredSizeWidget {
               Icons.menu, color: black, // add custom icons also
             )
                 : GestureDetector(
-              onTap: backonTap,
+              onTap: backonTap ?? (){
+                navigationService.pop();
+              },
               child: Icon(
                 Icons.arrow_back_ios_new,
                 color: black, // add custom icons also
