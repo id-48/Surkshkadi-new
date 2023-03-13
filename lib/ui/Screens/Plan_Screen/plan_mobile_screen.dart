@@ -435,7 +435,7 @@ class PlanScreen extends HookConsumerWidget {
                                             padding:
                                                 const EdgeInsets.only(top: 4),
                                             child: Text(
-                                              'Rs ',
+                                              '₹',
                                               style: TextStyle(
                                                   fontWeight: FontWeight.w700,
                                                   color: isSelected.value == 0
@@ -481,9 +481,8 @@ class PlanScreen extends HookConsumerWidget {
                                           Gap(2),
                                           Text(
                                             isCheck.value == true
-                                                ? 'Rs ${data.response.plans[1].plans[0].actualPrice}/-'
-                                                : "Rs ${data.response.plans[0].plans[0].actualPrice}/-",
-                                            // isCheck.value == true ? 'Rs 2,998/-' : 'Rs 29,998/-',
+                                                ? '₹ ${data.response.plans[1].plans[0].actualPrice}/-'
+                                                : "₹ ${data.response.plans[0].plans[0].actualPrice}/-",
                                             style: TextStyle(
                                               fontWeight: FontWeight.w500,
                                               color: isSelected.value == 0
@@ -565,7 +564,7 @@ class PlanScreen extends HookConsumerWidget {
                                             padding:
                                                 const EdgeInsets.only(top: 4),
                                             child: Text(
-                                              'Rs',
+                                              '₹',
                                               style: TextStyle(
                                                   fontWeight: FontWeight.w500,
                                                   color: isSelected.value == 1
@@ -611,10 +610,9 @@ class PlanScreen extends HookConsumerWidget {
                                           Gap(2),
                                           Text(
                                             isCheck.value == true
-                                                ? 'Rs ${data.response.plans[1].plans[1].actualPrice}/-'
-                                                : "Rs ${data.response.plans[0].plans[1].actualPrice}/-",
+                                                ? '₹ ${data.response.plans[1].plans[1].actualPrice}/-'
+                                                : "₹ ${data.response.plans[0].plans[1].actualPrice}/-",
 
-                                            // isCheck.value == true ?  'Rs 4,998/-' : 'Rs 49,998/-',
                                             style: TextStyle(
                                               fontWeight: FontWeight.w500,
                                               fontSize: 10,
@@ -696,7 +694,7 @@ class PlanScreen extends HookConsumerWidget {
                                             padding:
                                                 const EdgeInsets.only(top: 4),
                                             child: Text(
-                                              'Rs',
+                                              '₹',
                                               style: TextStyle(
                                                   fontWeight: FontWeight.w500,
                                                   color: isSelected.value == 2
@@ -741,9 +739,8 @@ class PlanScreen extends HookConsumerWidget {
                                           Gap(2),
                                           Text(
                                             isCheck.value == true
-                                                ? 'Rs ${data.response.plans[1].plans[2].actualPrice}/-'
-                                                : "Rs ${data.response.plans[0].plans[2].actualPrice}/-",
-                                            // isCheck.value == true ?  'Rs 6,998/-' : 'Rs 69,998/-',
+                                                ? '₹ ${data.response.plans[1].plans[2].actualPrice}/-'
+                                                : "₹ ${data.response.plans[0].plans[2].actualPrice}/-",
                                             style: TextStyle(
                                               fontWeight: FontWeight.w500,
                                               color: isSelected.value == 2

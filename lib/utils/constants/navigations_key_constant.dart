@@ -24,8 +24,14 @@ const navVideoBase64 = "videoBase64";
 const navSecurityContent = "securityContent";
 const navChildCount = "childCount";
 const navChildCountInfo = "childCountInfo";
+
 const navChildName = "childName";
 const navChildNameInfo = "childNameInfo";
+const navChildAge = "childAge";
+const navChildAgeInfo = "childAgeInfo";
+const navChildGender = "childGender";
+const navChildGenderInfo = "childGenderInfo";
+
 const navMassageInfo= "massageInfo";
 const navChatBotDataFirst= "chatBotDataFirst";
 const navCIChatBotDF = "cIChatBotDF";

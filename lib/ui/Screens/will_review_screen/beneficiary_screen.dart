@@ -25,9 +25,15 @@ import '../../../utils/constants/preference_key_constant.dart';
 class Beneficiary extends HookConsumerWidget {
   final int childCount;
   final List<String> childName;
+  final List<String> childAge;
+  final List<String> childGender;
 
   const Beneficiary(
-      {Key? key, required this.childCount, required this.childName})
+      {Key? key, required this.childCount,
+        required this.childName,
+        required this.childAge,
+        required this.childGender,
+      })
       : super(key: key);
 
   @override
@@ -51,6 +57,18 @@ class Beneficiary extends HookConsumerWidget {
 
     // List<String> childrenList = ["one", "Two", "Thee"];
 
+    int childCountTotal = 0 ;
+
+    List<String> newChildName = [];
+    List<String> newChildGender = [];
+
+    for(int i = 0 ; i < childAge.length ; i++){
+      if(int.parse(childAge[i]) > 18 ){
+        childCountTotal += 1 ;
+        newChildName.add(childName[i]);
+        newChildGender.add(childGender[i]);
+      }
+    }
 
 
 
@@ -64,11 +82,11 @@ class Beneficiary extends HookConsumerWidget {
     // List<TextEditingController> addNameController = List.generate(addAnotherIndex.value, (k) => useTextEditingController());
     // List<bool> isAddAnother = List.generate(addAnotherIndex.value, (i) => false);
 
-    List<TextEditingController> childController = List.generate(childCount, (i) => useTextEditingController(text: "00"));
+    List<TextEditingController> childController = List.generate(childCountTotal, (i) => useTextEditingController());
 
-    List<TextEditingController> reasonChildController = List.generate(childCount, (i) => useTextEditingController());
+    List<TextEditingController> reasonChildController = List.generate(childCountTotal, (i) => useTextEditingController());
 
-    List<bool> isChild = List.generate(childCount, (i) => false);
+    List<bool> isChild = List.generate(childCountTotal, (i) => false);
 
     // final totalPercentage = useState<int>(0);
 
@@ -341,6 +359,9 @@ class Beneficiary extends HookConsumerWidget {
     // print("child data start -->>>> ${childPer}");
 
     for (int i = 0; i < childController.length; i++) {
+
+      print("child data start PC -->>>> ${childController[i].text}");
+
       childPer += int.parse(
           childController[i].text.isEmpty ? "00" : childController[i].text);
     }
@@ -430,7 +451,7 @@ class Beneficiary extends HookConsumerWidget {
                       ),
                       containerborder: Border.all(color: webBorder),
                       containercolor: white,
-                      hinttext: "What's Your reason",
+                      hinttext: reasonHintTextPE,
                       hintStyle: TextStyle(fontSize: 15),
                       borderRadius: BorderRadius.circular(10),
                       controller: fatherReasonController,
@@ -480,7 +501,7 @@ class Beneficiary extends HookConsumerWidget {
                       ),
                       containerborder: Border.all(color: webBorder),
                       containercolor: white,
-                      hinttext: "What's Your reason",
+                      hinttext: reasonHintTextPE,
                       hintStyle: TextStyle(fontSize: 15),
                       borderRadius: BorderRadius.circular(10),
                       controller: motherReasonController,
@@ -529,7 +550,7 @@ class Beneficiary extends HookConsumerWidget {
                       ),
                       containerborder: Border.all(color: webBorder),
                       containercolor: white,
-                      hinttext: "What's Your reason",
+                      hinttext: reasonHintTextPE,
                       hintStyle: TextStyle(fontSize: 15),
                       borderRadius: BorderRadius.circular(10),
                       controller: spouseReasonController,
@@ -541,14 +562,17 @@ class Beneficiary extends HookConsumerWidget {
                   shrinkWrap: true,
                   // padding: const EdgeInsets.symmetric(vertical: 10),
                   physics: NeverScrollableScrollPhysics(),
-                  itemCount: childCount,
+                  itemCount: childCountTotal,
                   itemBuilder: (BuildContext context, int index) {
-                    return Column(
+                    return    Column(
                       children: [
                         rowValue(
                           context,
-                          keyText: "Child ${index + 1}",
-                          valueText: '${childName[index]}',
+                          keyText: "${newChildGender[index]}",
+                          // keyText: "${childGender[index]}",
+                          // keyText: "Child ${index + 1}",
+                          valueText: '${newChildName[index]}',
+                          // valueText: '${childName[index]}',
                           isMinus: isChild[index],
                           onChanged: (v) {
                             print("test data");
@@ -590,7 +614,7 @@ class Beneficiary extends HookConsumerWidget {
                               ),
                               containerborder: Border.all(color: webBorder),
                               containercolor: white,
-                              hinttext: "What's Your reason",
+                              hinttext: reasonHintTextPE,
                               hintStyle: TextStyle(fontSize: 15),
                               borderRadius: BorderRadius.circular(10),
                               controller: reasonChildController[index],
@@ -657,7 +681,7 @@ class Beneficiary extends HookConsumerWidget {
                               offset: Offset(0.0, 4,),
                               containerborder: Border.all(color: webBorder),
                               containercolor: white,
-                              hinttext: "What's Your reason",
+                              hinttext: reasonHintTextPE,
                               hintStyle: TextStyle(fontSize: 15),
                               borderRadius: BorderRadius.circular(10),
                               textStyle: TextStyle(fontSize: 20),
@@ -794,22 +818,32 @@ class Beneficiary extends HookConsumerWidget {
                   builder: (context, ref, child) {
                     return InkWell(
                       onTap: () async {
-                        if ( getBool(prefFatherLive) == true && (fatherController.text.isEmpty || fatherController.text == "00")) {
-                          displayToast("Please enter the reason for disinheriting (excluding) your family member from your Will");
-                        } else if (  getBool(prefFatherLive) == true &&  ( motherController.text.isEmpty || motherController.text == "00" )) {
+                        if ( (getBool(prefFatherLive) == true && (fatherController.text.isEmpty || fatherController.text == "0" || fatherController.text == "00" || fatherController.text == "000")) && fatherReasonController.text.isEmpty  ) {
+                          displayToast("Please enter the reason.");
+                        } else if ( ( getBool(prefMotherLive) == true  && ( motherController.text.isEmpty || motherController.text == "0" || motherController.text == "00" || motherController.text == "000")) && motherReasonController.text.isEmpty ) {
                           displayToast(
-                              "Please enter the reason for disinheriting (excluding) your family member from your Will");
-                        } else if (spouseController.text.isEmpty || spouseController.text == "00") {
+                              "Please enter the reason.");
+                        } else if ((spouseController.text.isEmpty || spouseController.text == "0" || spouseController.text == "00" || spouseController.text == "000") && spouseReasonController.text.isEmpty) {
                           displayToast(
-                              "Please enter the reason for disinheriting (excluding) your family member from your Will");
-                        } else if (childController.length.toString().isEmpty || childController.length.toString() == "00") {
-                          displayToast(
-                              "Please enter the reason for disinheriting (excluding) your family member from your Will");
+                              "Please enter the reason.");
+                        // } else if (childController.length.toString().isEmpty || childController.length.toString() == "00") {
+                        //   displayToast("Please enter the reason.");
                         } else if (totalCount.value > 100) {
                           displayToast("A Value Can't Be Above 100%");
                         } else if (totalCount.value < 100) {
                           displayToast("A Value Can't Be Less Then 100%");
                         } else {
+
+                          for(int i = 0; i< childController.length ; i++ ){
+                            if((childController[i].text.isEmpty || childController[i].text == "0" || childController[i].text == "00" || childController[i].text == "000") && reasonChildController[i].text.isEmpty) {
+                              displayToast("Please enter the reason.");
+                            }else {
+
+                            }
+                          }
+
+
+
                           String childNameData = "${childName}"
                               .replaceAll("[", '')
                               .replaceAll(']', '');
@@ -844,19 +878,19 @@ class Beneficiary extends HookConsumerWidget {
                           print(
                               "test data ---->>>> ${beneficiaryData.toJson()}");
 
-                          // await ref
-                          //     .read(beneficiaryProvider.notifier)
-                          //     .postBeneficiary(
-                          //     context: context, data: beneficiaryData)
-                          //     .then((value) {
-                          //   if (value!.status == 1) {
-                          //     displayToast("${value.message}");
-                          //     navigationService
-                          //         .pushAndRemoveUntil(routeWillReview);
-                          //   } else {
-                          //     displayToast("${value.message}");
-                          //   }
-                          // });
+                          await ref
+                              .read(beneficiaryProvider.notifier)
+                              .postBeneficiary(
+                              context: context, data: beneficiaryData)
+                              .then((value) {
+                            if (value!.status == 1) {
+                              displayToast("${value.message}");
+                              navigationService
+                                  .pushAndRemoveUntil(routeWillReview);
+                            } else {
+                              displayToast("${value.message}");
+                            }
+                          });
                         }
 
 

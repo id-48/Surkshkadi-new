@@ -1530,11 +1530,11 @@ class _PlanChatBotMobileState extends State<PlanChatBotMobile> {
                                                       if(value![0].status == "Success"){
                                                         cityList.clear();
                                                         statee = value[0].postOffice[0].state ;
-
+                                                        cityy = value[0].postOffice[0].district ;
                                                         // for (int i = 0; i < value!.length; i++) {
-                                                          for(int j = 0; j< value[0].postOffice.length; j++ ){
-                                                          cityList.add(value[0].postOffice[j]);
-                                                        }
+                                                        //   for(int j = 0; j< value[0].postOffice.length; j++ ){
+                                                        //   cityList.add(value[0].postOffice[j]);
+                                                        // }
                                                         messages.add(ChatMessage(messageContent: [chatController.text], messageType: 'sender'));
                                                         messages.add(messagesQustion[8]);
                                                         chatController.clear();
@@ -1593,55 +1593,67 @@ class _PlanChatBotMobileState extends State<PlanChatBotMobile> {
                                   ),
                                   Gap(10),
                                   Expanded(
-                                    flex: 1,
-                                    child: CustomExpandTextCard(
-                                      index: 0,
-                                      isExpanded: ValueNotifier(1),
-                                      boxcolor: blue,
-                                      title: cityIndex == -1
-                                          ? 'locality'
-                                          : cityList[cityIndex].name.toString(),
-                                      expandedChild: Card(
-                                        elevation: 3,
-                                        child: Container(
-                                          height: cityList.length == 2 ? 100 : 150,
-                                          color: Colors.white.withOpacity(0.2),
-                                          child: ListView.builder(
-                                            shrinkWrap: true,
-                                            itemCount: cityList.length,
-                                            itemBuilder: (BuildContext context,
-                                                int index) {
-                                              return InkWell(
-                                                onTap: messages.length == 19 && address == false
-                                                    ? () {
-                                                  cityIndex = index ;
-                                                  cityy = cityList[index].name.toString();
-                                                  address = true;
-                                                  setState(() {});
-                                                }
-                                                    : () {},
-                                                child: Container(
-                                                  padding: EdgeInsets.symmetric(
-                                                      horizontal: 10,
-                                                      vertical: 15),
-                                                  child: Text(
-                                                    cityList[index].name.toString(),
-                                                    style: TextStyle(
-                                                        fontSize: 16,
-                                                        color:
-                                                        nomineeIndex ==
-                                                            index
-                                                            ? Colors.blue
-                                                            : black),
-                                                  ),
-                                                ),
-                                              );
-                                            },
-                                          ),
+                                      flex: 1,
+                                      child: Container(
+                                        padding: EdgeInsets.symmetric(vertical: 13),
+                                        alignment: Alignment.center,
+                                        decoration: BoxDecoration(
+                                          color: blue,
+                                          borderRadius: BorderRadius.circular(8),
                                         ),
-                                      ),
-                                    )
+                                        child: Text('$cityy',style: TextStyle(fontSize: 15,fontWeight: FontWeight.w600,),),
+                                      )
                                   ),
+                                  // Expanded(
+                                  //   flex: 1,
+                                  //   child: CustomExpandTextCard(
+                                  //     index: 0,
+                                  //     isExpanded: ValueNotifier(1),
+                                  //     boxcolor: blue,
+                                  //     title: cityIndex == -1
+                                  //         ? 'locality'
+                                  //         : cityList[cityIndex].name.toString(),
+                                  //     expandedChild: Card(
+                                  //       elevation: 3,
+                                  //       child: Container(
+                                  //         height: cityList.length == 2 ? 100 : 150,
+                                  //         color: Colors.white.withOpacity(0.2),
+                                  //         child: ListView.builder(
+                                  //           shrinkWrap: true,
+                                  //           itemCount: cityList.length,
+                                  //           itemBuilder: (BuildContext context,
+                                  //               int index) {
+                                  //             return InkWell(
+                                  //               onTap: messages.length == 19 && address == false
+                                  //                   ? () {
+                                  //                 cityIndex = index ;
+                                  //                 cityy = cityList[index].name.toString();
+                                  //                 address = true;
+                                  //                 setState(() {});
+                                  //               }
+                                  //                   : () {},
+                                  //               child: Container(
+                                  //                 padding: EdgeInsets.symmetric(
+                                  //                     horizontal: 10,
+                                  //                     vertical: 15),
+                                  //                 child: Text(
+                                  //                   cityList[index].name.toString(),
+                                  //                   style: TextStyle(
+                                  //                       fontSize: 16,
+                                  //                       color:
+                                  //                       nomineeIndex ==
+                                  //                           index
+                                  //                           ? Colors.blue
+                                  //                           : black),
+                                  //                 ),
+                                  //               ),
+                                  //             );
+                                  //           },
+                                  //         ),
+                                  //       ),
+                                  //     ),
+                                  //   )
+                                  // ),
                                   Gap(16),
                                 ],
                               );
@@ -1695,8 +1707,8 @@ class _PlanChatBotMobileState extends State<PlanChatBotMobile> {
                       //                                 ],
                       //                               );
                       //                             })
-                      Gap(address == true ? 10 : 180),
-                      messages.length == 19 && address == true
+                      Gap(10),
+                      messages.length == 19
                           ? Column(
                               children: [
                                 Gap(10),

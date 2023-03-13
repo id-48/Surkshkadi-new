@@ -233,6 +233,12 @@ const String  get300Points = "Get 300 points for every friends’ subscription!"
 const String  withOurReferral = "With our Referral Program, get 300 points on each subscription Referral, redeemable at renewal";
 
 
+///  Beneficiary  screen
+
+const String whatReason = "What's Your reason";
+const String reasonHintTextPE = "Please enter the reason for disinheriting (excluding) your family member from your Will.";
+
+
 
 
 ///          -----------   CP Partner Register -------------

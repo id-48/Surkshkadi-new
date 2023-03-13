@@ -7,10 +7,11 @@ import 'package:surakshakadi/data/model/auth/verify_otp/req_verify_otp.dart';
 import 'package:surakshakadi/data/model/auth/verify_otp/res_verify_otp.dart';
 import 'package:surakshakadi/data/model/result.dart';
 import 'package:surakshakadi/utils/constants/api_end_points.dart';
+import 'package:surakshakadi/utils/constants/loading_dialog.dart';
 import 'package:surakshakadi/utils/dialog_utils.dart';
 
 abstract class AuthRepository {
-  Future<Result<ResOtp>> logIn(ReqOtp data);
+  Future<Result<ResOtp>> logIn(ReqOtp data,context);
 
   Future<Result<ResVerifyOtp>> verifyOtp(ReqVerifyOtp data);
 }
@@ -25,14 +26,16 @@ class authRepositoryImpl implements AuthRepository {
   late final Dio dio = _reader(dioProvider);
 
   @override
-  Future<Result<ResOtp>> logIn(ReqOtp data) {
+  Future<Result<ResOtp>> logIn(ReqOtp data,context) {
     return Result.guardFuture(() async {
       return AppDio().multipartPost(apiOtp, data: FormData.fromMap(data.toJson())).then((value) async {
-        final data = ResOtp.fromJson(value.data);
 
-        if(data.status == 0){
-          displayToast("${data.message}");
+        if(value.data['status']  == 0) {
+          displayToast("${value.data['message']}");
+          hideLoadingDialog(context: context);
         }
+
+        final data = ResOtp.fromJson(value.data);
 
         return data;
       });

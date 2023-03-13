@@ -1,14 +1,18 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:surakshakadi/data/model/home/dashboard/profile_detail/res_profile.dart';
 import 'package:surakshakadi/di/locator.dart';
+import 'package:surakshakadi/ui/Screens/Account_Screen/account_profile_view_model.dart';
 import 'package:surakshakadi/utils/color_utils.dart';
 import 'package:surakshakadi/utils/constants/navigation_route_constants.dart';
 import 'package:surakshakadi/utils/image_utils.dart';
 import 'package:surakshakadi/utils/strings.dart';
 import 'package:surakshakadi/utils/utils.dart';
 import 'package:surakshakadi/widgets/custom_appbar.dart';
+import 'package:surakshakadi/widgets/loading.dart';
 
 
 class Account extends HookConsumerWidget {
@@ -16,18 +20,16 @@ class Account extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    List<Map<String, dynamic>> account = [
-      {"name": 'Complete your KYC', "icon": infoicon},
-      {"name": 'Status of questiones', "icon": infoicon},
-      {"name": 'Name', "icon": profile},
-      {"name": 'PAN', "icon": verificationicon},
-      {"name": 'Phone', "icon": callicon},
-      {"name": 'Email ID', "icon": mailicon},
-      {"name": 'DOB', "icon": calendericon},
-      {"name": 'Address', "icon": locationicon},
-      {"name": 'Plan Selected', "icon": planselectedicon},
-      {"name": 'KYC Verification', "icon": verificationicon},
-    ];
+
+
+    final profileData = ref.watch(profileDetailProvider);
+
+    useEffect(() {
+
+      ref.read(profileDetailProvider.notifier).getProfileDetail(context: context);
+    },[]);
+
+
 
     keyValueData({
       required String key,
@@ -101,152 +103,149 @@ class Account extends HookConsumerWidget {
                 )),
           ]),
 
-      body: Container(
-        padding: EdgeInsets.symmetric(horizontal: 14.w),
-        child: SingleChildScrollView(
-          scrollDirection: Axis.vertical,
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
+      body: profileData.when(data: (data){
 
-              Gap(20.h),
+         Response dataPro = data.response[0];
+
+        return  Container(
+          padding: EdgeInsets.symmetric(horizontal: 14.w),
+          child: SingleChildScrollView(
+            scrollDirection: Axis.vertical,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
 
 
-              Container(
-                margin: EdgeInsets.symmetric(horizontal: 6.w),
-                // width: Utils.getWidth(context) - 40.w,
-                decoration: BoxDecoration(
-                  color: white,
-                    borderRadius: BorderRadius.circular(6),
-                    border: Border.all(color: dividerProColor),
-                    boxShadow: [
-                      BoxShadow(
+                if(dataPro.kycStatus == "Pending") ...[
+                Gap(20.h),
+                Container(
+                  margin: EdgeInsets.symmetric(horizontal: 6.w),
+                  decoration: BoxDecoration(
+                      color: white,
+                      borderRadius: BorderRadius.circular(6),
+                      border: Border.all(color: dividerProColor),
+                      boxShadow: [
+                        BoxShadow(
                           color: Colors.black12,
                           blurRadius: 2.0,
                           offset: Offset(0.5,0.5),
+                        ),
+
+                      ]
+                  ),
+                  padding: EdgeInsets.all(12),
+                  child: Row(
+
+                    children: [
+
+                      CircleAvatar(
+                        radius: 14,
+                        backgroundColor: webNeeded,
+                        child: Text("!",style: TextStyle(fontSize: 20.sp,fontWeight: FontWeight.w800,color: white,fontFamily: fontFamily),),
                       ),
 
-                    ]
+                      Gap(20.w),
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(CompleteYour,style: TextStyle(fontFamily: fontFamily,fontSize: 16.sp,fontWeight: FontWeight.w600),),
+                          Gap(4.h),
+                          Text(goDigitalSave,style: TextStyle(fontFamily: fontFamily,color: blackLight,fontSize: 12.sp,fontWeight: FontWeight.w400),),
+                        ],
+                      ),
+
+                    ],
+                  ),
                 ),
-                padding: EdgeInsets.all(12),
-                child: Row(
+                ],
 
-                  children: [
+                Gap(20.h),
 
-                    CircleAvatar(
-                     radius: 14,
-                      backgroundColor: webNeeded,
-                      child: Text("!",style: TextStyle(fontSize: 20.sp,fontWeight: FontWeight.w800,color: white,fontFamily: fontFamily),),
-                    ),
-
-                    Gap(20.w),
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(CompleteYour,style: TextStyle(fontFamily: fontFamily,fontSize: 16.sp,fontWeight: FontWeight.w600),),
-                       Gap(4.h),
-                        Text(goDigitalSave,style: TextStyle(fontFamily: fontFamily,color: blackLight,fontSize: 12.sp,fontWeight: FontWeight.w400),),
-                      ],
-                    ),
-
-                  ],
+                Padding(
+                  padding: const EdgeInsets.only(left: 6.0),
+                  child: Text(accounts,style: TextStyle(fontSize: 20,fontWeight: FontWeight.w600,letterSpacing: 0.8),),
                 ),
-              ),
 
-              Gap(20.h),
+                Gap(30.h),
 
-              Padding(
-                padding: const EdgeInsets.only(left: 6.0),
-                child: Text(accounts,style: TextStyle(fontSize: 20,fontWeight: FontWeight.w600,letterSpacing: 0.8),),
-              ),
+                // Container(
+                //   width: Utils.getWidth(context) - 28.w,
+                //       color: bgProfileColor,
+                //   padding: EdgeInsets.all(12),
+                //   child: Column(
+                //     crossAxisAlignment: CrossAxisAlignment.start,
+                //     children: [
+                //       Text("Full Name",style: TextStyle(fontFamily: fontFamily,fontSize: 12.sp,fontWeight: FontWeight.w400),),
+                //       Gap(2.h),
+                //       Text("John Doe",style: TextStyle(fontFamily: fontFamily,color: blue,fontSize: 15.sp,fontWeight: FontWeight.w400),),
+                //     ],
+                //   ),
+                // ),
 
-              Gap(30.h),
+                keyValueData(key: "Full Name", value: dataPro.name),
+                keyValueData(key: "DOB", value: dataPro.dob),
+                keyValueData(key: "Email", value: dataPro.email),
 
-              // Container(
-              //   width: Utils.getWidth(context) - 28.w,
-              //       color: bgProfileColor,
-              //   padding: EdgeInsets.all(12),
-              //   child: Column(
-              //     crossAxisAlignment: CrossAxisAlignment.start,
-              //     children: [
-              //       Text("Full Name",style: TextStyle(fontFamily: fontFamily,fontSize: 12.sp,fontWeight: FontWeight.w400),),
-              //       Gap(2.h),
-              //       Text("John Doe",style: TextStyle(fontFamily: fontFamily,color: blue,fontSize: 15.sp,fontWeight: FontWeight.w400),),
-              //     ],
-              //   ),
-              // ),
+                Gap(10.h),
 
-              keyValueData(key: "Full Name", value: "john Doe"),
-              // Divider(color: dividerProColor,height: 1,thickness: 1,),
+                keyValueData(key: "Mobile", value: dataPro.mobile),
+                keyValueData(key: "Address", value: dataPro.address),
 
+                Gap(10.h),
 
-              keyValueData(key: "DOB", value: "Invalid date"),
-              // Divider(color: dividerProColor,height: 1,thickness: 1,),
+                keyValueData(key: "KYC Verification", value: dataPro.kycStatus),
+                keyValueData(key: "Aadhaar Number", value: dataPro.aadharNo),
+                keyValueData(key: "PAN Number", value: dataPro.panNo),
+                keyValueData(key: "Plan Selected", value: dataPro.plan),
 
+                Gap(30.h),
 
-              keyValueData(key: "Email", value: "johndoe123@gmail.com"),
-              
-              
-              Gap(10.h),
+                // ListView.builder(
+                //     physics:
+                //     ScrollPhysics(parent: NeverScrollableScrollPhysics()),
+                //     itemCount: account.length,
+                //     shrinkWrap: true,
+                //     itemBuilder: (BuildContext context, int index) {
+                //       return  Column(
+                //         children: [
+                //           Container(
+                //             padding: EdgeInsets.only(left: 15,right: 20,top: 12,bottom: 12),
+                //             color: lowwhite,
+                //             child: Row(
+                //               children: [
+                //                 Image.asset( account[index]["icon"], scale: 4,),
+                //                 Gap(30),
+                //                 Expanded(
+                //                   child: Text(
+                //                     account[index]["name"],
+                //                     style:
+                //                     TextStyle(color: Colors.black, fontSize: 16),
+                //                   ),
+                //                 ),
+                //
+                //                 Icon(Icons.arrow_forward_ios,size: 25,color: blue,),
+                //               ],
+                //             ),
+                //           ),
+                //           Divider(
+                //             color: blue,height: 0.0,
+                //             thickness: 1.5,
+                //           ),
+                //
+                //
+                //         index == 1 ? Gap(35) : Gap(7),
+                //         ],
+                //       );
+                //     }),
 
-
-              keyValueData(key: "Mobile", value: "+91 20255 50181"),
-              // Divider(color: dividerProColor,height: 1,thickness: 1,),
-
-
-              keyValueData(key: "Address", value: "Address line 1\nAddress line 2\nAddress line 3"),
-
-              Gap(10.h),
-              keyValueData(key: "KYC Verification", value: "Pending"),
-              keyValueData(key: "Aadhaar Number", value: "xxxx xxxx xxxx"),
-              keyValueData(key: "PAN Number", value: "xxxxx5522H"),
-              keyValueData(key: "Plan Selected", value: "Gold - Yearly (Valid till dd/mm/yyyy)"),
-
-
-              Gap(30.h),
-
-              // ListView.builder(
-              //     physics:
-              //     ScrollPhysics(parent: NeverScrollableScrollPhysics()),
-              //     itemCount: account.length,
-              //     shrinkWrap: true,
-              //     itemBuilder: (BuildContext context, int index) {
-              //       return  Column(
-              //         children: [
-              //           Container(
-              //             padding: EdgeInsets.only(left: 15,right: 20,top: 12,bottom: 12),
-              //             color: lowwhite,
-              //             child: Row(
-              //               children: [
-              //                 Image.asset( account[index]["icon"], scale: 4,),
-              //                 Gap(30),
-              //                 Expanded(
-              //                   child: Text(
-              //                     account[index]["name"],
-              //                     style:
-              //                     TextStyle(color: Colors.black, fontSize: 16),
-              //                   ),
-              //                 ),
-              //
-              //                 Icon(Icons.arrow_forward_ios,size: 25,color: blue,),
-              //               ],
-              //             ),
-              //           ),
-              //           Divider(
-              //             color: blue,height: 0.0,
-              //             thickness: 1.5,
-              //           ),
-              //
-              //
-              //         index == 1 ? Gap(35) : Gap(7),
-              //         ],
-              //       );
-              //     }),
-
-              // Gap(150),
-            ],
+                // Gap(150),
+              ],
+            ),
           ),
-        ),
+        );
+      },
+          error: (obj, trace) => ErrorWidget(obj),
+          loading: () => const Loading(),
       ),
 
       bottomNavigationBar: Container(
@@ -314,5 +313,7 @@ class Account extends HookConsumerWidget {
 
 
     );
+
+
   }
 }

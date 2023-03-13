@@ -44,6 +44,7 @@ const String apiStoreInquiryDetails = "store-enquiry-details";
 const String apiBeneficiaryDetails = "store-beneficiary-details";
 const String apiWillDocument = "accept-will-document";
 const String apiUpdateSecondChatBoat = "update-second-chatboard-data";
+      String apiProfile = "get-profile-data/${getString(prefUserID)}";
 
 
  String apiPincodeSC = "https://api.postalpincode.in/pincode/";

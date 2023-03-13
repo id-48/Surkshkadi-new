@@ -25,7 +25,15 @@ class SecondChatBotInformationEditScreen extends HookConsumerWidget {
  final  ResponseSCB messagesInfo;
  final int childCountInfo;
  final List<String> childNameInfo;
-   SecondChatBotInformationEditScreen({Key? key ,required this.messagesInfo ,required this.childCountInfo ,required this.childNameInfo}) : super(key: key);
+ final List<String> childAgeInfo;
+ final List<String> childGenderInfo;
+   SecondChatBotInformationEditScreen({Key? key ,
+     required this.messagesInfo ,
+     required this.childCountInfo,
+     required this.childNameInfo,
+     required this.childAgeInfo,
+     required this.childGenderInfo
+   }) : super(key: key);
 
   @override
   Widget build(BuildContext context,WidgetRef ref) {
@@ -321,7 +329,7 @@ class SecondChatBotInformationEditScreen extends HookConsumerWidget {
                              if(value?.status == 1){
                                displayToast("${value?.message}");
                                hideLoadingDialog(context: context);
-                               navigationService.push(routeBeneficiary ,arguments: {navChildCount:   childCountInfo  ,navChildName: childNameInfo});
+                               navigationService.push(routeBeneficiary ,arguments: {navChildCount:   childCountInfo  ,navChildName: childNameInfo,navChildAge: childAgeInfo ,navChildGender: childGenderInfo,});
                              }else {
                                displayToast("${value?.message}");
                              }

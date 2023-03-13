@@ -26,18 +26,13 @@ class AuthViewModel extends StateNotifier<AsyncValue<ResOtp>> {
       {required BuildContext context, required ReqOtp data}) async {
 
     showLoadingDialog(context: context);
-    final result = await repositery.logIn(data);
+    final result = await repositery.logIn(data,context);
     return result.when(
         success: (result) async {
-          print("test data success------>>>>");
-
-          // hideLoadingDialog(context: context);
+          hideLoadingDialog(context: context);
           return result;
         },
         failure: (error) {
-
-          print("test data error------>>>>");
-
           hideLoadingDialog(context: context);
           displayToast("${error.message}");
 

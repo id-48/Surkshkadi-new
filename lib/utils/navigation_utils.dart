@@ -271,7 +271,11 @@ class NavigationUtils {
       case routeBeneficiary:
         return CustomRoute(
             settings: const RouteSettings(name: routeBeneficiary),
-            builder: (_) => Beneficiary(childCount: args?[navChildCount] ,childName: args?[navChildName],));
+            builder: (_) => Beneficiary(childCount: args?[navChildCount],
+              childName: args?[navChildName],
+              childAge: args?[navChildAge],
+              childGender: args?[navChildGender],
+            ));
 
       case routeWillReviewIssueDetail:
         return CustomRoute(
@@ -284,7 +288,11 @@ class NavigationUtils {
             builder: (_) => SecondChatBotInformationEditScreen(
               messagesInfo: args?[navMassageInfo],
               childCountInfo: args?[navChildCountInfo],
-              childNameInfo: args?[navChildNameInfo],));
+              childNameInfo: args?[navChildNameInfo],
+              childAgeInfo: args?[navChildAgeInfo],
+              childGenderInfo : args?[navChildGenderInfo],
+
+            ));
 
       case routeReferAndEarn:
         return CustomRoute(

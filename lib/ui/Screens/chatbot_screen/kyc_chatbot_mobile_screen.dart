@@ -1450,26 +1450,67 @@ class _KYCChatBotMobileState extends State<KYCChatBotMobile> {
                                                   if(nameCon[index].text.isNotEmpty) {
 
                                                     if(index <= childrenCount ) {
-                                                      // childMes.add(
-                                                      //     ChildMessage(
-                                                      //         name: "${nameCon[index].text}",
-                                                      //         age: int.parse("${ageCon[index].text}"), gender: val)
-                                                      // );
 
-                                                      name.add(nameCon[index].text);
-                                                      age.add(ageCon[index].text);
-                                                      gender.add(val);
+                                                      // name.add(nameCon[index].text);
+                                                      // age.add(ageCon[index].text);
+                                                      // gender.add(val);
 
-                                                      //
+                                                      ///    Name Add
+                                                      if(index == name.length -1){
+                                                        print("Name old value length -->> ${name.length}");
+                                                        print("Name old value -->> ${name[index]}");
+                                                        name.insert(index, nameCon[index].text);
+                                                        name.removeAt(index + 1);
+                                                        print("Name New value length -->> ${name.length}");
+                                                        print("Name New value -->> ${name[index]}");
+                                                      }else {
+                                                        print(" add gender");
+                                                        name.add(nameCon[index].text);
+                                                      }
+
+                                                      ///    Age Add
+                                                      if(index == age.length -1){
+                                                        print("Age old value length -->> ${age.length}");
+                                                        print("Age old value -->> ${age[index]}");
+                                                        age.insert(index, ageCon[index].text);
+                                                        age.removeAt(index + 1);
+                                                        print("Age New value length -->> ${age.length}");
+                                                        print("Age New value -->> ${age[index]}");
+                                                      }else {
+                                                        print(" add gender");
+                                                        age.add(ageCon[index].text);
+                                                      }
+
+                                                      // gender.clear();
+                                                      ///   Gender Add
+                                                      //   if(gender.isNotEmpty){
+
+                                                          print("test data gender -->> ${gender} ");
+                                                          print("test data gender logic  -->> ${gender.where((element) => gender.indexOf(element) == index).isNotEmpty} ");
+                                                          if(gender.where((element) => gender.indexOf(element) == index).isEmpty){
+
+                                                            print(" add gender === $index");
+                                                            gender.add(val);
+                                                          // print("gender New value -->> ${gender[index]}");
+                                                          }else {
+                                                          print("gender New value update -->> ${gender.length}");
+                                                          gender[index] = val;
+                                                          }
+                                                      print("test data gender total-->> ${gender} ");
+
+                                                        // }else {
+                                                        //   print(" NOt enter gender");
+                                                        //
+                                                        //   print(" add gender === $index");
+                                                        //   gender.insert(index, val);
+                                                        // }
+
+
+
                                                       // for(var a in childMes){
-                                                        print(childrenCount);
-                                                        print(' test yashu 1---->${childrenCount}');
+                                                      //   print(' test yashu 1---->${childrenCount}');
                                                         print("gender lenth 11 --${gender.length}");
-                                                      //   print('test yashu ---->${a.age}');
-                                                      //   print('test yashu ---->${a.gender}');
-                                                      //   print('test yashu ---->${a.gender.isNotEmpty}');
-                                                      //
-                                                      // }
+
                                                       if (gender.length == childrenCount) {
                                                       // if (childMes[index].gender.isNotEmpty) {
                                                         print("gender lenth 22--${gender.length}");
@@ -1494,24 +1535,18 @@ class _KYCChatBotMobileState extends State<KYCChatBotMobile> {
                                                         //       "Enter your child Gender");
                                                         // }
                                                       }else{
-                                                        print("nulllllllll");
+                                                        print("nul  not equal length ");
                                                       }
+
+
+
+
 
                                                     }else {
                                                       print("done");
 
                                                     }
-                                                    ///
-                                                    // messages.add(ChatMessage(
-                                                    //     messageContent: [
-                                                    //       "${nameController.text}",
-                                                    //       "${ageController.text}",
-                                                    //       "${val}"
-                                                    //     ],
-                                                    //     messageType: 'sender'));
-                                                    // messages.add(messagesQustion[7]);
-                                                    // nameController.clear();
-                                                    // ageController.clear();
+
                                                     setState(() {});
                                                   } else {
                                                     displayToast(
@@ -1523,7 +1558,7 @@ class _KYCChatBotMobileState extends State<KYCChatBotMobile> {
                                                 }
                                               }
                                                   : (val) {},
-                                              items: ['Male','Female',],
+                                              items: ['Son','Daughter',],
                                               hint: 'Gender',
                                             ),
                                           )),
@@ -2113,7 +2148,7 @@ class _KYCChatBotMobileState extends State<KYCChatBotMobile> {
                             if (value!.status == 1) {
 
                               displayToast(value.message.toString());
-                              navigationService.push(routeSecondChatBotInformationEdit,arguments: {navMassageInfo : value.response ,navChildNameInfo :  name ,navChildCountInfo: childrenCount});
+                              navigationService.push(routeSecondChatBotInformationEdit,arguments: {navMassageInfo : value.response ,navChildNameInfo :  name ,navChildCountInfo: childrenCount, navChildAgeInfo: age, navChildGenderInfo: gender});
 
                              }else {
                               displayToast(value.message.toString());
